@@ -1,7 +1,7 @@
 import Productlist from '@/Component/product/Productlist'
 
 async function getData() {
-  const data = await fetch(`${process.env.API}/api/products`, {
+  const data = await fetch(`${process.env.API_URL}/api/products`, {
     cache: "no-store",
   });
   if (!data) {
