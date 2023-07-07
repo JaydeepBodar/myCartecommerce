@@ -1,17 +1,26 @@
-import Productlist from '@/Component/product/Productlist'
-
-async function getData() {
-  const data = await fetch(`${process.env.API_URL}/api/products`, {
-    cache: "no-store",
-  });
-  if (!data) {
-    console.log("error");
-  }
-  return data.json();
+'use client'
+import Productlist from "@/Component/product/Productlist";
+import axios from "axios";
+import React,{useState,useEffect} from "react";
+// async function getData() {
+//   const data = await fetch(`${process.env.API_URL}/api/products`, {
+//     cache: "no-store",
+//   });
+//   if (!data) {
+//     console.log("error");
+//   }
+//   return data.json();
+// }
+export default function Home() {
+  const [product, setproduct] = useState([]);
+  useEffect(() => {
+    axios
+    .get(`${process.env.API_URL}/api/products`)
+    .then((res) => {
+      setproduct(res.data);
+    })
+    .catch((e) => console.log("e", e));
+  }, [ ]);
+  // const product = await getData();
+  return <Productlist product={product} />;
 }
-export default async function Home() {
-  const product = await getData();
-  return (
-      <Productlist product={product}/>
-  )
-} 
