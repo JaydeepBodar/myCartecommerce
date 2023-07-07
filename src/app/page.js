@@ -14,6 +14,7 @@ import { env } from "@/config/env";
 //   return data.json();
 // }
 export default function Home() {
+  console.log("first")
   const [product, setproduct] = useState([]);
   useEffect(() => {
     axios
