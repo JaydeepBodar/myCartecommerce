@@ -65,7 +65,7 @@ const Filter = () => {
         <h3 className="pl-2 font-semibold pb-2">Rating</h3>
         {star.map((val, index) => {
           return (
-            <div className="flex items-center gap-x-1">
+            <div key={index} className="flex items-center gap-x-1">
               <input type='checkbox' name={val.name}/>
               <ReactStars
                 key={index}
