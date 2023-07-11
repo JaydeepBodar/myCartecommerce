@@ -15,7 +15,13 @@ const Filter = () => {
     { name: "category", value: "electronics", label: "Electronics" },
     { name: "category", value: "women's clothing", label: "Women's clothing" },
   ];
-  const star = [{ val: 5 }, { val: 4 }, { val: 3 }, { val: 2 }, { val: 1 }];
+  const star = [
+    { val: 5, name: "rating" },
+    { val: 4, name: "rating" },
+    { val: 3, name: "rating" },
+    { val: 2, name: "rating" },
+    { val: 1, name: "rating" },
+  ];
   return (
     <div className="border-[1px] newdata border-[#ebe6e6] px-3 py-5 max-lg:justify-between max-lg:gap-x-5 max-lg:flex-row max-lg:items-baseline max-lg:flex max-lg:w-[100%] max-md:flex-wrap max-md:gap-x-0">
       <div className="newdata1 pb-4 border-b-[1px] border-[#ebe6e6] max-lg:basis-[30%] max-lg:border-0">
@@ -35,21 +41,42 @@ const Filter = () => {
         </div>
       </div>
       <div className=" pb-4 pt-2 border-b-[1px] max-lg:flex max-md:-order-first max-md:border-t-[#ebe6e6] max-md:border-t-[1px] border-[#ebe6e6] max-lg:basis-[40%] max-lg:flex-wrap max-md:basis-[100%] max-lg:border-0">
-      <h3 className="pl-2 font-semibold pb-2 max-lg:basis-[100%]">Category</h3>
+        <h3 className="pl-2 font-semibold pb-2 max-lg:basis-[100%]">
+          Category
+        </h3>
         {checkbox.map((val, index) => {
           const { name, label, value } = val;
           return (
-            <div key={index} className="flex gap-x-2 max-lg:flex-wrap max-lg:basis-[50%]">
-              <Inputdata label={label} name={name} type="checkbox" className='flex-wrap gap-x-2 flex items-center flex-row-reverse justify-end' />
+            <div
+              key={index}
+              className="flex gap-x-2 max-lg:flex-wrap max-lg:basis-[50%]"
+            >
+              <Inputdata
+                label={label}
+                name={name}
+                type="checkbox"
+                className="flex-wrap gap-x-2 flex items-center flex-row-reverse justify-end"
+              />
             </div>
           );
         })}
       </div>
       <div className="newdata2 pt-2 max-lg:basis-[30%]">
-      <h3 className="pl-2 font-semibold pb-2">Rating</h3>
+        <h3 className="pl-2 font-semibold pb-2">Rating</h3>
         {star.map((val, index) => {
           return (
-            <ReactStars key={index} className='data' count={5} size={24} value={val.val} color2={"#ffd700"} />
+            <div className="flex items-center gap-x-1">
+              <input type='checkbox' name={val.name}/>
+              <ReactStars
+                key={index}
+                edit={false}
+                className="data"
+                count={5}
+                size={24}
+                value={val.val}
+                color2={"#ffd700"}
+              />
+            </div>
           );
         })}
       </div>

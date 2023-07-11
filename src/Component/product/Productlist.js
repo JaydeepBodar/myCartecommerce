@@ -71,6 +71,7 @@ const Productlist = ({ product, loading }) => {
                         Category :- {category}
                       </p>
                       <ReactStars
+                        edit={false}
                         count={5}
                         size={24}
                         value={rating}

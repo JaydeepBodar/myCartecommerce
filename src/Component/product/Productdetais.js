@@ -25,7 +25,7 @@ const Productdetais = ({ singleproduct }) => {
             src={img ? img : thumbnail}
             width={300}
             height={400}
-            className="w-[100%] h-[400px] object-fill rounded-lgborder-[1px] border-[#000]"
+            className="w-[100%] h-[400px] object-fill rounded-lg border-[1px] border-[#000]"
           />
           <div className="flex gap-x-2 mt-4 justify-center">
             {images.slice(0, 3).map((img, index) => {
@@ -33,14 +33,14 @@ const Productdetais = ({ singleproduct }) => {
             })}
           </div>
         </div>
-        <div>
+        <div className="px-2 py-2">
           <h3 className="font-semibold text-2xl pb-2 pt-10">{title}</h3>
           <h4 className="text-xl font-semibold">
             Discount :-{" "}
             <span className="text-[green]">{discountPercentage}%</span>
           </h4>
           <p className="text-lg font-medium">Category :- {category}</p>
-          <ReactStars count={5} size={24} value={rating} color2={"#ffd700"} />
+          <ReactStars edit={false} count={5} size={24} value={rating} color2={"#ffd700"} />
           <p>Description :- {description}</p>
           <h5 className="text-xl font-semibold">Price:-{price}$</h5>
           <Link
