@@ -15,14 +15,15 @@ import { env } from "@/config/env";
 // }
 export default function Home() {
   const [product, setproduct] = useState([]);
+  const[loading,setloading]=useState(true)
   useEffect(() => {
     axios
     .get(`${env.APIURL}/api/products`)
     .then((res) => {
       setproduct(res.data);
     })
-    .catch((e) => console.log("e", e));
-  }, []);
+    .catch((e) => console.log("e", e)).finally(()=>setloading(false))
+  }, [loading]);
   // const product = await getData();
-  return <Productlist product={product} />;
+  return <div><Productlist product={product} loading={loading}/></div>;
 }

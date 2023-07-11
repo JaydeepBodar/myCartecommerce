@@ -8,7 +8,7 @@
   padding: 0;
   margin: 0;
 }
-@media screen and (max-width:768){
+@media screen and (max-width:768px){
   body{
     line-height: 24px;
   }
@@ -20,7 +20,26 @@ body {
   padding: 0;
   line-height: 30px;
 }
-
+.data span{
+  padding-right: 10px;
+}
+@media screen and (max-width:600px) {
+  .data span{
+    padding-right: 0px;
+  }
+}
+@media screen and (max-width:400px) {
+  .newdata1{
+    flex-basis: 45% !important;
+    flex-wrap: wrap;
+  }
+  .newdata1 input{
+    width: 100%;
+  }
+  .newdata2{
+    flex-basis: 45% !important;
+  }
+}
 a {
   color: inherit;
   text-decoration: none;
