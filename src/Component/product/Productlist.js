@@ -4,10 +4,10 @@ import Container from "../Container";
 import Image from "next/image";
 import Link from "next/link";
 import ReactStars from "react-stars";
-import { Audio } from "react-loader-spinner";
 import {AiOutlineCaretDown} from 'react-icons/ai'
 import Filter from "./Filter";
 import Custompagination from "../Custompagination";
+import Loader from "../Loader";
 const Productlist = ({ product, loading, urlParams }) => {
   const [open, setopen] = useState(false);
   const toogle=()=>{
@@ -30,16 +30,8 @@ const Productlist = ({ product, loading, urlParams }) => {
         </div>  
         <div className="basis-[80%] max-lg:basis-[100%]">
           {loading && (
-            <div className="flex justify-center max-sm:h-[40vh]">
-              <Audio
-                height="80"
-                width="80"
-                radius="9"
-                color="green"
-                ariaLabel="loading"
-                wrapperStyle
-                wrapperClass
-              />
+            <div className="flex justify-center items-center max-sm:h-[80vh]">
+              <Loader/>
             </div>
           )}
           {!loading &&
