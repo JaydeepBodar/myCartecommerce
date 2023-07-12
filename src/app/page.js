@@ -25,14 +25,13 @@ export default function Home({searchParams}) {
   };
 
   const searchQuery =queryString.stringify(urlParams);
-  console.log("searcParams",searchQuery)
+  console.log("searcParams",searchParams)
   const [product, setproduct] = useState([]);
   const[loading,setloading]=useState(true)
   useEffect(() => {
     axios
     .get(`${env.APIURL}/api/products?${searchQuery}`)
     .then((res) => {
-      console.log("searchquery",searchQuery)
       setproduct(res.data);
     })
     .catch((e) => console.log("e", e)).finally(()=>setloading(false))

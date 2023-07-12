@@ -18,7 +18,7 @@ const Productlist = ({ product, loading, urlParams }) => {
           <Filter />
         </div>
         <div className="basis-[80%] max-lg:basis-[100%]">
-          {loading && !urlParams.data && !urlParams.page && (
+          {loading && (
             <div className="flex justify-center">
               <Audio
                 height="80"
