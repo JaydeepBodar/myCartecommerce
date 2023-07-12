@@ -6,6 +6,7 @@ import Link from "next/link";
 import ReactStars from "react-stars";
 import { Audio } from "react-loader-spinner";
 import Filter from "./Filter";
+import Custompagination from "../Custompagination";
 const Productlist = ({ product, loading }) => {
   return (
     <Container>
@@ -30,7 +31,7 @@ const Productlist = ({ product, loading }) => {
         )}
         <div className="basis-[80%] max-lg:basis-[100%]">
           {!loading &&
-            product.map((val) => {
+            product.products.map((val) => {
               const {
                 _id,
                 title,
@@ -104,6 +105,7 @@ const Productlist = ({ product, loading }) => {
             })}
         </div>
       </div>
+      <Custompagination totalitem={product.filterproductscount} itemperpage={product.productperpage}/>
     </Container>
   );
 };

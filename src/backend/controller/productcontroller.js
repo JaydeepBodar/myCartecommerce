@@ -3,13 +3,23 @@ import APIFilter from "../utils/APIFilter";
 import db from "../db";
 export const getAllproduct = async (req, res) => {
   try {
+    const productperpage=4;
+    const productcount=await productSchema.countDocuments()
     // await db();
-    const apiFilter=new APIFilter(productSchema.find(),req.query).search()
+    const apiFilter=new APIFilter(productSchema.find(),req.query).search().filter()
     console.log('apifil',apiFilter)
-    const data = await apiFilter.query;
+    let products=await apiFilter.query;
+    const filterproductscount= products.length;
+    apiFilter.pagination(productperpage) 
+    products=await apiFilter.query.clone()  
     // console.log("data",data)
-    console.log("data",typeof data);
-    res.status(200).json(data);
+    // console.log("data",typeof data);
+    res.status(200).json({
+      productperpage,
+      productcount,
+      filterproductscount,
+      products,
+    });
   } catch (e) {
     res.json({ message: "error" });  
   }
