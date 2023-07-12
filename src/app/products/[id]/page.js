@@ -11,7 +11,7 @@ import axios from "axios";
 //     }
 //     return data.json()
 // }
-export const data =({ params }) => {
+export const Product =({ params }) => {
   const [singleproduct, setsingleproduct] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
