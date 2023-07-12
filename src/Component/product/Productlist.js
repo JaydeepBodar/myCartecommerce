@@ -1,25 +1,36 @@
 "use client";
-import React from "react";
+import React,{useState} from "react";
 import Container from "../Container";
 import Image from "next/image";
 import Link from "next/link";
 import ReactStars from "react-stars";
 import { Audio } from "react-loader-spinner";
+import {AiOutlineCaretDown} from 'react-icons/ai'
 import Filter from "./Filter";
 import Custompagination from "../Custompagination";
 const Productlist = ({ product, loading, urlParams }) => {
+  const [open, setopen] = useState(false);
+  const toogle=()=>{
+    setopen(prev=>!prev)
+  }
   return (
     <Container>
+      <div className="max-sm:block sm:hidden relative">
+      <div className="absolute left-[220px] top-3">
+        <AiOutlineCaretDown/>
+      </div>
+      <button className="w-[100%] max-w-[250px] bg-[#f2f2f2] text-left px-3 py-2 rounded-lg mb-3" onClick={toogle}>Filter product</button>
+      </div>
       <div
         className="flex gap-x-3 max-lg:flex-row max-lg:flex-wrap"
         style={{ alignItems: loading ? "center" : "" }}
       >
-        <div className="basis-[20%] max-lg:basis-[100%] max-lg:flex">
+        <div className={`${open === true ? "max-sm:block" : "max-sm:hidden"} basis-[20%] max-lg:basis-[100%] max-lg:flex`}>
           <Filter />
-        </div>
+        </div>  
         <div className="basis-[80%] max-lg:basis-[100%]">
           {loading && (
-            <div className="flex justify-center">
+            <div className="flex justify-center max-sm:h-[40vh]">
               <Audio
                 height="80"
                 width="80"
