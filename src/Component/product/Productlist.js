@@ -7,31 +7,32 @@ import ReactStars from "react-stars";
 import { Audio } from "react-loader-spinner";
 import Filter from "./Filter";
 import Custompagination from "../Custompagination";
-const Productlist = ({ product, loading }) => {
+const Productlist = ({ product, loading, urlParams }) => {
   return (
     <Container>
-      {loading && (
-        <div className="flex h-[100vh] items-center justify-center">
-          <Audio
-            height="80"
-            width="80"
-            radius="9"
-            color="green"
-            ariaLabel="loading"
-            wrapperStyle
-            wrapperClass
-          />
+      <div
+        className="flex gap-x-3 max-lg:flex-row max-lg:flex-wrap"
+        style={{ alignItems: loading ? "center" : "baseline" }}
+      >
+        <div className="basis-[20%] max-lg:basis-[100%] max-lg:flex">
+          <Filter />
         </div>
-      )}
-      <div className="flex gap-x-3 max-lg:flex-row max-lg:flex-wrap">
-        {!loading && (
-          <div className="basis-[20%] max-lg:basis-[100%] max-lg:flex">
-            <Filter />
-          </div>
-        )}
         <div className="basis-[80%] max-lg:basis-[100%]">
+          {loading && !urlParams.data && !urlParams.page && (
+            <div className="flex justify-center">
+              <Audio
+                height="80"
+                width="80"
+                radius="9"
+                color="green"
+                ariaLabel="loading"
+                wrapperStyle
+                wrapperClass
+              />
+            </div>
+          )}
           {!loading &&
-            product.products.map((val) => {
+            product.products?.map((val) => {
               const {
                 _id,
                 title,
@@ -80,7 +81,9 @@ const Productlist = ({ product, loading }) => {
                       />
                     </Link>
                     <div className="max-md:block md:hidden">
-                      <h5 className="text-xl font-semibold">Price:-{price}$</h5>
+                      <h5 className="text-xl font-semibold">
+                        Price:- {price}$
+                      </h5>
                       <Link
                         href="/"
                         className="w-[100%] max-sm:text-[13px] max-sm:max-w-[80px] max-sm:py-1 max-sm:mt-2 max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
@@ -91,7 +94,7 @@ const Productlist = ({ product, loading }) => {
                   </div>
                   <div className="basis-[20%] max-md:hidden pt-6">
                     <h5 className="text-xl font-semibold max-sm:text-xl">
-                      Price:-{price}$
+                      Price:- {price}$
                     </h5>
                     <Link
                       href="/"
@@ -105,7 +108,12 @@ const Productlist = ({ product, loading }) => {
             })}
         </div>
       </div>
-      <Custompagination totalitem={product.filterproductscount} itemperpage={product.productperpage}/>
+      {!loading && (
+        <Custompagination
+          totalitem={product.filterproductscount}
+          itemperpage={product.productperpage}
+        />
+      )}
     </Container>
   );
 };

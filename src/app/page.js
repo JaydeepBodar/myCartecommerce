@@ -38,5 +38,5 @@ export default function Home({searchParams}) {
     .catch((e) => console.log("e", e)).finally(()=>setloading(false))
   }, [loading,searchParams]);
   // const product = await getData();
-  return <div><Productlist product={product} loading={loading}/></div>;
+  return <div><Productlist product={product} loading={loading} urlParams={urlParams}/></div>;
 }

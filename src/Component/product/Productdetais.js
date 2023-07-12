@@ -18,7 +18,7 @@ const Productdetais = ({ singleproduct }) => {
   } = singleproduct;
   return (
     <Container>
-      <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row">
+      <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3">
         <div>
           <Image
             alt={title}
@@ -42,7 +42,7 @@ const Productdetais = ({ singleproduct }) => {
           <p className="text-lg font-medium">Category :- {category}</p>
           <ReactStars edit={false} count={5} size={24} value={rating} color2={"#ffd700"} />
           <p>Description :- {description}</p>
-          <h5 className="text-xl font-semibold">Price:-{price}$</h5>
+          <h5 className="text-xl font-semibold">Price:- {" "}{price}$</h5>
           <Link
             href="/"
             className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
