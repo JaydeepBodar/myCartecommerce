@@ -12,7 +12,7 @@ const Productlist = ({ product, loading, urlParams }) => {
     <Container>
       <div
         className="flex gap-x-3 max-lg:flex-row max-lg:flex-wrap"
-        style={{ alignItems: loading ? "center" : "baseline" }}
+        style={{ alignItems: loading ? "center" : "" }}
       >
         <div className="basis-[20%] max-lg:basis-[100%] max-lg:flex">
           <Filter />
