@@ -1,37 +1,58 @@
 "use client";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Container from "../Container";
 import Image from "next/image";
 import Link from "next/link";
 import ReactStars from "react-stars";
-import {AiOutlineCaretDown} from 'react-icons/ai'
+import { AiOutlineCaretDown } from "react-icons/ai";
+import { TypeAnimation } from "react-type-animation";
 import Filter from "./Filter";
 import Custompagination from "../Custompagination";
 import Loader from "../Loader";
 const Productlist = ({ product, loading, urlParams }) => {
   const [open, setopen] = useState(false);
-  const toogle=()=>{
-    setopen(prev=>!prev)
-  }
+  const toogle = () => {
+    setopen((prev) => !prev);
+  };
   return (
     <Container>
       <div className="max-sm:block sm:hidden relative">
-      <div className="absolute left-[220px] top-3">
-        <AiOutlineCaretDown/>
-      </div>
-      <button className="w-[100%] max-w-[250px] bg-[#f2f2f2] text-left px-3 py-2 rounded-lg mb-3" onClick={toogle}>Filter product</button>
+        <div className="absolute left-[220px] top-3">
+          <AiOutlineCaretDown />
+        </div>
+        <button
+          className="w-[100%] max-w-[250px] bg-[#f2f2f2] text-left px-3 py-2 rounded-lg mb-3"
+          onClick={toogle}
+        >
+          Filter product
+        </button>
       </div>
       <div
         className="flex gap-x-3 max-lg:flex-row max-lg:flex-wrap"
         style={{ alignItems: loading ? "center" : "" }}
       >
-        <div className={`${open === true ? "max-sm:block" : "max-sm:hidden"} basis-[20%] max-lg:basis-[100%] max-lg:flex`}>
+        <div
+          className={`${
+            open === true ? "max-sm:block" : "max-sm:hidden"
+          } basis-[20%] max-lg:basis-[100%] max-lg:flex`}
+        >
           <Filter />
-        </div>  
+        </div>
         <div className="basis-[80%] max-lg:basis-[100%]">
           {loading && (
-            <div className="flex justify-center items-center max-sm:h-[80vh]">
-              <Loader/>
+            <div className="flex justify-center items-center h-[80vh]">
+              <Loader />
+            </div>
+          )}
+          {product.products?.length === 0 && (
+            <div className="flex justify-center items-center h-[80vh]">
+              <TypeAnimation
+                sequence={["No product Found For Your Filter..."]}
+                wrapper="span"
+                speed={50}
+                className="text-2xl font-bold"
+                repeat={Infinity}
+              />
             </div>
           )}
           {!loading &&
@@ -111,7 +132,7 @@ const Productlist = ({ product, loading, urlParams }) => {
             })}
         </div>
       </div>
-      {!loading && (
+      {!loading && product.products?.length !== 0 && (
         <Custompagination
           totalitem={product.filterproductscount}
           itemperpage={product.productperpage}

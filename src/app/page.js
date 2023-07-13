@@ -1,8 +1,8 @@
-'use client'
+"use client";
 import Productlist from "@/Component/product/Productlist";
 import axios from "axios";
 // import { config } from "dotenv";
-import React,{useState,useEffect} from "react";  
+import React, { useState, useEffect } from "react";
 import { env } from "@/config/env";
 import queryString from "query-string";
 // async function getData() {
@@ -14,27 +14,37 @@ import queryString from "query-string";
 //   }
 //   return data.json();
 // }
-export default function Home({searchParams}) {
+export default function Home({ searchParams }) {
   const urlParams = {
     data: searchParams.data,
     page: searchParams.page,
     category: searchParams.category,
     "price[gte]": searchParams.min,
     "price[lte]": searchParams.max,
-    "ratings[gte]": searchParams.ratings,
+    "rating[lte]": searchParams.rating,
   };
 
-  const searchQuery =queryString.stringify(urlParams);
+  const searchQuery = queryString.stringify(urlParams);
   const [product, setproduct] = useState([]);
-  const[loading,setloading]=useState(true)
+  const [loading, setloading] = useState(true);
   useEffect(() => {
     axios
-    .get(`${env.APIURL}/api/products?${searchQuery}`)
-    .then((res) => {
-      setproduct(res.data);
-    })
-    .catch((e) => console.log("e", e)).finally(()=>setloading(false))
-  }, [loading,searchParams,urlParams.category,urlParams.page]);
+      .get(`${env.APIURL}/api/products?${searchQuery}`)
+      .then((res) => {
+        setproduct(res.data);
+      })
+      .catch((e) => console.log("e", e))
+      .finally(() => setloading(false));
+  }, [
+    loading,
+    searchParams,
+    urlParams.category,
+    urlParams.page,
+  ]);
   // const product = await getData();
-  return <div><Productlist product={product} loading={loading} urlParams={urlParams}/></div>;
+  return (
+    <div>
+      <Productlist product={product} loading={loading} urlParams={urlParams} />
+    </div>
+  );
 }
