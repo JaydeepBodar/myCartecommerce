@@ -11,7 +11,7 @@ import axios from "axios";
 //     }
 //     return data.json()
 // }
-export const Product =({ params }) => {
+const Product =({ params }) => {
   const [singleproduct, setsingleproduct] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
@@ -25,4 +25,4 @@ export const Product =({ params }) => {
   return <Productdetais singleproduct={singleproduct} loading={loading}/>;
 };
 
-// export default data;
+export default Product;
