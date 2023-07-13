@@ -11,7 +11,7 @@ class APIFilter {
           },
         }
       : {};
-    console.log("word", keyword);
+    // console.log("word", keyword);
     this.query = this.query.find({ ...keyword });
     return this;
   }
@@ -19,7 +19,7 @@ class APIFilter {
     const queryCopy = { ...this.queryStr };
     const remove = ["data", "page"];
     remove.forEach((newdata) => delete queryCopy[newdata]);
-    console.log("queryCopy", queryCopy);
+    // console.log("queryCopy", queryCopy);
     // for price filter it's take it from chat gpt
     let output = {};
     let props = "";
@@ -36,7 +36,7 @@ class APIFilter {
         output[props][`$${operator}`] = queryCopy[key];
       }
     }
-    console.log("output", output);
+    // console.log("output", output);
     this.query = this.query.find(output);
     return this;
   }

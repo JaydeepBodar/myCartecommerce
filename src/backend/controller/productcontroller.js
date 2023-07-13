@@ -7,7 +7,7 @@ export const getAllproduct = async (req, res) => {
     const productcount=await productSchema.countDocuments()
     // await db();
     const apiFilter=new APIFilter(productSchema.find(),req.query).search().filter()
-    console.log('apifil',apiFilter)
+    // console.log('apifil',apiFilter)
     let products=await apiFilter.query;
     const filterproductscount= products.length;
     apiFilter.pagination(productperpage) 

@@ -44,18 +44,11 @@ const Productlist = ({ product, loading, urlParams }) => {
               <Loader />
             </div>
           )}
-          {product.products?.length === 0 && (
+          {!loading && product.products?.length === 0 ? (
             <div className="flex justify-center items-center h-[80vh]">
-              <TypeAnimation
-                sequence={["No product Found For Your Filter..."]}
-                wrapper="span"
-                speed={50}
-                className="text-2xl font-bold"
-                repeat={Infinity}
-              />
+              <h4 className="text-2xl font-bold">No product Found For Your Filter...</h4>
             </div>
-          )}
-          {!loading &&
+          ) : (
             product.products?.map((val) => {
               const {
                 _id,
@@ -129,7 +122,8 @@ const Productlist = ({ product, loading, urlParams }) => {
                   </div>
                 </div>
               );
-            })}
+            })
+          )}
         </div>
       </div>
       {!loading && product.products?.length !== 0 && (

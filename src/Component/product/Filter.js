@@ -36,7 +36,7 @@ const Filter = () => {
     queryParams = new URLSearchParams(window.location.search);
     queryParams = getPricequeryparams(queryParams, "min", min);
     queryParams = getPricequeryparams(queryParams, "max", max);
-    console.log("data", queryParams);
+    // console.log("data", queryParams);
     const path = window.location.pathname + "?" + queryParams.toString();
     router.push(path);
     // }
@@ -45,7 +45,7 @@ const Filter = () => {
   const handelClick = (checkBox) => {
     // if (typeof window !== "undefined") {
     queryParams = new URLSearchParams(window.location.search);
-    console.log("query", queryParams);
+    // console.log("query", queryParams);
     // }
     const checkboxes = document.getElementsByName(checkBox.name);
     checkboxes.forEach((val) => {
@@ -64,7 +64,7 @@ const Filter = () => {
     if (checkBox.value === "all" || checkBox.value === 'Reset') {
       router.push("/");
     } else {
-      const path = "?" + queryParams.toString();
+      const path = window.location.pathname+"?" + queryParams.toString();
       // console.log("qu", queryParams.toString());
       router.push(path);
     }
@@ -73,11 +73,8 @@ const Filter = () => {
     if (typeof window !== "undefined") {
       queryParams = new URLSearchParams(window.location.search);
       const value = queryParams.get(checkType);
-      console.log("value", value);
+      // console.log("value", value);
       if (checkValue === value) {
-        if (value === "all") {
-          router.push("/");
-        }
         return true;
       }
       return false;
