@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import ReactStars from "react-stars";
 import Inputdata from "../Inputdata";
 const Filter = () => {
+  const router = useRouter();
   const checkbox = [
-    { name: "category", value: "Smartphones", label: "Smartphones" },
+    { name: "category", value: "all", label: "All" },
+    { name: "category", value: "smartphones", label: "Smartphones" },
     { name: "category", value: "laptops", label: "Laptops" },
     { name: "category", value: "fragrances", label: "Fragrances" },
     { name: "category", value: "skincare", label: "Skincare" },
@@ -22,6 +25,45 @@ const Filter = () => {
     { val: 2, name: "rating" },
     { val: 1, name: "rating" },
   ];
+  let queryParams;
+  const handelClick = (checkBox) => {
+    // if (typeof window !== "undefined") {
+    queryParams = new URLSearchParams(window.location.search);
+    console.log("query", queryParams);
+    // }
+    const checkboxes = document.getElementsByName(checkBox.name);
+    checkboxes.forEach((val) => {
+      console.log("val !== checkBox", val !== checkBox);
+      if (val !== checkBox) val.checked === false;
+    });
+    if (checkBox.checked === false) {
+      queryParams.delete(checkBox.name);
+    } else {
+      if (queryParams.has(checkBox.name)) {
+        queryParams.set(checkBox.name, checkBox.value);
+      } else {
+        queryParams.append(checkBox.name, checkBox.value);
+      }
+    }
+    const path = "?" + queryParams.toString();
+    console.log("qu", queryParams.toString());
+    router.push(path);
+  };
+  const checkHandler = (checkType, checkValue) => {
+    if (typeof window !== "undefined") {
+      queryParams = new URLSearchParams(window.location.search);
+      const value = queryParams.get(checkType);
+      console.log("value", value);
+      if (checkValue === value) {
+        if(value==='all'){
+          router.push('/')
+        }
+        return true;
+
+      }
+      return false;
+    }
+  };
   return (
     <div className="border-[1px] newdata border-[#ebe6e6] px-3 py-5 max-lg:justify-between max-lg:gap-x-5 max-lg:flex-row max-lg:items-baseline max-lg:flex max-lg:w-[100%] max-md:flex-wrap max-md:gap-x-0">
       <div className="newdata1 pb-4 border-b-[1px] border-[#ebe6e6] max-lg:basis-[30%] max-lg:border-0">
@@ -46,6 +88,7 @@ const Filter = () => {
         </h3>
         {checkbox.map((val, index) => {
           const { name, label, value } = val;
+          console.log("check", checkHandler(name, value));
           return (
             <div
               key={index}
@@ -53,8 +96,11 @@ const Filter = () => {
             >
               <Inputdata
                 label={label}
+                value={value}
+                defaultChecked={checkHandler(value, name)}
+                onClick={(e) => handelClick(e.target)}
                 name={name}
-                type="checkbox"
+                type="radio"
                 className="flex-wrap gap-x-2 flex items-center flex-row-reverse justify-end"
               />
             </div>
@@ -66,7 +112,7 @@ const Filter = () => {
         {star.map((val, index) => {
           return (
             <div key={index} className="flex items-center gap-x-1">
-              <input type='checkbox' name={val.name}/>
+              <input type="checkbox" name={val.name} />
               <ReactStars
                 key={index}
                 edit={false}

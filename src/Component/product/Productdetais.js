@@ -7,16 +7,16 @@ import Loader from "../Loader";
 import Link from "next/link";
 const Productdetais = ({ singleproduct, loading }) => {
   const [img, setimg] = useState("");
-  const {
-    title,
-    description,
-    thumbnail,
-    category,
-    images,
-    price,
-    rating,
-    discountPercentage,
-  } = singleproduct;
+  // const {
+  //   title,
+  //   description,
+  //   thumbnail,
+  //   category,
+  //   images,
+  //   price,
+  //   rating,
+  //   discountPercentage,
+  // } = 
   return (
     <Container>
     {loading && <div className="flex justify-center items-center h-[80vh]"><Loader/></div>}
@@ -24,17 +24,17 @@ const Productdetais = ({ singleproduct, loading }) => {
         <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3 md:h-[80vh]">
           <div>
             <Image
-              alt={title}
-              src={img ? img : thumbnail}
+              alt={singleproduct?.title}
+              src={img ? img : singleproduct?.thumbnail}
               width={300}
               height={400}
               className="w-[100%] h-[400px] object-fill rounded-lg border-[1px] border-[#000]"
             />
             <div className="flex gap-x-2 mt-4 justify-center">
-              {images.slice(0, 3).map((img, index) => {
+              {singleproduct?.images.slice(0, 3).map((img, index) => {
                 return (
                   <Image
-                    alt={title}
+                    alt={singleproduct?.title}
                     width={150}
                     height={100}
                     className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
@@ -47,21 +47,21 @@ const Productdetais = ({ singleproduct, loading }) => {
             </div>
           </div>
           <div className="px-2 py-2">
-            <h3 className="font-semibold text-2xl pb-2 pt-10">{title}</h3>
+            <h3 className="font-semibold text-2xl pb-2 pt-10">{singleproduct?.title}</h3>
             <h4 className="text-xl font-semibold">
               Discount :-{" "}
-              <span className="text-[green]">{discountPercentage}%</span>
+              <span className="text-[green]">{singleproduct?.discountPercentage}%</span>
             </h4>
-            <p className="text-lg font-medium">Category :- {category}</p>
+            <p className="text-lg font-medium">Category :- {singleproduct?.category}</p>
             <ReactStars
               edit={false}
               count={5}
               size={24}
-              value={rating}
+              value={singleproduct?.rating}
               color2={"#ffd700"}
             />
-            <p>Description :- {description}</p>
-            <h5 className="text-xl font-semibold">Price:- {price}$</h5>
+            <p>Description :- {singleproduct?.description}</p>
+            <h5 className="text-xl font-semibold">Price:- {singleproduct?.price}$</h5>
             <Link
               href="/"
               className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"

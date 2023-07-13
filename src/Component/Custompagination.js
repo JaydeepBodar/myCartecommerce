@@ -10,14 +10,14 @@ const Custompagination = ({ itemperpage, totalitem }) => {
   const handleChange = (current) => {
     if (typeof window !== "undefined") {
       urlsearch = new URLSearchParams(window.location.search);
-			console.log("urlsearch",window)
+			console.log("urlsearch",urlsearch)
       if (urlsearch.has("page")) {
         urlsearch.set("page", current);
       } else {
         urlsearch.append("page", current);
       }
     }
-    const path = window.location.pathname + "?" + urlsearch.toString();
+    const path = "?" +urlsearch.toString();
     router.push(path);
     console.log("urlsearch", path);
   };

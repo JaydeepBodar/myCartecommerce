@@ -25,7 +25,6 @@ export default function Home({searchParams}) {
   };
 
   const searchQuery =queryString.stringify(urlParams);
-  console.log("searcParams",searchParams)
   const [product, setproduct] = useState([]);
   const[loading,setloading]=useState(true)
   useEffect(() => {
@@ -35,7 +34,7 @@ export default function Home({searchParams}) {
       setproduct(res.data);
     })
     .catch((e) => console.log("e", e)).finally(()=>setloading(false))
-  }, [loading,searchParams]);
+  }, [loading,searchParams,urlParams.category,urlParams.page]);
   // const product = await getData();
   return <div><Productlist product={product} loading={loading} urlParams={urlParams}/></div>;
 }
