@@ -6,6 +6,7 @@ const Custompagination = ({ itemperpage, totalitem }) => {
   const searchParams = useSearchParams();
   let page = searchParams.get("page");
   page = Number(page);
+  console.log("page",page)
   let urlsearch;
   const handleChange = (current) => {
     if (typeof window !== "undefined") {

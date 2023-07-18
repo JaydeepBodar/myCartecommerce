@@ -7,9 +7,11 @@ import { MdAccountCircle } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Totalquantityt from "../Totalquantityt";
 const Navbar = () => {
   const router = useRouter();
   const [query, setquery] = useState("");
+ 
   const submitHandler = (e) => {
     // setquery(e.target.value)
     console.log("query", query);
@@ -49,8 +51,9 @@ const Navbar = () => {
             <Link href="">
               <MdAccountCircle className="w-6 h-6" title="Log in" />
             </Link>
-            <Link href="">
-              <BsCart3 title="Cart" className="w-6 h-6" />
+            <Link href="Cart" className="relative">
+              <BsCart3 title="Cart" className="w-6 h-6"/>
+              <p className="absolute w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center top-[-18px] right-2"><Totalquantityt/></p>
             </Link>
           </div>
         </div>
