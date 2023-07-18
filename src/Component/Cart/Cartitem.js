@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 const Cartitem = () => {
   return (
     <div className="flex justify-between items-center max-sm:flex-col basis-[65%]">

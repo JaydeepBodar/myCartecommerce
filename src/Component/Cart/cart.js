@@ -70,7 +70,7 @@ const cart = () => {
                     quantity,
                   } = value;
                   return (
-                    <div className="flex justify-between items-center max-sm:flex-col mb-2">
+                    <div key={_id} className="flex justify-between items-center max-sm:flex-col mb-2">
                       <div className="flex gap-x-4">
                         <div>
                           <Image
