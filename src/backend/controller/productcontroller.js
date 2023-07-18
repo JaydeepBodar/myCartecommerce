@@ -36,8 +36,8 @@ export const singleProduct = async (req, res) => {
   const { id } = req.query;
   try { 
     const data = await productSchema.findOne({_id:id});
-    console.log("data",data)
-    res.json(data)
+    // console.log("data",data) 
+    res.json({products:data}) 
   } catch (e) {
     res.json({ message: "unable to show" });
   }

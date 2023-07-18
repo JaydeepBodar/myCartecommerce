@@ -23,6 +23,28 @@ body {
 .data span{
   padding-right: 10px;
 }
+.scrollbar{
+  height: 450px;
+  overflow-y: scroll;
+  padding-right: 15px;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 8px;    
+  border-radius: 20px;             /* width of the entire scrollbar */
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: #f2f2f2;        /* color of the tracking area */
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color:#dc2626;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */ /* creates padding around scroll thumb */
+}
+.cartfont h4{
+  font-size: 18px;
+  font-weight: 700;
+}
 @media screen and (max-width:600px) {
   .data span{
     padding-right: 0px;
