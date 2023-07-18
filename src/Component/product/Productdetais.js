@@ -30,7 +30,7 @@ const Productdetais = ({ singleproduct, loading }) => {
         </div>
       )}
       {!loading && (
-        <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3 md:h-[80vh]">
+        <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3 py-6">
           <div>
             <Image
               alt={singleproduct?.products?.title}

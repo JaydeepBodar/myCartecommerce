@@ -58,7 +58,7 @@ const cart = () => {
         <Container>
           <div className="flex mt-4 mb-2 gap-x-4 max-lg:flex-col-reverse">
             <div className="max-lg:py-4 basis-[65%] min-h-[100%]">
-              <div className="scrollbar">
+              <div className={`${cart.cartItems?.length > 0 && "scrollbar"}`}>
                 {cart.cartItems?.length > 0 &&
                   cart.cartItems?.map((value) => {
                     console.log("value", value);
