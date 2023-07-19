@@ -7,7 +7,7 @@ const nextConfig = {
   images:{
     domains:['i.dummyjson.com',"fakestoreapi.com"]
   },
-  env:{
+  env:{ 
     API_URL:process.env.API_URL
   },  async headers() {
     return [

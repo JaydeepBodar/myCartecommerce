@@ -8,10 +8,12 @@ import { BsCart3 } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Totalquantityt from "../Totalquantityt";
+import { signOut, useSession } from "next-auth/react";
 const Navbar = () => {
   const router = useRouter();
+  const session = useSession();
+  console.log("session", session);
   const [query, setquery] = useState("");
- 
   const submitHandler = (e) => {
     // setquery(e.target.value)
     console.log("query", query);
@@ -48,13 +50,20 @@ const Navbar = () => {
             </button>
           </div>
           <div className="flex gap-x-3 max-lg:basis-[50%] justify-end">
-            <Link href="">
-              <MdAccountCircle className="w-6 h-6" title="Log in" />
-            </Link>
+            {session.status === "authenticated" ? (
+              <Link href="User">{session.data.user.name}</Link>
+            ) : (
+              <Link href="login">
+                <MdAccountCircle className="w-6 h-6" title="Log in" />
+              </Link>
+            )}
             <Link href="Cart" className="relative">
-              <BsCart3 title="Cart" className="w-6 h-6"/>
-              <p className="absolute w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center top-[-18px] right-2"><Totalquantityt/></p>
+              <BsCart3 title="Cart" className="w-6 h-6" />
+              <p className="absolute w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center top-[-18px] right-2">
+                <Totalquantityt />
+              </p>
             </Link>
+            <button onClick={() => signOut()}>Logout</button>
           </div>
         </div>
       </Container>

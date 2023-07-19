@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 
-const Inputdata = ({className,label,...rest}) => {
+const Inputdata = ({data,className,label,...rest}) => {
   return (
     <div className={className}>
       <label>{label}</label>
-      <input {...rest}/>
+      <input className={data} {...rest}/>
     </div>
   )
 }

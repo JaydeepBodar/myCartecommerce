@@ -39,7 +39,7 @@ const Item = ({ product, loading }) => {
   return (
     <div className="flex max-sm:flex-wrap gap-x-5 max-sm:gap-x-2 mb-3 bg-[#f2f2f2] rounded-lg border-[1px] border-[#e0dede]">
       <div className="basis-[30%] max-lg:basis-[40%] max-sm:basis-[100%]">
-        <Link href={`products/${_id}`}>
+        <Link href={`productdata/${_id}`}>
           <Image
             src={product.thumbnail}
             width={300}
@@ -74,13 +74,13 @@ const Item = ({ product, loading }) => {
             </span>
           </h5>
           <div className="max-md:flex max-md:gap-x-2 items-baseline">
-            <Link
+            <button
               onClick={Additem}
               href="#"
               className="w-[100%] max-sm:text-[13px] max-sm:max-w-[80px] max-sm:py-1 max-sm:mt-2 max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
             >
               {btn}
-            </Link>
+            </button>
             {btn === "Go to Cart" && (
               <div
                 className={`${
@@ -104,22 +104,22 @@ const Item = ({ product, loading }) => {
             {((price * discountPercentage) / 100).toFixed(0)}$
           </span>
         </h5>
-        <Link
+        <button
           onClick={Additem}
           href="/"
           className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
         >
           {btn}
-        </Link>
+        </button>
         {btn === "Go to Cart" && (
-          <div
+          <button
             className={`${
               productbtn === false && "hidden"
             } mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
             onClick={Removeitem}
           >
             Remove
-          </div>
+          </button>
         )}
       </div>
     </div>

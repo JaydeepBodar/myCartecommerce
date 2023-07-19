@@ -1,10 +1,13 @@
-import React from 'react'
-import Cartprovider from '../Context/Cartcontext'
-
-const Globalcontext = ({children}) => {
+"use client";
+import React from "react";
+import Cartprovider from "../Context/Cartcontext";
+import AuthProvider from "./AuthProvider";
+const Globalcontext = ({ children }) => {
   return (
-    <Cartprovider>{children}</Cartprovider>
-  )
-}
+    <Cartprovider>
+      <AuthProvider>{children}</AuthProvider>
+    </Cartprovider>
+  );
+};
 
-export default Globalcontext
+export default Globalcontext;

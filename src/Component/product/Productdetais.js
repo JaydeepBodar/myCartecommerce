@@ -4,7 +4,6 @@ import ReactStars from "react-stars";
 import Image from "next/image";
 import Container from "../Container";
 import Loader from "../Loader";
-import Link from "next/link";
 import { CartgloblContext } from "@/Context/Cartcontext";
 const Productdetais = ({ singleproduct, loading }) => {
   const { cart, addItemtocart, deletItem } = CartgloblContext();
@@ -115,14 +114,14 @@ const Productdetais = ({ singleproduct, loading }) => {
                 {btn}
               </button>
               {btn === "Go to Cart" && (
-                <div
+                <button
                   className={`${
                     productbtn === false && "hidden"
                   } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg tracking-wide`}
                   onClick={Removeitem}
                 >
                   Remove
-                </div>
+                </button>
               )}
             </div>
           </div>
