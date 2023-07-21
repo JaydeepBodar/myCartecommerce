@@ -60,7 +60,7 @@ const Profile = () => {
             return (
               <div key={index} className="pb-4 max-sm:text-[14px]">
                 <Link href="/" className="leading-[25px] flex gap-x-4" title="address">
-                  <ImLocation className="w-[50px] h-[40px]" />
+                  <ImLocation className="w-[50px] h-[40px] fill-red-600" />
                   <div>
                   <p>
                     {street}, {city},
