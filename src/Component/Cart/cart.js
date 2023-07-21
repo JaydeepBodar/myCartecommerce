@@ -47,11 +47,11 @@ const cart = () => {
   return (
     <React.Fragment>
       <div className="h-[81.8vh] max-lg:h-[auto]">
-        <div className="bg-red-600 py-4">
+        <div className="tracking-[1.2px] bg-red-600 text-white font-semibold text-2xl py-5">
           <Container>
-            <h3 className="text-white font-semibold text-xl">
+            <h3>
               {" "}
-              items (<Totalquantityt />) in cart cart
+              items (<Totalquantityt />) in Cart
             </h3>
           </Container>
         </div>

@@ -1,46 +1,48 @@
 "use client";
 import Container from "@/Component/Container";
 import Inputdata from "@/Component/Inputdata";
-import { signIn, useSession,signOut } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import Link from "next/link";
 import Tostify from "@/Component/Tostify";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 const Login = () => {
-    const session = useSession();
-    const router=useRouter()
-    const [Input, setInput] = useState({
-      email: "",
-      password: "",
-    });
-    const { email, password } = Input;
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setInput({ ...Input, [name]: value });
-    };
-    const handleSubmit = async(e) => {
-      e.preventDefault();
-      try{
-          const res=await signIn("credentials", {redirect:false,...Input });
-          console.log("res",res)
-          if(res.error){
-            toast.error(res.error)
-          }else{
-            return res
-          }
-      }catch(err){
-        console.log("datafirst")
-        console.log("err",err)
+  const session = useSession();
+  const router = useRouter();
+  const [Input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = Input;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...Input, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        ...Input,
+      });
+      console.log("res", res);
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        return res;
       }
-  
-    };
-    if(session.status=== 'authenticated'){
-      router.push('/')
+    } catch (err) {
+      console.log("datafirst");
+      console.log("err", err);
     }
-    return (
-      <React.Fragment>
-            <Tostify/>
+  };
+  if (session.status === "authenticated") {
+    router.push("/");
+  }
+  return (
+    <React.Fragment>
+      <Tostify />
       <Container>
         <div className="h-[81.1vh] md:mb-[4px] flex flex-col justify-center items-center">
           <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14">
@@ -81,15 +83,11 @@ const Login = () => {
             >
               Create New Account...
             </Link>
-            <button onClick={()=>signOut()}>
-              Logout
-            </button>
           </div>
         </div>
       </Container>
-      </React.Fragment>
-  
-    );
-}
+    </React.Fragment>
+  );
+};
 
-export default Login
+export default Login;

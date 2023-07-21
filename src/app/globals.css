@@ -8,11 +8,6 @@
   padding: 0;
   margin: 0;
 }
-@media screen and (max-width:768px){
-  body{
-    line-height: 24px;
-  }
-}
 body {
   box-sizing: border-box;
   font-family: 'Oswald', sans-serif;
@@ -22,6 +17,14 @@ body {
 }
 .data span{
   padding-right: 10px;
+}
+.sidebar span{
+color:#dc2626;
+}
+.sidebar li{
+  padding-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
 }
 .scrollbar{
   height: 450px;
@@ -72,4 +75,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+@media screen and (max-width:768px){
+  body{
+    line-height: 24px;
+  }
+  .sidebar li{
+    font-size: 15px;
+    padding-bottom: 5px;
+  }
+}

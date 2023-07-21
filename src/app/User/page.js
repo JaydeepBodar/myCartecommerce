@@ -1,23 +1,10 @@
-"use client";
-import Container from "@/Component/Container";
-import { signOut } from "next-auth/react";
 import React from "react";
-
+import Profile from "@/Component/User/Profile";
 const User = () => {
-
-
   return (
-    <Container>
-
-        <button
-          onClick={() => {
-            signOut();
-          }}
-        >
-          logout
-        </button>
-    
-    </Container>
+  
+      <Profile />
+  
   );
 };
 

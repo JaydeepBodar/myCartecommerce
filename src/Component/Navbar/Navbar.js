@@ -63,7 +63,6 @@ const Navbar = () => {
                 <Totalquantityt />
               </p>
             </Link>
-            <button onClick={() => signOut()}>Logout</button>
           </div>
         </div>
       </Container>

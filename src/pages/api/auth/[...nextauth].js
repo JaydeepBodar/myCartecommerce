@@ -24,34 +24,37 @@ export default async function auth(req, res) {
               const checkpassword = await bcrypt.compare(
                 password,
                 user.password
-              );
-              if (checkpassword) {
-                console.log("user", user);
-                return user;
+                );
+                if (checkpassword) {
+                  console.log("user", user);
+                  return user;
+                } else {
+                  throw new Error("Wrong password");
+                }
               } else {
-                throw new Error("Wrong password");
+                throw new Error("User not Found");
               }
-            } else {
-              throw new Error("User not Found");
-            }
           }
         },
       }),
     ],
+    debug: true,
     callbacks: {
       jwt: async ({ token, user }) => {
         user && (token.user = user);
+        console.log("token",token.user)
         return token;
       },
       session: async ({ session, token }) => {
+        console.log("session",token)
         session.user = token.user;
         delete session?.user?.password;
         return session;
       },
     },
     pages: {
-      signIn: "/",
+      signIn: "/login",
     },
-    secret: process.env.SECERTKEY,
+    secret: process.env.SECERTKEY,  
   });
 }

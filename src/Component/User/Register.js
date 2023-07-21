@@ -9,8 +9,10 @@ import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Tostify from "@/Component/Tostify";
+import { useRouter } from "next/navigation";
 const Register = () => {
-    const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
+  const router = useRouter();
+  const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
     useFormik({
       initialValues: {
         name: "",
@@ -32,23 +34,31 @@ const Register = () => {
       onSubmit: (values, actions) => {
         axios
           .post(`${env.APIURL}api/auth/Register`, values)
-          .then((res) => actions.resetForm())
+          .then((res) => {
+            router.push("/login"), actions.resetForm();
+          })
           .catch((e) => {
             if (e.response.status === 400) {
               toast.warn(e.response.data.message);
             }
-          })
+          });
         // console.log("value");
       },
     });
   return (
     <React.Fragment>
-      <Tostify/>
+      <Tostify />
       <Container>
-        <div className="h-[81.1vh] md:mb-[4px] flex flex-col justify-center items-center">
+        <div
+          className={`${
+            errors.name || errors.email || errors.password
+              ? "h-[auto]"
+              : "h-[81.1vh]"
+          } md:mb-[4px] py-5 flex flex-col justify-center items-center`}
+        >
           <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-14">
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
-              Log in...
+              Sign up...
             </h4>
             <form onClick={handleSubmit}>
               <Inputdata
@@ -107,7 +117,7 @@ const Register = () => {
               </button>
             </form>
             <Link
-              href="/login"
+              href="login"
               className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
             >
               Alreday an Account...
@@ -116,7 +126,7 @@ const Register = () => {
         </div>
       </Container>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
