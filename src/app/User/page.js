@@ -4,7 +4,7 @@ import axios from "axios";
 async function getData() {
   const nextCookies = cookies();
   const nextauthheaders = nextCookies.get("next-auth.session-token");
-  // console.log("nextauthheaders",nextauthheaders)
+  console.log("nextauthheaders",nextauthheaders)
   const {data} = await axios.get(`${process.env.API_URL}api/Address`,
    {
        cache: "no-store" ,
