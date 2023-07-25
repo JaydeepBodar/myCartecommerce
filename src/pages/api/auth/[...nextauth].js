@@ -38,23 +38,24 @@ export default async function auth(req, res) {
         },
       }),
     ],
-    debug: true,
     callbacks: {
       jwt: async ({ token, user }) => {
         user && (token.user = user);
-        console.log("token",token.user)
+        // console.log("token",token.user)
         return token;
       },
       session: async ({ session, token }) => {
-        console.log("session",token)
+        console.log("session",session)
+        // console.log("process.env.SECERTKEY",process.env.SECERTKEY)
         session.user = token.user;
         delete session?.user?.password;
         return session;
+        
       },
-    },
+    },  
+    secret: process.env.NEXTAUTH_SECRET,  
     pages: {
       signIn: "/login",
     },
-    secret: process.env.SECERTKEY,  
   });
 }

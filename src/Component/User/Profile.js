@@ -5,20 +5,21 @@ import React, { useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 import avtar from "../../../public/images/useravatar.png";
+import axios from 'axios'
 import { ImLocation } from "react-icons/im";
-import axios from "axios";
-const Profile = () => {
-  const [address, setaddress] = useState([]);
-  const [loading, setloading] = useState(true);
-  useEffect(() => {
-    axios
-      .get(`${process.env.API_URL}api/Address`)
-      .then((res) => setaddress(res.data.address))
-      .catch((e) => {
-        console.log("e", e);
-      })
-      .finally(() => setloading(false));
-  }, [loading]);
+const Profile = ({address}) => {
+  // const [address, setaddress] = useState([]);
+  // const [loading, setloading] = useState(true);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.API_URL}api/Address`)
+  //     .then((res) => setaddress(res.data.address))
+  //     .catch((e) => {
+  //       console.log("e", e);
+  //     })
+  //     .finally(() => setloading(false));
+  // }, [loading]);
   const { data } = useSession();
   console.log("data", data);
   const month = new Date(data?.user?.createdAt).toLocaleString("en-us", {
@@ -52,16 +53,19 @@ const Profile = () => {
         </div>
       </div>
       <div className="py-4 max-md:py-2 border-t-[1px] border-b-[1px] border-[#cecbcb]">
-        {loading && <p className="text-center">Loading</p>}
-        {!loading &&
-          address.map((add, index) => {
-            console.log("add", add);
-            const { street, city, country, phoneNo, state, zipcode } = add;
-            return (
-              <div key={index} className="pb-4 max-sm:text-[14px]">
-                <Link href="/" className="leading-[25px] flex gap-x-4" title="address">
-                  <ImLocation className="w-[50px] h-[40px] fill-red-600" />
-                  <div>
+        {/* {loading && <p className="text-center">Loading</p>} */}
+        {address?.map((add, index) => {
+          console.log("add", add);
+          const { street, city, country, phoneNo, state, zipcode } = add;
+          return (
+            <div key={index} className="pb-4 max-sm:text-[14px]">
+              <Link
+                href="/"
+                className="leading-[25px] flex gap-x-4"
+                title="address"
+              >
+                <ImLocation className="w-[50px] h-[40px] fill-red-600" />
+                <div>
                   <p>
                     {street}, {city},
                   </p>{" "}
@@ -71,13 +75,13 @@ const Profile = () => {
                   <p>
                     Contact:-{phoneNo} ,Postalcode:-{zipcode};
                   </p>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
+                </div>
+              </Link>
+            </div>
+          );
+        })}
         <Link
-          href="/User/Authuser"
+          href="/Address/New"
           className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 block"
         >
           <button className="flex items-center justify-center w-[100%] gap-x-2 max-md:gap-x-[2px]">

@@ -9,3 +9,7 @@ export const getPricequeryparams=(queryparams,key,value)=>{
     }
     return queryparams ; 
 }
+export const parseCallbackUrl = (url) => {
+    const res = url.replace(/%3A/g, ":").replace(/%2F/g, "/");
+    return res;
+  };

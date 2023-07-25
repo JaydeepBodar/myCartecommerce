@@ -2,10 +2,12 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
+import Container from "./Container";
 import Inputdata from "./Inputdata";
+import Sidebar from "./User/Sidebar";
 import Validations from "./Validation";
 const Address = () => {
-	const {data}=useSession()
+  const { data } = useSession();
   const [Input, setInput] = useState({
     street: "",
     country: "",
@@ -54,8 +56,8 @@ const Address = () => {
       error: errors.phoneNo,
     },
   ];
-  const handleSubmit = (e) => {	
-		console.log("...Input",{...Input})
+  const handleSubmit = (e) => {
+    console.log("...Input", { ...Input });
     e.preventDefault();
     if (
       street !== "" &&
@@ -66,7 +68,9 @@ const Address = () => {
       phoneNo !== ""
     ) {
       axios
-        .post(`${process.env.API_URL}api/Address`, { ...Input,user:data?.user?._id })
+        .post(`${process.env.API_URL}api/Address`, {
+          ...Input,user:data?.user?._id 
+        })
         .then((res) => console.log("res", res))
         .catch((e) => console.log("e", e));
     } else {
@@ -74,41 +78,50 @@ const Address = () => {
     }
   };
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit}
-        className="rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 bg-[#f2f2f2] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap"
-      >
-        {address.map((val, index) => {
-          const { name, placeholder, value, error } = val;
-          return (
-            <>
-              <div
-                className={`${
-                  index === 0 || index === 5 ? "basis-[100%]" : "basis-[48%] max-sm:basis-[100%]"
-                }`}
-              >
-                <Inputdata
-                  name={name}
-                  onChange={(e) => {
-                    const { name, value } = e.target;
-                    setInput({ ...Input, [name]: value });
-                  }}
-                  value={value}
-                  data="bg-[#fff] outline-none border-none px-[6px] py-[10px] max-sm:py-[5px] rounded-lg w-[100%]"
-                  placeholder={placeholder}
-                />
-                {error && <p className="text-red-600">{error}</p>}
-              </div>
-            </>
-          );
-        })}
-        <button className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md">
-          Submit
-        </button>
-      </form>
-    </div>
+    <Container>
+      <div className="flex py-10 h-[81.8vh] justify-between">
+        <div>
+          <Sidebar />
+        </div>
+        <div className="basis-[75%]">
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 bg-[#f2f2f2] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap"
+          >
+            {address.map((val, index) => {
+              const { name, placeholder, value, error } = val;
+              return (
+                <>
+                  <div
+                    className={`${
+                      index === 0 || index === 5
+                        ? "basis-[100%]"
+                        : "basis-[48%] max-sm:basis-[100%]"
+                    }`}
+                  >
+                    <Inputdata
+                      name={name}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setInput({ ...Input, [name]: value });
+                      }}
+                      value={value}
+                      data="bg-[#fff] outline-none border-none px-[6px] py-[10px] max-sm:py-[5px] rounded-lg w-[100%]"
+                      placeholder={placeholder}
+                    />
+                    {error && <p className="text-red-600">{error}</p>}
+                  </div>
+                </>
+              );
+            })}
+            <button className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </Container>
   );
-};	
+};
 
 export default Address;
