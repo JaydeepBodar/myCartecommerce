@@ -5,14 +5,16 @@ async function getData() {
   const nextCookies = cookies();
   const productionheaders = nextCookies.get("__Secure-next-auth.session-token");
   const nextauthheaders = nextCookies.get("next-auth.session-token");
+  const cookie=  process.env.API_URL === "production"
+  ? `__Secure-next-auth.session-token=${productionheaders?.value}`
+  : `next-auth.session-token=${nextauthheaders?.value}`
+  console.log("cookie",cookie)
   // console.log("nextauthheaders",nextauthheaders)
   const { data } = await axios.get(`${process.env.API_URL}api/Address`, {
     cache: "no-store",
     headers: {
-      Cookie:
-        process.env.API_URL === "production"
-          ? `__Secure-next-auth.session-token=${productionheaders?.value}`
-          : `next-auth.session-token=${nextauthheaders?.value}`,
+      Cookie:cookie
+      
     },
   });
   if (!data) {
