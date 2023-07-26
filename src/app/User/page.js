@@ -3,13 +3,13 @@ import { cookies } from "next/dist/client/components/headers";
 import axios from "axios";
 async function getData() {
   const nextCookies = cookies();
-  const nextauthheaders = nextCookies.get("next-auth.session-token");
+  const nextauthheaders = nextCookies.get("__Secure-next-auth.session-token");
   console.log("nextauthheaders",nextauthheaders)
   const {data} = await axios.get(`${process.env.API_URL}api/Address`,
    {
        cache: "no-store" ,
     headers: {
-      Cookie: `next-auth.session-token=${nextauthheaders?.value}`,
+      Cookie: `__Secure-next-auth.session-token=${nextauthheaders?.value}`,
     },
   }
   );
