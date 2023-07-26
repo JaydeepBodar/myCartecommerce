@@ -45,7 +45,7 @@ export default async function auth(req, res) {
         return token;
       },
       session: async ({ session, token }) => {
-        console.log("session",session)
+        // console.log("session",session)
         // console.log("process.env.SECERTKEY",process.env.SECERTKEY)
         session.user = token.user;
         delete session?.user?.password;
