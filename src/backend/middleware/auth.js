@@ -5,6 +5,6 @@ export const isAuthenticateuser = async (req, res, next) => {
   if (!session) {
     res.status(401).json({ message: "You need to first log in" });
   }
-  req.user = session.user;
+  req.user = session?.user;
   next();
 };

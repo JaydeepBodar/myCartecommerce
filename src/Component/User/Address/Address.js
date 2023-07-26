@@ -2,10 +2,10 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import Container from "./Container";
-import Inputdata from "./Inputdata";
-import Sidebar from "./User/Sidebar";
-import Validations from "./Validation";
+import Container from "../../Container";
+import Inputdata from "../../Inputdata";
+import Sidebar from "../Sidebar";
+import Validations from "../../Validation";
 const Address = () => {
   const { data } = useSession();
   const [Input, setInput] = useState({
@@ -57,7 +57,7 @@ const Address = () => {
     },
   ];
   const handleSubmit = (e) => {
-    console.log("...Input", { ...Input });
+    // console.log("...Input", { ...Input });
     e.preventDefault();
     if (
       street !== "" &&

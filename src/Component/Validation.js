@@ -18,13 +18,13 @@ const Validations = (input) => {
     } 
     if (!input.phoneNo) {
         errors.phoneNo = "phoneNo is required";
-    } else if (/^[0-9]{10,10}$/.test(input.email)) {
+    } else if (/^[0-9]{10,10}$/.test(input.phoneNo)) {
         errors.email = "mobile number numeric and must 10 digit";
     }
 
     if (!input.zipcode) {
         errors.zipcode = "zipcode is required";
-    } else if (!/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/.test(values.password)) {
+    } else if (!/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/.test(input.zipcode)) {
         errors.password = "Password must be at least 7 characters long with special characters and numbers";
     }
 

@@ -1,11 +1,11 @@
 import Profile from "@/Component/User/Profile";
-import { cookies } from "next/dist/client/components/headers";
+import { cookies } from "next/headers";
 import axios from "axios";
 async function getData() {
   const nextCookies = cookies();
   const productionheaders = nextCookies.get("__Secure-next-auth.session-token");
   const nextauthheaders = nextCookies.get("next-auth.session-token");
-  const cookie=  process.env.API_URL === "https://my-cartecommerce.vercel.app/"
+  const cookie=  process.env.API_URL === "production"
   ? `__Secure-next-auth.session-token=${productionheaders?.value}`
   : `next-auth.session-token=${nextauthheaders?.value}`
   // console.log("nextauthheaders",nextauthheaders)
@@ -13,7 +13,7 @@ async function getData() {
     cache: "no-store",
     headers: {
       Cookie:cookie
-      
+
     },
   });
   if (!data) {
@@ -23,7 +23,6 @@ async function getData() {
   return data.address;
 }
 const User = async () => {
-  // console.log("cookie",cookie)
   console.log("process.env.API_URL",process.env.API_URL)
   const address = await getData();
   // console.log("address", address);

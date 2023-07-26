@@ -7,7 +7,16 @@ import Link from "next/link";
 import avtar from "../../../public/images/useravatar.png";
 import axios from 'axios'
 import { ImLocation } from "react-icons/im";
+import { useRouter } from "next/navigation";
 const Profile = ({address}) => {
+  const router=useRouter()
+  const[loading,setloading]=useState(true)
+  useEffect(()=>{
+    if(address){
+      setloading(false)
+    }
+    router.refresh()
+  },[loading])
   // const [address, setaddress] = useState([]);
   // const [loading, setloading] = useState(true);
 
@@ -53,14 +62,14 @@ const Profile = ({address}) => {
         </div>
       </div>
       <div className="py-4 max-md:py-2 border-t-[1px] border-b-[1px] border-[#cecbcb]">
-        {/* {loading && <p className="text-center">Loading</p>} */}
-        {address?.map((add, index) => {
+        {loading && <p className="text-center">Loading</p>}
+        {!loading && address?.map((add, index) => {
           console.log("add", add);
-          const { street, city, country, phoneNo, state, zipcode } = add;
+          const { street, city, country, phoneNo, state, zipcode,_id } = add;
           return (
             <div key={index} className="pb-4 max-sm:text-[14px]">
               <Link
-                href="/"
+                href={`/Address/${_id}`}
                 className="leading-[25px] flex gap-x-4"
                 title="address"
               >
