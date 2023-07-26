@@ -8,7 +8,7 @@ const nextConfig = {
     domains:['i.dummyjson.com',"fakestoreapi.com"]
   },
   env:{ 
-    API_URL:process.env.API_URL,
+    API_URL:process.env.API_URL === 'production' ? 'https://my-cartecommerce.vercel.app/' : 'http://localhost:3000/',
     NEXTAUTH_SECRET:process.env.NEXTAUTH_SECRET
   },  async headers() {
     return [
