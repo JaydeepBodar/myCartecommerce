@@ -13,7 +13,7 @@ export const postAddress = async (req, res) => {
 };  
 export const getAddress = async (req, res) => {
   // console.log("req.user._id",req.user._id)  
-  const address = await Addressschema.find({user:req.user?._id});
+  const address = await Addressschema.find({user:req.user._id});
   res.status(200).json({ address });
 };
 export const getoneAddress = async (req, res) => {
