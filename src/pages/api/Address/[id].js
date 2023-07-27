@@ -10,5 +10,5 @@ const router = createRouter();
 db();
 router.put(updateaddress);
 router.delete(deleteAddress)
-router.get(getoneAddress);
+router.use(isAuthenticateuser).get(getoneAddress);
 export default router.handler();
