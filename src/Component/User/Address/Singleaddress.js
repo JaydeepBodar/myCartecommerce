@@ -130,8 +130,8 @@ const Singleaddress = ({ addressdata }) => {
                         }}
                         value={value}
                         data={`${
-                          disable === true ? "bg-[#9ca3af]" : ""
-                        } bg-[#fff] max-sm:text-[14px] outline-none border-none px-3 py-[10px] max-sm:py-[5px] rounded-lg w-[100%]`}
+                          disable === true ? "bg-[#9ca3af]" : "bg-[#fff]"
+                        } max-sm:text-[14px] outline-none border-none px-3 py-[10px] max-sm:py-[5px] rounded-lg w-[100%]`}
                         placeholder={placeholder}
                       />
                       {error && <p className="text-red-600">{error}</p>}

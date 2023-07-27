@@ -22,7 +22,7 @@ async function getData() {
   return data.address;
 }
 const User = async () => {
-  console.log("process.env.API_URL",process.env.API_URL)
+  // console.log("process.env.API_URL",process.env.API_URL)
   const address = await getData();
   // console.log("address", address);
   return <Profile address={address} />;

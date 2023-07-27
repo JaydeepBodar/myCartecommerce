@@ -3,7 +3,7 @@ import Container from "@/Component/Container";
 import React from "react";
 // import Accessdenied from "@/Component/Accessdenied";
 import Sidebar from "@/Component/User/Sidebar";
-import Loader from "@/Component/Loader";
+// import Loader from "@/Component/Loader"
 const Dashboard = ({ children }) => {
   return (
     <>
@@ -14,8 +14,10 @@ const Dashboard = ({ children }) => {
           </Container>
         </div>
         <Container>
-          <div className="flex py-10 h-[71.5vh] justify-between">
-            <Sidebar />
+          <div className="flex py-10 justify-between items-stretch">
+            <div className="h-[55.4vh]">
+              <Sidebar />
+            </div>
             <div className="basis-[75%]">{children}</div>
           </div>
         </Container>

@@ -10,7 +10,9 @@ import { useRouter } from "next/navigation";
 import Totalquantityt from "../Totalquantityt";
 import avtar from "../../../public/images/useravatar.png";
 import { signOut, useSession } from "next-auth/react";
+import { Globalusercontext } from "@/Context/Userproider";
 const Navbar = () => {
+  const { user } = Globalusercontext();
   const router = useRouter();
   const session = useSession();
   console.log("session", session);
@@ -52,14 +54,18 @@ const Navbar = () => {
           </div>
           <div className="flex gap-x-3 max-lg:basis-[50%] justify-end">
             {session.status === "authenticated" ? (
-              <Link href="/User" className="leading-[18px] flex items-center gap-x-[3px]" title="Profile">
+              <Link
+                href="/User"
+                className="leading-[18px] flex items-center gap-x-[3px]"
+                title="Profile"
+              >
                 <Image
-                  src={session.data?.user?.avtar ? data?.user?.avtar : avtar}
+                  src={user?.avtar ? user?.avtar : avtar}
                   width={30}
                   height={30}
                   className="rounded-full object-fill"
                 />
-                <p>{session.data.user.name}</p>
+                <p>{user?.name}</p>
               </Link>
             ) : (
               <Link href="login">

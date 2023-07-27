@@ -4,7 +4,7 @@ const Userdata = mongoose.Schema(
     name: { type: String, require },
     email: { type: String, require },
     password: { type: String, require },
-    avtar: { type: String, require },
+    avtar: { public_id: String, url: String },
     role: { type: String, require, default: "user" },
   },
   { timestamps: true }

@@ -9,7 +9,10 @@ const nextConfig = {
   },
   env:{ 
     API_URL:process.env.API_URL,
-    NEXTAUTH_SECRET:process.env.NEXTAUTH_SECRET
+    NEXTAUTH_SECRET:process.env.NEXTAUTH_SECRET,
+    CLOUD_NAME:process.env.CLOUD_NAME,
+    CLOUDINARY_API_KEY:process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_SECERT_KEY:process.env.CLOUDINARY_SECERT_KEY
   },  async headers() {
     return [
       {

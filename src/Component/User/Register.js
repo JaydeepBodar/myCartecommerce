@@ -60,7 +60,7 @@ const Register = () => {
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
               Sign up...
             </h4>
-            <form onClick={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <Inputdata
                 type="text"
                 onChange={handleChange}
