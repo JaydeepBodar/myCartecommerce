@@ -22,17 +22,18 @@ export const updateUser = async (req, res) => {
     name:req.body.name,
     email:req.body.email,
   };
-  // if (req.files.length > 0) {
+  // if (req.files?.length > 0) {
   //   const uploader = async (path) => await uploads(path, "uploadimg/myCartEcommerce/Userprofile");
 
   //   const file = req.files[0];
   //   const { path } = file;
 
   //   const avatarResponse = await uploader(path);
+  //   console.log("avtatarResponse",avatarResponse)
   //   fs.unlinkSync(path);
   //   updateuser.avatar = avatarResponse;
   // }
-  console.log("updateuser.avatar",updateuser.avatar)
+  // console.log("updateuser.avatar",updateuser.avatar)
   const user = await Userschema.findByIdAndUpdate(req.body._id,updateuser);
   // console.log("user",user)
   res.status(200).json({ message: "successfully update Profile" });

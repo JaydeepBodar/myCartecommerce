@@ -47,6 +47,7 @@ export default async function auth(req, res) {
           console.log("dtatatat")
           const updatedUser = await Userschema.findById(token.user._id);
           token.user = updatedUser;
+          console.log("updateUser",updatedUser)
         }
         return token;
       },

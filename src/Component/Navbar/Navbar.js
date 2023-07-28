@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "../Container";
 import Image from "next/image";
 import Img from "../../../public/images/logo.jpeg";
@@ -9,13 +9,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Totalquantityt from "../Totalquantityt";
 import avtar from "../../../public/images/useravatar.png";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Globalusercontext } from "@/Context/Userproider";
 const Navbar = () => {
-  const { user } = Globalusercontext();
+  const { loading, user, setuser, loaduser } = Globalusercontext();
   const router = useRouter();
   const session = useSession();
   console.log("session", session);
+  useEffect(() => {
+      setuser(user);
+      loaduser();
+  }, [user?.updatedAt]);
+  // console.log("session", session);
   const [query, setquery] = useState("");
   const submitHandler = (e) => {
     // setquery(e.target.value)
@@ -60,12 +65,12 @@ const Navbar = () => {
                 title="Profile"
               >
                 <Image
-                  src={user?.avtar ? user?.avtar : avtar}
+                  src={user?.avtar ? user?.avtar : avtar }
                   width={30}
                   height={30}
                   className="rounded-full object-fill"
                 />
-                <p>{user?.name}</p>
+                <p>{user ? user?.name : session.data?.user?.name}</p>
               </Link>
             ) : (
               <Link href="login">

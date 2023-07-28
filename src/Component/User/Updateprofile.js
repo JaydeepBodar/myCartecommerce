@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 import { Globalusercontext } from "@/Context/Userproider";
 const Updateprofile = () => {
   const session=useSession()
-  const{user}=Globalusercontext()
+  useEffect
+  const{user,loading,loaduser,setuser}=Globalusercontext()
   const router=useRouter()
   // console.log("sesssssssssss", session);
   // console.log("data",session.data)
@@ -18,10 +19,12 @@ const Updateprofile = () => {
     email: "",
   });
   useEffect(() => {
-    if (user) {
-      setInput(user);
+    if (session.data?.user) {
+      setuser(user);
+      setInput(session.data?.user)
     }
-  }, [session.data?.user]);
+    loaduser()
+  }, [user?.updatedAt]);
   // const [avatar, setAvtar] = useState("");
   // // console.log("Avtar", Avtar);
   // const [Avtarpreview, setAvtarpreview] = useState("/images/useravatar.png");
@@ -30,6 +33,23 @@ const Updateprofile = () => {
     const { name, value } = e.target;
     setInput({ ...Input, [name]: value });
   };
+  // const uploadImg = (pics) => {
+  //   const data = new FormData();
+  //   data.append("file", pics);
+  //   data.append("upload_preset", "htepld3m");
+  //   data.append("cloud_name", "dxlicroam");
+  //   fetch("https://api.cloudinary.com/v1_1/dxlicroam/image/upload/myCartEcommerce/Userprofile", {
+  //     method: "post",
+  //     body: data,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPic(data.url.toString());
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   // const onChange = (e) => {
   //   const reader = new FileReader();
 
@@ -41,18 +61,20 @@ const Updateprofile = () => {
 
   //   setAvtar(e.target.files[0]);
   //   reader.readAsDataURL(e.target.files[0]);
+  //   console.log("reader",reader)
   // };
   const handleSubmit = (e) => {
     e.preventDefault();
+    // const formdata=new FormData()
+    // formdata.set("image",avatar)
     axios
       .put(`${process.env.API_URL}api/auth/Update`, {
         _id: session.data.user?._id,
         ...Input 
       })
-      .then((res) => console.log("res", res))
+      .then((res) => console.log("res", res), loaduser(), router.push("/User"))
       .catch((e) => console.log("e", e));
-      router.push("/User")
-      router.refresh()
+      // router.refresh()
     // console.log("valyesfsfsf", { ...Input, Avtar });
   };
   return (

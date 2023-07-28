@@ -12,14 +12,17 @@ import { Globalusercontext } from "@/Context/Userproider";
 const Profile = ({address}) => {
   const router=useRouter()
   const[loading,setloading]=useState(true)
+  const{user,setuser,loaduser}=Globalusercontext()
   useEffect(()=>{
     if(address){
       setloading(false)
     }
+    setuser(user);
+    loaduser();
     router.refresh()
   },[loading])
-  const{user}=Globalusercontext()
-  // console.log("data", data);
+  const { data } = useSession();
+  console.log("data", data);
   const month = new Date(user?.createdAt).toLocaleString("en-us", {
     month: "short",
   });
