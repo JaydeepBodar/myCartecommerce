@@ -13,6 +13,7 @@ const Usercontextprovider = ({ children }) => {
   
    const loaduser=()=>{
     setloading(true)
+    console.log("dtatatat")
     // console.log("datatatattatatatatatatta")
     axios
       .get(`${process.env.API_URL}api/auth/session?update`)
