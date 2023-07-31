@@ -24,16 +24,16 @@ export default async function auth(req, res) {
               const checkpassword = await bcrypt.compare(
                 password,
                 user.password
-              );
-              if (checkpassword) {
-                console.log("user", user);
-                return user;
+                );
+                if (checkpassword) {
+                  console.log("user", user);
+                  return user;
+                } else {
+                  throw new Error("Wrong password");
+                }
               } else {
-                throw new Error("Wrong password");
+                throw new Error("User not Found");
               }
-            } else {
-              throw new Error("User not Found");
-            }
           }
         },
       }),
@@ -42,18 +42,12 @@ export default async function auth(req, res) {
       jwt: async ({ token, user }) => {
         user && (token.user = user);
         // console.log("token",token.user)
-        if (
-          process.env.API_URL === "https://my-cartecommerce.vercel.app/"
-            ? req.url ===
-              "https://my-cartecommerce.vercel.app/api/auth/session?update"
-            : req.url === `/api/auth/session?update`
-        ) { 
-          console.log("token", token);
+        if (req.url === `/api/auth/session?update`) {
           // hit the db and eturn the updated user
-          console.log("dtatatat");
+          console.log("dtatatat")
           const updatedUser = await Userschema.findById(token.user._id);
           token.user = updatedUser;
-          console.log("updateUser", updatedUser);
+          console.log("updateUser",updatedUser)
         }
         return token;
       },
@@ -63,9 +57,10 @@ export default async function auth(req, res) {
         session.user = token.user;
         delete session?.user?.password;
         return session;
+        
       },
-    },
-    secret: process.env.NEXTAUTH_SECRET,
+    },  
+    secret: process.env.NEXTAUTH_SECRET,  
     pages: {
       signIn: "/login",
     },
