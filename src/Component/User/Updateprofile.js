@@ -13,7 +13,7 @@ const Updateprofile = () => {
   const{user,loading,loaduser,setuser}=Globalusercontext()
   const router=useRouter()
   // console.log("sesssssssssss", session);
-  // console.log("data",session.data)
+  console.log("data",session.data)
   const [Input, setInput] = useState({
     name: "",
     email: "",
