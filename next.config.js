@@ -8,7 +8,7 @@ const nextConfig = {
     domains:['i.dummyjson.com',"fakestoreapi.com"]
   },
   env:{ 
-    API_URL:process.env.API_URL,
+    API_URL:process.env.NODE_ENV==="production" ? process.env.PRODUCTION_LEVEL : process.env.API_URL,
     NEXTAUTH_SECRET:process.env.NEXTAUTH_SECRET,
     CLOUD_NAME:process.env.CLOUD_NAME,
     CLOUDINARY_API_KEY:process.env.CLOUDINARY_API_KEY,

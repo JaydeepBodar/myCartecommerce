@@ -43,7 +43,7 @@ const Login = () => {
     }
   };
   if (session.status === "authenticated") {
-    router.push("/");
+    router.push("/User");
   }
   return (
     <React.Fragment>
@@ -73,7 +73,7 @@ const Login = () => {
                 label="password"
                 data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
                 className="flex-col"
-              />
+              /> 
               <button
                 onClick={handleSubmit}
                 type="submit"
