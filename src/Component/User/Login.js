@@ -29,7 +29,7 @@ const Login = () => {
       const res = await signIn("credentials", {
         redirect:false,
         ...Input,
-        // callbackUrl: callbackUrl ? parseCallbackUrl(callbackUrl) : "/",
+        callbackUrl: callbackUrl ? parseCallbackUrl(callbackUrl) : "/",
       });
       console.log("res", res);
       if (res.error) {
