@@ -41,7 +41,11 @@ export const updateUser = async (req, res) => {
 export const update_password = async (req, res) => {
   const user = await Userschema.findById(req.body.id)
   console.log("userpass",user)
-  if (req.body.currentpassword === user.password ) {
+  const passwordmatch = await bcrypt.compare(req.body.currentpassword, user.password);
+  console.log("req.body.currentpassword",req.body.currentpassword)
+  console.log("passwordmatch", passwordmatch);
+  
+  if (passwordmatch) {
     user.password =await bcrypt.hash(req.body.newpassword,10)
     await user.save();
     res.status(200).json({ message: "password updated successfully" });

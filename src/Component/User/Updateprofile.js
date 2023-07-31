@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import Inputdata from "../Inputdata";
 import Image from "next/image";
-import Tostify from "../Tostify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Globalusercontext } from "@/Context/Userproider";

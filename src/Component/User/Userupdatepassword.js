@@ -25,7 +25,7 @@ const Userupdatepassword = () => {
       await axios
         .put(`${process.env.API_URL}api/auth/Updatepassword`, {
           id: data?.user?._id,
-          currentpassword: data?.user?.password,
+          currentpassword:currentpassword,
           newpassword,
         })
         .then((res) => {
