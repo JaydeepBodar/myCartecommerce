@@ -39,11 +39,12 @@ export default async function auth(req, res) {
       }),
     ],
     callbacks: {
-      jwt: async ({ token, user }) => {
+      jwt: async ({ token, user,profile }) => {
         user && (token.user = user);
+        // console.log("req",req)
         // console.log("token",token.user)
         if (req.url === `/api/auth/session?update`) {
-          // hit the db and eturn the updated user
+          // hit the db and eturn the updated user   
           console.log("dtatatat")
           const updatedUser = await Userschema.findById(token.user._id);
           token.user = updatedUser;
@@ -55,8 +56,9 @@ export default async function auth(req, res) {
         // console.log("session",session)
         // console.log("process.env.SECERTKEY",process.env.SECERTKEY)
         session.user = token.user;
-        delete session?.user?.password;
-        return session;
+        // for delete password in user session
+        // delete session?.user?.password;
+        return session; 
         
       },
     },  

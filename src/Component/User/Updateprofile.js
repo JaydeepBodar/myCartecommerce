@@ -7,6 +7,7 @@ import Tostify from "../Tostify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Globalusercontext } from "@/Context/Userproider";
+import { toast } from "react-toastify";
 const Updateprofile = () => {
   const session=useSession()
   useEffect
@@ -72,17 +73,16 @@ const Updateprofile = () => {
         _id: session.data.user?._id,
         ...Input 
       })
-      .then((res) => console.log("res", res), loaduser(), router.push("/User"))
+      .then((res) =>   toast.success(res.data.message),loaduser(), router.push("/User"),)
       .catch((e) => console.log("e", e));
       // router.refresh()
     // console.log("valyesfsfsf", { ...Input, Avtar });
   };
   return (
     <React.Fragment>
-      <Tostify />
       <div className="md:mb-[4px] py-5 flex flex-col justify-center items-center">
-        <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-14">
-          <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
+        <div className="bg-[#f2f2f2] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-12">
+          <h4 className="text-center font-semibold text-3xl max-sm:text-xl mb-4 tracking-normal">
             Upade Profile...
           </h4>
           <form onSubmit={handleSubmit}>

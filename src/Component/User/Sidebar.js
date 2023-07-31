@@ -35,7 +35,7 @@ const Sidebar = () => {
             <li><Link href='/'>Your Profile</Link></li>
             <li><Link href='/'>Update Order</Link></li>
             <li><Link href='/User/update'>Update Profile</Link></li>
-            <li className="border-b-[1px] border-[#d4d3d3]"><Link href='/'>Update Password</Link></li>
+            <li className="border-b-[1px] border-[#d4d3d3]"><Link href='/User/updatepassword'>Update Password</Link></li>
             </>
         )}
         <li className="cursor-pointer text-red-600" onClick={()=>signOut()}>Log out</li>

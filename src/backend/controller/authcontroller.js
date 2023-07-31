@@ -19,8 +19,8 @@ export const registerUser = async (req, res) => {
 };
 export const updateUser = async (req, res) => {
   const updateuser = {
-    name:req.body.name,
-    email:req.body.email,
+    name: req.body.name,
+    email: req.body.email,
   };
   // if (req.files?.length > 0) {
   //   const uploader = async (path) => await uploads(path, "uploadimg/myCartEcommerce/Userprofile");
@@ -34,7 +34,18 @@ export const updateUser = async (req, res) => {
   //   updateuser.avatar = avatarResponse;
   // }
   // console.log("updateuser.avatar",updateuser.avatar)
-  const user = await Userschema.findByIdAndUpdate(req.body._id,updateuser);
+  const user = await Userschema.findByIdAndUpdate(req.body._id, updateuser);
   // console.log("user",user)
   res.status(200).json({ message: "successfully update Profile" });
+};
+export const update_password = async (req, res) => {
+  const user = await Userschema.findById(req.body.id)
+  console.log("userpass",user)
+  if (req.body.currentpassword === user.password ) {
+    user.password =await bcrypt.hash(req.body.newpassword,10)
+    await user.save();
+    res.status(200).json({ message: "password updated successfully" });
+  } else {
+    res.status(400).json({ message: "Wrong password" });
+  }
 };
