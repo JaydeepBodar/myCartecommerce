@@ -13,7 +13,8 @@ const nextConfig = {
     CLOUD_NAME:process.env.CLOUD_NAME,
     CLOUDINARY_API_KEY:process.env.CLOUDINARY_API_KEY,
     CLOUDINARY_SECERT_KEY:process.env.CLOUDINARY_SECERT_KEY
-  },  async headers() {
+  },  
+  async headers() {
     return [
       {
         source: '/api/:path*',
