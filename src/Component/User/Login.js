@@ -31,15 +31,15 @@ const Login = () => {
         ...Input,
         callbackUrl: callbackUrl ? parseCallbackUrl(callbackUrl) : "/",
       });
-      console.log("res", res);
+      // console.log("res", res);
       if (res.error) {
         toast.error(res.error);
       } else {
         return res;
       }
     } catch (err) {
-      console.log("datafirst");
-      console.log("err", err);
+      // console.log("datafirst");
+      // console.log("err", err);
     }
   };
   if (session.status === "authenticated") {

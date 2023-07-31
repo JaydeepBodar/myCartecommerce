@@ -42,7 +42,7 @@ const Register = () => {
               toast.warn(e.response.data.message);
             }
           });
-        // console.log("value");
+        console.log("value",values);
       },
     });
   return (

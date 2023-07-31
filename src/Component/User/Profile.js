@@ -22,7 +22,7 @@ const Profile = ({address}) => {
     router.refresh()
   },[loading])
   const { data } = useSession();
-  console.log("data", data);
+  // console.log("data", data);
   const month = new Date(user?.createdAt).toLocaleString("en-us", {
     month: "short",
   });
