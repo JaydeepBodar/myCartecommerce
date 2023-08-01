@@ -65,10 +65,10 @@ const Navbar = () => {
                 title="Profile"
               >
                 <Image
-                  src={user?.avtar ? user?.avtar : avtar }
+                  src={user ? user?.avatar : session.data?.user?.avatar}
                   width={30}
                   height={30}
-                  className="rounded-full object-fill"
+                  className="w-[30px] h-[30px] rounded-full object-fill"
                 />
                 <p>{user ? user?.name : session.data?.user?.name}</p>
               </Link>

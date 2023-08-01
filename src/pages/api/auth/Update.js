@@ -9,6 +9,5 @@ db();
 //       bodyParser: false,
 //     },
 //   };
-//   const uploadMiddleware = upload.array("image");
-router.put(updateUser);
+router.put(updateUser); 
 export default router.handler();

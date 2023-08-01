@@ -15,5 +15,5 @@ export default withAuth(
   // }
 );
 export const config = {
-  matcher: ["/User","/Address/New"],
+  matcher: ["/User","/Address/New","/User/update"],
 };

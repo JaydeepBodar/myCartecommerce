@@ -13,6 +13,7 @@ const Profile = ({address}) => {
   const router=useRouter()
   const[loading,setloading]=useState(true)
   const{user,setuser,loaduser}=Globalusercontext()
+  const { data } = useSession();
   useEffect(()=>{
     if(address){
       setloading(false)
@@ -21,7 +22,6 @@ const Profile = ({address}) => {
     loaduser();
     router.refresh()
   },[loading])
-  const { data } = useSession();
   // console.log("data", data);
   const month = new Date(user?.createdAt).toLocaleString("en-us", {
     month: "short",
@@ -33,10 +33,10 @@ const Profile = ({address}) => {
       <div className="flex items-center gap-x-7 pb-5 max-md:gap-x-2	">
         <div>
           <Image
-            src={user?.avtar ? user?.avtar : avtar}
+            src={user ? user?.avatar : data?.user?.avatar}
             width={100}
             height={100}
-            className="rounded-full"
+            className="w-[100px] h-[100px] rounded-full"
           />
         </div>
         <div className="text-[18px] max-md:text-[15px]">

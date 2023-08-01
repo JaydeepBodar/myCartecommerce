@@ -8,12 +8,13 @@ import { useRouter } from "next/navigation";
 import { Globalusercontext } from "@/Context/Userproider";
 import { toast } from "react-toastify";
 const Updateprofile = () => {
-  const session=useSession()
-  useEffect
-  const{user,loading,loaduser,setuser}=Globalusercontext()
-  const router=useRouter()
+  const session = useSession();
+  useEffect;
+  const { user, loading, loaduser, setuser } = Globalusercontext();
+  const router = useRouter();
   // console.log("sesssssssssss", session);
-  console.log("data",session.data)
+  console.log("data", session.data);
+  const [pic, setPic] = useState();
   const [Input, setInput] = useState({
     name: "",
     email: "",
@@ -21,36 +22,77 @@ const Updateprofile = () => {
   useEffect(() => {
     if (session.data?.user) {
       setuser(user);
-      setInput(session.data?.user)
+      setInput(session.data?.user);
+      setPic(session.data?.user?.avatar)
     }
-    loaduser()
+    loaduser();
   }, [user?.updatedAt]);
   // const [avatar, setAvtar] = useState("");
   // // console.log("Avtar", Avtar);
-  // const [Avtarpreview, setAvtarpreview] = useState("/images/useravatar.png");
+  const [Avtarpreview, setAvtarpreview] = useState("/images/useravatar.png");
   const { name, email } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...Input, [name]: value });
   };
-  // const uploadImg = (pics) => {
-  //   const data = new FormData();
-  //   data.append("file", pics);
-  //   data.append("upload_preset", "htepld3m");
-  //   data.append("cloud_name", "dxlicroam");
-  //   fetch("https://api.cloudinary.com/v1_1/dxlicroam/image/upload/myCartEcommerce/Userprofile", {
-  //     method: "post",
-  //     body: data,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPic(data.url.toString());
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
+  const uploadImg = (pics) => {
+    const data = new FormData();
+    data.append("file", pics);
+    data.append("upload_preset", "htepld3m");
+    data.append(
+      "public_id",
+      "myCarteCommerce/Useprofile/" + name + "_" + new Date()
+    );
+    data.append("cloud_name", "dxlicroam");
+    fetch("https://api.cloudinary.com/v1_1/dxlicroam/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data",data)
+        setPic(data.url.toString());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // const onChange = (event) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     const i = event.target.files[0];
+
+  //     setAvtar(i);
+  //     setAvtarpreview(URL?.Avtarpreview(i));
+  //   }
   // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put(
+        `${process.env.API_URL}api/auth/Update`,
+        {
+          _id: session.data.user?._id,
+          ...Input,
+          avatar: pic,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      )
+      .then(
+        (res) => toast.success(res.data.message),
+        loaduser(),
+        router.push("/User")
+      )
+      .catch((e) => console.log("e", e));
+    // router.refresh()
+    // console.log("valyesfsfsf", { ...Input, Avtar });
+    // console.log("Avtar", avatar);  
+  };
   // const onChange = (e) => {
+  //   console.log("e", e);
   //   const reader = new FileReader();
 
   //   reader.onload = () => {
@@ -61,22 +103,7 @@ const Updateprofile = () => {
 
   //   setAvtar(e.target.files[0]);
   //   reader.readAsDataURL(e.target.files[0]);
-  //   console.log("reader",reader)
   // };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // const formdata=new FormData()
-    // formdata.set("image",avatar)
-    axios
-      .put(`${process.env.API_URL}api/auth/Update`, {
-        _id: session.data.user?._id,
-        ...Input 
-      })
-      .then((res) =>   toast.success(res.data.message),loaduser(), router.push("/User"),)
-      .catch((e) => console.log("e", e));
-      // router.refresh()
-    // console.log("valyesfsfsf", { ...Input, Avtar });
-  };
   return (
     <React.Fragment>
       <div className="md:mb-[4px] py-5 flex flex-col justify-center items-center">
@@ -105,21 +132,23 @@ const Updateprofile = () => {
               data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
               className="flex-col"
             />
-            {/* <div className="flex items-center gap-x-2 my-2">
+            <div className="flex items-center gap-x-2 my-2">
               <Image
-                src={Avtarpreview}
+                src={pic}
                 width={80}
                 height={80}
-                className="w-[80px] h-[80px] object-cover rounded-full"
+                className="rounded-full object-fill w-[80px] h-[80px]"
               />
               <Inputdata
+                // name='image'
                 type="file"
-                onChange={onChange}
+                onChange={(e) => uploadImg(e.target.files[0])}
+                id="formFile"
                 label="Upload Profile"
                 data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
                 className="flex-col"
               />
-            </div> */}
+            </div>
             <button
               type="submit"
               className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md"

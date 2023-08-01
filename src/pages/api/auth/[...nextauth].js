@@ -57,7 +57,7 @@ export default async function auth(req, res) {
         // console.log("process.env.SECERTKEY",process.env.SECERTKEY)
         session.user = token.user;
         // for delete password in user session
-        // delete session?.user?.password;
+        delete session?.user?.password;
         return session; 
         
       },

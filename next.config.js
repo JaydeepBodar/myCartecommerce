@@ -5,7 +5,7 @@ const nextConfig = {
   //   appDir: true,
   // },
   images:{
-    domains:['i.dummyjson.com',"fakestoreapi.com"]
+    domains:['i.dummyjson.com',"fakestoreapi.com","res.cloudinary.com"]
   },
   env:{ 
     API_URL:process.env.API_URL,

@@ -1,6 +1,7 @@
 import Userschema from "../model/Userschema";
 import bcrypt from "bcrypt";
 import { uploads } from "../utils/cloudinary";
+import fs  from 'fs'
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   const user = await Userschema.findOne({ email: email });
@@ -21,35 +22,19 @@ export const updateUser = async (req, res) => {
   const updateuser = {
     name: req.body.name,
     email: req.body.email,
+    avatar:req.body.avatar  
   };
   // if (req.files?.length > 0) {
   //   const uploader = async (path) => await uploads(path, "uploadimg/myCartEcommerce/Userprofile");
-
   //   const file = req.files[0];
   //   const { path } = file;
-
   //   const avatarResponse = await uploader(path);
   //   console.log("avtatarResponse",avatarResponse)
   //   fs.unlinkSync(path);
-  //   updateuser.avatar = avatarResponse;
+  //   updateuser.avatar=avatarResponse
   // }
-  // console.log("updateuser.avatar",updateuser.avatar)
-  const user = await Userschema.findByIdAndUpdate(req.body._id, updateuser);
-  // console.log("user",user)
-  res.status(200).json({ message: "successfully update Profile" });
+  const user = await Userschema.findByIdAndUpdate(req.body._id, updateuser,{new: true});
+  console.log("user",user)
+  res.status(200).json({ message: "Successfully Update Profile" });
 };
-export const update_password = async (req, res) => {
-  const user = await Userschema.findById(req.body.id)
-  console.log("userpass",user)
-  const passwordmatch = await bcrypt.compare(req.body.currentpassword, user.password);
-  console.log("req.body.currentpassword",req.body.currentpassword)
-  console.log("passwordmatch", passwordmatch);
-  
-  if (passwordmatch) {
-    user.password =await bcrypt.hash(req.body.newpassword,10)
-    await user.save();
-    res.status(200).json({ message: "password updated successfully" });
-  } else {
-    res.status(400).json({ message: "Wrong password" });
-  }
-};
+
