@@ -6,7 +6,9 @@ import Container from "../../Container";
 import Inputdata from "../../Inputdata";
 import Sidebar from "../Sidebar";
 import Validations from "../../Validation";
+import { useRouter } from "next/navigation";
 const Address = () => {
+  const router=useRouter()
   const { data } = useSession();
   const [Input, setInput] = useState({
     street: "",
@@ -71,7 +73,7 @@ const Address = () => {
         .post(`${process.env.API_URL}api/Address`, {
           ...Input,user:data?.user?._id 
         })
-        .then((res) => console.log("res", res))
+        .then((res) => console.log("res", res),router.push('/User'))
         .catch((e) => console.log("e", e));
     } else {
       setErrors(Validations(Input));

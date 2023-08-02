@@ -12,14 +12,13 @@ const Updateprofile = () => {
   useEffect;
   const { user, loading, loaduser, setuser } = Globalusercontext();
   const router = useRouter();
-  // console.log("sesssssssssss", session);
   console.log("data", session.data);
   const [pic, setPic] = useState();
   const [Input, setInput] = useState({
     name: "",
     email: "",
   });
-  useEffect(() => {
+  useEffect(() => {``
     if (session.data?.user) {
       setuser(user);
       setInput(session.data?.user);
@@ -27,9 +26,6 @@ const Updateprofile = () => {
     }
     loaduser();
   }, [user?.updatedAt]);
-  // const [avatar, setAvtar] = useState("");
-  // // console.log("Avtar", Avtar);
-  const [Avtarpreview, setAvtarpreview] = useState("/images/useravatar.png");
   const { name, email } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,14 +53,6 @@ const Updateprofile = () => {
         console.log(err);
       });
   };
-  // const onChange = (event) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     const i = event.target.files[0];
-
-  //     setAvtar(i);
-  //     setAvtarpreview(URL?.Avtarpreview(i));
-  //   }
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     axios

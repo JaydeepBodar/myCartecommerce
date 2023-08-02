@@ -27,8 +27,8 @@ color:#dc2626;
   font-weight: 500;
 }
 .scrollbar{
-  height: 450px;
-  overflow-y: scroll;
+  max-height: 450px;
+  overflow-y: auto;
   padding-right: 15px;
 }
 .scrollbar::-webkit-scrollbar {
@@ -70,7 +70,23 @@ color:#dc2626;
   .newdata2{
     flex-basis: 45% !important;
   }
+  .content h4{
+    font-size: 15px;
+  }
 }
+.content h4{
+  border-bottom: 1px solid #cecbcb;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+}
+@media screen and (max-width: 480px){
+  .Toastify .Toastify__toast-container {
+      width: 100%;
+      max-width: 250px;
+      top: 65px;
+      right: 0 !important;
+  }       
+} 
 a {
   color: inherit;
   text-decoration: none;

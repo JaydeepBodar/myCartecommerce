@@ -77,7 +77,7 @@ const Navbar = () => {
                 <MdAccountCircle className="w-6 h-6" title="Log in" />
               </Link>
             )}
-            <Link href="Cart" className="relative">
+            <Link href="/Cart" className="relative">
               <BsCart3 title="Cart" className="w-6 h-6" />
               <p className="absolute w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center top-[-18px] right-2">
                 <Totalquantityt />

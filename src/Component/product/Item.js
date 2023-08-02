@@ -104,13 +104,13 @@ const Item = ({ product, loading }) => {
             {((price * discountPercentage) / 100).toFixed(0)}$
           </span>
         </h5>
-        <button
+        <Link
           onClick={Additem}
-          href="/"
+          href={`${btn === "Go to Cart" ? "Cart" : ""}`}
           className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
         >
           {btn}
-        </button>
+        </Link>
         {btn === "Go to Cart" && (
           <button
             className={`${
