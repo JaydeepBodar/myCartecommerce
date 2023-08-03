@@ -99,7 +99,7 @@ const Singleaddress = ({ addressdata }) => {
   };
   return (
     <Container>
-      <div className="flex py-10 h-[81.6vh] justify-between max-sm:flex-col max-sm:h-[auto]">
+      <div className="flex py-10 h-[81.6vh] justify-between max-sm:flex-col max-sm:justify-self">
         <div className="max-sm:pb-4">
           <Sidebar />
         </div>
