@@ -24,37 +24,31 @@ export default async function auth(req, res) {
               const checkpassword = await bcrypt.compare(
                 password,
                 user.password
-              );
-              if (checkpassword) {
-                console.log("user", user);
-                return user;
+                );
+                if (checkpassword) {
+                  console.log("user", user);
+                  return user;
+                } else {
+                  throw new Error("Wrong password");
+                }
               } else {
-                throw new Error("Wrong password");
+                throw new Error("User not Found");
               }
-            } else {
-              throw new Error("User not Found");
-            }
           }
         },
       }),
     ],
     callbacks: {
-      jwt: async ({ token, user, profile }) => {
+      jwt: async ({ token, user,profile }) => {
         user && (token.user = user);
         // console.log("req",req)
         // console.log("token",token.user)
-        if (
-          process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
-            ? (req.url =
-                "https://my-cartecommerce-ljdm.vercel.app/api/auth/session?update")
-            : req.url === `/api/auth/session?update`
-        ) {
-          // hit the db and eturn the updated user
-          console.log("dtatatat");
+        if (req.url === `/api/auth/session?update`) {
+          // hit the db and eturn the updated user   
+          console.log("dtatatat")
           const updatedUser = await Userschema.findById(token.user._id);
-          console.log("token", token);
           token.user = updatedUser;
-          console.log("updateUser", updatedUser);
+          console.log("updateUser",updatedUser)
         }
         return token;
       },
@@ -64,10 +58,11 @@ export default async function auth(req, res) {
         session.user = token.user;
         // for delete password in user session
         delete session?.user?.password;
-        return session;
+        return session; 
+        
       },
-    },
-    secret: process.env.NEXTAUTH_SECRET,
+    },  
+    secret: process.env.NEXTAUTH_SECRET,  
     pages: {
       signIn: "/login",
     },

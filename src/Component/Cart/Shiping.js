@@ -24,7 +24,7 @@ const Shiping = ({ address }) => {
     if (!shippingInfo) {
       toast.error("Please select shiping address");
     } else {
-      // stripe
+      // stripe 
     }
   };
   return (
