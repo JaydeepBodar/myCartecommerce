@@ -7,7 +7,7 @@ const Globalcontext = ({ children }) => {
   return (
     <Cartprovider>
       <AuthProvider>
-        <Usercontextprovider>{children}</Usercontextprovider>
+          <Usercontextprovider>{children}</Usercontextprovider>
       </AuthProvider>
     </Cartprovider>
   );

@@ -6,6 +6,7 @@ import Sidebar from "@/Component/User/Sidebar";
 import Tostify from "@/Component/Tostify";
 // import Loader from "@/Component/Loader"
 const Dashboard = ({ children }) => {
+
   return (
     <>
       <section>
@@ -16,11 +17,11 @@ const Dashboard = ({ children }) => {
           </Container>
         </div>
         <Container>
-          <div className="flex py-10 justify-between items-stretch">
-            <div className="h-[55.4vh]">
+          <div className="flex py-10 justify-between items-stretch max-sm:flex-col">
+            <div className="h-[55.4vh] max-sm:h-[auto] max-sm:pb-4" title="user info">
               <Sidebar />
             </div>
-            <div className="basis-[75%]">{children}</div>
+            <div className="max-sm:basis-[97%] basis-[75%]">{children}</div>
           </div>
         </Container>
       </section>

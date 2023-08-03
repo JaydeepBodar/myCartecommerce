@@ -6,19 +6,19 @@ import Img from "../../../public/images/logo.jpeg";
 import { MdAccountCircle } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Totalquantityt from "../Totalquantityt";
-import avtar from "../../../public/images/useravatar.png";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Globalusercontext } from "@/Context/Userproider";
 const Navbar = () => {
   const { loading, user, setuser, loaduser } = Globalusercontext();
   const router = useRouter();
+  const pathname = usePathname();
   const session = useSession();
   console.log("session", session);
   useEffect(() => {
-      setuser(user);
-      loaduser();
+    setuser(user);
+    loaduser();
   }, [user?.updatedAt]);
   // console.log("session", session);
   const [query, setquery] = useState("");
@@ -40,23 +40,25 @@ const Navbar = () => {
               <Image alt="logo" src={Img} className="w-40 object-fill h-13" />
             </Link>
           </div>
-          <div
-            className="flex max-lg:order-last max-lg:w-[100%] max-lg:mb-3"
-            onKeyUp={submitHandler}
-          >
-            <input
-              value={query}
-              onChange={(e) => setquery(e.target.value)}
-              placeholder="Search..."
-              className="rounded-tl-lg w-[400px] max-md:w-[100%] rounded-bl-lg border-none outline-none bg-slate-200 px-3 py-1"
-            />
-            <button
-              onClick={submitHandler}
-              className=" tracking-wide w-[100%] max-w-[80px] bg-red-600 py-1 font-semibold  text-[#fff] rounded-tr-lg rounded-br-lg"
+          {pathname === "/" && (
+            <div
+              className="flex max-lg:order-last max-lg:w-[100%] max-lg:mb-3"
+              onKeyUp={submitHandler}
             >
-              Search
-            </button>
-          </div>
+              <input
+                value={query}
+                onChange={(e) => setquery(e.target.value)}
+                placeholder="Search..."
+                className="rounded-tl-lg w-[400px] max-md:w-[100%] rounded-bl-lg border-none outline-none bg-slate-200 px-3 py-1"
+              />
+              <button
+                onClick={submitHandler}
+                className=" tracking-wide w-[100%] max-w-[80px] bg-red-600 py-1 font-semibold  text-[#fff] rounded-tr-lg rounded-br-lg"
+              >
+                Search
+              </button>
+            </div>
+          )}
           <div className="flex gap-x-3 max-lg:basis-[50%] justify-end">
             {session.status === "authenticated" ? (
               <Link

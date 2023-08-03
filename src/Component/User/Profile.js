@@ -4,8 +4,6 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
-import avtar from "../../../public/images/useravatar.png";
-import axios from 'axios'
 import { ImLocation } from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { Globalusercontext } from "@/Context/Userproider";

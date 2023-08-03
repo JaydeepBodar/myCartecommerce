@@ -77,28 +77,30 @@ const Cartitem = () => {
                         pathname === "/shiping" && "basis-[100%] w-[100%]"
                       } basis-[70%] max-sm:basis-[100%] max-sm:w-[100%] flex items-center gap-x-4`}
                     >
-                      <Link
-                        href={`/productdata/${_id}`}
-                        className={`${
-                          pathname === "/shiping" && "w-[auto] h-[auto]"
-                        } w-[100%] max-w-[150px] h-[100%] max-h-[200px] flex justify-center`}
-                      >
-                        <Image
-                          src={thumbnail}
-                          alt="title"
-                          width={150}
-                          height={200}
+                      <div>
+                        <Link
+                          href={`/productdata/${_id}`}
                           className={`${
-                            pathname === "/shiping" && "w-[50px] h-[50px]"
-                          }`}
-                          style={{
-                            borderRadius: "50%",
-                            objectFill: "contain",
-                            cursor: "pointer",
-                            width: "100%",
-                          }}
-                        />
-                      </Link>
+                            pathname === "/shiping" && "w-[auto] h-[auto]"
+                          } w-[100%] max-w-[150px] h-[100%] max-h-[200px] flex justify-center`}
+                        >
+                          <Image
+                            src={thumbnail}
+                            alt="title"
+                            width={150}
+                            height={200}
+                            className={`${
+                              pathname === "/shiping" && "w-[50px] h-[50px]"
+                            }`}
+                            style={{
+                              borderRadius: "50%",
+                              objectFill: "contain",
+                              cursor: "pointer",
+                              width: "100%",
+                            }}
+                          />
+                        </Link>
+                      </div>
                       <div>
                         <h3
                           className={`${

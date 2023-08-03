@@ -60,12 +60,8 @@ color:#dc2626;
   }
 }
 @media screen and (max-width:640px) {
-  .responsive{
-    display: block;
-    position: absolute;
-    left: 0;
-    height: 0;
-    background-color: rgb(156, 22, 22);
+  .responsive a{
+      color: #f2f2f2;    
   }
   .hidedata{
     display:none;

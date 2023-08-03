@@ -15,7 +15,7 @@ async function getData() {
       Cookie:cookie
     },
   });
-  if (!data) {
+  if (!data) { 
     console.log("error");
   }
   // console.log("data.address",data.address)
