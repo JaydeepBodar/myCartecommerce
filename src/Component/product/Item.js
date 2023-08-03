@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Loader from "../Loader";
 import Link from "next/link";
 import ReactStars from "react-stars";
 import Image from "next/image";

@@ -44,7 +44,7 @@ const Shiping = ({ address }) => {
           <div className="max-md:py-2 border-[1px] border-[#cecbcb] px-4 py-3 h-[auto] mt-4 rounded-lg">
             <div className="pb-4 max-sm:text-[14px] flex justify-between flex-wrap gap-x-1 max-lg:gap-y-1">
               {address?.map((add, index) => {
-                console.log("add", add);
+                {/* console.log("add", add); */}
                 const { street, city, country, phoneNo, state, zipcode, _id } =
                   add;
                 return (
