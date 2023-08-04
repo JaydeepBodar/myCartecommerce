@@ -33,7 +33,7 @@ const Shiping = ({ address }) => {
         <div className="flex justify-center items-center h-[74.8vh]">
           <Loader />
         </div>
-      )}
+      )}w
       <div
         className={`${
           cart?.cartItems?.length === 0 && "h-[81vh]"
@@ -41,7 +41,7 @@ const Shiping = ({ address }) => {
       >
         <Tostify/>
         {!loading && (
-          <div className="max-md:py-2 border-[1px] border-[#cecbcb] px-4 py-3 h-[auto] mt-4 rounded-lg">
+          <div className="w-[100%] basis-[75%] max-md:basis-[100%] max-md:py-2 border-[1px] border-[#cecbcb] px-4 py-3 h-[auto] mt-4 rounded-lg">
             <div className="pb-4 max-sm:text-[14px] flex justify-between flex-wrap gap-x-1 max-lg:gap-y-1">
               {address?.map((add, index) => {
                 {/* console.log("add", add); */}
@@ -83,7 +83,7 @@ const Shiping = ({ address }) => {
                 Add Address
               </button>
             </Link>
-            <div className="flex justify-end gap-x-2 max-md:pt-2">
+            <div className="flex justify-end gap-x-2 max-lg:pt-2">
               <Link
                 href="/Cart"
                 className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 block"

@@ -77,7 +77,10 @@ const Cartitem = () => {
                         pathname === "/shiping" && "basis-[100%] w-[100%]"
                       } basis-[70%] max-sm:basis-[100%] max-sm:w-[100%] flex items-center gap-x-4`}
                     >
-                      <div>
+                      <div className="relative">
+                        <div className={`${pathname === "/shiping" ? "block" : "hidden" }`}>
+                            <Totalquantityt classname="absolute w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] right-0 top-[-8px] text-center"/>
+                        </div>
                         <Link
                           href={`/productdata/${_id}`}
                           className={`${

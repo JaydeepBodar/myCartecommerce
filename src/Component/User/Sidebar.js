@@ -2,30 +2,46 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { AiOutlineMenu,AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 const Sidebar = () => {
   const { data } = useSession();
-  const [toggle,settoggle]=useState(false);
-  const toggleData=()=>{
-    settoggle(data=>!data)
-  } 
+  const [toggle, settoggle] = useState(false);
+  const toggleData = () => {
+    settoggle((data) => !data);
+  };
   console.log("toggle", toggle);
   return (
     <div
       className={`${
-        toggle === true && "absolute left-0 right-0 top-0 bottom-0 bg-zinc-900/70"
+        toggle === true &&
+        "absolute left-0 right-0 top-0 bottom-0 bg-zinc-900/70"
       }`}
     >
-      <AiOutlineMenu
-        onClick={toggleData}
-        className={`${toggle === true ? "hidden" : " max-sm:block w-[30px] h-[30px] fill-red-600"} sm:hidden`}
-      />
       <div
         className={`${
-          toggle === true && "max-sm:h-[100vh] flex justify-center items-center relative"
+          toggle === true ? "hidden" : "max-sm:flex max-sm:items-center max-sm:gap-x-2"
+        }  sm:hidden`}
+      >
+        <AiOutlineMenu
+          onClick={toggleData}
+          className="w-[30px] h-[30px] fill-red-600"
+        />
+        <span className=" text-red-600">User profile</span>
+      </div>
+      <div
+        className={`${
+          toggle === true &&
+          "max-sm:h-[100vh] flex justify-center items-center relative"
         }`}
       >
-        <AiOutlineClose className={`${toggle===true ? "max-sm:block absolute top-[35%] text-center w-[30px] h-[30px]" : "max-sm:hidden"} sm:hidden fill-[#f2f2f2]`} onClick={()=>settoggle(false)}/>
+        <AiOutlineClose
+          className={`${
+            toggle === true
+              ? "max-sm:block absolute top-[35%] text-center w-[30px] h-[30px]"
+              : "max-sm:hidden"
+          } sm:hidden fill-[#f2f2f2]`}
+          onClick={() => settoggle(false)}
+        />
         <ul
           className={`${
             toggle === true ? "responsive" : "hidedata"
