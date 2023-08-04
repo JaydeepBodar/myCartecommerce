@@ -33,7 +33,7 @@ const Sidebar = () => {
           toggle === true &&
           "max-sm:h-[100vh] flex justify-center items-center relative"
         }`}
-      >
+      >   
         <AiOutlineClose
           className={`${
             toggle === true

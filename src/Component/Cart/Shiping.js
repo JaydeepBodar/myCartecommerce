@@ -33,7 +33,7 @@ const Shiping = ({ address }) => {
         <div className="flex justify-center items-center h-[74.8vh]">
           <Loader />
         </div>
-      )}w
+      )}
       <div
         className={`${
           cart?.cartItems?.length === 0 && "h-[81vh]"
