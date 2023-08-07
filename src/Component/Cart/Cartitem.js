@@ -58,11 +58,9 @@ const Cartitem = () => {
                 console.log("value", value);
                 const {
                   title,
-                  price,
                   category,
                   thumbnail,
                   _id,
-                  discountPercentage,
                   quantity,
                 } = value;
                 return (

@@ -29,7 +29,7 @@ class APIFilter {
       } else {
         props = key.split("[")[0];
         console.log("props", props);
-        let operator = key.match(/\[(.*)\]/)[1];
+        let operator = key.match(/\[(.*)\]/)[1]; 
         if (!output[props]) {
           output[props] = {};
         }

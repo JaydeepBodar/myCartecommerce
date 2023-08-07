@@ -3,14 +3,17 @@ import React, { useState, useEffect } from "react";
 import Container from "../Container";
 import Cartitem from "./Cartitem";
 import Link from "next/link";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AiOutlinePlus } from "react-icons/ai";
 import Loader from "../Loader";
 import { CartgloblContext } from "@/Context/Cartcontext";
 import { toast } from "react-toastify";
 import Tostify from "../Tostify";
+import { useSession } from "next-auth/react";
 const Shiping = ({ address }) => {
   const { cart } = CartgloblContext();
+  const session=useSession()
   const router = useRouter();
   const [shippingInfo, setshippingInfo] = useState();
   const [loading, setloading] = useState(true);
@@ -20,10 +23,22 @@ const Shiping = ({ address }) => {
     }
     router.refresh();
   }, [loading]);
-  const checkOuthandler = () => {
+  const checkOuthandler =async() => {
     if (!shippingInfo) {
       toast.error("Please select shiping address");
     } else {
+      try{
+        const {data}=await axios.post(`${process.env.API_URL}api/Order/checkout_session`,{
+          items:cart?.cartItems,
+          shippingInfo,
+          id:session.data?.user?._id,
+          email:session.data?.user?.email
+        }) 
+        router.push(data.url)
+        
+      }catch(e){
+        console.log("e",e)
+      }
       // stripe 
     }
   };
@@ -90,13 +105,12 @@ const Shiping = ({ address }) => {
               >
                 Back
               </Link>
-              <Link
-                href="/shiping"
+              <div
                 className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-[#008000] bg-[#008000] text-white"
                 onClick={checkOuthandler}
               >
                 Checkout
-              </Link>
+              </div>
             </div>
           </div>
         )}

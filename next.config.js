@@ -12,7 +12,9 @@ const nextConfig = {
     NEXTAUTH_SECRET:process.env.NEXTAUTH_SECRET,
     CLOUD_NAME:process.env.CLOUD_NAME,
     CLOUDINARY_API_KEY:process.env.CLOUDINARY_API_KEY,
-    CLOUDINARY_SECERT_KEY:process.env.CLOUDINARY_SECERT_KEY
+    CLOUDINARY_SECERT_KEY:process.env.CLOUDINARY_SECERT_KEY,
+    STRIPE_PUPLISHKEY:process.env.STRIPE_PUPLISHKEY,
+    STRIPE_SECERETKEY:process.env.STRIPE_SECERETKEY
   },  
   async headers() {
     return [
