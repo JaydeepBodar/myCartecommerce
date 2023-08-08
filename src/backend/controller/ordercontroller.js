@@ -1,3 +1,4 @@
+import getRawBody from "raw-body";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
@@ -13,7 +14,7 @@ export const checkoutsession = async (req, res) => {
         },
         unit_amount: item.price * 100,
       },
-			tax_rates: ["txr_1NcR8qSFLEGSzdCivrzZ1H3P"],
+			tax_rates: ["txr_1Nco0nSFLEGSzdCihpokz2Tv"],
 			quantity: item.quantity,
     };
   })
@@ -28,7 +29,7 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1NcQxhSFLEGSzdCiFS6zPC7I",
+        shipping_rate: "shr_1Nco1WSFLEGSzdCi2gt2wxo3",
       },
     ],
     line_items,
@@ -36,3 +37,13 @@ export const checkoutsession = async (req, res) => {
 	// console.log("sessionurl",session)
   res.status(200).json({ url: session.url });
 };
+export const webhook=async(req,res)=>{
+  const rawbody=await getRawBody(req)
+  const signature=req.headers["stripe-signature"]
+  const event=stripe.webhooks.constructEvent(rawbody,signature,process.env.WEBHOOKS_SECERATKEY)
+  if(event.type === "checkout.session.completed"){
+      const session=event.data.object
+      const line_items=await stripe.checkout.sessions.listLineItems(event.data.object.id)
+      console.log("line_items",line_items)
+  }
+}

@@ -14,7 +14,8 @@ const nextConfig = {
     CLOUDINARY_API_KEY:process.env.CLOUDINARY_API_KEY,
     CLOUDINARY_SECERT_KEY:process.env.CLOUDINARY_SECERT_KEY,
     STRIPE_PUPLISHKEY:process.env.STRIPE_PUPLISHKEY,
-    STRIPE_SECERETKEY:process.env.STRIPE_SECERETKEY
+    STRIPE_SECERETKEY:process.env.STRIPE_SECERETKEY,
+    WEBHOOKS_SECERATKEY:process.env.WEBHOOKS_SECERATKEY
   },  
   async headers() {
     return [

@@ -34,7 +34,7 @@ const Shiping = ({ address }) => {
           id:session.data?.user?._id,
           email:session.data?.user?.email
         }) 
-        router.push(data.url)
+        window.location.href=data.url
         
       }catch(e){
         console.log("e",e)
