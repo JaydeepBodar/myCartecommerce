@@ -16,7 +16,7 @@ export const checkoutsession = async (req, res) => {
         },
         unit_amount: item.price * 100,
       },
-      tax_rates: ["txr_1NdSNISFLEGSzdCiTXPzEoWt"],
+      tax_rates: ["txr_1NdWKoSFLEGSzdCiFo12O31s"],
       quantity: item.quantity,
     };
   });
@@ -32,7 +32,7 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1NdSMVSFLEGSzdCiKL3u8buD",
+        shipping_rate: "shr_1NdWK0SFLEGSzdCiE0xLsRJm",
       },
     ],
     line_items,
@@ -45,9 +45,9 @@ const getCartitems=async(line_items)=>{
   return new Promise((resolve,reject)=>{
     let cartItems=[]
     line_items?.data?.forEach(async(item)=>{ 
-      console.log("itemdataatata",item?.price)
+      // console.log("itemdataatata",item?.price)
         const product=await stripe.products.retrieve(item?.price?.product)
-        console.log("productdetails",product)
+        // console.log("productdetails",product)
         const productid=product?.metadata?.productId
         cartItems?.push({
           product:productid,
@@ -57,7 +57,7 @@ const getCartitems=async(line_items)=>{
           quantity:item.quantity,
         })
         if(cartItems?.length === line_items?.data?.length){
-          console.log("resolvedatatatatatatta")
+          // console.log("resolvedatatatatatatta")
           resolve(cartItems)
         }
     })
@@ -94,9 +94,9 @@ export const webhook = async (req, res) => {
         orderItems:getOrder,
         paymentInfo
       } 
-      console.log("orderData",orderData)
+      // console.log("orderData",orderData)
       const order=await orderSchema.create(orderData)
-      console.log("order",order)
+      // console.log("order",order)
       res.status(200).json({success:"true"})
     }
   } catch (e) {
