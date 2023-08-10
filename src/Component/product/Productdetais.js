@@ -9,7 +9,7 @@ const Productdetais = ({ singleproduct, loading }) => {
   const { cart, addItemtocart, deletItem } = CartgloblContext();
   const [img, setimg] = useState("");
   const [btn, setbtn] = useState("Add Cart");
-  console.log("singleproduct", singleproduct);
+  // console.log("singleproduct", singleproduct);
   const Removeitem = () => {
     let text =
       "if you really want to remove item from the cart ? if yes then press ok otherwise press cancle";

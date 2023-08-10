@@ -22,7 +22,7 @@ const Filter = () => {
     { name: "category", value: "women's clothing", label: "Women's clothing" },
   ];
   const star = [
-    { value: "Reset", name: "rating" },
+    { value: 0, name: "rating" },
     { value: 5, name: "rating" },
     { value: 4, name: "rating" },
     { value: 3, name: "rating" },
@@ -148,7 +148,7 @@ const Filter = () => {
               <ReactStars
                 key={index}
                 edit={false}
-                className={`${index === 0 && "hidden"} data`}
+                className={`${index === 0 && "hidden"}`}
                 count={5}
                 size={24}
                 value={value}
