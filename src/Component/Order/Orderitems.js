@@ -59,11 +59,11 @@ const Orderitems = ({ item }) => {
         </div>
       </div>
       <div className="flex flex-wrap gap-x-2 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
-        {orderItems?.map((val) => {
+        {orderItems?.map((val,index) => {
           console.log("val", val);
           const { name, quantity, image, price } = val;
           return (
-            <div className="basis-[49%] max-sm:basis-[100%] flex items-center gap-x-4 gap-y-2 font-semibold">
+            <div key={index} className="basis-[49%] max-sm:basis-[100%] flex items-center gap-x-4 gap-y-2 font-semibold">
               <div className="flex items-center gap-x-2 max-sm:gap-x-1 max-sm:basis-[45%]">
                 <Image
                   src={image[0]}
