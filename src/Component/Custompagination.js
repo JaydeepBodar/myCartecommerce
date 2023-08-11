@@ -18,7 +18,7 @@ const Custompagination = ({ itemperpage, totalitem }) => {
         urlsearch.append("page", current);
       }
     }
-    const path = "?" +urlsearch.toString();
+    const path = "?" + urlsearch.toString();
     router.push(path);
     console.log("urlsearch", path);
   };

@@ -14,22 +14,22 @@ const Profile = ({ address }) => {
   const { user, setuser, loaduser } = Globalusercontext();
   const { data } = useSession();
   // for download images
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
-  const downloadImage = () => {
-    const link = document.createElement('a');
-    link.href = user ? user?.avatar : data?.user?.avatar;
-    link.download = 'image.jpg'; // Set the filename for the downloaded image
-    link.click();
-  };
+  // const downloadImage = () => {
+  //   const link = document.createElement('a');
+  //   link.href = user ? user?.avatar : data?.user?.avatar;
+  //   link.download = 'image.jpg'; // Set the filename for the downloaded image
+  //   link.click();
+  // };
 
   useEffect(() => {
     if (address) {
@@ -46,10 +46,11 @@ const Profile = ({ address }) => {
   const day = new Date(user?.createdAt).getDate();
   const year = new Date(user?.createdAt).getFullYear();
   return (
-    <div className="p-4 max-md:p-2 border-[1px] border-[#cecbcb] rounded-lg">
+    <div className="max-sm:min-h-[60vh] flex items-center">
+          <div className="p-4 max-md:p-2 border-[1px] border-[#cecbcb] rounded-lg w-[100%]">
       <div className="flex items-center gap-x-7 pb-5 max-md:gap-x-2	">
       {/*   onClick={openModal} add on click for modal */}
-        <div onClick={openModal}>
+        <div>
           <Image
             src={user ? user?.avatar : data?.user?.avatar}
             width={100}
@@ -57,11 +58,11 @@ const Profile = ({ address }) => {
             className="w-[100px] h-[100px] rounded-full"
           />
           {/* for download image */}
-          <Modal isOpen={isModalOpen}>
+          {/* <Modal isOpen={isModalOpen}>
             <img src={user ? user?.avatar : data?.user?.avatar} alt="Image" className="modal-image" />
             <button onClick={closeModal}>Close</button>
             <button onClick={downloadImage}>Download</button>
-          </Modal>
+          </Modal> */}
         </div>
         <div className="text-[18px] max-md:text-[15px]">
           <h4 className="capitalize font-semibold">{user?.name}</h4>
@@ -116,6 +117,7 @@ const Profile = ({ address }) => {
           </button>
         </Link>
       </div>
+    </div>
     </div>
   );
 };

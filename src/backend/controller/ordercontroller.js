@@ -17,7 +17,7 @@ export const checkoutsession = async (req, res) => {
         },
         unit_amount: item.price * 100,
       },
-      tax_rates: ["txr_1NdWKoSFLEGSzdCiFo12O31s"],
+      tax_rates: ["txr_1NdsCuSFLEGSzdCictrHqpL8"],
       quantity: item.quantity,
     };
   });
@@ -33,7 +33,7 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1NdWK0SFLEGSzdCiE0xLsRJm",
+        shipping_rate: "shr_1NdsAOSFLEGSzdCilMw9cXZB",
       },
     ],
     line_items,
@@ -105,17 +105,13 @@ export const webhook = async (req, res) => {
   }
 };
 export const getOrder = async (req, res) => {
-  // try {
-    const resPerpage = 2;
-    const orderCount = await orderSchema.countDocuments();
-    const apiFilter = new APIFilter(orderSchema.find(), req.query).pagination(
-      resPerpage
-    );
+  try {
+    const apiFilter = new APIFilter(orderSchema.find(), req.query)
     const order = await apiFilter.query
       .find({ user: req.user._id })
       .populate("shippingInfo user");
-    res.status(200).json({ resPerpage, orderCount, order });
-  // } catch (e) {
-  //   res.status(400).json({ message: "order not found" });
-  // }
+    res.status(200).json({ order });
+  } catch (e) {
+    res.status(400).json({ message: "order not found" });
+  }
 };

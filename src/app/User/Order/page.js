@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import axios from "axios";
 import Order from '@/Component/Order/Order';
 import queryString from 'query-string';
-async function getData(searchParams) {
+async function getData() {
   const nextCookies = cookies();
   const productionheaders = nextCookies.get("__Secure-next-auth.session-token");
   const nextauthheaders = nextCookies.get("next-auth.session-token");
@@ -11,11 +11,8 @@ async function getData(searchParams) {
   ? `__Secure-next-auth.session-token=${productionheaders?.value}`
   : `next-auth.session-token=${nextauthheaders?.value}`
   // console.log("nextauthheaders",nextauthheaders)
-  const pagination={
-      page:searchParams.page
-  }
-  const Searchquery=queryString.stringify(pagination)
-  const { data } = await axios.get(`${process.env.API_URL}api/Order/myorder?${Searchquery}`, {
+
+  const { data } = await axios.get(`${process.env.API_URL}api/Order/myorder`, {
     cache: "no-store",
     headers: {
       Cookie:cookie
@@ -28,10 +25,10 @@ async function getData(searchParams) {
   console.log("datatatataatastat",data)
   return data;
 }
-const Ordercount = async({searchParams}) => {
-  const orders=await getData(searchParams)
+const Ordercount = async() => {
+  const orders=await getData()
   return (
-    <Order order={orders.order} itemperpage={orders.resPerpage} totalitem={orders.orderCount} />
+    <Order order={orders.order} />
   )
 }
 

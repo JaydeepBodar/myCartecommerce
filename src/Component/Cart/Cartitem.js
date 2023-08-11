@@ -199,7 +199,7 @@ const Cartitem = () => {
         )}
       </div>
       {pathname === "/Cart"
-        ? cart?.cartItems?.length === 0 && (
+        ? cart?.cartItems === undefined || cart?.cartItems?.length === 0 && (
             <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
               Your cart is empty&nbsp;
               <Link

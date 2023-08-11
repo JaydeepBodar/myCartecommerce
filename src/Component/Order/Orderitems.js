@@ -9,12 +9,12 @@ const Orderitems = ({ item }) => {
   });
   const day = new Date(createdAt).getDate();
   const year = new Date(createdAt).getFullYear();
-  console.log("paymentInfo", paymentInfo);
+  // console.log("paymentInfo", paymentInfo);
   return (
     <div className="border-[1px] border-[#cecbcb] rounded-lg px-4 py-5 mb-2 text-[14px] max-sm:text-[13px] leading-[22px]">
       <div className="mb-2 border-b-[1px] border-[#cecbcb]">
         <h3 className="text-lg font-semibold">Order-summury</h3>
-        <div className="flex justify-between flex-wrap">
+        <div className="flex justify-between flex-wrap items-start">
           <div>
             {" "}
             <h4>Order id:-&nbsp;{item._id}</h4>
@@ -60,7 +60,7 @@ const Orderitems = ({ item }) => {
       </div>
       <div className="flex flex-wrap gap-x-2 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
         {orderItems?.map((val,index) => {
-          console.log("val", val);
+          {/* console.log("val", val); */}
           const { name, quantity, image, price } = val;
           return (
             <div key={index} className="basis-[49%] max-sm:basis-[100%] flex items-center gap-x-4 gap-y-2 font-semibold">

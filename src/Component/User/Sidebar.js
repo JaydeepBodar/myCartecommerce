@@ -9,17 +9,17 @@ const Sidebar = () => {
   const toggleData = () => {
     settoggle((data) => !data);
   };
-  // console.log("toggle", toggle);
+  console.log("toggle", toggle);
   return (
     <div
       className={`${
         toggle === true &&
         "absolute left-0 right-0 top-0 bottom-0 h-[100%] bg-zinc-900/70"
-      }`}
+      }`} onScroll={()=>settoggle(false)}
     >
       <div
         className={`${
-          toggle === true ? "hidden" : "max-sm:flex max-sm:items-center max-sm:gap-x-2"
+          toggle === true ? "hidden" : "max-sm:flex max-sm:items-center max-sm:gap-x-2 z-10"
         }  sm:hidden`}
       >
         <AiOutlineMenu
@@ -29,6 +29,7 @@ const Sidebar = () => {
         <span className=" text-red-600">User profile</span>
       </div>
       <div
+        onClick={()=>settoggle(false)}
         className={`${
           toggle === true &&
           "max-sm:h-[100%] flex justify-center items-center relative"

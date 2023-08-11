@@ -94,7 +94,7 @@ const Updateprofile = () => {
   // };
   return (
     <React.Fragment>
-      <div className="md:mb-[4px] py-5 flex flex-col justify-center items-center">
+      <div className="md:mb-[4px] py-5 flex flex-col justify-center items-center max-sm:min-h-[60vh]">
         <div className="bg-[#f2f2f2] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-12">
           <h4 className="text-center font-semibold text-3xl max-sm:text-xl mb-4 tracking-normal">
             Upade Profile...
