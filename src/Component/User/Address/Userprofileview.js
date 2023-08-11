@@ -18,7 +18,7 @@ const Userprofileview = () => {
   const day = new Date(user?.createdAt).getDate();
   const year = new Date(user?.createdAt).getFullYear();
   return (
-    <div className="text-center w-[100%] sm:max-w-[400px] sm:mx-auto max-sm:h-[80vh]">
+    <div className="text-center w-[100%] sm:max-w-[400px] sm:mx-auto max-sm:h-[70vh] max-sm:flex max-sm:flex-col max-sm:justify-center">
       <div>
         <Image
           width={200}
