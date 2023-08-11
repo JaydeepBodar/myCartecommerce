@@ -4,12 +4,12 @@ const orderSchema = mongoose.Schema(
     shippingInfo: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Addresss",
+      ref: "Address",
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Users",
+      ref: "User",
     },
     orderItems: [
       {

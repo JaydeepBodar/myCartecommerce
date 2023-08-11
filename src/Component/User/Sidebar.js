@@ -9,12 +9,12 @@ const Sidebar = () => {
   const toggleData = () => {
     settoggle((data) => !data);
   };
-  console.log("toggle", toggle);
+  // console.log("toggle", toggle);
   return (
     <div
       className={`${
         toggle === true &&
-        "absolute left-0 right-0 top-0 bottom-0 bg-zinc-900/70"
+        "absolute left-0 right-0 top-0 bottom-0 h-[100%] bg-zinc-900/70"
       }`}
     >
       <div
@@ -31,13 +31,13 @@ const Sidebar = () => {
       <div
         className={`${
           toggle === true &&
-          "max-sm:h-[100vh] flex justify-center items-center relative"
+          "max-sm:h-[100%] flex justify-center items-center relative"
         }`}
       >   
         <AiOutlineClose
           className={`${
             toggle === true
-              ? "max-sm:block absolute top-[35%] text-center w-[30px] h-[30px]"
+              ? "max-sm:block absolute top-[35%] text-center w-[30px] h-[30px] bottom-0"
               : "max-sm:hidden"
           } sm:hidden fill-[#f2f2f2]`}
           onClick={() => settoggle(false)}
@@ -78,7 +78,7 @@ const Sidebar = () => {
                 <Link href="/User/Profile">Your Profile</Link>
               </li>
               <li>
-                <Link href="/">Update Order</Link>
+                <Link href="/User/Order">Your Order</Link>
               </li>
               <li>
                 <Link href="/User/update">Update Profile</Link>

@@ -1,6 +1,7 @@
 import getRawBody from "raw-body";
 import Stripe from "stripe";
-import orderSchema from "../model/Orderschema"
+import orderSchema from "../model/Orderschema";
+import APIFilter from "../utils/APIFilter";
 const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
@@ -40,29 +41,29 @@ export const checkoutsession = async (req, res) => {
   // console.log("sessionurl",session)
   res.status(200).json({ url: session.url });
 };
-const getCartitems=async(line_items)=>{
+const getCartitems = async (line_items) => {
   // console.log("line_items?.data",line_items)
-  return new Promise((resolve,reject)=>{
-    let cartItems=[]
-    line_items?.data?.forEach(async(item)=>{ 
+  return new Promise((resolve, reject) => {
+    let cartItems = [];
+    line_items?.data?.forEach(async (item) => {
       // console.log("itemdataatata",item?.price)
-        const product=await stripe.products.retrieve(item?.price?.product)
-        // console.log("productdetails",product)
-        const productid=product?.metadata?.productId
-        cartItems?.push({
-          product:productid,
-          name:product.name,
-          image:product.images,
-          price:item.price.unit_amount/100,
-          quantity:item.quantity,
-        })
-        if(cartItems?.length === line_items?.data?.length){
-          // console.log("resolvedatatatatatatta")
-          resolve(cartItems)
-        }
-    })
-  })
-}
+      const product = await stripe.products.retrieve(item?.price?.product);
+      // console.log("productdetails",product)
+      const productid = product?.metadata?.productId;
+      cartItems?.push({
+        product: productid,
+        name: product.name,
+        image: product.images,
+        price: item.price.unit_amount / 100,
+        quantity: item.quantity,
+      });
+      if (cartItems?.length === line_items?.data?.length) {
+        // console.log("resolvedatatatatatatta")
+        resolve(cartItems);
+      }
+    });
+  });
+};
 export const webhook = async (req, res) => {
   try {
     const rawbody = await getRawBody(req);
@@ -79,27 +80,42 @@ export const webhook = async (req, res) => {
         event.data.object.id
       );
       console.log("session", session);
-      const getOrder=await getCartitems(line_items)
-      const userId=session?.client_reference_id
-      const amountPaid=session?.amount_total/100
-      const paymentInfo={
-        id:session?.payment_intent,
-        status:session?.payment_status,
-        taxPaid:session?.total_details?.amount_tax/100,
-        amountPaid
-      }
-      const orderData={
-        user:userId,
-        shippingInfo:session?.metadata?.shipinginfo,
-        orderItems:getOrder,
-        paymentInfo
-      } 
+      const getOrder = await getCartitems(line_items);
+      const userId = session?.client_reference_id;
+      const amountPaid = session?.amount_total / 100;
+      const paymentInfo = {
+        id: session?.payment_intent,
+        status: session?.payment_status,
+        taxPaid: session?.total_details?.amount_tax / 100,
+        amountPaid,
+      };
+      const orderData = {
+        user: userId,
+        shippingInfo: session?.metadata?.shipinginfo,
+        orderItems: getOrder,
+        paymentInfo,
+      };
       // console.log("orderData",orderData)
-      const order=await orderSchema.create(orderData)
+      const order = await orderSchema.create(orderData);
       // console.log("order",order)
-      res.status(200).json({success:"true"})
+      res.status(200).json({ success: "true" });
     }
   } catch (e) {
     console.log("error", e);
   }
+};
+export const getOrder = async (req, res) => {
+  // try {
+    const resPerpage = 2;
+    const orderCount = await orderSchema.countDocuments();
+    const apiFilter = new APIFilter(orderSchema.find(), req.query).pagination(
+      resPerpage
+    );
+    const order = await apiFilter.query
+      .find({ user: req.user._id })
+      .populate("shippingInfo user");
+    res.status(200).json({ resPerpage, orderCount, order });
+  // } catch (e) {
+  //   res.status(400).json({ message: "order not found" });
+  // }
 };
