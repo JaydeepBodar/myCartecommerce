@@ -6,7 +6,7 @@ import Image from "next/image";
 const Userprofileview = () => {
   const { user, setuser, loaduser } = Globalusercontext();
   const { data } = useSession();
-	const[loading,setloading]=useState()
+	// const[loading,setloading]=useState()
   useEffect(() => {
     setuser(user);
     loaduser();

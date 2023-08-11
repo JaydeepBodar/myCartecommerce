@@ -79,7 +79,7 @@ export const webhook = async (req, res) => {
       const line_items = await stripe.checkout.sessions.listLineItems(
         event.data.object.id
       );
-      console.log("session", session);
+      // console.log("session", session);
       const getOrder = await getCartitems(line_items);
       const userId = session?.client_reference_id;
       const amountPaid = session?.amount_total / 100;

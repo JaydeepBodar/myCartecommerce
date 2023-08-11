@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 import { ImLocation } from "react-icons/im";
 import { useRouter } from "next/navigation";
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 import { Globalusercontext } from "@/Context/Userproider";
 const Profile = ({ address }) => {
   const router = useRouter();

@@ -3,7 +3,10 @@ import React from "react";
 import Image from "next/image";
 const Orderitems = ({ item }) => {
   console.log("item", item);
-  const { orderItems, paymentInfo, user, shippingInfo,createdAt } = item;
+  const { orderItems, paymentInfo, user, shippingInfo,createdAt,_id,orderStatus } = item;
+  const{street,state,country,zipcode,phoneNo,city}=shippingInfo
+  const{id,status,taxPaid,amountPaid}=paymentInfo
+  const{name,email}=user
   const month = new Date(createdAt).toLocaleString("en-us", {
     month: "short",
   });
@@ -17,15 +20,15 @@ const Orderitems = ({ item }) => {
         <div className="flex justify-between flex-wrap items-start">
           <div>
             {" "}
-            <h4>Order id:-&nbsp;{item._id}</h4>
+            <h4>Order id:-&nbsp;{_id}</h4>
             <h4
               className={`${
-                item.orderStatus === "Processing"
+                orderStatus === "Processing"
                   ? "text-[red]"
                   : "text-[green]"
               }`}
             >
-              Order Status:-&nbsp;{item.orderStatus}
+              Order Status:-&nbsp;{orderStatus}
             </h4>
           </div>
             <h4>Ordered date:-&nbsp;{day}-{month}-{year}</h4>
@@ -34,28 +37,28 @@ const Orderitems = ({ item }) => {
       <div className="flex justify-between items-start flex-wrap">
         <div>
           <h4 className="font-semibold">User details</h4>
-          <h5>{user?.name}</h5>
-          <h5>{user?.email}</h5>
+          <h5>{name}</h5>
+          <h5>{email}</h5>
         </div>
         <div>
           <h4 className="font-semibold">Shiping address</h4>
-          <h5>{shippingInfo?.street},</h5>
+          <h5>{street},</h5>
           <h5>
-            <span>{shippingInfo?.state}</span>,&nbsp;
-            <span>{shippingInfo?.country}</span>,
+            <span>{state}</span>,&nbsp;
+            <span>{country}</span>,
           </h5>
           <h5>
-            <span>{shippingInfo?.city}</span>-
-            <span>{shippingInfo?.zipcode}</span>,
+            <span>{city}</span>-
+            <span>{zipcode}</span>,
           </h5>
-          <h5>Mobile No:-&nbsp;{shippingInfo?.phoneNo}</h5>
+          <h5>Mobile No:-&nbsp;{phoneNo}</h5>
         </div>
         <div>
           <h4 className="font-semibold">Payment details</h4>
-          <h5>Payment id:-&nbsp;{paymentInfo?.id}</h5>
-          <h5>Status:-&nbsp;{paymentInfo?.status} </h5>
-          <h5>Tax :-&nbsp;{paymentInfo?.taxPaid}$</h5>
-          <h5>Toatal(with tax) :-&nbsp;{paymentInfo?.amountPaid}$</h5>
+          <h5>Payment id:-&nbsp;{id}</h5>
+          <h5>Status:-&nbsp;{status} </h5>
+          <h5>Tax :-&nbsp;{taxPaid}$</h5>
+          <h5>Toatal(with tax) :-&nbsp;{amountPaid}$</h5>
         </div>
       </div>
       <div className="flex flex-wrap gap-x-2 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
