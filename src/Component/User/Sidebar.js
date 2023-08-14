@@ -15,11 +15,14 @@ const Sidebar = () => {
       className={`${
         toggle === true &&
         "fixed left-0 right-0 top-0 bottom-0 h-[100%] bg-zinc-900/70"
-      }`} onScroll={()=>settoggle(false)}
+      }`}
+      onScroll={() => settoggle(false)}
     >
       <div
         className={`${
-          toggle === true ? "hidden" : "max-sm:flex max-sm:items-center max-sm:gap-x-2 z-10"
+          toggle === true
+            ? "hidden"
+            : "max-sm:flex max-sm:items-center max-sm:gap-x-2 z-10"
         }  sm:hidden`}
       >
         <AiOutlineMenu
@@ -29,12 +32,12 @@ const Sidebar = () => {
         <span className=" text-red-600">User profile</span>
       </div>
       <div
-        onClick={()=>settoggle(false)}
+        onClick={() => settoggle(false)}
         className={`${
           toggle === true &&
           "max-sm:h-[100%] flex justify-center items-center relative"
         }`}
-      >   
+      >
         <AiOutlineClose
           className={`${
             toggle === true
@@ -49,11 +52,11 @@ const Sidebar = () => {
           } sidebar basis-[25%] max-sm:basis-[35%] max-sm:pr-2 pr-6`}
           onClick={() => settoggle(false)}
         >
-          {data?.user?.role === "admin" ? (
+          {data?.user?.role === "Admin" && (
             <>
               {" "}
               <li>
-                <Link href="/">
+                <Link href="/Admin/Addproduct">
                   New Product<span>(admin)</span>
                 </Link>
               </li>
@@ -73,22 +76,20 @@ const Sidebar = () => {
                 </Link>
               </li>
             </>
-          ) : (
-            <>
-              <li>
-                <Link href="/User/Profile">Your Profile</Link>
-              </li>
-              <li>
-                <Link href="/User/Order">Your Order</Link>
-              </li>
-              <li>
-                <Link href="/User/update">Update Profile</Link>
-              </li>
-              <li className="border-b-[1px] border-[#d4d3d3]">
-                <Link href="/User/updatepassword">Update Password</Link>
-              </li>
-            </>
           )}
+          <li>
+            <Link href="/User/Profile">Your Profile</Link>
+          </li>
+          <li>
+            <Link href="/User/Order">Your Order</Link>
+          </li>
+          <li>
+            <Link href="/User/update">Update Profile</Link>
+          </li>
+          <li className="border-b-[1px] border-[#d4d3d3]">
+            <Link href="/User/updatepassword">Update Password</Link>
+          </li> 
+
           <li className="cursor-pointer text-red-600" onClick={() => signOut()}>
             Log out
           </li>

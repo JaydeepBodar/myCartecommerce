@@ -10,6 +10,11 @@ const productSchema = mongoose.Schema(
     price: Number,
     rating: Number,
     discountPercentage: Number,
+    user:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      require:false
+    },
     reviews:[{
         rating:{
             type:Number

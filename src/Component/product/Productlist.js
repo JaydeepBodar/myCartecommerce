@@ -1,17 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Container from "../Container";
-import Image from "next/image";
-import Link from "next/link";
-import ReactStars from "react-stars";
 import { AiOutlineCaretDown } from "react-icons/ai";
-import { TypeAnimation } from "react-type-animation";
 import Filter from "./Filter";
 import Custompagination from "../Custompagination";
 import Loader from "../Loader";
-import { CartgloblContext } from "@/Context/Cartcontext";
 import Item from "./Item";
-const Productlist = ({ product, loading, urlParams }) => {
+const Productlist = ({ product, loading }) => {
   const [open, setopen] = useState(false);
   const toogle = () => {
     setopen((prev) => !prev);
@@ -20,7 +15,7 @@ const Productlist = ({ product, loading, urlParams }) => {
     <Container>
       <div className="max-sm:block sm:hidden relative">
         <div className="absolute left-[220px] top-3">
-          <AiOutlineCaretDown />
+          <AiOutlineCaretDown/>
         </div>
         <button
           className="w-[100%] max-w-[250px] bg-[#f2f2f2] text-left px-3 py-2 rounded-lg mb-3"

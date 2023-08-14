@@ -75,7 +75,7 @@ const Orderitems = ({ item }) => {
                   className="border-[1px] border-[#cecbcb] rounded-lg w-[80px] h-[80px]"
                 />
                 <p className="flex">
-                  <span>x</span> {quantity}
+                  <span>x&nbsp;</span> {quantity}
                 </p>
               </div>
               <div>

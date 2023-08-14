@@ -24,8 +24,9 @@ export const getAllproduct = async (req, res) => {
     res.json({ message: "error" });  
   }
 };
-export const postproduct = async (req, res) => {
+export const postProduct = async (req, res) => {
   try {
+    // req.body.user=req.user._id
     const data = await productSchema.create(req.body);
     res.json({ message: "data added sucsessfully" });
   } catch (e) {

@@ -37,7 +37,12 @@ const nextConfig = {
       },
     ];
   },
-
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.alias['cloudinary'] = 'cloudinary/lib-es5/cloudinary.js';
+    }
+    return config;
+  },
 
 }
 

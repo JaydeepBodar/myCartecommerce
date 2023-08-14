@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
 import { GoMoveToTop } from "react-icons/go";
-import { useRouter } from "next/navigation";
 const Footer = () => {
-  const route = useRouter();
   const date = new Date().getFullYear();
   const isBrowser = () => typeof window !== "undefined"; //The approach recommended by Next.js
 
