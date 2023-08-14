@@ -44,7 +44,7 @@ const Additem = () => {
         onChange={(e) => settitle(e.target.value)}
         placeholder="Enter title"
       />
-      <input type="file" multiple onChange={handleImageUpload} />
+      {/* <input type="file" multiple onChange={handleImageUpload} /> */}
       <button>submit</button>
     </form>
   );
