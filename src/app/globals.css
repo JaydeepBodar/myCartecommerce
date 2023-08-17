@@ -49,6 +49,42 @@ color:#dc2626;
   font-size: 18px;
   font-weight: 700;
 }
+.adminproduct .btn{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  max-width: 80px;
+  border: none;
+  outline: none;
+  padding: 4px 0;
+  margin-bottom: 4px;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+form input,form select,form textarea{
+  outline: none;
+  padding: 15px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.content h4{
+  border-bottom: 1px solid #cecbcb;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+}
 @media screen and (max-width:600px) {
   .data span{
     padding-right: 0px;
@@ -67,6 +103,14 @@ color:#dc2626;
   .hidedata{
     display:none;
   }
+  form input,form select,form textarea{
+    padding: 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
 }
 @media screen and (max-width:400px) {
   .newdata1{
@@ -83,11 +127,6 @@ color:#dc2626;
     font-size: 15px;
   }
 }
-.content h4{
-  border-bottom: 1px solid #cecbcb;
-  margin-bottom: 6px;
-  padding-bottom: 6px;
-}
 @media screen and (max-width: 480px){
   .Toastify .Toastify__toast-container {
       width: 100%;
@@ -96,10 +135,6 @@ color:#dc2626;
       right: 0 !important;
   }       
 } 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 @media screen and (max-width:768px){
   body{
     line-height: 24px;

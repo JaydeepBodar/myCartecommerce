@@ -25,14 +25,15 @@ export const getAllproduct = async (req, res) => {
   }
 };
 export const postProduct = async (req, res) => {
-  try {
     // req.body.user=req.user._id
     const data = await productSchema.create(req.body);
+    console.log("data",data)
     res.json({ message: "data added sucsessfully" });
-  } catch (e) {
-    res.json({ message: "unable to add" });
-  }
-};
+//   } catch (e) {
+//     res.json({ message: "unable to add" });
+//   }
+// };
+}
 export const singleProduct = async (req, res) => {
   const { id } = req.query;
   try { 

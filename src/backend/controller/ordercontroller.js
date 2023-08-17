@@ -105,13 +105,13 @@ export const webhook = async (req, res) => {
   }
 };
 export const getOrder = async (req, res) => {
-  try {
+  // try {
     const apiFilter = new APIFilter(orderSchema.find(), req.query)
     const order = await apiFilter.query
       .find({ user: req.user._id })
       .populate("shippingInfo user");
     res.status(200).json({ order });
-  } catch (e) {
-    res.status(400).json({ message: "order not found" });
-  }
+  // } catch (e) {
+  //   res.status(400).json({ message: "order not found" });
+  // }
 };

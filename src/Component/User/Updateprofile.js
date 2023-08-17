@@ -32,9 +32,11 @@ const Updateprofile = () => {
     setInput({ ...Input, [name]: value });
   };
   const uploadImg = (pics) => {
+    console.log("picssssssssssssssssssss",pics)
     const data = new FormData();
     data.append("file", pics);
     data.append("upload_preset", "htepld3m");
+
     data.append(
       "public_id",
       "myCarteCommerce/Useprofile/" + name + "_" + new Date()

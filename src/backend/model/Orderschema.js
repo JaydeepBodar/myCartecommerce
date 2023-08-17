@@ -4,7 +4,7 @@ const orderSchema = mongoose.Schema(
     shippingInfo: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Address",
+      ref: "Addresss",
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

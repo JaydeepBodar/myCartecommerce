@@ -4,9 +4,12 @@ import ReactStars from "react-stars";
 import Image from "next/image";
 import Container from "../Container";
 import Loader from "../Loader";
+import Link from "next/link";
 import { CartgloblContext } from "@/Context/Cartcontext";
+import { useSession } from "next-auth/react";
 const Productdetais = ({ singleproduct, loading }) => {
-  const { cart, addItemtocart, deletItem } = CartgloblContext();
+  const { cart, addItemtocart, deletItem } = CartgloblContext()
+  const {data}=useSession()
   const [img, setimg] = useState("");
   const [btn, setbtn] = useState("Add Cart");
   // console.log("singleproduct", singleproduct);
@@ -92,7 +95,10 @@ const Productdetais = ({ singleproduct, loading }) => {
               Price:- {singleproduct?.products?.price}$
             </h5>
             <div className="flex items-center gap-x-3 mt-5">
-              <button
+                <>
+                {data?.user?.role === "user" ?
+                <>
+                <button
                 onClick={() => {
                   addItemtocart({
                     _id: singleproduct?.products?._id,
@@ -123,6 +129,12 @@ const Productdetais = ({ singleproduct, loading }) => {
                   Remove
                 </button>
               )}
+                </>
+              : <Link href='/User/Admin/Allproduct' className='w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg'>
+                Back
+              </Link>}    
+              
+                </>
             </div>
           </div>
         </div>

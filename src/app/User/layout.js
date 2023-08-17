@@ -4,16 +4,17 @@ import React from "react";
 // import Accessdenied from "@/Component/Accessdenied";
 import Sidebar from "@/Component/User/Sidebar";
 import Tostify from "@/Component/Tostify";
+import { useSession } from "next-auth/react";
 // import Loader from "@/Component/Loader"
 const Dashboard = ({ children }) => {
-
+  const {data}=useSession()
   return (
     <>
       <section>
         <Tostify/>
         <div className="tracking-[1.2px] bg-red-600 text-white font-semibold text-2xl py-5">
           <Container>
-            <h3>User Dashboard</h3>
+            <h3>{data?.user?.role === 'Admin' ? <span>Admin</span> : <span>User</span>} Dashboard</h3>
           </Container>
         </div>
         <Container>

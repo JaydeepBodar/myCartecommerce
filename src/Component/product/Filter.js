@@ -3,24 +3,12 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { getPricequeryparams } from "@/helper/getPricequeryparams";
 import ReactStars from "react-stars";
+import { checkbox } from "./checkbox";
 import Inputdata from "../Inputdata";
 const Filter = () => {
   const router = useRouter();
   const [min, setmin] = useState("");
   const [max, setmax] = useState("");
-  const checkbox = [
-    { name: "category", value: "all", label: "All" },
-    { name: "category", value: "smartphones", label: "Smartphones" },
-    { name: "category", value: "laptops", label: "Laptops" },
-    { name: "category", value: "fragrances", label: "Fragrances" },
-    { name: "category", value: "skincare", label: "Skincare" },
-    { name: "category", value: "groceries", label: "Groceries" },
-    { name: "category", value: "home-decoration", label: "Home-decoration" },
-    { name: "category", value: "men's clothing", label: "Men's clothing" },
-    { name: "category", value: "jewelery", label: "Jewelery" },
-    { name: "category", value: "electronics", label: "Electronics" },
-    { name: "category", value: "women's clothing", label: "Women's clothing" },
-  ];
   const star = [
     { value: 0, name: "rating" },
     { value: 5, name: "rating" },
