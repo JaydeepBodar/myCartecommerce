@@ -1,6 +1,6 @@
 import db from "@/backend/db";
 import {createRouter} from 'next-connect'
-import { getAllproduct } from "@/backend/controller/productcontroller";
+import { getAllproduct} from "@/backend/controller/productcontroller";
 // import allproduct from "@/backend/utils/allproduct";
 const router=createRouter();
 // allproduct(); 

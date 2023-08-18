@@ -82,7 +82,7 @@ const Additem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.API_URL}api/admin/product`, {
+      .post(`${process.env.API_URL}api/products`, {
         ...Input,
         images: images,
         thumbnail:pic
@@ -93,7 +93,7 @@ const Additem = () => {
   return (
     <div className="w-[100%] max-lg:max-w-[500px] max-w-[700px] bg-[#f2f2f2] p-4 mx-[auto] rounded-lg">
       <h2 className="text-xl text-center font-semibold py-3">
-        Product details
+        Add New Products...
       </h2>
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-x-3 gap-y-4">
         <input
@@ -128,21 +128,19 @@ const Additem = () => {
         />
         <div className="w-[100%]">
           <h4 className="font-semibold pb-3">Upload Products Image</h4>
-          {/* <CloudinaryContext cloudName="dxlicroam">
-            <div className="flex justify-between">
-              {images.map((image, index) => {
+          <div className="flex justify-between">
+            {images.map((image, index) => {
                 return (
                   <Image
                     key={index}
-                    publicId={image}
-                    width="150"
-                    height="150"
-                    crop="scale"
+                    src={image}
+                    width={90}
+                    height={90}
+                    className="w-[100px] h-[100px] rounded-full mx-auto"
                   />
                 );
               })}
             </div>
-          </CloudinaryContext> */}
           <div className="flex justify-between max-sm:flex-col max-sm:gap-y-2">
             <input type="file" onChange={handleImageUpload} />
             <input type="file" onChange={handleImageUpload} />
@@ -176,8 +174,8 @@ const Additem = () => {
         <div className="flex items-center gap-x-2 my-2">
           <Image
             src={!pic ? "https://img.freepik.com/free-photo/wooden-product-display-podium-with-blurred-nature-leaves-background-generative-ai_91128-2268.jpg?w=826&t=st=1692270624~exp=1692271224~hmac=2931a6d30fa3f7cc79eca75f8d43dff0e7fb0c40441ea99666133dcf22836b32" : pic}
-            width={80}
-            height={80}
+            width={90}
+            height={90}
             className="rounded-full object-fill w-[80px] h-[80px]"
           />
           <Inputdata
