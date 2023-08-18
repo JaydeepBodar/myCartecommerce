@@ -41,15 +41,15 @@ const Sidebar = () => {
         <AiOutlineClose
           className={`${
             toggle === true
-              ? "max-sm:block absolute top-[35%] text-center w-[30px] h-[30px] bottom-0"
+              ? "max-sm:block absolute text-center w-[30px] h-[30px] bottom-0"
               : "max-sm:hidden"
-          } sm:hidden fill-[#f2f2f2]`}
+          } sm:hidden fill-[#f2f2f2] ${data?.user?.role === "Admin" ? "top-[25%]" : "top-[35%]" }`}
           onClick={() => settoggle(false)}
         />
         <ul
           className={`${
             toggle === true ? "responsive" : "hidedata"
-          } sidebar basis-[25%] max-sm:basis-[35%] max-sm:pr-2 pr-6`}
+          } sidebar sm:basis-[25%] max-sm:pr-2 pr-6`}
           onClick={() => settoggle(false)}
         >
           {data?.user?.role === "Admin" && (
