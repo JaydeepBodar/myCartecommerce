@@ -17,7 +17,7 @@ export const checkoutsession = async (req, res) => {
         },
         unit_amount: item.price * 100,
       },
-      tax_rates: ["txr_1NdsCuSFLEGSzdCictrHqpL8"],
+      tax_rates: ["txr_1NhRlTSFLEGSzdCiohhHQ9ed"],
       quantity: item.quantity,
     };
   });
@@ -33,7 +33,7 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1NdsAOSFLEGSzdCilMw9cXZB",
+        shipping_rate: "shr_1NhRkdSFLEGSzdCilZXefyi0",
       },
     ],
     line_items,

@@ -57,7 +57,7 @@ const Sidebar = () => {
               {" "}
               <li>
                 <Link href="/User/Admin/Addproduct">
-                  New Product<span>(admin)</span>
+                  Add New Product<span>(admin)</span>
                 </Link>
               </li>
               <li className="">
