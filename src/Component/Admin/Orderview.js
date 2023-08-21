@@ -69,10 +69,10 @@ const Orderview = ({ order }) => {
       <div className="border-t-[1px] border-[gray] mt-3 pt-3">
         <h4>Items Details</h4>
         <div className="flex">
-          {orderItems.map((val) => {
+          {orderItems.map((val,index) => {
             const { name, quantity, price,image } = val;
             return (
-              <div className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 bg-[#fff] p-3 rounded-lg">
+              <div key={index} className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 bg-[#fff] p-3 rounded-lg">
 								<div className="flex items-center">
 									<Image width={90} height={90} src={image} className="w-[90px] h-[90px] rounded-full" alt={name}/>
 									<span>&nbsp;x&nbsp;{quantity}</span>
