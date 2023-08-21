@@ -8,7 +8,7 @@ const Allorder = ({ order }) => {
         {order?.map((item) => {
           const { paymentInfo, _id, orderStatus } = item;
           return (
-            <div className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-5 rounded-lg">
+            <div key={_id} className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-5 rounded-lg">
               <div>
                 <h4>Order Id&nbsp;:-&nbsp;{_id}</h4>
                 <h4>Payment Id&nbsp;:-&nbsp;{paymentInfo?.id}</h4>

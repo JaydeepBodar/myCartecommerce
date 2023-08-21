@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -73,7 +74,7 @@ const Orderview = ({ order }) => {
             return (
               <div className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 bg-[#fff] p-3 rounded-lg">
 								<div className="flex items-center">
-									<img src={image} className="w-[90px] h-[90px] rounded-full" alt={name}/>
+									<Image width={90} height={90} src={image} className="w-[90px] h-[90px] rounded-full" alt={name}/>
 									<span>&nbsp;x&nbsp;{quantity}</span>
 								</div>
                 <div>
