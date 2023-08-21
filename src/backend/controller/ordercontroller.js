@@ -71,7 +71,7 @@ export const webhook = async (req, res) => {
     const event = stripe.webhooks.constructEvent(
       rawbody,
       signature,
-      process.env.WEBHOOKS_SECERATKEY
+      process.env.API_URL==="https://my-cartecommerce-ljdm.vercel.app/"? WEBHOOKS_SECERATKEY_PRODUCTION :process.env.WEBHOOKS_SECERATKEY
     );
     // console.log("event", event);
     if (event.type === "checkout.session.completed") {
@@ -104,10 +104,10 @@ export const webhook = async (req, res) => {
     console.log("error", e);
   }
 };
-export const getOrder = async (req, res) => {
+export const  getOrder = async (req, res) => {
   // try {
     const apiFilter = new APIFilter(orderSchema.find(), req.query)
-    const order = await apiFilter.query
+    const order = await apiFilter.query 
       .find({ user: req.user._id })
       .populate("shippingInfo user");
     res.status(200).json({ order });
