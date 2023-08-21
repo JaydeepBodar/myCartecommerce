@@ -24,8 +24,8 @@ export const getoneAddress = async (req, res) => {
 export const updateaddress = async (req, res) => {
   let address = await Addressschema.findByIdAndUpdate(req.query.id,req.body,{new: true});
   if (address) {
-    console.log("req.body",req.body)
-    console.log("req.query.id",req.query.id)
+    // console.log("req.body",req.body)
+    // console.log("req.query.id",req.query.id)
     res.status(200).json({ address, message: "Address update successfully" });
   } else {
     res.status(400).json({ message: "Address Not Found" });

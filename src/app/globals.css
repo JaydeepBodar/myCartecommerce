@@ -16,6 +16,13 @@ body {
   line-height: 30px;
   overflow-y: auto;
 }
+.adminorder h5{
+  font-size: 14px;
+}
+.adminorder h4{
+  font-weight: 600;
+  margin-bottom: 8px;
+}
 .data span{
   padding-right: 10px;
 }

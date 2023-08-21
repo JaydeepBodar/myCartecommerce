@@ -71,9 +71,11 @@ export const webhook = async (req, res) => {
     const event = stripe.webhooks.constructEvent(
       rawbody,
       signature,
-      process.env.API_URL==="https://my-cartecommerce-ljdm.vercel.app/"? process.env.WEBHOOKS_SECERATKEY_PRODUCTION :process.env.WEBHOOKS_SECERATKEY
+      process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
+        ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION
+        : process.env.WEBHOOKS_SECERATKEY
     );
-    // console.log("event", event);
+    console.log("event", event);
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
       const line_items = await stripe.checkout.sessions.listLineItems(
@@ -97,21 +99,45 @@ export const webhook = async (req, res) => {
       };
       // console.log("orderData",orderData)
       const order = await orderSchema.create(orderData);
-      // console.log("order",order)
+      // console.log("orderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", order);
       res.status(200).json({ success: "true" });
     }
   } catch (e) {
     console.log("error", e);
   }
 };
-export const  getOrder = async (req, res) => {
-  // try {
-    const apiFilter = new APIFilter(orderSchema.find(), req.query)
-    const order = await apiFilter.query 
-      .find({ user: req.user._id })
-      .populate("shippingInfo user");
-    res.status(200).json({ order });
-  // } catch (e) {
-  //   res.status(400).json({ message: "order not found" });
-  // }
+export const getOrder = async (req, res) => {
+  try {
+  const order = await orderSchema
+    .find({ user: req.user._id })
+    .populate("shippingInfo user");
+  res.status(200).json({ order });
+  } catch (e) {
+    res.status(400).json({ message: "order not found" });
+  }
 };
+export const updateOrder=async(req,res)=>{
+  try{
+    const orderdata=await orderSchema.findByIdAndUpdate(req.query.id,req.body)
+    console.log("orderStatus",orderdata)
+    res.status(200).json({message:"Succsessfully updated order status"})
+  }catch(e){
+    res.status(400).json({message:"Not update Order"}) 
+  }
+}
+export const getSingleOrder=async(req,res)=>{
+  try{
+    const order=await orderSchema.findById(req.query.id).populate("shippingInfo user");
+    res.status(200).json({order})
+  }catch(e){
+    res.status(400).json({message:"Product not shown"})
+  }
+}
+export const getallOrder=async(req,res)=>{
+  try{
+    const order=await orderSchema.find().populate("shippingInfo user");
+    res.status(200).json({order})
+  }catch(e){
+    res.status(400).json({message:"Order not found"})
+  }
+}

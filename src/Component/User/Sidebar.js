@@ -66,7 +66,7 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/User/Admin/AllOrder">
                   All Order<span>(admin)</span>
                 </Link>
               </li>
