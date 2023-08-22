@@ -18,8 +18,8 @@ const Orderview = ({ order }) => {
       .then((res) => {
         // router.refresh();
         if(res){
-          router.push("/User/Admin/AllOrder")
           router.refresh()
+          router.push("/User/Admin/AllOrder")
         }
       })
       .catch((e) => console.log("e", e));
