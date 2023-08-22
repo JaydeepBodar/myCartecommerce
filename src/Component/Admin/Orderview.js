@@ -16,8 +16,11 @@ const Orderview = ({ order }) => {
         orderStatus: dropdown,
       })
       .then((res) => {
-        router.refresh();
-        router.push("/User/Admin/AllOrder")
+        // router.refresh();
+        if(res){
+          // router.push("/User/Admin/AllOrder")
+          // router.refresh()
+        }
       })
       .catch((e) => console.log("e", e));
   };
