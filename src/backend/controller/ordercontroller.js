@@ -126,12 +126,12 @@ export const updateOrder=async(req,res)=>{
   }
 }
 export const getSingleOrder=async(req,res)=>{
-  try{
+  // try{
     const order=await orderSchema.findById(req.query.id).populate("shippingInfo user");
     res.status(200).json({order})
-  }catch(e){
-    res.status(400).json({message:"Product not shown"})
-  }
+  // }catch(e){
+  //   res.status(400).json({message:"Product not shown"})
+  // }
 }
 export const getallOrder=async(req,res)=>{
   try{
