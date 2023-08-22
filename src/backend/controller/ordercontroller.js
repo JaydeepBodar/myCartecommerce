@@ -135,7 +135,8 @@ export const getSingleOrder=async(req,res)=>{
 }
 export const getallOrder=async(req,res)=>{
   try{
-    const order=await orderSchema.find().populate("shippingInfo user");
+    const order=await orderSchema.find()
+    console.log("ordergggggggggggggggg",order)
     res.status(200).json({order})
   }catch(e){
     res.status(400).json({message:"Order not found"})
