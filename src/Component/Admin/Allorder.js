@@ -26,7 +26,7 @@ const Allorder = ({ order }) => {
               <div>
                 <Link
                   className="block w-[100px] py-2 text-center rounded-lg bg-blue-600 text-white font-semibold tracking-wide"
-                  href={`/User/Admin/Orderview/${_id}`}
+                  href={`/User/Admin/Orderviewdata/${_id}`}
                 >
                   View Order
                 </Link>

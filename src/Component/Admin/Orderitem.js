@@ -1,10 +1,15 @@
 "use client";
-import axios from "axios";
+import React,{useEffect} from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Orderitem = ({ order }) => {
+  const router=useRouter()
+  useEffect(() => {
+    console.log("ddddddddddddddddsassssssatssdtysst")
+    router.refresh()
+  }, []);
   const { paymentInfo,orderStatus,_id} =order;
   return (
     <div className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-3 rounded-lg">
