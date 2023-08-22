@@ -120,7 +120,7 @@ export const updateOrder=async(req,res)=>{
   try{
     const orderdata=await orderSchema.findByIdAndUpdate(req.query.id,req.body)
     console.log("orderStatus",orderdata)
-    res.status(200).json({message:"Succsessfully updated order status"})
+    res.status(200).json({message:"Succsessfully updated Order status"})
   }catch(e){
     res.status(400).json({message:"Not update Order"}) 
   }
