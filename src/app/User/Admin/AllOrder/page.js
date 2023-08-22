@@ -2,7 +2,7 @@ import Allorder from "@/Component/Admin/Allorder"
 import axios from "axios"
 
 async function getData(){
-  const {data}=await axios.get(`${process.env.API_URL}api/Order/Allorder`,{headers:{"Content-Type": "application/json"}})
+  const {data}=await axios.get(`${process.env.API_URL}api/Order/Allorderdata`,{headers:{"Content-Type": "application/json"}})
   if(!data){
     console.log("error")
   }
