@@ -2,14 +2,14 @@
 import React,{useEffect} from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 
 const Orderitem = ({ order }) => {
   const router=useRouter()
   useEffect(() => {
-    console.log("ddddddddddddddddsassssssatssdtysst")
+    // console.log("ddddddddddddddddsassssssatssdtysst")
     router.refresh()
   }, []);
+  console.log("ddffdsgfsgxdhfghffc")
   const { paymentInfo,orderStatus,_id} =order;
   return (
     <div className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-3 rounded-lg">

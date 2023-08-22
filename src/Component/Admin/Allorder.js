@@ -6,6 +6,7 @@ import Tostify from "../Tostify";
 const Allorder = ({ order }) => {
   const router = useRouter();
   useEffect(() => {
+    // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     router.refresh();
   }, []);
   return (

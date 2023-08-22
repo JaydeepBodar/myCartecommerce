@@ -22,7 +22,6 @@ const Orderview = ({ order }) => {
       })
       .catch((e) => console.log("e", e))
       .finally(() => {
-        router.refresh();
         router.push("/User/Admin/AllOrder");
       });
   };
