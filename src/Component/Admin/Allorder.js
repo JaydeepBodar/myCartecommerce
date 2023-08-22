@@ -8,7 +8,7 @@ const Allorder = ({ order }) => {
   useEffect(() => {
     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     router.refresh();
-  }, []);
+  }, [order?.orderStatus]);
   return (
     <section>
       <Tostify />
