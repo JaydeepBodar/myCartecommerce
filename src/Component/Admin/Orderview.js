@@ -77,7 +77,7 @@ const Orderview = ({ order }) => {
             return (
               <div key={product} className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 bg-[#fff] p-3 rounded-lg">
 								<div className="flex items-center">
-									<Image width={90} height={90} src={image} className="w-[90px] h-[90px] rounded-full" alt={name}/>
+									<Image src={image[0]} width={90} height={90} className="w-[90px] h-[90px] rounded-full" alt={name}/>
 									<span>&nbsp;x&nbsp;{quantity}</span>
 								</div>
                 <div>
