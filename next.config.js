@@ -18,26 +18,26 @@ const nextConfig = {
     WEBHOOKS_SECERATKEY:process.env.WEBHOOKS_SECERATKEY,
     WEBHOOKS_SECERATKEY_PRODUCTION:process.env.WEBHOOKS_SECERATKEY_PRODUCTION
   },  
-  async headers() {
-    return [
-      {
-        source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: process.env.API_URL },
-          {
-            key: 'Access-Control-Allow-Methods',
-            value: 'GET, OPTIONS, PATCH, DELETE, POST, PUT',
-          },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value:
-              'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization',
-          },
-        ],
-      },
-    ];
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/api/:path*',
+  //       headers: [
+  //         { key: 'Access-Control-Allow-Credentials', value: 'true' },
+  //         { key: 'Access-Control-Allow-Origin', value: process.env.API_URL },
+  //         {
+  //           key: 'Access-Control-Allow-Methods',
+  //           value: 'GET, OPTIONS, PATCH, DELETE, POST, PUT',
+  //         },
+  //         {
+  //           key: 'Access-Control-Allow-Headers',
+  //           value:
+  //             'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.alias['cloudinary'] = 'cloudinary/lib-es5/cloudinary.js';
