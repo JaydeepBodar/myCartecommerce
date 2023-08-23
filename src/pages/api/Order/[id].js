@@ -4,6 +4,6 @@ import { getSingleOrder,updateOrder } from "@/backend/controller/ordercontroller
 import { adminAuthorize, isAuthenticateuser } from "@/backend/middleware/auth";
 const router = createRouter();
 db();
-router.use(isAuthenticateuser,adminAuthorize("Admin")).get(getSingleOrder);
 router.put(updateOrder)
+router.use(isAuthenticateuser,adminAuthorize("Admin")).get(getSingleOrder);
 export default router.handler();
