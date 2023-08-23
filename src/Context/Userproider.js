@@ -17,8 +17,8 @@ const Usercontextprovider = ({ children }) => {
     // console.log("datatatattatatatatatatta")
     axios
       .get(`${process.env.API_URL}api/auth/session?update`)
-      .then((res) => setuser(res.data?.user),setloading(false))
-      .catch((e) => console.log("e", e))
+      .then((res) => setuser(res.data?.user))
+      .catch((e) => console.log("e", e)).finally(()=>setloading(false))
    }
   useEffect(() => {
     loaduser()

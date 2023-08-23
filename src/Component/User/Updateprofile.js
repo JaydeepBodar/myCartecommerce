@@ -20,7 +20,7 @@ const Updateprofile = () => {
   });
   useEffect(() => {``
     if (session.data?.user) {
-      setuser(user);
+      setuser(!loading && user);
       setInput(session.data?.user);
       setPic(session.data?.user?.avatar)
     }

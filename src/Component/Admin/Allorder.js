@@ -33,7 +33,7 @@ useEffect(() => {
               return (
                 <div
                   key={_id}
-                  className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-5 rounded-lg"
+                  className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-5 rounded-lg max-sm:gap-y-4"
                 >
                   <div>
                     <h4><span>Order Id</span>&nbsp;:-&nbsp;{_id}</h4>
