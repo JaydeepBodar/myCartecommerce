@@ -8,11 +8,9 @@ const Usercontextprovider = ({ children }) => {
   const session=useSession()
   const [user, setuser] = useState();
   const router=useRouter()
-  const[loading,setloading]=useState(false)
+  const[loading,setloading]=useState(true)
   //  console.log("user",user)
-  
    const loaduser=()=>{
-    setloading(true)
     console.log("dtatatat")
     // console.log("datatatattatatatatatatta")
     axios
