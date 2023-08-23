@@ -7,5 +7,5 @@ const router=createRouter();
 // allproduct(); 
 db()
 router.post(postProduct)
-router.get(getAllproduct)
+router.use(isAuthenticateuser,adminAuthorize("Admin")).get(getAllproduct)
 export default router.handler()

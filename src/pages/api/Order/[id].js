@@ -1,8 +1,9 @@
 import { createRouter } from "next-connect";
 import db from "@/backend/db";
 import { getSingleOrder,updateOrder } from "@/backend/controller/ordercontroller";
+import { adminAuthorize, isAuthenticateuser } from "@/backend/middleware/auth";
 const router = createRouter();
 db();
-router.get(getSingleOrder);
+router.use(isAuthenticateuser,adminAuthorize("Admin")).get(getSingleOrder);
 router.put(updateOrder)
 export default router.handler();

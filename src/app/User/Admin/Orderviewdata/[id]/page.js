@@ -1,16 +1,37 @@
+"use client";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Orderview from "@/Component/Admin/Orderview";
-async function getData(id) {
-  const { data } = await axios.get(`${process.env.API_URL}api/Order/${id}`);
-  if (!data) {
-    console.log("data");
-  }
-  return data;
-}
+import Cookies from "js-cookie";
+// async function getData(id) {
+//   const { data } = await axios.get(`${process.env.API_URL}api/Order/${id}`);
+//   if (!data) {
+//     console.log("data");
+//   }
+//   return data;
+// }
 
-const page = async ({ params }) => {
-  const order = await getData(params.id);
-  return <Orderview order={order.order} />;
+const page = ({ params }) => {
+  console.log("params", params.id);
+  // const order = await getData(params.id);
+  const [loading, setloading] = useState(true);
+  const [order, setorder] = useState([]);
+  const productionheaders = Cookies.get("__Secure-next-auth.session-token");
+  const nextauthheaders = Cookies.get("next-auth.session-token");
+  const cookie =
+    process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
+      ? `__Secure-next-auth.session-token=${productionheaders?.value}`
+      : `next-auth.session-token=${nextauthheaders?.value}`;
+  useEffect(() => {
+    axios
+      .get(`${process.env.API_URL}api/Order/${params.id}`, {
+        headers: { Cookie: cookie },
+      })
+      .then((res) => setorder(res.data.order))
+      .catch((e) => console.log("errr", e))
+      .finally(() => setloading(false));
+  }, [loading]);
+  return <Orderview order={order} loading={loading} />;
 };
 
 export default page;

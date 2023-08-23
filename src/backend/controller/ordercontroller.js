@@ -108,10 +108,11 @@ export const webhook = async (req, res) => {
 };
 export const getOrder = async (req, res) => {
   try {
-  const order = await orderSchema
-    .find({ user: req.user._id })
-    .populate("shippingInfo user");
-  res.status(200).json({ order });
+    const productperpage=3;
+    const productcount=await orderSchema.find({user: req.user._id}).countDocuments()
+    const apiFilter=new APIFilter(orderSchema.find(),req.query).pagination(productperpage)
+  const order = await apiFilter.query.find({ user: req.user._id }).populate("shippingInfo user");
+  res.status(200).json({ order,productperpage,productcount });
   } catch (e) {
     res.status(400).json({ message: "order not found" });
   }
@@ -126,18 +127,21 @@ export const updateOrder=async(req,res)=>{
   }
 }
 export const getSingleOrder=async(req,res)=>{
-  // try{
+  try{
     const order=await orderSchema.findById(req.query.id).populate("shippingInfo user");
     res.status(200).json({order})
-  // }catch(e){
-  //   res.status(400).json({message:"Product not shown"})
-  // }
+  }catch(e){
+    res.status(400).json({message:"Product not shown"})
+  }
 }
 export const getallOrder=async(req,res)=>{
   try{
-    const order=await orderSchema.find()
-    console.log("ordergggggggggggggggg",order)
-    res.status(200).json({order})
+    const productperpage=6;
+    const productcount=await orderSchema.countDocuments()
+    const apifillter=new APIFilter(orderSchema.find(),req.query).pagination(productperpage)
+    const order=await apifillter.query.find()
+    // console.log("ordergggggggggggggggg",order)
+    res.status(200).json({order,productcount,productperpage})
   }catch(e){
     res.status(400).json({message:"Order not found"})
   }

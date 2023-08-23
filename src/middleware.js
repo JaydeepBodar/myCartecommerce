@@ -3,7 +3,7 @@ console.log("process.env", process.env.SECERTKEY);
 export default withAuth(
   async function middleware(req) {
     // console.log("req.nextauth.token", req.nextauth.token);
-  },
+  }
   // {
   //   callbacks: {
   //     authorized: ({ token }) => {
@@ -15,5 +15,17 @@ export default withAuth(
   // }
 );
 export const config = {
-  matcher: ["/User","/Address/New","/User/update","/User/Profile","/shiping","/User/Order","/Admin/Addproduct"],
+  matcher: [
+    "/User",
+    "/Address/New",
+    "/Address/:path*",
+    "/User/update",
+    "/User/Profile",
+    "/shiping",
+    "/User/Order",
+    "/User/Admin/Addproduct",
+    "/User/Admin/AllOrder",
+    "/User/Admin/Orderviewdata/:path*",
+    "/User/Admin/updateProduct",
+  ],
 };

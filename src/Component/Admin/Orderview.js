@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-const Orderview = ({ order }) => {
-  const { paymentInfo, shippingInfo, orderItems, orderStatus, _id, user } =
-    order;
-  const { street, state, country, city, zipcode, phoneNo } = shippingInfo;
+import Loader from "../Loader";
+const Orderview = ({ order,loading }) => {
+  console.log("order",order)
+  const { paymentInfo, shippingInfo, orderItems, orderStatus, _id, user } =order;
   const router = useRouter();
   const [dropdown, setdropdown] = useState(orderStatus);
   const updateDetail = async() => {
@@ -26,7 +26,9 @@ const Orderview = ({ order }) => {
       });
   };
   return (
-    <div className=" bg-[#f2f2f2] p-4 rounded-lg adminorder leading-6">
+    <React.Fragment>
+      {loading && <div className="h-[60vh] flex items-center justify-center"><Loader/></div>}
+      {!loading &&  <div className=" bg-[#f2f2f2] p-4 rounded-lg adminorder leading-6">
       <div className="flex flex-wrap gap-x-3 justify-between w-[100%] max-lg:gap-y-3">
         <div>
           <h4>Order Details</h4>
@@ -59,21 +61,21 @@ const Orderview = ({ order }) => {
         </div>
         <div>
           <h4>Shiping address</h4>
-          <h5>{street},</h5>
+          <h5>{shippingInfo?.street},</h5>
           <h5>
-            <span>{state}</span>,&nbsp;
-            <span>{country}</span>,
+            <span>{shippingInfo?.state}</span>,&nbsp;
+            <span>{shippingInfo?.country}</span>,
           </h5>
           <h5>
-            <span>{city}</span>-<span>{zipcode}</span>,
+            <span>{shippingInfo?.city}</span>-<span>{shippingInfo?.zipcode}</span>,
           </h5>
-          <h5>Mobile No:-&nbsp;{phoneNo}</h5>
+          <h5>Mobile No:-&nbsp;{shippingInfo?.phoneNo}</h5>
         </div>
       </div>
       <div className="border-t-[1px] border-[gray] mt-3 pt-3">
-        <h4>Items Details</h4>
+        <h4>Products Details</h4>
         <div className="flex">
-          {orderItems.map((val) => {
+          {orderItems?.map((val) => {
             const { name, quantity, price, image, product } = val;
             return (
               <div
@@ -105,7 +107,8 @@ const Orderview = ({ order }) => {
       >
         Back
       </Link>
-    </div>
+    </div>}
+    </React.Fragment>
   );
 };
 

@@ -43,7 +43,9 @@ color:#dc2626;
   width: 8px;    
   border-radius: 20px;             /* width of the entire scrollbar */
 }
-
+.allorder span{
+  font-weight: 600;
+}
 .scrollbar::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track {
   background: #f2f2f2;        /* color of the tracking area */
 }

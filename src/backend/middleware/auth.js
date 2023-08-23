@@ -8,10 +8,10 @@ export const isAuthenticateuser = async (req, res, next) => {
   req.user = session.user;
   next();
 };
-export const adminAuthorize =async(...roles)=>{
+export const adminAuthorize =(...roles)=>{
   return (req,res,next)=>{
-    if(!roles.includes(req.user.roles)){
-      res.status(401).json({message:"You are not authorize for this section"})
+    if(!roles.includes(req?.user?.role)){
+      res.status(401).json({message:"You are not authorize for this section your role must be Admin"})
     }
     else{
       next()

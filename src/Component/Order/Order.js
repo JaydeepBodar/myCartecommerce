@@ -4,7 +4,8 @@ import Orderitems from "./Orderitems";
 import Link from "next/link";
 import { CartgloblContext } from "@/Context/Cartcontext";
 import { useSearchParams } from 'next/navigation'
-const Order = ({ order }) => {
+import Custompagination from "../Custompagination";
+const Order = ({ order,totalitem,itemperpage }) => {
   const {clearCart}=CartgloblContext()
   const searParams=useSearchParams()
   const OrderSuccess=searParams.get("order_success")
@@ -21,6 +22,7 @@ const Order = ({ order }) => {
           {order.map((item) => {
             return <Orderitems item={item} key={item._id} />;
           })}
+          <Custompagination itemperpage={itemperpage} totalitem={totalitem}/>
         </>
       ) : (
         <div className="h-[50vh] flex justify-center items-center font-semibold text-xl">
