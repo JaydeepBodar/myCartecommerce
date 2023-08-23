@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 //   return data;
 // }
 
-const page = ({ params }) => {
+const Overview = ({ params }) => {
   console.log("params", params.id);
   // const order = await getData(params.id);
   const [loading, setloading] = useState(true);
@@ -34,4 +34,4 @@ const page = ({ params }) => {
   return <Orderview order={order} loading={loading} />;
 };
 
-export default page;
+export default Overview;
