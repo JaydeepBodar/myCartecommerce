@@ -43,15 +43,8 @@ export default async function auth(req, res) {
         user && (token.user = user);
         // console.log("req",req)
         // console.log("token",token.user)
-        const url =
-          process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app"
-            ? "https://my-cartecommerce-ljdm.vercel.app/"
-            : process.env.API_URL;
-        if (
-          req.url === process.env.API_URL
-            ? `api/auth/session?update`
-            : "https://my-cartecommerce-ljdm.vercel.app/api/auth/session?update"
-        ) {
+
+        if (req.url === `api/auth/session?update`) {
           // hit the db and eturn the updated user
           // console.log("dtatatat")
           const updatedUser = await Userschema.findById(token.user._id);
