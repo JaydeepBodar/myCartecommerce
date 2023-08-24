@@ -1,11 +1,9 @@
 "use client";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 const Usercontext = createContext();
 const Usercontextprovider = ({ children }) => {
-  const session=useSession()
   const [user, setuser] = useState();
   const router=useRouter()
   const[loading,setloading]=useState(true)

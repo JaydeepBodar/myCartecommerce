@@ -6,9 +6,9 @@ import Usercontextprovider from "./Userproider";
 const Globalcontext = ({ children }) => {
   return (
     <Cartprovider>
-      <AuthProvider>
-          <Usercontextprovider>{children}</Usercontextprovider>
-      </AuthProvider>
+      <Usercontextprovider>
+        <AuthProvider>{children}</AuthProvider>
+      </Usercontextprovider>
     </Cartprovider>
   );
 };
