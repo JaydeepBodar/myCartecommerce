@@ -71,7 +71,7 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className="border-b-[1px] border-[#d4d3d3]">
-                <Link href="/">
+                <Link href="/User/Admin/Alluser">
                   All User<span>(admin)</span>
                 </Link>
               </li>

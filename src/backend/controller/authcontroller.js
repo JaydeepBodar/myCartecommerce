@@ -2,6 +2,7 @@ import Userschema from "../model/Userschema";
 import bcrypt from "bcrypt";
 import { uploads } from "../utils/cloudinary";
 import fs from "fs";
+import APIFilter from "../utils/APIFilter";
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   const user = await Userschema.findOne({ email: email });
@@ -50,8 +51,7 @@ export const update_password = async (req, res) => {
   // console.log("dadadaadaddafsfdw", comparePassword);
   if (!comparePassword) {
     res.status(400).json({ message: "Wrong password try again" });
-  }
-  else{
+  } else {
     user[0].password = await bcrypt.hash(newpassword, 10);
     await user[0].save();
     // console.log("user",user)
@@ -59,3 +59,28 @@ export const update_password = async (req, res) => {
     res.status(200).json({ message: "Password updated successfully" });
   }
 };
+// export const getUser=async(req,res)=>{
+//     const user=await
+// }
+export const getalluser = async (req, res) => {
+  try {
+    const userperPage = 6;
+    const totaluser = await Userschema.countDocuments();
+    const apiFilter = new APIFilter(Userschema.find(), req.query).pagination(
+      userperPage
+    );
+    const allUser = await apiFilter.query.find();
+    res.status(200).json({ allUser, userperPage, totaluser });
+  } catch (e) {
+    res.status(400).json({ message: "No user Found Bad Request" });
+  }
+};
+export const updateUserRole=async(req,res)=>{
+  try{
+    const orderdata=await Userschema.findByIdAndUpdate(req.query.id,req.body,{new:true})
+    console.log("req.body",req.body)
+    res.status(200).json({message:"Succsessfully update user Role"})
+  }catch(e){
+    res.status(400).json({message:"Not update user role"}) 
+  }
+}
