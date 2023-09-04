@@ -24,7 +24,7 @@ async function getData(id) {
 const indivisual = async ({ params }) => {
     const address = await getData(params.id);
     // console.log("first",address.address)
-  return <Singleaddr  ess addressdata={address} />;
+  return <Singleaddress addressdata={address} />;
 };
 
 export default indivisual;
