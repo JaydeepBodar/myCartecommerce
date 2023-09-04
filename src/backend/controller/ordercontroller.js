@@ -108,41 +108,72 @@ export const webhook = async (req, res) => {
 };
 export const getOrder = async (req, res) => {
   try {
-    const productperpage=3;
-    const productcount=await orderSchema.find({user: req.user._id}).countDocuments()
-    const apiFilter=new APIFilter(orderSchema.find(),req.query).pagination(productperpage)
-  const order = await apiFilter.query.find({ user: req.user._id }).populate("shippingInfo user");
-  res.status(200).json({ order,productperpage,productcount });
+    const productperpage = 3;
+    const productcount = await orderSchema
+      .find({ user: req.user._id })
+      .countDocuments();
+    const apiFilter = new APIFilter(orderSchema.find(), req.query).pagination(
+      productperpage
+    );
+    const order = await apiFilter.query
+      .find({ user: req.user._id })
+      .populate("shippingInfo user");
+    res.status(200).json({ order, productperpage, productcount });
   } catch (e) {
     res.status(400).json({ message: "order not found" });
   }
 };
-export const updateOrder=async(req,res)=>{
-  try{
-    const orderdata=await orderSchema.findByIdAndUpdate(req.query.id,req.body,{new:true})
-    console.log("req.body",req.body)
-    res.status(200).json({message:"Succsessfully updated Order status"})
-  }catch(e){
-    res.status(400).json({message:"Not update Order"}) 
+export const updateOrder = async (req, res) => {
+  try {
+    const orderdata = await orderSchema.findByIdAndUpdate(
+      req.query.id,
+      req.body,
+      { new: true }
+    );
+    console.log("req.body", req.body);
+    res.status(200).json({ message: "Succsessfully updated Order status" });
+  } catch (e) {
+    res.status(400).json({ message: "Not update Order" });
   }
-}
-export const getSingleOrder=async(req,res)=>{
-  try{
-    const order=await orderSchema.findById(req.query.id).populate("shippingInfo user");
-    res.status(200).json({order})
-  }catch(e){
-    res.status(400).json({message:"Product not shown"})
+};
+export const deleteOrder = async (req, res) => {
+  try {
+    const deletedata = await orderSchema.findByIdAndDelete(
+      req.query.id,
+      req.body,
+      { new: true }
+    );
+    res
+      .status(200)
+      .json({
+        message:
+          "Successfully Delete Order and refund will be back within 3-5 Buisness days",
+      });
+  } catch (e) {
+    res.status(400).json({ message: "Order not deleted" });
   }
-}
-export const getallOrder=async(req,res)=>{
-  try{
-    const productperpage=6;
-    const productcount=await orderSchema.countDocuments()
-    const apifillter=new APIFilter(orderSchema.find(),req.query).pagination(productperpage)
-    const order=await apifillter.query.find()
+};
+export const getSingleOrder = async (req, res) => {
+  try {
+    const order = await orderSchema
+      .findById(req.query.id)
+      .populate("shippingInfo user");
+    res.status(200).json({ order });
+  } catch (e) {
+    res.status(400).json({ message: "Product not shown" });
+  }
+};
+export const getallOrder = async (req, res) => {
+  try {
+    const productperpage = 6;
+    const productcount = await orderSchema.countDocuments();
+    const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
+      productperpage
+    );
+    const order = await apifillter.query.find();
     // console.log("ordergggggggggggggggg",order)
-    res.status(200).json({order,productcount,productperpage})
-  }catch(e){
-    res.status(400).json({message:"Order not found"})
+    res.status(200).json({ order, productcount, productperpage });
+  } catch (e) {
+    res.status(400).json({ message: "Order not found" });
   }
-}
+};

@@ -10,24 +10,32 @@ const productSchema = mongoose.Schema(
     price: Number,
     rating: Number,
     discountPercentage: Number,
-    user:{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"User",
-      require:false
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      require: false,
     },
-    reviews:[{
-        rating:{
-            type:Number
+    stock: {
+      type: String,
+      default: "InStock",
+    },
+    reviews: [
+      {
+        rating: {
+          type: Number,
         },
-        comment:{
-            type:String,
-            require:true
-        },createdAt:{
-            type:Date,
-            default:Date.now
-        }
-    }]
+        comment: {
+          type: String,
+          require: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamp: true }
 );
-export default mongoose.models.Product || mongoose.model('Product',productSchema)
+export default mongoose.models.Product ||
+  mongoose.model("Product", productSchema);

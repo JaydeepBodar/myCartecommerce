@@ -18,7 +18,7 @@ export const config = {
   matcher: [
     "/User",
     "/Address/New",
-    "/Address/:path*    ",
+    "/Address/:path*",
     "/User/update",
     "/User/Profile",
     "/shiping",
@@ -27,5 +27,6 @@ export const config = {
     "/User/Admin/AllOrder",
     "/User/Admin/Orderviewdata/:path*",
     "/User/Admin/updateProduct",
+    "/User/Admin/Alluser"
   ],
 };

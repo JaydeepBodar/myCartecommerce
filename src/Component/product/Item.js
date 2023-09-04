@@ -8,8 +8,16 @@ const Item = ({ product, loading }) => {
   console.log("product", product._id);
   const { cart, addItemtocart, deletItem } = CartgloblContext();
   const [btn, setbtn] = useState("Add Cart");
-  const { _id, title, thumbnail, discountPercentage, category, price, rating } =
-    product;
+  const {
+    _id,
+    title,
+    thumbnail,
+    discountPercentage,
+    category,
+    price,
+    rating,
+    stock,
+  } = product;
   const productbtn = cart?.cartItems?.some((item) => item._id === _id);
   const Additem = () => {
     addItemtocart({
@@ -72,25 +80,31 @@ const Item = ({ product, loading }) => {
               {((price * discountPercentage) / 100).toFixed(0)}$
             </span>
           </h5>
-          <div className="max-md:flex max-md:gap-x-2 items-baseline">
-            <button
-              onClick={Additem}
-              href="#"
-              className="w-[100%] max-sm:text-[13px] max-sm:max-w-[80px] max-sm:py-1 max-sm:mt-2 max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
-            >
-              {btn}
-            </button>
-            {btn === "Go to Cart" && (
-              <div
-                className={`${
-                  productbtn === false && "hidden"
-                } max-sm:text-[13px] max-sm:max-w-[80px] max-md:mt-[4px] max-sm:py-[3px] mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
-                onClick={Removeitem}
+          {stock === "InStock" ? (
+            <div className="max-md:flex max-md:gap-x-2 items-baseline">
+              <button
+                onClick={Additem}
+                href="#"
+                className="w-[100%] max-sm:text-[13px] max-sm:max-w-[80px] max-sm:py-1 max-sm:mt-2 max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
               >
-                Remove
-              </div>
-            )}
-          </div>
+                {btn}
+              </button>
+              {btn === "Go to Cart" && (
+                <div
+                  className={`${
+                    productbtn === false && "hidden"
+                  } max-sm:text-[13px] max-sm:max-w-[80px] max-md:mt-[4px] max-sm:py-[3px] mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
+                  onClick={Removeitem}
+                >
+                  Remove
+                </div>
+              )}
+            </div>
+          ) : (
+            <h2 className="text-red-600 font-semibold">
+              Currently Out of Stock
+            </h2>
+          )}
         </div>
       </div>
       <div className="basis-[20%] max-md:hidden pt-6">
@@ -103,22 +117,28 @@ const Item = ({ product, loading }) => {
             {((price * discountPercentage) / 100).toFixed(0)}$
           </span>
         </h5>
-        <Link
-          onClick={Additem}
-          href={`${btn === "Go to Cart" ? "Cart" : ""}`}
-          className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
-        >
-          {btn}
-        </Link>
-        {btn === "Go to Cart" && (
-          <button
-            className={`${
-              productbtn === false && "hidden"
-            } mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
-            onClick={Removeitem}
-          >
-            Remove
-          </button>
+        {stock === "InStock" ? (
+          <React.Fragment>
+            <Link
+              onClick={Additem} 
+              href={`${btn === "Go to Cart" ? "Cart" : ""}`}
+              className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
+            >
+              {btn}
+            </Link>
+            {btn === "Go to Cart" && (
+              <button
+                className={`${
+                  productbtn === false && "hidden"
+                } mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
+                onClick={Removeitem}
+              >
+                Remove
+              </button>
+            )}
+          </React.Fragment>
+        ) : (
+          <h2 className="text-red-600 font-semibold">Currently Out of Stock</h2>
         )}
       </div>
     </div>

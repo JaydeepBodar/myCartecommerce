@@ -8,8 +8,8 @@ import Link from "next/link";
 import { CartgloblContext } from "@/Context/Cartcontext";
 import { useSession } from "next-auth/react";
 const Productdetais = ({ singleproduct, loading }) => {
-  const { cart, addItemtocart, deletItem } = CartgloblContext()
-  const {data}=useSession()
+  const { cart, addItemtocart, deletItem } = CartgloblContext();
+  const { data } = useSession();
   const [img, setimg] = useState("");
   const [btn, setbtn] = useState("Add Cart");
   // console.log("singleproduct", singleproduct);
@@ -95,46 +95,59 @@ const Productdetais = ({ singleproduct, loading }) => {
               Price:- {singleproduct?.products?.price}$
             </h5>
             <div className="flex items-center gap-x-3 mt-5">
-                <>
-                {data?.user?.role === "user" ?
-                <>
-                <button
-                onClick={() => {
-                  addItemtocart({
-                    _id: singleproduct?.products?._id,
-                    title: singleproduct?.products?.title,
-                    thumbnail: singleproduct?.products?.thumbnail,
-                    category: singleproduct?.products?.category,
-                    discountPercentage:
-                      singleproduct?.products?.discountPercentage,
-                    price: singleproduct?.products?.price,
-                  });
-                  if (productbtn === true || cart?.cartItems?.length >= 0) {
-                    setbtn("Go to Cart");
-                  } else {
-                    setbtn("Add Cart");
-                  }
-                }}
-                className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-red-600"
-              >
-                {btn}
-              </button>
-              {btn === "Go to Cart" && (
-                <button
-                  className={`${
-                    productbtn === false && "hidden"
-                  } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg tracking-wide`}
-                  onClick={Removeitem}
-                >
-                  Remove
-                </button>
-              )}
-                </>
-              : <Link href='/User/Admin/Allproduct' className='w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg'>
-                Back
-              </Link>}    
-              
-                </>
+              <>
+                {data?.user?.role === "user" ? (
+                  singleproduct?.products?.stock === "InStock" ? (
+                    <>
+                      <button
+                        onClick={() => {
+                          addItemtocart({
+                            _id: singleproduct?.products?._id,
+                            title: singleproduct?.products?.title,
+                            thumbnail: singleproduct?.products?.thumbnail,
+                            category: singleproduct?.products?.category,
+                            discountPercentage:
+                              singleproduct?.products?.discountPercentage,
+                            price: singleproduct?.products?.price,
+                          });
+                          if (
+                            productbtn === true ||
+                            cart?.cartItems?.length >= 0
+                          ) {
+                            setbtn("Go to Cart");
+                          } else {
+                            setbtn("Add Cart");
+                          }
+                        }}
+                        className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-red-600"
+                      >
+                        {btn}
+                      </button>
+                      {btn === "Go to Cart" && (
+                        <button
+                          className={`${
+                            productbtn === false && "hidden"
+                          } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg tracking-wide`}
+                          onClick={Removeitem}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <h2 className="text-red-600 font-semibold">
+                      Currently Out of Stock
+                    </h2>
+                  )
+                ) : (
+                  <Link
+                    href="/User/Admin/Allproduct"
+                    className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg"
+                  >
+                    Back
+                  </Link>
+                )}
+              </>
             </div>
           </div>
         </div>

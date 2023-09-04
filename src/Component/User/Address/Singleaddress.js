@@ -152,7 +152,7 @@ const Singleaddress = ({ addressdata }) => {
                 className="cursor-pointer w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] mt-2 mb-3 text-[#dc2626] font-semibold tracking-wide rounded-md"
                 onClick={() => {
                   let text =
-                    "if you really want to remove item from the cart ? if yes then press ok otherwise press cancle";
+                    "if you really want to remove Address ? if yes then press ok otherwise press cancle";
                   if (window.confirm(text) == true) {
                     axios
                       .delete(
