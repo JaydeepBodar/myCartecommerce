@@ -157,14 +157,14 @@ const Singleaddress = ({ addressdata }) => {
                     axios
                       .delete(
                         `${process.env.API_URL}api/Address/${addressdata._id}`,
-                        { id: addressdata._id, ...Input }
+                        {...Input }
                       )
                       .then((res) => {
                         return res;
                       })
                       .catch((e) => {
                         return e;
-                      });
+                      });         
                     router.push("/User");
                   }
                 }}

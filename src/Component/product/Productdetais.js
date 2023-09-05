@@ -106,8 +106,7 @@ const Productdetais = ({ singleproduct, loading }) => {
                             title: singleproduct?.products?.title,
                             thumbnail: singleproduct?.products?.thumbnail,
                             category: singleproduct?.products?.category,
-                            discountPercentage:
-                              singleproduct?.products?.discountPercentage,
+                            discountPercentage:singleproduct?.products?.discountPercentage,
                             price: singleproduct?.products?.price,
                           });
                           if (

@@ -1,5 +1,5 @@
 "use client";
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Custompagination from "../Custompagination";
@@ -11,16 +11,17 @@ const Adminproduct = ({ product }) => {
   const { productperpage, productcount, filterproductscount, products } =
     product;
   const router = useRouter();
-  const deleteProduct = (id,val) => {
+  const deleteProduct = (id, val) => {
     console.log("id", id);
     console.log("product", product);
     let text =
       "if you really want to product remove product from the product list ? if yes then press ok otherwise press cancle";
     if (window.confirm(text) == true) {
       axios
-        .delete(`${process.env.API_URL}api/admin/product/${id}`,val)
+        .delete(`${process.env.API_URL}api/admin/product/${id}`, val)
         .then((res) => toast.success(res.data.message))
-        .catch((e) => console.log("E", e)).finally(()=>router.refresh())
+        .catch((e) => console.log("E", e))
+        .finally(() => router.refresh());
     }
   };
   // useEffect(() => {
@@ -65,7 +66,7 @@ const Adminproduct = ({ product }) => {
                 <button
                   href="/"
                   className="btn bg-red-600"
-                  onClick={() => deleteProduct(_id,val)}
+                  onClick={() => deleteProduct(_id, val)}
                 >
                   Delete
                 </button>

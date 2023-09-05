@@ -19,7 +19,7 @@ const Usercontextprovider = ({ children }) => {
   useEffect(() => {
     loaduser()
   }, [user?.updatedAt])
-  // console.log("user",user,setuser)
+  console.log("user",user)
   return (
     <Usercontext.Provider value={{user ,loading,setuser,loaduser}}>
       {children}

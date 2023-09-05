@@ -44,7 +44,6 @@ const Productupdate = ({ product }) => {
   const handleImageUpload = async (e) => {
     const files = e.target.files;
     const uploadedImages = [];
-
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);

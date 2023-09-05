@@ -48,7 +48,7 @@ const Productlist = ({ product, loading }) => {
               </h4>
             </div>
           )}
-          {!loading && product?.products?.length >0 && product?.products?.map((product, index) => {
+          {!loading && product?.products?.length > 0 && product?.products?.map((product, index) => {
             return <Item key={index} product={product} loading={loading} />;
           })}
         </div>
