@@ -54,7 +54,7 @@ const getCartitems = async (line_items) => {
         product: productid,
         name: product.name,
         image: product.images,
-        price: item.price.unit_amount / 100,
+        price: item?.discountprice?.unit_amount / 100,
         quantity: item.quantity,
       });
       if (cartItems?.length === line_items?.data?.length) {
