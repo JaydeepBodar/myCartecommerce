@@ -42,10 +42,10 @@ const Orderview = ({ order,loading }) => {
               <h5>Order id&nbsp;:-&nbsp;{_id}</h5>
               <h5>Payment id&nbsp;:-&nbsp;{paymentInfo?.id}</h5>
               <h5>Payment Status&nbsp;:-&nbsp;{paymentInfo?.status}</h5>
-              <h5>Tax&nbsp;:-&nbsp;{paymentInfo?.taxPaid}$</h5>
+              <h5>Tax&nbsp;:-&nbsp;{paymentInfo?.taxPaid}₹</h5>
               <h5>
                 Total Payment(including Tax)&nbsp;:-&nbsp;
-                {paymentInfo?.amountPaid}$
+                {paymentInfo?.amountPaid}₹
               </h5>
             </div>
             <div className="flex flex-col">
@@ -106,7 +106,7 @@ const Orderview = ({ order,loading }) => {
                     </div>
                     <div>
                       <h5>Title&nbsp;:-&nbsp;{name}</h5>
-                      <h5>Price&nbsp;:-&nbsp;{price}$</h5>
+                      <h5>Price&nbsp;:-&nbsp;{price}₹</h5>
                     </div>
                   </div>
                 );

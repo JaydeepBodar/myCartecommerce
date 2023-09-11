@@ -6,18 +6,18 @@ const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
   const line_items = body?.items?.map((item) => {
-    // console.log("item",item)
+    console.log("item",item)
     return {
       price_data: {
-        currency: "usd",
+        currency: "inr",
         product_data: {
           name: item?.title,
           images: [item?.thumbnail],
           metadata: { productId: item?._id },
         },
-        unit_amount: item.price * 100,
+        unit_amount: item?.discountprice * 100,
       },
-      tax_rates: ["txr_1NhRlTSFLEGSzdCiohhHQ9ed"],
+      tax_rates: ["txr_1Np67LSFLEGSzdCiAmAb1EJh"],
       quantity: item.quantity,
     };
   });
@@ -33,7 +33,7 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1NhRkdSFLEGSzdCilZXefyi0",
+        shipping_rate: "shr_1Np66YSFLEGSzdCiamIKujO8",
       },
     ],
     line_items,

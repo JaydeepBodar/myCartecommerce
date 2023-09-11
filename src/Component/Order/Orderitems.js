@@ -81,8 +81,8 @@ const Orderitems = ({ item }) => {
           <h4 className="font-semibold">Payment details</h4>
           <h5>Payment id:-&nbsp;{id}</h5>
           <h5>Status:-&nbsp;{status} </h5>
-          <h5>Tax :-&nbsp;{taxPaid}$</h5>
-          <h5>Total(with tax) :-&nbsp;{amountPaid}$</h5>
+          <h5>Tax :-&nbsp;{taxPaid}₹</h5>
+          <h5>Total(with tax) :-&nbsp;{amountPaid}₹</h5>
         </div>
       </div>
       <div className="flex flex-wrap gap-x-2 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
@@ -109,7 +109,7 @@ const Orderitems = ({ item }) => {
               </div>
               <div>
                 <h5>Product:-&nbsp;{name}</h5>
-                <h4>Price:-&nbsp;{price}$</h4>
+                <h4>Price:-&nbsp;{price}₹</h4>
               </div>
             </div>
           );

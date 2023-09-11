@@ -23,6 +23,7 @@ const Cartprovider = ({ children }) => {
     thumbnail,
     category,
     discountPercentage,
+    discountprice,
     price,
     quantity = 1,
   }) => {
@@ -34,6 +35,7 @@ const Cartprovider = ({ children }) => {
       discountPercentage,
       price,
       quantity,
+      discountprice
     };
     const isItemExist = cart?.cartItems?.find(
       (i) => i._id === item._id

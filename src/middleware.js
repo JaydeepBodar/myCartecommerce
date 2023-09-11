@@ -27,6 +27,7 @@ export const config = {
     "/User/Admin/AllOrder",
     "/User/Admin/Orderviewdata/:path*",
     "/User/Admin/updateProduct",
+    "/User/Admin/Allproduct",
     "/User/Admin/Alluser"
   ],
 };

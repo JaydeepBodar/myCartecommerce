@@ -88,15 +88,15 @@ const Productdetais = ({ singleproduct, loading }) => {
                     singleproduct?.products?.discountPercentage) /
                   100
                 ).toFixed(0)}
-                $
+                ₹
               </span>
             </h5>
             <h5 className="text-xl font-semibold">
-              Price:- {singleproduct?.products?.price}$
+              Price:- {singleproduct?.products?.price}₹
             </h5>
             <div className="flex items-center gap-x-3 mt-5">
               <>
-                {data?.user?.role === "user" ? (
+                {data?.user?.role !== "Admin" &&  (
                   singleproduct?.products?.stock === "InStock" ? (
                     <>
                       <button
@@ -107,7 +107,8 @@ const Productdetais = ({ singleproduct, loading }) => {
                             thumbnail: singleproduct?.products?.thumbnail,
                             category: singleproduct?.products?.category,
                             discountPercentage:singleproduct?.products?.discountPercentage,
-                            price: singleproduct?.products?.price,
+                            discountprice: singleproduct?.products?.price - singleproduct?.products?.price *singleproduct?.products?.discountPercentage/100,
+                            price:singleproduct?.products?.price
                           });
                           if (
                             productbtn === true ||
@@ -138,7 +139,8 @@ const Productdetais = ({ singleproduct, loading }) => {
                       Currently Out of Stock
                     </h2>
                   )
-                ) : (
+                )}
+                {data?.user?.role === "Admin" && (
                   <Link
                     href="/User/Admin/Allproduct"
                     className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg"

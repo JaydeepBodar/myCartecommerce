@@ -32,10 +32,11 @@ const Cartitem = () => {
     console.log("item", item);
     return acc + item.price * item.quantity;
   }, 0);
-  const disCountprice = cart?.cartItems?.reduce((acc, item) => {
-    return acc + ((item.price * item.discountPercentage) / 100) * item.quantity;
+  const Totalprice = cart?.cartItems?.reduce((acc, item) => {
+      console.log("item",item)
+    return acc + item?.discountprice * item.quantity;
   }, 0);
-  const Totalprice = netAmount - disCountprice;
+  // const Totalprice=netAmount - disCountprice
   console.log("netAmount", netAmount);
   const deleteProduct = (id) => {
     let text =
@@ -56,13 +57,7 @@ const Cartitem = () => {
             {cart.cartItems?.length > 0 &&
               cart.cartItems?.map((value) => {
                 console.log("value", value);
-                const {
-                  title,
-                  category,
-                  thumbnail,
-                  _id,
-                  quantity,
-                } = value;
+                const { title, category, thumbnail, _id, quantity } = value;
                 return (
                   <div
                     key={_id}
@@ -76,8 +71,16 @@ const Cartitem = () => {
                       } basis-[70%] max-sm:basis-[100%] max-sm:w-[100%] flex items-center gap-x-4`}
                     >
                       <div className="relative">
-                        <div className={`${pathname === "/shiping" ? "block absolute right-0 top-[-8px]" : "hidden" }`}>
-                            <p className="w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center">{quantity}</p>
+                        <div
+                          className={`${
+                            pathname === "/shiping"
+                              ? "block absolute right-0 top-[-8px]"
+                              : "hidden"
+                          }`}
+                        >
+                          <p className="w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center">
+                            {quantity}
+                          </p>
                         </div>
                         <Link
                           href={`/productdata/${_id}`}
@@ -91,7 +94,8 @@ const Cartitem = () => {
                             width={150}
                             height={200}
                             className={`${
-                              pathname === "/shiping" && "w-[50px] h-[50px] object-cover"
+                              pathname === "/shiping" &&
+                              "w-[50px] h-[50px] object-cover"
                             }`}
                             style={{
                               borderRadius: "50%",
@@ -157,7 +161,7 @@ const Cartitem = () => {
           <div className="cartfont basis-[30%] px-5 py-4 border-[1px] border-[#bbbbbb] rounded-lg">
             <div className="flex justify-between items-center">
               <h4>Price :-</h4>
-              <h4>{netAmount.toFixed(2)}$</h4>
+              <h4>{netAmount.toFixed(2)}₹</h4>
             </div>
             <div className="flex justify-between items-center">
               <h4 className="font-semibold">Quantity:-</h4>
@@ -167,15 +171,15 @@ const Cartitem = () => {
             </div>
             <div className="flex justify-between items-center text-[green]">
               <h4>Discount</h4>
-              <h4>{disCountprice.toFixed(2)}$</h4>
+              <h4>{(netAmount - Totalprice).toFixed(2)}₹</h4>
             </div>
             <div className="flex justify-between items-center text-[red]">
               <h4>Total Price(Without Discount)</h4>
-              <del>{netAmount.toFixed(2)}$</del>
+              <del>{netAmount.toFixed(2)}₹</del>
             </div>
             <div className="flex justify-between items-center border-t-[2px] border-[#000] mt-2 text-lg font-semibold pt-2">
               <h3>Total Price(With Discount):-</h3>
-              <h3>{Totalprice.toFixed(2)}$</h3>
+              <h3>{Totalprice.toFixed(2)}₹</h3>
             </div>
             <div className="mt-5">
               {pathname === "/Cart" && (
@@ -199,7 +203,8 @@ const Cartitem = () => {
         )}
       </div>
       {pathname === "/Cart"
-        ? cart?.cartItems === undefined || cart?.cartItems?.length === 0 && (
+        ? cart?.cartItems === undefined ||
+          (cart?.cartItems?.length === 0 && (
             <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
               Your cart is empty&nbsp;
               <Link
@@ -209,7 +214,7 @@ const Cartitem = () => {
                 Back to Shop
               </Link>
             </p>
-          )
+          ))
         : cart?.cartItems?.length === 0 && router.push("/")}
     </>
   );

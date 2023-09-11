@@ -3,7 +3,7 @@ export const products = [
     id: 1,
     title: "iPhone 9",
     description: "An apple mobile which is nothing like apple",
-    price: 549,
+    price: 35000,
     discountPercentage: 12.96,
     rating: 4.69,
     category: "smartphones",
@@ -21,7 +21,7 @@ export const products = [
     title: "iPhone X",
     description:
       "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-    price: 899,
+    price: 70000,
     discountPercentage: 17.94,
     rating: 4.44,
     category: "smartphones",
@@ -38,7 +38,7 @@ export const products = [
     title: "Samsung Universe 9",
     description:
       "Samsung's new variant which goes beyond Galaxy to the Universe",
-    price: 1249,
+    price: 100499,
     discountPercentage: 15.46,
     rating: 4.09,
     category: "smartphones",
@@ -49,7 +49,7 @@ export const products = [
     id: 4,
     title: "OPPOF19",
     description: "OPPO F19 is officially announced on April 2021.",
-    price: 280,
+    price: 23999,
     discountPercentage: 17.91,
     rating: 4.3,
     category: "smartphones",
@@ -67,7 +67,7 @@ export const products = [
     title: "Huawei P30",
     description:
       "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
-    price: 499,
+    price: 34999,
     discountPercentage: 10.58,
     rating: 4.09,
     category: "smartphones",
@@ -83,7 +83,7 @@ export const products = [
     title: "MacBook Pro",
     description:
       "MacBook Pro 2021 with mini-LED display may launch between September, November",
-    price: 1749,
+    price: 144999,
     discountPercentage: 11.02,
     rating: 4.57,
     category: "laptops",
@@ -100,7 +100,7 @@ export const products = [
     title: "Samsung Galaxy Book",
     description:
       "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
-    price: 1499,
+    price: 114999,
     discountPercentage: 4.15,
     rating: 4.25,
     category: "laptops",
@@ -117,7 +117,7 @@ export const products = [
     title: "Microsoft Surface Laptop 4",
     description:
       "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
-    price: 1499,
+    price: 114999,
     discountPercentage: 10.23,
     rating: 4.43,
     category: "laptops",
@@ -135,7 +135,7 @@ export const products = [
     title: "Infinix INBOOK",
     description:
       "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
-    price: 1099,
+    price: 89500,
     discountPercentage: 11.83,
     rating: 4.54,
     category: "laptops",
@@ -153,7 +153,7 @@ export const products = [
     title: "HP Pavilion 15-DK1056WM",
     description:
       "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
-    price: 1099,
+    price: 89500,
     discountPercentage: 6.18,
     rating: 4.43,
     category: "laptops",
@@ -170,7 +170,7 @@ export const products = [
     title: "perfume Oil",
     description:
       "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
-    price: 13,
+    price: 999,
     discountPercentage: 8.4,
     rating: 4.26,
     category: "fragrances",
@@ -186,7 +186,7 @@ export const products = [
     id: 12,
     title: "Brown Perfume",
     description: "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
-    price: 40,
+    price:1499,
     discountPercentage: 15.66,
     rating: 4,
     category: "fragrances",
@@ -204,7 +204,7 @@ export const products = [
     title: "Fog Scent Xpressio Perfume",
     description:
       "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
-    price: 13,
+    price: 1024,
     discountPercentage: 8.14,
     rating: 4.59,
     category: "fragrances",
@@ -222,7 +222,7 @@ export const products = [
     title: "Non-Alcoholic Concentrated Perfume Oil",
     description:
       "Original Al Munakh® by Mahal Al Musk | Our Impression of Climate | 6ml Non-Alcoholic Concentrated Perfume Oil",
-    price: 120,
+    price: 4500,
     discountPercentage: 15.6,
     rating: 4.21,
     category: "fragrances",
@@ -239,7 +239,7 @@ export const products = [
     title: "Eau De Perfume Spray",
     description:
       "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
-    price: 30,
+    price: 1500,
     discountPercentage: 10.99,
     rating: 4.7,
     category: "fragrances",
@@ -257,7 +257,7 @@ export const products = [
     title: "Hyaluronic Acid Serum",
     description:
       "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
-    price: 19,
+    price: 1300,
     discountPercentage: 13.31,
     rating: 4.83,
     category: "skincare",
@@ -275,7 +275,7 @@ export const products = [
     title: "Tree Oil 30ml",
     description:
       "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
-    price: 12,
+    price: 499,
     discountPercentage: 4.09,
     rating: 4.52,
     category: "skincare",
@@ -292,7 +292,7 @@ export const products = [
     title: "Oil Free Moisturizer 100ml",
     description:
       "Dermive Oil Free Moisturizer with SPF 20 is specifically formulated with ceramides, hyaluronic acid & sunscreen.",
-    price: 40,
+    price: 499,
     discountPercentage: 13.1,
     rating: 4.56,
     category: "skincare",
@@ -310,7 +310,7 @@ export const products = [
     title: "Skin Beauty Serum.",
     description:
       "Product name: rorec collagen hyaluronic acid white face serum riceNet weight: 15 m",
-    price: 46,
+    price: 299,
     discountPercentage: 10.68,
     rating: 4.42,
     category: "skincare",
@@ -327,7 +327,7 @@ export const products = [
     title: "Freckle Treatment Cream- 15gm",
     description:
       "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
-    price: 70,
+    price: 199,
     discountPercentage: 16.99,
     rating: 4.06,
     category: "skincare",
@@ -344,7 +344,7 @@ export const products = [
     id: 21,
     title: "- Daal Masoor 500 grams",
     description: "Fine quality Branded Product Keep in a cool and dry place",
-    price: 20,
+    price: 160,
     discountPercentage: 4.81,
     rating: 4.44,
     category: "groceries",
@@ -359,7 +359,7 @@ export const products = [
     id: 22,
     title: "Elbow Macaroni - 400 gm",
     description: "Product details of Bake Parlor Big Elbow Macaroni - 400 gm",
-    price: 14,
+    price: 170,
     discountPercentage: 15.58,
     rating: 4.57,
     category: "groceries",
@@ -375,7 +375,7 @@ export const products = [
     title: "Orange Essence Food Flavou",
     description:
       "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
-    price: 14,
+    price: 199,
     discountPercentage: 8.04,
     rating: 4.85,
     category: "groceries",
@@ -393,7 +393,7 @@ export const products = [
     title: "cereals muesli fruit nuts",
     description:
       "original fauji cereal muesli 250gm box pack original fauji cereals muesli fruit nuts flakes breakfast cereal break fast faujicereals cerels cerel foji fouji",
-    price: 46,
+    price: 499,
     discountPercentage: 16.8,
     rating: 4.94,
     category: "groceries",
@@ -410,7 +410,7 @@ export const products = [
     id: 25,
     title: "Gulab Powder 50 Gram",
     description: "Dry Rose Flower Powder Gulab Powder 50 Gram • Treats Wounds",
-    price: 70,
+    price: 499,
     discountPercentage: 13.58,
     rating: 4.87,
     category: "groceries",
@@ -428,7 +428,7 @@ export const products = [
     title: "Plant Hanger For Home",
     description:
       "Boho Decor Plant Hanger For Home Wall Decoration Macrame Wall Hanging Shelf",
-    price: 41,
+    price: 899,
     discountPercentage: 17.86,
     rating: 4.08,
     category: "home-decoration",
@@ -447,7 +447,7 @@ export const products = [
     title: "Flying Wooden Bird",
     description:
       "Package Include 6 Birds with Adhesive Tape Shape: 3D Shaped Wooden Birds Material: Wooden MDF, Laminated 3.5mm",
-    price: 51,
+    price: 899,
     discountPercentage: 15.58,
     rating: 4.41,
     category: "home-decoration",
@@ -465,7 +465,7 @@ export const products = [
     title: "3D Embellishment Art Lamp",
     description:
       "3D led lamp sticker Wall sticker 3d wall art light on/off button  cell operated (included)",
-    price: 20,
+    price: 999,
     discountPercentage: 16.49,
     rating: 4.82,
     category: "home-decoration",
@@ -483,7 +483,7 @@ export const products = [
     title: "Handcraft Chinese style",
     description:
       "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
-    price: 60,
+    price: 799,
     discountPercentage: 15.34,
     rating: 4.44,
     category: "home-decoration",
@@ -501,7 +501,7 @@ export const products = [
     title: "Key Holder",
     description:
       "Attractive DesignMetallic materialFour key hooksReliable & DurablePremium Quality",
-    price: 30,
+    price: 299,
     discountPercentage: 2.92,
     rating: 4.92,
     category: "home-decoration",
@@ -516,7 +516,7 @@ export const products = [
   {
     id: 31,
     title: "Mens Cotton Jacket",
-    price: 55.99,
+    price: 1299,
     discountPercentage: 2.92,
     description:
       "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
@@ -532,7 +532,7 @@ export const products = [
   {
     id: 32,
     title: "Mens Casual Slim Fit",
-    price: 15.99,
+    price: 599,
     discountPercentage: 10,
     description:
       "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.",
@@ -549,7 +549,7 @@ export const products = [
     id: 33,
     title:
       "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
-    price: 695,
+    price: 9999,
     discountPercentage: 6,
     description:
       "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
@@ -568,7 +568,7 @@ export const products = [
     id: 34,
     title: "Solid Gold Petite Micropave ",
     discountPercentage: 8,
-    price: 168,
+    price: 10999,
     description:
       "Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.",
     category: "jewelery",
@@ -585,7 +585,7 @@ export const products = [
   {
     id: 35,
     title: "White Gold Plated Princess",
-    price: 9.99,
+    price: 999,
     discountPercentage: 22,
     description:
       "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
@@ -603,7 +603,7 @@ export const products = [
   {
     id: 36,
     title: "Pierced Owl Rose Gold Plated Stainless Steel Double",
-    price: 10.99,
+    price: 99,
     discountPercentage: 22,
     description:
       "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
@@ -622,7 +622,7 @@ export const products = [
     id: 37,
     discountPercentage: 23,
     title: "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
-    price: 64,
+    price: 5200,
     description:
       "USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system",
     category: "electronics",
@@ -639,7 +639,7 @@ export const products = [
     id: 38,
     discountPercentage: 23,
     title: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
-    price: 109,
+    price: 2999,
     description:
       "Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)",
     category: "electronics",
@@ -657,7 +657,7 @@ export const products = [
     discountPercentage: 21,
     title:
       "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
-    price: 109,
+    price: 3299,
     description:
       "3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking & Correction) to provide the optimized performance and enhanced reliability.",
     category: "electronics",
@@ -675,7 +675,7 @@ export const products = [
     discountPercentage: 23,
     title:
       "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
-    price: 114,
+    price: 7899,
     description:
       "Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty",
     category: "electronics",
@@ -692,7 +692,7 @@ export const products = [
     id: 41,
     discountPercentage: 28,
     title: "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
-    price: 599,
+    price: 7299,
     description:
       "21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz",
     category: "electronics",
@@ -710,7 +710,7 @@ export const products = [
     discountPercentage: 25,
     title:
       "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ",
-    price: 999.99,
+    price: 19999,
     description:
       "49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag",
     category: "electronics",
@@ -726,7 +726,7 @@ export const products = [
   {
     id: 43,
     title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
-    price: 56.99,
+    price: 2599,
     description:
       "Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates",
     category: "women's clothing",
@@ -744,7 +744,7 @@ export const products = [
     id: 44,
     title:
       "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
-    price: 29.95,
+    price: 1699,
     discountPercentage: 10,
     description:
       "100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON",
@@ -761,7 +761,7 @@ export const products = [
   {
     id: 45,
     title: "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
-    price: 39.99,
+    price: 999,
     discountPercentage: 20,
     description:
       "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.",
@@ -778,7 +778,7 @@ export const products = [
   {
     id: 46,
     title: "MBJ Women's Solid Short Sleeve Boat Neck V ",
-    price: 9.85,
+    price: 749,
     discountPercentage: 20,
     description:
       "95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem",
@@ -795,7 +795,7 @@ export const products = [
   {
     id: 47,
     title: "Opna Women's Short Sleeve Moisture",
-    price: 7.95,
+    price: 559,
     discountPercentage: 22,
     description:
       "100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash & Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort",
@@ -812,7 +812,7 @@ export const products = [
   {
     id: 48,
     title: "DANVOUY Womens T Shirt Casual Cotton Short",
-    price: 12.99,
+    price: 1049,
     discountPercentage: 29.2,
     description:
       "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",

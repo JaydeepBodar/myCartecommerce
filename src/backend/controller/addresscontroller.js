@@ -1,5 +1,3 @@
-
-import { useSession } from "next-auth/react";
 import Addressschema from "../model/Addressschema";
 
 export const postAddress = async (req, res) => {

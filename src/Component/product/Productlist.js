@@ -41,7 +41,7 @@ const Productlist = ({ product, loading }) => {
               <Loader />
             </div>
           )}
-          {!loading && product.products?.length === 0 && (
+          {product.products?.length === 0 && (
             <div className="flex justify-center items-center h-[80vh]">
               <h4 className="text-2xl font-bold">
                 No product Found For Your Filter...

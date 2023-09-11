@@ -15,6 +15,7 @@ body {
   padding: 0;
   line-height: 30px;
   overflow-y: auto;
+  height: 100%;
 }
 .adminorder h5{
   font-size: 14px;

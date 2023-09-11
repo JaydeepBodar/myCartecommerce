@@ -27,6 +27,7 @@ const Item = ({ product, loading }) => {
       category,
       discountPercentage,
       price,
+      discountprice:price-price *discountPercentage/100,
     });
     if (productbtn === true || cart?.cartItems?.length >= 0) {
       setbtn("Go to Cart");
@@ -73,11 +74,11 @@ const Item = ({ product, loading }) => {
           />
         </Link>
         <div className="max-md:block md:hidden">
-          <h5 className="text-xl font-semibold">Price:- {price}$</h5>
+          <h5 className="text-xl font-semibold">Price:- {price}₹</h5>
           <h5 className="text-xl font-semibold">
             <span className="text-[green]">
               DiscountPrice:-
-              {((price * discountPercentage) / 100).toFixed(0)}$
+              {((price * discountPercentage) / 100).toFixed(0)}₹
             </span>
           </h5>
           {stock === "InStock" ? (
@@ -109,12 +110,12 @@ const Item = ({ product, loading }) => {
       </div>
       <div className="basis-[20%] max-md:hidden pt-6">
         <h5 className="text-xl font-semibold max-sm:text-xl">
-          Price:-{price}$
+          Price:-{price}₹
         </h5>
         <h5 className="text-xl font-semibold max-sm:text-xl">
           <span className="text-[green]">
             DiscountPrice:-
-            {((price * discountPercentage) / 100).toFixed(0)}$
+            {((price * discountPercentage) / 100).toFixed(0)}₹
           </span>
         </h5>
         {stock === "InStock" ? (
