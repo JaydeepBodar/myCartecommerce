@@ -18,6 +18,7 @@ const Item = ({ product, loading }) => {
     rating,
     stock,
   } = product;
+  const discount=(price-price *discountPercentage/100).toFixed(0)
   const productbtn = cart?.cartItems?.some((item) => item._id === _id);
   const Additem = () => {
     addItemtocart({
@@ -27,7 +28,7 @@ const Item = ({ product, loading }) => {
       category,
       discountPercentage,
       price,
-      discountprice:price-price *discountPercentage/100,
+      discountprice:discount,
     });
     if (productbtn === true || cart?.cartItems?.length >= 0) {
       setbtn("Go to Cart");

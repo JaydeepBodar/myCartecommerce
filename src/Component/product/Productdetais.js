@@ -24,6 +24,12 @@ const Productdetais = ({ singleproduct, loading }) => {
   const productbtn = cart?.cartItems?.some(
     (item) => item._id === singleproduct?.products?._id
   );
+  const discount =
+    (singleproduct?.products?.price -
+    (singleproduct?.products?.price *
+      singleproduct?.products?.discountPercentage) /
+      100).toFixed(0)
+      // console.log("discount",discount)
   return (
     <Container>
       {loading && (
@@ -96,8 +102,8 @@ const Productdetais = ({ singleproduct, loading }) => {
             </h5>
             <div className="flex items-center gap-x-3 mt-5">
               <>
-                {data?.user?.role !== "Admin" &&  (
-                  singleproduct?.products?.stock === "InStock" ? (
+                {data?.user?.role !== "Admin" &&
+                  (singleproduct?.products?.stock === "InStock" ? (
                     <>
                       <button
                         onClick={() => {
@@ -106,9 +112,10 @@ const Productdetais = ({ singleproduct, loading }) => {
                             title: singleproduct?.products?.title,
                             thumbnail: singleproduct?.products?.thumbnail,
                             category: singleproduct?.products?.category,
-                            discountPercentage:singleproduct?.products?.discountPercentage,
-                            discountprice: singleproduct?.products?.price - singleproduct?.products?.price *singleproduct?.products?.discountPercentage/100,
-                            price:singleproduct?.products?.price
+                            discountPercentage:
+                              singleproduct?.products?.discountPercentage,
+                            discountprice: discount,
+                            price: singleproduct?.products?.price,
                           });
                           if (
                             productbtn === true ||
@@ -138,8 +145,7 @@ const Productdetais = ({ singleproduct, loading }) => {
                     <h2 className="text-red-600 font-semibold">
                       Currently Out of Stock
                     </h2>
-                  )
-                )}
+                  ))}
                 {data?.user?.role === "Admin" && (
                   <Link
                     href="/User/Admin/Allproduct"
