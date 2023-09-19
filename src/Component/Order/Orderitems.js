@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
+import React,{useEffect} from "react";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Tostify from "../Tostify";
 import { useRouter } from "next/navigation";
 const Orderitems = ({ item }) => {
-  console.log("item", item);
+  // console.log("item", item);
   const {
     orderItems,
     paymentInfo,
@@ -31,7 +31,7 @@ const Orderitems = ({ item }) => {
     if (window.confirm(text) == true) {
       axios
         .delete(`${process.env.API_URL}api/Order/${_id}`, { item })
-        .then((res) => toast.success(res.data.message))
+        .then((res) => toast.success(res?.data?.message))
         .catch((e) => console.log("eeee", e))
         .finally(() => router.refresh());
     }
@@ -85,11 +85,11 @@ const Orderitems = ({ item }) => {
           <h5>Total(with tax) :-&nbsp;{amountPaid}₹</h5>
         </div>
       </div>
-      <div className="flex flex-wrap gap-x-2 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
+      <div className="flex flex-wrap gap-x-2 gap-y-4 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
         {orderItems?.map((val, index) => {
-          {
-            /* console.log("val", val); */
-          }
+          
+           {/* console.log("val", val) */}
+          
           const { name, quantity, image, price } = val;
           return (
             <div

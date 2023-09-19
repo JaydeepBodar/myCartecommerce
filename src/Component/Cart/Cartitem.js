@@ -33,7 +33,7 @@ const Cartitem = () => {
     return acc + item.price * item.quantity;
   }, 0);
   const Totalprice = cart?.cartItems?.reduce((acc, item) => {
-      console.log("item",item)
+    console.log("item", item);
     return acc + item?.discountprice * item.quantity;
   }, 0);
   // const Totalprice=netAmount - disCountprice
@@ -48,9 +48,8 @@ const Cartitem = () => {
   return (
     <>
       <div
-        className={`${
-          pathname === "/shiping" && "flex-col-reverse gap-y-4"
-        } flex mt-4 mb-2 gap-x-4 max-lg:flex-col-reverse`}
+        className={`${pathname === "/shiping" && "flex-col-reverse gap-y-4"
+          } flex mt-4 mb-2 gap-x-4 max-lg:flex-col-reverse`}
       >
         <div className="max-lg:py-4 basis-[65%] min-h-[100%]">
           <div className={`${cart.cartItems?.length > 0 && "scrollbar"}`}>
@@ -61,22 +60,19 @@ const Cartitem = () => {
                 return (
                   <div
                     key={_id}
-                    className={`${
-                      pathname === "/shiping" && "flex-col"
-                    } flex justify-between max-sm:flex-col items-center mb-2 px-3 py-2 border-[1px] border-[#bbbbbb] rounded-lg`}
+                    className={`${pathname === "/shiping" && "flex-col"
+                      } flex justify-between max-sm:flex-col items-center mb-2 px-3 py-2 border-[1px] border-[#bbbbbb] rounded-lg`}
                   >
                     <div
-                      className={`${
-                        pathname === "/shiping" && "basis-[100%] w-[100%]"
-                      } basis-[70%] max-sm:basis-[100%] max-sm:w-[100%] flex items-center gap-x-4`}
+                      className={`${pathname === "/shiping" && "basis-[100%] w-[100%]"
+                        } basis-[70%] max-sm:basis-[100%] max-sm:w-[100%] flex items-center gap-x-4`}
                     >
                       <div className="relative">
                         <div
-                          className={`${
-                            pathname === "/shiping"
-                              ? "block absolute right-0 top-[-8px]"
-                              : "hidden"
-                          }`}
+                          className={`${pathname === "/shiping"
+                            ? "block absolute right-0 top-[-8px]"
+                            : "hidden"
+                            }`}
                         >
                           <p className="w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center">
                             {quantity}
@@ -84,19 +80,17 @@ const Cartitem = () => {
                         </div>
                         <Link
                           href={`/productdata/${_id}`}
-                          className={`${
-                            pathname === "/shiping" && "w-[auto] h-[auto]"
-                          } w-[100%] max-w-[150px] h-[100%] max-h-[200px] flex justify-center`}
+                          className={`${pathname === "/shiping" && "w-[auto] h-[auto]"
+                            } w-[100%] max-w-[150px] h-[100%] max-h-[200px] flex justify-center`}
                         >
                           <Image
                             src={thumbnail}
                             alt="title"
                             width={150}
                             height={200}
-                            className={`${
-                              pathname === "/shiping" &&
+                            className={`${pathname === "/shiping" &&
                               "w-[50px] h-[50px] object-cover"
-                            }`}
+                              }`}
                             style={{
                               borderRadius: "50%",
                               objectFill: "contain",
@@ -107,16 +101,14 @@ const Cartitem = () => {
                       </div>
                       <div>
                         <h3
-                          className={`${
-                            pathname === "/shiping" ? "text-base" : "text-xl"
-                          }  font-semibold max-sm:text-lg`}
+                          className={`${pathname === "/shiping" ? "text-base" : "text-xl"
+                            }  font-semibold max-sm:text-lg`}
                         >
                           Name:-{title}
                         </h3>
                         <h4
-                          className={`${
-                            pathname === "/shiping" ? "text-base" : "text-lg"
-                          } font-medium max-sm:text-base`}
+                          className={`${pathname === "/shiping" ? "text-base" : "text-lg"
+                            } font-medium max-sm:text-base`}
                         >
                           Category:-{category}
                         </h4>
@@ -124,10 +116,9 @@ const Cartitem = () => {
                     </div>
                     {pathname === "/Cart" && (
                       <div
-                        className={`${
-                          pathname === "/shiping" &&
+                        className={`${pathname === "/shiping" &&
                           "pt-3 basis-[100%] justify-end gap-x-3 w-[100%]"
-                        } max-sm:pt-3 flex justify-between basis-[30%] max-sm:basis-[100%] max-sm:justify-end max-sm:gap-x-3 max-sm:w-[100%]`}
+                          } max-sm:pt-3 flex justify-between basis-[30%] max-sm:basis-[100%] max-sm:justify-end max-sm:gap-x-3 max-sm:w-[100%]`}
                       >
                         <div className="flex items-center gap-x-2">
                           <button
@@ -203,18 +194,35 @@ const Cartitem = () => {
         )}
       </div>
       {pathname === "/Cart"
-        ? cart?.cartItems === undefined ||
-          (cart?.cartItems?.length === 0 && (
-            <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
-              Your cart is empty&nbsp;
-              <Link
-                href="/"
-                className="text-[red] font-normal decoration-slice"
-              >
-                Back to Shop
-              </Link>
-            </p>
-          ))
+        ? <React.Fragment>{(() => {
+          switch (cart?.cartItem?.length) {
+            case "undefined":
+              return (
+                <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
+                  Your cart is empty&nbsp;
+                  <Link
+                    href="/"
+                    className="text-[red] font-normal decoration-slice"
+                  >
+                    Back to Shop
+                  </Link>
+                </p>
+              );
+            case 0:
+              return (
+                <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
+                  Your cart is empty&nbsp;
+                  <Link
+                    href="/"
+                    className="text-[red] font-normal decoration-slice"
+                  >
+                    Back to Shop
+                  </Link>
+                </p>
+              );
+            default: return null
+          }
+        })()}</React.Fragment>
         : cart?.cartItems?.length === 0 && router.push("/")}
     </>
   );

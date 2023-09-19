@@ -18,7 +18,8 @@ const Item = ({ product, loading }) => {
     rating,
     stock,
   } = product;
-  const discount=(price-price *discountPercentage/100).toFixed(0)
+  const discount=parseInt((price-price *discountPercentage/100).toFixed(0))
+  // console.log("discount",typeof discount)
   const productbtn = cart?.cartItems?.some((item) => item._id === _id);
   const Additem = () => {
     addItemtocart({

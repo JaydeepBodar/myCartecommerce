@@ -26,7 +26,7 @@ const Order = ({ searchParams }) => {
       .then((response) => setorder(response.data))
       .catch((e) => console.log("error", e))
       .finally(() => setloading(false));
-  }, [loading]);
+  }, [loading,searchQuery]);
   return <Allorder orderdata={order} loading={loading} />;
 };
 

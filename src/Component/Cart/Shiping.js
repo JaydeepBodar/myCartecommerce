@@ -57,7 +57,7 @@ const Shiping = ({ address }) => {
         <Tostify/>
         {!loading && (
           <div className="w-[100%] basis-[75%] max-md:basis-[100%] max-md:py-2 border-[1px] border-[#cecbcb] px-4 py-3 h-[auto] mt-4 rounded-lg">
-            <div className="pb-4 max-sm:text-[14px] flex justify-between flex-wrap gap-x-1 max-lg:gap-y-1">
+            <div className="pb-4 max-sm:text-[14px] flex justify-between flex-wrap gap-x-1">
               {address?.map((add, index) => {
                 {/* console.log("add", add); */}
                 const { street, city, country, phoneNo, state, zipcode, _id } =
@@ -65,7 +65,7 @@ const Shiping = ({ address }) => {
                 return (
                   <div
                     key={index}
-                    className="cursor-pointer leading-[25px] flex gap-x-4 bg-[#f2f2f2] basis-[48%] max-lg:basis-[100%] p-4 rounded-lg"
+                    className="cursor-pointer leading-[25px] flex gap-x-4 bg-[#f2f2f2] basis-[48%] max-lg:basis-[100%] p-4 rounded-lg mb-3"
                     title="shiping address"
                   >
                     <input

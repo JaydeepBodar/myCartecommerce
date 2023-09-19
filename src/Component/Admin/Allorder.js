@@ -8,10 +8,10 @@ import Custompagination from "../Custompagination";
 const Allorder = ({ orderdata, loading }) => {
   const { order, productcount, productperpage } = orderdata;
   const router = useRouter();
-useEffect(() => {
-    // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
-    router.refresh();
-  }, []);  
+// useEffect(() => {
+//     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+//     router.refresh();
+//   }, [productperpage,productcount]);  
   return (
     <section>
       <Tostify />

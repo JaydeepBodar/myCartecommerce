@@ -90,6 +90,7 @@ const Address = () => {
             onSubmit={handleSubmit}
             className="rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 bg-[#f2f2f2] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap"
           >
+          <h2 className="mx-[auto] font-semibold text-lg">Add Address</h2>
             {address.map((val, index) => {
               const { name, placeholder, value, error } = val;
               return (

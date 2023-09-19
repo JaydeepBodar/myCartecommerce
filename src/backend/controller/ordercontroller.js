@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
   const line_items = body?.items?.map((item) => {
-    console.log("item",item)
+    console.log("itemdddddddddd", item)
     return {
       price_data: {
         currency: "inr",
@@ -17,7 +17,7 @@ export const checkoutsession = async (req, res) => {
         },
         unit_amount: item?.discountprice * 100,
       },
-      tax_rates: ["txr_1Np67LSFLEGSzdCiAmAb1EJh"],
+      tax_rates: ["txr_1Ns02KSFLEGSzdCiV4DSB8Ye"],
       quantity: item.quantity,
     };
   });
@@ -33,7 +33,7 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1Np66YSFLEGSzdCiamIKujO8",
+        shipping_rate: "shr_1Ns00tSFLEGSzdCiZBp6sjeM",
       },
     ],
     line_items,
@@ -42,19 +42,19 @@ export const checkoutsession = async (req, res) => {
   res.status(200).json({ url: session.url });
 };
 const getCartitems = async (line_items) => {
-  // console.log("line_items?.data",line_items)
+  console.log("line_items?.data", line_items)
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
-      // console.log("itemdataatata",item?.price)
+      console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
-      // console.log("productdetails",product)
+      console.log("productdetails", product)
       const productid = product?.metadata?.productId;
       cartItems?.push({
         product: productid,
         name: product.name,
         image: product.images,
-        price: item?.discountprice?.unit_amount / 100,
+        price: item?.price?.unit_amount / 100,
         quantity: item.quantity,
       });
       if (cartItems?.length === line_items?.data?.length) {
@@ -72,6 +72,7 @@ export const webhook = async (req, res) => {
       rawbody,
       signature,
       process.env.WEBHOOKS_SECERATKEY_PRODUCTION
+      // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
     console.log("event", event);
     if (event.type === "checkout.session.completed") {
@@ -81,6 +82,7 @@ export const webhook = async (req, res) => {
       );
       // console.log("session", session);
       const getOrder = await getCartitems(line_items);
+      console.log("getOrder", getOrder)
       const userId = session?.client_reference_id;
       const amountPaid = session?.amount_total / 100;
       const paymentInfo = {

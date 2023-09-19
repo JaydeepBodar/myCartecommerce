@@ -25,11 +25,11 @@ const Productdetais = ({ singleproduct, loading }) => {
     (item) => item._id === singleproduct?.products?._id
   );
   const discount =
-    (singleproduct?.products?.price -
-    (singleproduct?.products?.price *
-      singleproduct?.products?.discountPercentage) /
-      100).toFixed(0)
-      // console.log("discount",discount)
+    parseInt((singleproduct?.products?.price -
+      (singleproduct?.products?.price *
+        singleproduct?.products?.discountPercentage) /
+      100).toFixed(0))
+  // console.log("discount", typeof discount)
   return (
     <Container>
       {loading && (
@@ -132,9 +132,8 @@ const Productdetais = ({ singleproduct, loading }) => {
                       </button>
                       {btn === "Go to Cart" && (
                         <button
-                          className={`${
-                            productbtn === false && "hidden"
-                          } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg tracking-wide`}
+                          className={`${productbtn === false && "hidden"
+                            } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg tracking-wide`}
                           onClick={Removeitem}
                         >
                           Remove
