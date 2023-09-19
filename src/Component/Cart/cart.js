@@ -6,7 +6,7 @@ import Totalquantityt from "../Totalquantityt";
 const cart = () => {
   return (
     <React.Fragment>
-      <div className="max-lg:h-[auto] py-4">
+      <div className="max-lg:h-[auto]">
         <div className="tracking-[1.2px] bg-red-600 text-white font-semibold text-2xl py-5">
           <Container>
             <h3>

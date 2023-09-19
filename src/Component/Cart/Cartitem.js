@@ -195,32 +195,31 @@ const Cartitem = () => {
       </div>
       {pathname === "/Cart"
         ? <React.Fragment>{(() => {
-          switch (cart?.cartItem?.length) {
-            case "undefined":
-              return (
-                <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
-                  Your cart is empty&nbsp;
-                  <Link
-                    href="/"
-                    className="text-[red] font-normal decoration-slice"
-                  >
-                    Back to Shop
-                  </Link>
-                </p>
-              );
-            case 0:
-              return (
-                <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
-                  Your cart is empty&nbsp;
-                  <Link
-                    href="/"
-                    className="text-[red] font-normal decoration-slice"
-                  >
-                    Back to Shop
-                  </Link>
-                </p>
-              );
-            default: return null
+          if (cart?.cartItem?.length === 0) {
+            return (
+              <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
+                Your cart is empty&nbsp;
+                <Link
+                  href="/"
+                  className="text-[red] font-normal decoration-slice"
+                >
+                  Back to Shop
+                </Link>
+              </p>
+            );
+          }
+          else if (cart?.cartItem?.length === undefined) {
+            return (
+              <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
+                Your cart is empty&nbsp;
+                <Link
+                  href="/"
+                  className="text-[red] font-normal decoration-slice"
+                >
+                  Back to Shop
+                </Link>
+              </p>
+            );
           }
         })()}</React.Fragment>
         : cart?.cartItems?.length === 0 && router.push("/")}
