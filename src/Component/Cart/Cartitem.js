@@ -8,7 +8,7 @@ const Cartitem = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { cart, addItemtocart, deletItem } = CartgloblContext();
-  console.log("addItemtocart", addItemtocart);
+  console.log("addItemtocart", cart?.cartItems?.length);
   // const additem=(item)=>{
   // 	console.log("item",item)
   // 	const newQue=item.quantity +1
@@ -195,9 +195,9 @@ const Cartitem = () => {
       </div>
       {pathname === "/Cart"
         ? <React.Fragment>{(() => {
-          if (cart?.cartItem?.length === 0) {
+          if (cart?.cartItems?.length === 0) {
             return (
-              <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
+              <p className="flex justify-center items-center h-[70vh] text-2xl font-semibold">
                 Your cart is empty&nbsp;
                 <Link
                   href="/"
@@ -208,9 +208,9 @@ const Cartitem = () => {
               </p>
             );
           }
-          else if (cart?.cartItem?.length === undefined) {
+          else if (cart?.cartItems?.length === undefined) {
             return (
-              <p className="flex justify-center items-center h-[60vh] text-2xl font-semibold">
+              <p className="flex justify-center items-center h-[70vh] text-2xl font-semibold">
                 Your cart is empty&nbsp;
                 <Link
                   href="/"
