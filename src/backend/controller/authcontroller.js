@@ -32,9 +32,8 @@ export const updateUser = async (req, res) => {
   //   fs.unlinkSync(path);
   //   updateuser.avatar=avatarResponse
   // }
-  const user = await Userschema.findByIdAndUpdate(req.body._id, updateuser, {
-    new: true,
-  });
+  const user = await Userschema.updateOne({_id:req.body._id}, updateuser,{new:true});
+
   // console.log("user", user);
   res.status(200).json({ message: "Successfully Update Profile" });
 };
@@ -60,6 +59,11 @@ export const update_password = async (req, res) => {
 // export const getUser=async(req,res)=>{
 //     const user=await
 // }
+export const getUser=async(req,res)=>{
+  // console.log("req.user._id",req.user._id)
+  const user=await Userschema.find({_id:req.user._id})
+  res.status(200).json(user)
+}
 export const getalluser = async (req, res) => {
   try {
     const userperPage = 6;

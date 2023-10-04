@@ -10,24 +10,18 @@ import { toast } from "react-toastify";
 import Loader from "../Loader";
 const Updateprofile = () => {
   const session = useSession();
-  useEffect;
-  const { user, loading, loaduser, setuser } = Globalusercontext();
+  const { user, loading, loaduser } = Globalusercontext();
   const router = useRouter();
   console.log("data", session.data);
-  const [pic, setPic] = useState();
+  const [pic, setPic] = useState(user[0]?.avatar);
   const [Input, setInput] = useState({
-    name: "",
+    name:  "",
     email: "",
   });
   useEffect(() => {
-    ``;
-    if (session.data?.user) {
-      setuser(!loading && user);
-      setInput(session.data?.user);
-      setPic(session.data?.user?.avatar);
-    }
+      setInput({name:user[0]?.name,email:user[0]?.email});
     loaduser();
-  }, [user?.updatedAt]);
+  }, [user?.updatedAt,loading]);
   const { name, email } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,7 +57,7 @@ const Updateprofile = () => {
       .put(
         `${process.env.API_URL}api/auth/Update`,
         {
-          _id: session.data.user?._id,
+          _id:session?.data?.user?._id,
           ...Input,
           avatar: pic,
         },
@@ -99,7 +93,7 @@ const Updateprofile = () => {
   return (
     <React.Fragment>
       {loading && (
-        <div>
+        <div className="h-[60vh] flex items-center justify-center">
           <Loader />
         </div>
       )}
@@ -107,7 +101,7 @@ const Updateprofile = () => {
         <div className="md:mb-[4px] py-5 flex flex-col justify-center items-center max-sm:min-h-[60vh]">
           <div className="bg-[#f2f2f2] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-12">
             <h4 className="text-center font-semibold text-3xl max-sm:text-xl mb-4 tracking-normal">
-              Upade Profile...
+              Update Profile...
             </h4>
             <form onSubmit={handleSubmit}>
               <Inputdata
@@ -132,7 +126,7 @@ const Updateprofile = () => {
               />
               <div className="flex items-center gap-x-2 my-2">
                 <Image
-                  src={pic}
+                  src={user ? user[0]?.avatar : pic}
                   width={80}
                   height={80}
                   className="rounded-full object-fill w-[80px] h-[80px]"

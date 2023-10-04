@@ -37,13 +37,13 @@ const Productlist = ({ product, loading }) => {
         </div>
         <div className="basis-[80%] max-lg:basis-[100%]">
           {loading && (
-            <div className="flex justify-center items-center h-[80vh]">
+            <div className="flex justify-center items-center h-[140vh]">
               <Loader />
             </div>
           )}
-          {product.products?.length === 0 && (
-            <div className="flex justify-center items-center h-[80vh]">
-              <h4 className="text-2xl font-bold">
+          {!loading && product.products?.length === 0 && (
+            <div className="flex justify-center items-center h-[140vh]">
+              <h4 className="text-3xl max-sm:text-2xl font-bold">
                 No product Found For Your Filter...
               </h4>
             </div>

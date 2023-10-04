@@ -2,9 +2,10 @@
 import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 const Usercontext = createContext();
 const Usercontextprovider = ({ children }) => {
-  const [user, setuser] = useState();
+  const [user, setuser] = useState([]);
   const router=useRouter()
   const[loading,setloading]=useState(true)
   //  console.log("user",user)
@@ -12,8 +13,8 @@ const Usercontextprovider = ({ children }) => {
     console.log("dtatatat")
     // console.log("datatatattatatatatatatta")
     axios
-      .get(`${process.env.API_URL}api/auth/session?update`)
-      .then((res) => setuser(res.data?.user))
+      .get(`${process.env.API_URL}api/auth/getsingleUser`)
+      .then((res) => setuser(res.data))
       .catch((e) => console.log("e", e)).finally(()=>setloading(false))
    }
   useEffect(() => {

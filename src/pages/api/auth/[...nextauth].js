@@ -43,6 +43,7 @@ export default async function auth(req, res) {
         user && (token.user = user);
         // console.log("req",req)
         console.log("token",token)
+        
         if (req.url === "/api/auth/session?update") {
           // hit the db and eturn the updated user
           // console.log("dtatatat")

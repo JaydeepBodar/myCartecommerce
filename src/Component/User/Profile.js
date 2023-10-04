@@ -41,11 +41,11 @@ const Profile = ({ address }) => {
     router.refresh();
   }, [loading]);
   // console.log("data", data);
-  const month = new Date(user?.createdAt).toLocaleString("en-us", {
+  const month = new Date(user[0]?.createdAt).toLocaleString("en-us", {
     month: "short",
   });
-  const day = new Date(user?.createdAt).getDate();
-  const year = new Date(user?.createdAt).getFullYear();
+  const day = new Date(user[0]?.createdAt).getDate();
+  const year = new Date(user[0]?.createdAt).getFullYear();
   return (
     <React.Fragment>
       {loading && (
@@ -60,7 +60,7 @@ const Profile = ({ address }) => {
               {/*   onClick={openModal} add on click for modal */}
               <div>
                 <Image
-                  src={user ? user?.avatar : data?.user?.avatar}
+                  src={user ? user[0]?.avatar : data?.user?.avatar}
                   width={100}
                   height={100}
                   className="w-[100px] h-[100px] rounded-full"
@@ -73,11 +73,11 @@ const Profile = ({ address }) => {
           </Modal> */}
               </div>
               <div className="text-[18px] max-md:text-[15px]">
-                <h4 className="capitalize font-semibold">{user?.name}</h4>
+                <h4 className="capitalize font-semibold">{user[0]?.name}</h4>
                 <div className="flex gap-x-3 flex-wrap items-center">
                   <h5>
                     <span className="font-semibold">Email:-&nbsp;</span>
-                    {user?.email}
+                    {user[0]?.email}
                   </h5>
                   <h5>
                     <span className="font-semibold">Joined on:-&nbsp;</span>

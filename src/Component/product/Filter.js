@@ -49,7 +49,8 @@ const Filter = () => {
         queryParams.append(checkBox.name, checkBox.value);
       }
     }
-    if (checkBox.value === "all" || checkBox.value === 'Reset') {
+    if (checkBox.value === "all" || checkBox.value == 0) {
+      console.log("ggggggggggg")
       router.push("/");
     } else {
       const path = window.location.pathname+"?" + queryParams.toString();
@@ -71,7 +72,7 @@ const Filter = () => {
   return (
     <div className="border-[1px] newdata border-[#ebe6e6] px-3 py-5 max-lg:justify-between max-lg:gap-x-5 max-lg:flex-row max-lg:items-baseline max-lg:flex max-lg:w-[100%] max-md:flex-wrap max-md:gap-x-0">
       <div className="newdata1 pb-4 border-b-[1px] border-[#ebe6e6] max-lg:basis-[30%] max-lg:border-0">
-        <h3 className="pl-2 font-semibold pb-2">Price($)</h3>
+        <h3 className="pl-2 font-semibold pb-2">Price(₹)</h3>
         <div className="flex gap-x-2 max-sm:flex-wrap max-sm:gap-y-2 max-sm:gap-x-[13px]">
           <input
             name="max"
