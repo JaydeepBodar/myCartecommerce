@@ -6,13 +6,12 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
-import Cookies from "js-cookie";
 const Orderview = ({ order,loading }) => {
-  console.log("order", order);
+  // console.log("order", order);
   const { paymentInfo, shippingInfo, orderItems, orderStatus, _id, user } =
     order;
   const router = useRouter();
-  console.log("dropdown", orderStatus);
+  // console.log("dropdown", orderStatus);
   const [dropdown, setdropdown] = useState("");
   const updateDetail = async() => {
     await axios
@@ -86,7 +85,7 @@ const Orderview = ({ order,loading }) => {
           </div>
           <div className="border-t-[1px] border-[gray] mt-3 pt-3">
             <h4>Products Details</h4>
-            <div className="flex">
+            <div className="flex flex-wrap gap-3">
               {orderItems?.map((val) => {
                 const { name, quantity, price, image, product } = val;
                 return (

@@ -57,6 +57,7 @@ const Productlist = ({ product, loading }) => {
         <Custompagination
           totalitem={product.filterproductscount}
           itemperpage={product.productperpage}
+          loading={loading}
         />
       )}
     </Container>

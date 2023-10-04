@@ -41,9 +41,8 @@ const Productupdate = ({ product }) => {
   };
   console.log("category", description);
   // for multiple images
-  const handleImageUpload = async (e) => {
+  const handleImageUpload = async (e,index) => {
     const files = e.target.files;
-    const uploadedImages = [];
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);
@@ -62,15 +61,17 @@ const Productupdate = ({ product }) => {
           }
         );
         if (response.ok) {
+          console.log("imagesindex",index)
           const data = await response.json();
-          uploadedImages.push(data.secure_url);
+          const dataimages= images.splice(index,1,data.secure_url)
+          console.log("firstimages",images)
         }
       } catch (e) {
         console.log("error", e);
       }
     }
 
-    setImages([...images, ...uploadedImages]);
+    setImages([...images]);
   };
   // for single images
   const uploadImg = (pics) => {
@@ -89,7 +90,7 @@ const Productupdate = ({ product }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
+        // console.log("data", data);
         setPic(data.url.toString());
       })
       .catch((err) => {
@@ -98,6 +99,7 @@ const Productupdate = ({ product }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log("imagesss",images )
     axios
       .put(`${process.env.API_URL}api/admin/product/${product?._id}`, {
         ...Input,
@@ -162,9 +164,9 @@ const Productupdate = ({ product }) => {
             })}
           </div>
           <div className="flex justify-between max-sm:flex-col max-sm:gap-y-2">
-            <input type="file" onChange={handleImageUpload} />
-            <input type="file" onChange={handleImageUpload} />
-            <input type="file" onChange={handleImageUpload} />
+            <input type="file" onChange={(e)=>handleImageUpload(e,0)} />
+            <input type="file" onChange={(e)=>handleImageUpload(e,1)} />
+            <input type="file" onChange={(e)=>handleImageUpload(e,2)} />
           </div>
         </div>
         <textarea

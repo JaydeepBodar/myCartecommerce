@@ -1,7 +1,5 @@
 import Userschema from "../model/Userschema";
 import bcrypt from "bcrypt";
-import { uploads } from "../utils/cloudinary";
-import fs from "fs";
 import APIFilter from "../utils/APIFilter";
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -37,7 +35,7 @@ export const updateUser = async (req, res) => {
   const user = await Userschema.findByIdAndUpdate(req.body._id, updateuser, {
     new: true,
   });
-  console.log("user", user);
+  // console.log("user", user);
   res.status(200).json({ message: "Successfully Update Profile" });
 };
 export const update_password = async (req, res) => {

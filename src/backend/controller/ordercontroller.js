@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
   const line_items = body?.items?.map((item) => {
-    console.log("itemdddddddddd", item)
+    // console.log("itemdddddddddd", item)
     return {
       price_data: {
         currency: "inr",
@@ -46,9 +46,9 @@ const getCartitems = async (line_items) => {
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
-      console.log("itemdataatata", item)
+      // console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
-      console.log("productdetails", product)
+      // console.log("productdetails", product)
       const productid = product?.metadata?.productId;
       cartItems?.push({
         product: productid,
@@ -130,7 +130,7 @@ export const updateOrder = async (req, res) => {
       req.body,
       { new: true }
     );
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     res.status(200).json({ message: "Succsessfully updated Order status" });
   } catch (e) {
     res.status(400).json({ message: "Not update Order" });
@@ -159,7 +159,7 @@ export const getSingleOrder = async (req, res) => {
       .findById(req.query.id)
       .populate("shippingInfo user");
     res.status(200).json({ order });
-  } catch (e) {
+  } catch (e) { 
     res.status(400).json({ message: "Product not shown" });
   }
 };

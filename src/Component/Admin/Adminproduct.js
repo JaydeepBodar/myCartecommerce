@@ -50,7 +50,7 @@ const Adminproduct = ({ product }) => {
                 <div>
                   <h3>{title}</h3>
                   <h4>{category}</h4>
-                  <h3>{price}$</h3>
+                  <h3>{price}₹</h3>
                 </div>
               </div>
               <div>

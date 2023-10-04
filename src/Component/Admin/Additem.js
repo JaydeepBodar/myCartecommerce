@@ -4,6 +4,7 @@ import { CloudinaryContext, Image } from "cloudinary-react";
 import { checkbox } from "../product/checkbox";
 import Inputdata from "../Inputdata";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 const Additem = () => {
   const [Input, setInput] = useState({
     title: "",
@@ -13,6 +14,7 @@ const Additem = () => {
     discountPercentage: "",
     rating: "",
   });
+  const router=useRouter()
   const [images, setImages] = useState([]);
   const [pic, setPic] = useState();
   const { title, category, description, price, discountPercentage, rating } =
@@ -88,7 +90,7 @@ const Additem = () => {
         thumbnail:pic
       })
       .then((res) => console.log("ress", res))
-      .catch((e) => console.log("e", e));
+      .catch((e) => console.log("e", e)).finally(()=>router.push('/'))
   };
   return (
     <div className="w-[100%] max-lg:max-w-[500px] max-w-[700px] bg-[#f2f2f2] p-4 mx-[auto] rounded-lg">
@@ -136,7 +138,7 @@ const Additem = () => {
                     src={image}
                     width={90}
                     height={90}
-                    className="w-[100px] h-[100px] rounded-full mx-auto"
+                    className="w-[100px] h-[100px] rounded-full"
                   />
                 );
               })}

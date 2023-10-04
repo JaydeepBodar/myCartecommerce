@@ -19,7 +19,7 @@ export default async function auth(req, res) {
             throw new Error("All field Required");
           } else {
             const user = await Userschema.findOne({ email: email });
-            console.log("email", user);
+            console.log("process.env.API_URL", process.env.API_URL);
             if (user) {
               const checkpassword = await bcrypt.compare(
                 password,
@@ -42,16 +42,15 @@ export default async function auth(req, res) {
       jwt: async ({ token, user, profile }) => {
         user && (token.user = user);
         // console.log("req",req)
-        // console.log("token",token.user)
-        const url=process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? "https://my-cartecommerce-ljdm.vercel.app/api/auth/session?update" : "/api/auth/session?update"
-        if (req.url === url) {
+        console.log("token",token)
+        if (req.url === "/api/auth/session?update") {
           // hit the db and eturn the updated user
           // console.log("dtatatat")
           const updatedUser = await Userschema.findById(token.user._id);
           token.user = updatedUser;
           // console.log("updateUser",updatedUser)
         }
-        return token;
+        return Promise.resolve(token)
       },
       session: async ({ session, token }) => {
         // console.log("session",session)
