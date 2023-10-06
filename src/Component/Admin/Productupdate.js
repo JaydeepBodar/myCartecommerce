@@ -155,6 +155,7 @@ const Productupdate = ({ product }) => {
               return (
                 <Image
                   key={index}
+                  loading="lazy"
                   src={image}
                   width={90}
                   height={90}
@@ -203,6 +204,7 @@ const Productupdate = ({ product }) => {
               }
               width={90}
               height={90}
+              loading="lazy"
               className="rounded-full object-fill w-[80px] h-[80px]"
             />
             <Inputdata

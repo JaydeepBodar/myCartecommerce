@@ -53,6 +53,7 @@ const Item = ({ product, loading }) => {
           <Image
             src={product.thumbnail}
             width={300}
+            loading="lazy"
             height={300}
             className="flex items-stretch h-[250px] max-sm:w-[100%] max-sm:h-[280px] object-fill rounded-tl-lg rounded-bl-lg"
             alt={title}

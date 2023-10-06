@@ -45,6 +45,7 @@ const CloudinaryUploader = () => {
           <Image
             key={index}
             publicId={image}
+            loading="lazy"
             width="150"
             height="150"
             crop="scale"

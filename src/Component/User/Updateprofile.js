@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy } from "react";
 import Inputdata from "../Inputdata";
 import Image from "next/image";
 import axios from "axios";
@@ -127,6 +127,7 @@ const Updateprofile = () => {
               <div className="flex items-center gap-x-2 my-2">
                 <Image
                   src={user ? user[0]?.avatar : pic}
+                  loading="lazy"
                   width={80}
                   height={80}
                   className="rounded-full object-fill w-[80px] h-[80px]"

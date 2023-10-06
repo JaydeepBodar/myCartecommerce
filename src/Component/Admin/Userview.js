@@ -28,6 +28,7 @@ const Userview = ({ user }) => {
           <div>
             <Image
               src={user?.avatar}
+              loading="lazy"
               height={80}
               width={80}
               className="w-[80px] h-[80px] rounded-full"

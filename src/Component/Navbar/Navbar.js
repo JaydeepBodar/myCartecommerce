@@ -15,7 +15,6 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const session = useSession();
-  console.log("session", session);
   useEffect(() => {
     setuser(user);
     loaduser();
@@ -67,15 +66,16 @@ const Navbar = () => {
                 title="Profile"
               >
                 <Image
-                  src={user ? user[0]?.avatar : session.data?.user?.avatar}
+                  src={user[0]?.avatar}
                   width={30}
+                  loading="lazy"
                   height={30}
                   className="w-[30px] h-[30px] rounded-full object-fill"
                 />
-                <p>{user ? user[0]?.name : session.data?.user?.name}</p>
+                <p>{user[0]?.name}</p>
               </Link>
             ) : (
-              <Link href="login">
+              <Link href="/login">
                 <MdAccountCircle className="w-6 h-6" title="Log in" />
               </Link>
             )}

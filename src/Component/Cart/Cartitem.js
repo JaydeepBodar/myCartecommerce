@@ -85,6 +85,7 @@ const Cartitem = () => {
                         >
                           <Image
                             src={thumbnail}
+                            loading="lazy"
                             alt="title"
                             width={150}
                             height={200}

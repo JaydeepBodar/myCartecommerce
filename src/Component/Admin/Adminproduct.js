@@ -42,6 +42,7 @@ const Adminproduct = ({ product }) => {
                 <div>
                   <Image
                     src={thumbnail}
+                    loading="lazy"
                     width={90}
                     height={90}
                     className="w-[90px] h-[90px] rounded-full"

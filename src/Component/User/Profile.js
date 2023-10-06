@@ -58,12 +58,13 @@ const Profile = ({ address }) => {
           <div className="p-4 max-md:p-2 border-[1px] border-[#cecbcb] rounded-lg w-[100%]">
             <div className="flex items-center gap-x-7 pb-5 max-md:gap-x-2	">
               {/*   onClick={openModal} add on click for modal */}
-              <div>
+              <div className="max-sm:basis-[80px]">
                 <Image
                   src={user ? user[0]?.avatar : data?.user?.avatar}
+                  loading="lazy"
                   width={100}
                   height={100}
-                  className="w-[100px] h-[100px] rounded-full"
+                  className="w-[100px] h-[100px] max-sm:w-[60px] max-sm:h-[60px] rounded-full"
                 />
                 {/* for download image */}
                 {/* <Modal isOpen={isModalOpen}>

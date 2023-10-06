@@ -136,6 +136,7 @@ const Additem = () => {
                   <Image
                     key={index}
                     src={image}
+                    loading="lazy"
                     width={90}
                     height={90}
                     className="w-[100px] h-[100px] rounded-full"
@@ -178,6 +179,7 @@ const Additem = () => {
             src={!pic ? "https://img.freepik.com/free-photo/wooden-product-display-podium-with-blurred-nature-leaves-background-generative-ai_91128-2268.jpg?w=826&t=st=1692270624~exp=1692271224~hmac=2931a6d30fa3f7cc79eca75f8d43dff0e7fb0c40441ea99666133dcf22836b32" : pic}
             width={90}
             height={90}
+            loading="lazy"
             className="rounded-full object-fill w-[80px] h-[80px]"
           />
           <Inputdata
