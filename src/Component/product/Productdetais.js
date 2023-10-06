@@ -258,6 +258,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                 {singleproduct?.products?.reviews?.map((reviews) => {
                   return (
                     <UserReview
+                    key={reviews?._id}
                       review={reviews}
                       user={session?.data?.user?._id}
                       product={singleproduct?.products}

@@ -16,7 +16,7 @@ const UserReview = ({ review, user,product }) => {
   //     .catch((e) => console.log("e", e));
   // };
   return (
-    <div className="bg-[#f2f2f2] p-3 mb-3 rounded-lg" key={_id}>
+    <div className="bg-[#f2f2f2] p-3 mb-3 rounded-lg" >
       <div className="flex gap-x-3 items-center leading-6 ">
         <div>
           <Image
