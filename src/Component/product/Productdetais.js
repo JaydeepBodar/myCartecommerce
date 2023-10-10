@@ -79,6 +79,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     const productreview = singleproduct?.products?.reviews.filter(
       (data) => data?.userdata?._id == session?.data?.user?._id
     );
+    console.log("productreviewproductreviewproductreview",productreview)
     if (!rating) {
       toast.error("Rating must required");
     } else if (session?.status === "unauthenticated") {

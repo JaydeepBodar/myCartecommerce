@@ -145,9 +145,8 @@ const Additem = () => {
             <div className="flex justify-start">
               {images.map((image, index) => {
                 return (
-                  <div className="basis-[33%] mx-[auto]">
+                  <div className="basis-[33%] mx-[auto]" key={index}>
                     <Image
-                      key={index}
                       src={image}
                       loading="lazy"
                       alt={title}
