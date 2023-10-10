@@ -84,7 +84,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
       toast.error("Rating must required");
     } else if (session?.status === "unauthenticated") {
       toast.error("You need to login to Add product review");
-    } else if (productreview.length > 2) {
+    } else if (open && productreview.length > 1) {
       toast.error("You can not add more than two review");
     } else {
       let data =
