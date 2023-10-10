@@ -29,7 +29,7 @@ export const getAllproduct = async (req, res) => {
 export const postProduct = async (req, res) => {
   // req.body.user=req.user._id
   const data = await productSchema.create(req.body);
-  console.log("data", data);
+  // console.log("data", data);
   res.json({ message: "data added sucsessfully" });
   //   } catch (e) {
   //     res.json({ message: "unable to add" });
@@ -41,7 +41,7 @@ export const deleteProduct = async (req, res) => {
     const deleteProduct = await productSchema.findByIdAndDelete({
       _id: req.query.id,
     });
-    console.log("deleteProduct", deleteProduct);
+    // console.log("deleteProduct", deleteProduct);
     res.status(200).json({ message: "Product succssefully delete" });
   } catch (e) {
     res.status(400).json({ message: "error shown" });
@@ -51,8 +51,9 @@ export const singleProduct = async (req, res) => {
   const { id } = req.query;
   // try {
   const data = await productSchema
-    .findById({ _id: id }).populate("reviews.userdata")
-    // console.log("req.user._id",req.user._id)
+    .findById({ _id: id })
+    .populate("reviews.userdata");
+  // console.log("req.user._id",req.user._id)
   res.json({ products: data });
   // } catch (e) {
   //   res.json({ message: "unable to show" });
@@ -71,27 +72,80 @@ export const updateProduct = async (req, res) => {
   }
 };
 export const postReview = async (req, res) => {
-  const { rating,userdata,comment } = req.body;
-  const product = await productSchema.findById({ _id: req.query.id })
+  const { rating, userdata, comment } = req.body;
+  const product = await productSchema.findById({ _id: req.query.id });
   const ratingdata = (product?.rating + rating) / 2;
   const review = [];
-  review.push({ rating,userdata,comment});
+  review.push({ rating, userdata, comment });
   const productdata =
     product?.reviews?.length > 0
-      ? product?.reviews?.concat({ rating,userdata,comment})
+      ? product?.reviews?.concat({ rating, userdata, comment })
       : review;
   console.log("firstproductdata", productdata);
   const ratingpost = await productSchema.updateOne(
     { _id: req.query.id },
-    { rating: ratingdata, reviews: productdata }
+    {
+      rating: product?.reviews?.length === 0 ? rating : ratingdata,
+      reviews: productdata,
+    }
   );
-  console.log("firstreview", review);
-  console.log("ratingdata", ratingpost);
-  res.status(200).json({message:"Product review add Succsessfully"});
+  // console.log("firstreview", review);
+  // console.log("ratingdata", ratingpost);
+  res.status(200).json({ message: "Product review add Succsessfully" });
 };
-export const deleteReview=async(req,res)=>{
-  // const product = await productSchema.findById({ _id: req.query.id })
-  const deleteReview=await productSchema.findByIdAndDelete({reviews:req.query.id})
-  console.log("objectdeleteReview",deleteReview)
-  res.status(200).json({message:"Succsessfully Review delete"})
-}
+export const deleteReview = async (req, res) => {
+  const deleteReview = await productSchema.updateOne(
+    { _id: req.query.id },
+    { $pull: { reviews: { _id: req.body.id } } }
+  );
+  if (deleteReview) {
+    const product = await productSchema.findById({ _id: req.query.id });
+    let sum = 0;
+    const userReviewfinds = product.reviews?.map((val) => {
+      sum += val?.rating;
+    });
+    const updaterating = (sum / userReviewfinds?.length).toFixed(2);
+    const updatereview = await productSchema.updateOne(
+      { _id: req.query.id },
+      { rating: userReviewfinds?.length === 0 ? 0 : updaterating }
+    );
+    console.log("objectupdatereview", updatereview);
+  }
+  res.status(200).json({ message: "Succsessfully Review delete" });
+};
+export const getReview = async (req, res) => {
+  const product = await productSchema.findOne(
+    { _id: req.query.id },
+    { reviews: { $elemMatch: { _id: req.query.id } },_id:0 }
+  );
+  // console.log("objectproduct", product);
+  res.status(200).json({product});
+};
+export const updateReview = async (req, res) => {
+  const{rating,comment}=req.body
+  const updateproduct = await productSchema.findOneAndUpdate(
+    { _id: req.query.id, "reviews._id": req.query.id },
+    {
+      $set: { 
+        "reviews.$.comment": comment, // Replace with the updated comment
+        "reviews.$.rating": rating, // Replace with the updated rating
+      },
+    }
+  );
+  if(updateproduct){
+    const product = await productSchema.findById({ _id: req.query.id[0] });
+    console.log("objectproduct",product)
+    let sum = 0;
+    const userReviewfinds = product.reviews?.map((val) => {
+      sum += val?.rating;
+    });
+    const updaterating = (sum / userReviewfinds?.length).toFixed(2);
+    const updatereview = await productSchema.updateOne(
+      { _id: req.query.id },
+      { rating: userReviewfinds?.length === 0 ? 0 : updaterating }
+    );
+    console.log("objectupdatereview", updatereview);
+  }
+  console.log("updateeee",updateproduct)
+  res.status(200).json({message:"Succsessfully Review Update"});
+};

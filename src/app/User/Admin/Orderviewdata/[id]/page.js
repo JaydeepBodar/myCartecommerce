@@ -21,11 +21,11 @@ import Cookies from "js-cookie";
 // }
 
 const Overview = ({ params }) => {
-  console.log("params", params.id);
+  // console.log("params", params.id);
   // const order = await getData(params.id);
   const productionheaders = Cookies.get("__Secure-next-auth.session-token");
   const nextauthheaders = Cookies.get("next-auth.session-token");
-  console.log("nextauthheaders",nextauthheaders)
+  // console.log("nextauthheaders",nextauthheaders)
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
       ? `__Secure-next-auth.session-token=${productionheaders?.value}`

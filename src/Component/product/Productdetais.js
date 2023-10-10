@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 import Image from "next/image";
 import Container from "../Container";
@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Tostify from "../Tostify";
-import UserReview from "../UserReview";
+import UserReview from "../User/UserReview";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -21,9 +21,19 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const [btn, setbtn] = useState("Add Cart");
   const [show, setshow] = useState(false);
   const openBox = () => setshow(true);
-  const [comment, setcomment] = useState("");
+  const [reviewdata, setreviewdata] = useState();
+  const [dataload,setdataload]=useState(true)
+  const handleClose=()=>{
+    setdataload(false)
+  }
   const router = useRouter();
+  const [comment, setcomment] = useState("");
   const [rating, setrating] = useState(0);
+  const [open, setopen] = useState(false);
+
+  const handleOpen = () => {
+    setopen(true);
+  };
   // console.log("objectratingratingrating", rating, comment);
   // console.log("singleproduct", singleproduct);
   const Removeitem = () => {
@@ -37,6 +47,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const productbtn = cart?.cartItems?.some(
     (item) => item._id === singleproduct?.products?._id
   );
+
   const discount = parseInt(
     (
       singleproduct?.products?.price -
@@ -45,6 +56,24 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
         100
     ).toFixed(0)
   );
+  const getApi = async (id) => {
+    // console.log("daaaaaa", id);
+    await axios
+      .get(
+        `${process.env.API_URL}api/products/Getreview/${singleproduct?.products?._id}/${id}`
+      )
+      .then((res) => {
+        setreviewdata(res?.data?.product);
+      })
+      .catch((e) => console.log("objecte", e))
+    // console.log("reviewdatareviewdata", reviewdata);
+  };
+  useEffect(() => {
+    setrating(reviewdata?.reviews[0]?.rating);
+    setcomment(reviewdata?.reviews[0]?.comment);
+    setopen(false)
+  }, [open]);
+  // console.log("GFFGFf", reviewdata?.reviews[0]._id);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const productreview = singleproduct?.products?.reviews.filter(
@@ -54,24 +83,25 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
       toast.error("Rating must required");
     } else if (session?.status === "unauthenticated") {
       toast.error("You need to login to Add product review");
-    }else if(productreview.length > 1){
-      toast.error("You can not add more than two review")
-    }
-     else {
+    } else if (productreview.length > 2) {
+      toast.error("You can not add more than two review");
+    } else {
+      let data =
+        reviewdata?.reviews?.length > 0
+          ? `${process.env.API_URL}api/products/Getreview/${singleproduct?.products?._id}/${reviewdata?.reviews[0]._id}`
+          : `${process.env.API_URL}api/products/${singleproduct?.products?._id}`;
+      // console.log("objectdata", data);
       await axios
-        .put(
-          `${process.env.API_URL}api/products/${singleproduct?.products?._id}`,
-          {
-            rating,
-            comment,
-            userdata: session?.data?.user?._id,
-          }
-        )
+        .put(data, {
+          rating,
+          comment,
+          userdata: session?.data?.user?._id,
+        })
         .then((res) => console.log("objectres", res))
         .catch((e) => console.log("eeeeeeeeeeee", e));
     }
-    setcomment("");
-    setrating("");
+    setshow(false);
+    setcomment(""), setrating("");
   };
   // console.log("discount", typeof discount)
   return (
@@ -114,7 +144,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               </div>
             </div>
             <div className="px-2 py-2">
-              <h3 className="font-semibold text-2xl pb-2 pt-10">
+              <h3 className="font-semibold text-2xl pb-2 pt-1reviwes0">
                 {singleproduct?.products?.title}
               </h3>
               <h4 className="text-xl font-semibold">
@@ -208,7 +238,9 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               </div>
               {!show && (
                 <button
-                  onClick={openBox}
+                  onClick={() => {
+                    openBox(), setcomment(""), setrating("");
+                  }}
                   className="flex items-center justify-center gap-x-2 mt-3 w-[100%] max-w-[130px] border-red-600 text-red-600 border-[1px] py-1 text-center font-semibold tracking-wide rounded-lg"
                 >
                   <AiOutlinePlus />
@@ -224,7 +256,14 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                     >
                       <AiOutlineClose />
                     </div>
-                    <h3 className="text-red-600">Enter your Rating</h3>
+                    <h3 className="text-red-600">
+                      {reviewdata?.reviews?.length > 0 ? (
+                        <span>Edit</span>
+                      ) : (
+                        <span>Enter</span>
+                      )}{" "}
+                      your Rating
+                    </h3>
                     <form onSubmit={handleSubmit}>
                       <ReactStars
                         onChange={(rating) => setrating(rating)}
@@ -245,7 +284,11 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                         className="w-[100%] max-w-[120px] py-1 text-red-600 border-[1px] border-red-600 rounded-lg mt-2"
                         type="submit"
                       >
-                        Post
+                        {reviewdata?.reviews.length > 0 ? (
+                          <span>Edit</span>
+                        ) : (
+                          <span>Post</span>
+                        )}
                       </button>
                     </form>
                   </div>
@@ -258,10 +301,16 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                 {singleproduct?.products?.reviews?.map((reviews) => {
                   return (
                     <UserReview
-                    key={reviews?._id}
+                      key={reviews?._id}
+                      show={openBox}
+                      showdata={show}
                       review={reviews}
                       user={session?.data?.user?._id}
                       product={singleproduct?.products}
+                      handleEditing={handleEditing}
+                      getApi={getApi}
+                      handleOpen={handleOpen}
+                      handleClose={handleClose}
                     />
                   );
                 })}

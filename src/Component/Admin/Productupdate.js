@@ -61,10 +61,10 @@ const Productupdate = ({ product }) => {
           }
         );
         if (response.ok) {
-          console.log("imagesindex",index)
+          // console.log("imagesindex",index)
           const data = await response.json();
           const dataimages= images.splice(index,1,data.secure_url)
-          console.log("firstimages",images)
+          // console.log("firstimages",images)
         }
       } catch (e) {
         console.log("error", e);
@@ -75,7 +75,7 @@ const Productupdate = ({ product }) => {
   };
   // for single images
   const uploadImg = (pics) => {
-    console.log("picssssssssssssssssssss", pics);
+    // console.log("picssssssssssssssssssss", pics);
     const data = new FormData();
     data.append("file", pics);
     data.append("upload_preset", "htepld3m");
@@ -155,6 +155,7 @@ const Productupdate = ({ product }) => {
               return (
                 <Image
                   key={index}
+                  alt={title}
                   loading="lazy"
                   src={image}
                   width={90}
@@ -203,6 +204,7 @@ const Productupdate = ({ product }) => {
                   : pic
               }
               width={90}
+              alt={title}
               height={90}
               loading="lazy"
               className="rounded-full object-fill w-[80px] h-[80px]"

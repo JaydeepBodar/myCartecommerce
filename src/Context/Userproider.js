@@ -7,10 +7,10 @@ const Usercontext = createContext();
 const Usercontextprovider = ({ children }) => {
   const [user, setuser] = useState([]);
   const router=useRouter()
-  const[loading,setloading]=useState(true)
+  const[loading,setloading]=useState(true) 
   //  console.log("user",user)
    const loaduser=()=>{
-    console.log("dtatatat")
+    // console.log("dtatatat")
     // console.log("datatatattatatatatatatta")
     axios
       .get(`${process.env.API_URL}api/auth/getsingleUser`)
@@ -20,7 +20,7 @@ const Usercontextprovider = ({ children }) => {
   useEffect(() => {
     loaduser()
   }, [user?.updatedAt])
-  console.log("user",user)
+  // console.log("user",user)
   return (
     <Usercontext.Provider value={{user ,loading,setuser,loaduser}}>
       {children}

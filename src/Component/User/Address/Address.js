@@ -7,6 +7,7 @@ import Inputdata from "../../Inputdata";
 import Sidebar from "../Sidebar";
 import Validations from "../../Validation";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 const Address = () => {
   const router=useRouter()
   const { data } = useSession();
@@ -73,7 +74,7 @@ const Address = () => {
         .post(`${process.env.API_URL}api/Address`, {
           ...Input,user:data?.user?._id 
         })
-        .then((res) => console.log("res", res),router.push('/User'))
+        .then((res) => toast.success(res?.data?.message),router.push('/User'))
         .catch((e) => console.log("e", e));
     } else {
       setErrors(Validations(Input));
@@ -81,8 +82,8 @@ const Address = () => {
   };
   return (
     <Container>
-      <div className="flex py-10 h-[81vh] justify-between max-sm:flex-col max-sm:justify-self">
-        <div className="max-sm:pb-4">
+      <div className="flex py-10 justify-between max-sm:flex-col max-sm:justify-self">
+        <div className="max-sm:pb-4 h-[81vh]">
           <Sidebar />
         </div>
         <div className="basis-[75%]">

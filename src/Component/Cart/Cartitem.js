@@ -8,7 +8,7 @@ const Cartitem = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { cart, addItemtocart, deletItem } = CartgloblContext();
-  console.log("addItemtocart", cart?.cartItems?.length);
+  // console.log("addItemtocart", cart?.cartItems?.length);
   // const additem=(item)=>{
   // 	console.log("item",item)
   // 	const newQue=item.quantity +1
@@ -29,15 +29,15 @@ const Cartitem = () => {
     addItemtocart(cartItem);
   };
   const netAmount = cart?.cartItems?.reduce((acc, item) => {
-    console.log("item", item);
+    // console.log("item", item);
     return acc + item.price * item.quantity;
   }, 0);
   const Totalprice = cart?.cartItems?.reduce((acc, item) => {
-    console.log("item", item);
+    // console.log("item", item);
     return acc + item?.discountprice * item.quantity;
   }, 0);
   // const Totalprice=netAmount - disCountprice
-  console.log("netAmount", netAmount);
+  // console.log("netAmount", netAmount);
   const deleteProduct = (id) => {
     let text =
       "if you really want to remove item from the cart ? if yes then press ok otherwise press cancle";
@@ -55,7 +55,7 @@ const Cartitem = () => {
           <div className={`${cart.cartItems?.length > 0 && "scrollbar"}`}>
             {cart.cartItems?.length > 0 &&
               cart.cartItems?.map((value) => {
-                console.log("value", value);
+                {/* console.log("value", value); */}
                 const { title, category, thumbnail, _id, quantity } = value;
                 return (
                   <div
@@ -86,7 +86,7 @@ const Cartitem = () => {
                           <Image
                             src={thumbnail}
                             loading="lazy"
-                            alt="title"
+                            alt={title}
                             width={150}
                             height={200}
                             className={`${pathname === "/shiping" &&

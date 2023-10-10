@@ -27,6 +27,7 @@ const Userview = ({ user }) => {
         <div className="flex items-center gap-x-5">
           <div>
             <Image
+              alt={user?.name}
               src={user?.avatar}
               loading="lazy"
               height={80}

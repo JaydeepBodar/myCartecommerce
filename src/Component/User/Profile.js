@@ -9,10 +9,11 @@ import Loader from "../Loader";
 import { useRouter } from "next/navigation";
 // import Modal from 'react-modal';
 import { Globalusercontext } from "@/Context/Userproider";
+import Tostify from "../Tostify";
 const Profile = ({ address }) => {
   const router = useRouter();
   const [loading, setloading] = useState(true);
-  const { user, setuser, loaduser } = Globalusercontext();
+  const { user,loaduser } = Globalusercontext();
   const { data } = useSession();
   // for download images
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,18 +37,19 @@ const Profile = ({ address }) => {
     if (address) {
       setloading(false);
     }
-    setuser(user);
     loaduser();
     router.refresh();
   }, [loading]);
   // console.log("data", data);
-  const month = new Date(user[0]?.createdAt).toLocaleString("en-us", {
+  const date=user?.length > 0 ? user[0]?.createdAt : data?.user?.createdAt
+  const month = new Date(date).toLocaleString("en-us", {
     month: "short",
   });
-  const day = new Date(user[0]?.createdAt).getDate();
-  const year = new Date(user[0]?.createdAt).getFullYear();
+  const day = new Date(date).getDate();
+  const year = new Date(date).getFullYear();
   return (
     <React.Fragment>
+      <Tostify/>
       {loading && (
         <div className="h-[60vh] flex items-center justify-center">
           <Loader />
@@ -60,10 +62,11 @@ const Profile = ({ address }) => {
               {/*   onClick={openModal} add on click for modal */}
               <div className="max-sm:basis-[80px]">
                 <Image
-                  src={user ? user[0]?.avatar : data?.user?.avatar}
+                  src={user?.length > 0 ? user[0]?.avatar : data?.user?.avatar}
                   loading="lazy"
                   width={100}
                   height={100}
+                  alt={data?.user?.name}
                   className="w-[100px] h-[100px] max-sm:w-[60px] max-sm:h-[60px] rounded-full"
                 />
                 {/* for download image */}
@@ -78,7 +81,7 @@ const Profile = ({ address }) => {
                 <div className="flex gap-x-3 flex-wrap items-center">
                   <h5>
                     <span className="font-semibold">Email:-&nbsp;</span>
-                    {user[0]?.email}
+                    {user?.length > 0 ? user[0]?.email : data?.user?.email }
                   </h5>
                   <h5>
                     <span className="font-semibold">Joined on:-&nbsp;</span>
@@ -89,7 +92,7 @@ const Profile = ({ address }) => {
             </div>
             <div className="py-4 max-md:py-2 border-t-[1px] border-b-[1px] border-[#cecbcb] ">
               {address?.map((add, index) => {
-                console.log("add", add);
+                {/* console.log("add", add); */}
                 const { street, city, country, phoneNo, state, zipcode, _id } =
                   add;
                 return (

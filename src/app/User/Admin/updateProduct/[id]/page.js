@@ -6,7 +6,7 @@ async function getData(id){
     const {data}=await axios.get(`${process.env.API_URL}api/admin/product/${id}`)
     // console.log("data",data)
     if(!data){
-        console.log("errorr")
+        // console.log("errorr")
     }
     return data.products
 }

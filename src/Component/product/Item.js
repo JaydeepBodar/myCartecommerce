@@ -5,7 +5,7 @@ import ReactStars from "react-stars";
 import Image from "next/image";
 import { CartgloblContext } from "@/Context/Cartcontext";
 const Item = ({ product, loading }) => {
-  console.log("product", product._id);
+  // console.log("product", product._id);
   const { cart, addItemtocart, deletItem } = CartgloblContext();
   const [btn, setbtn] = useState("Add Cart");
   const {
@@ -37,6 +37,7 @@ const Item = ({ product, loading }) => {
       setbtn("Add Cart");
     }
   };
+
   const Removeitem = () => {
     let text =
       "if you really want to remove item from the cart ? if yes then press ok otherwise press cancle";
@@ -45,7 +46,7 @@ const Item = ({ product, loading }) => {
       setbtn("Add Cart");
     }
   };
-  console.log("prductbtn", productbtn);
+  // console.log("prductbtn", productbtn);
   return (
     <div className="flex max-sm:flex-wrap gap-x-5 max-sm:gap-x-2 mb-3 bg-[#f2f2f2] rounded-lg border-[1px] border-[#e0dede]">
       <div className="basis-[30%] max-lg:basis-[40%] max-sm:basis-[100%]">

@@ -11,19 +11,18 @@ import Totalquantityt from "../Totalquantityt";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Globalusercontext } from "@/Context/Userproider";
 const Navbar = () => {
-  const { loading, user, setuser, loaduser } = Globalusercontext();
+  const { user, loaduser } = Globalusercontext();
   const router = useRouter();
   const pathname = usePathname();
   const session = useSession();
   useEffect(() => {
-    setuser(user);
     loaduser();
   }, [user?.updatedAt]);
   // console.log("session", session);
   const [query, setquery] = useState("");
   const submitHandler = (e) => {
     // setquery(e.target.value)
-    console.log("query", query);
+    // console.log("query", query);
     if (query) {
       router.push(`?data=${query}`);
     } else {
@@ -66,13 +65,14 @@ const Navbar = () => {
                 title="Profile"
               >
                 <Image
-                  src={user[0]?.avatar}
+                  src={user?.length > 0 ? user[0]?.avatar : session?.data?.user?.avatar}
                   width={30}
+                  alt={user?.name}
                   loading="lazy"
                   height={30}
                   className="w-[30px] h-[30px] rounded-full object-fill"
                 />
-                <p>{user[0]?.name}</p>
+                <p>{user?.length > 0 ? user[0]?.name : session?.data?.user?.name}</p>
               </Link>
             ) : (
               <Link href="/login">

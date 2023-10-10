@@ -37,7 +37,7 @@ const Filter = () => {
     // }
     const checkboxes = document.getElementsByName(checkBox.name);
     checkboxes.forEach((val) => {
-      console.log("val !== checkBox", val !== checkBox);
+      // console.log("val !== checkBox", val !== checkBox);
       if (val !== checkBox) val.checked === false;
     });
     if (checkBox.checked === false) {
@@ -50,7 +50,7 @@ const Filter = () => {
       }
     }
     if (checkBox.value === "all" || checkBox.value == 0) {
-      console.log("ggggggggggg")
+      // console.log("ggggggggggg")
       router.push("/");
     } else {
       const path = window.location.pathname+"?" + queryParams.toString();

@@ -16,7 +16,7 @@ const Product = ({ params }) => {
   const [singleproduct, setsingleproduct] = useState([]);
   const [edit, setedit] = useState(false);
   const pathname = usePathname();
-  console.log("objectpathname", pathname);
+  // console.log("objectpathname", pathname);
   const [loading, setloading] = useState(true);
   const handleEditing=()=>{
     setedit(true)

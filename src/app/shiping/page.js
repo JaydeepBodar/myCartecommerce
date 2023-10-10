@@ -17,7 +17,7 @@ async function getData() {
       },
     });
     if (!data) {
-      console.log("error");
+      // console.log("error");
     }
     // console.log("data.address",data.address)
     return data.address;

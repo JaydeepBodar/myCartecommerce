@@ -19,14 +19,14 @@ export default async function auth(req, res) {
             throw new Error("All field Required");
           } else {
             const user = await Userschema.findOne({ email: email });
-            console.log("process.env.API_URL", process.env.API_URL);
+            // console.log("process.env.API_URL", process.env.API_URL);
             if (user) {
               const checkpassword = await bcrypt.compare(
                 password,
                 user.password
               );
               if (checkpassword) {
-                console.log("user", user);
+                // console.log("user", user);
                 return user;
               } else {
                 throw new Error("Wrong password");
@@ -42,7 +42,7 @@ export default async function auth(req, res) {
       jwt: async ({ token, user, profile }) => {
         user && (token.user = user);
         // console.log("req",req)
-        console.log("token",token)
+        // console.log("token",token)
         
         if (req.url === "/api/auth/session?update") {
           // hit the db and eturn the updated user

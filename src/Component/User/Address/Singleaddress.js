@@ -7,6 +7,7 @@ import Sidebar from "../Sidebar";
 import Validations from "../../Validation";
 import { useRouter } from "next/navigation";
 import Loader from "@/Component/Loader";
+import { toast } from "react-toastify";
 
 const Singleaddress = ({ addressdata }) => {
   const router = useRouter();
@@ -90,7 +91,7 @@ const Singleaddress = ({ addressdata }) => {
           }
           // {headers: { "Content-type": "application/json" }}
         )
-        .then((res) => console.log("updatedata", res))
+        .then((res) => toast.success(res?.data?.message))
         .catch((e) => console.log("e", e));
       router.push("/User");
     } else {
@@ -99,8 +100,8 @@ const Singleaddress = ({ addressdata }) => {
   };
   return (
     <Container>
-      <div className="flex py-10 h-[81.6vh] justify-between max-sm:flex-col max-sm:justify-self">
-        <div className="max-sm:pb-4">
+      <div className="flex py-10 justify-between max-sm:flex-col max-sm:justify-self">
+        <div className="max-sm:pb-4 h-[81vh]">
           <Sidebar />
         </div>
         <div className="basis-[75%]">
@@ -161,7 +162,7 @@ const Singleaddress = ({ addressdata }) => {
                         {...Input }
                       )
                       .then((res) => {
-                        return res;
+                        toast.success(res?.data?.message)
                       })
                       .catch((e) => {
                         return e;

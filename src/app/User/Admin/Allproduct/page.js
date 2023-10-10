@@ -22,7 +22,8 @@ async function getData(searchParams) {
 	});
   // console.log("data",data)
   if (!data) {
-    console.log("error");
+    return;
+    // console.log("error");
   }
   return data;
 }

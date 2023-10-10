@@ -9,7 +9,7 @@ const Sidebar = () => {
   const toggleData = () => {
     settoggle((data) => !data);
   };
-  console.log("toggle", toggle);
+  // console.log("toggle", toggle);
   return (
     <div
       className={`${

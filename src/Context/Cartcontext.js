@@ -16,7 +16,7 @@ const Cartprovider = ({ children }) => {
         : []
     );
   };
-  console.log("cart", cart.cartItems);
+  // console.log("cart", cart.cartItems);
   const addItemtocart = async ({
     _id,
     title,
@@ -40,7 +40,7 @@ const Cartprovider = ({ children }) => {
     const isItemExist = cart?.cartItems?.find(
       (i) => i._id === item._id
     );
-    console.log("isitem",isItemExist)
+    // console.log("isitem",isItemExist)
     let newCartItems;
 
     if (isItemExist) {
@@ -57,7 +57,7 @@ const Cartprovider = ({ children }) => {
   };
   const deletItem=(id)=>{
     const deleteitem=cart?.cartItems?.filter((deleteitem)=>deleteitem._id !== id)
-    console.log("deleteitem",deleteitem)
+    // console.log("deleteitem",deleteitem)
     localStorage.setItem("cart",JSON.stringify({cartItems:deleteitem}))
     setCartToState();
   }

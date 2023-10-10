@@ -2,7 +2,7 @@ import Userschema from "../model/Userschema";
 import bcrypt from "bcrypt";
 import APIFilter from "../utils/APIFilter";
 export const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,role } = req.body;
   const user = await Userschema.findOne({ email: email });
   if (user) {
     res.status(400).json({ message: "User alreday exists" });
@@ -12,8 +12,9 @@ export const registerUser = async (req, res) => {
       name: name,
       email: email,
       password: haspassword,
+      role:role
     });
-    console.log("userdata", userdata);
+    // console.log("userdata", userdata);
     res.status(200).json({ message: "Successfully register" });
   }
 };
@@ -40,7 +41,7 @@ export const updateUser = async (req, res) => {
 export const update_password = async (req, res) => {
   const { currentpassword, newpassword, id } = req.body;
   const user = await Userschema.find({ _id: id });
-  console.log("user", user);
+  // console.log("user", user);
   const comparePassword = await bcrypt.compare(
     currentpassword,
     user[0].password

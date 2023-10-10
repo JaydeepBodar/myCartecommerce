@@ -42,7 +42,7 @@ export const checkoutsession = async (req, res) => {
   res.status(200).json({ url: session.url });
 };
 const getCartitems = async (line_items) => {
-  console.log("line_items?.data", line_items)
+  // console.log("line_items?.data", line_items)
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
@@ -74,7 +74,7 @@ export const webhook = async (req, res) => {
       process.env.WEBHOOKS_SECERATKEY_PRODUCTION
       // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
-    console.log("event", event);
+    // console.log("event", event);
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
       const line_items = await stripe.checkout.sessions.listLineItems(

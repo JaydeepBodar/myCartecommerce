@@ -9,7 +9,7 @@ const Orderitem = ({ order }) => {
     // console.log("ddddddddddddddddsassssssatssdtysst")
     router.refresh()
   }, []);
-  console.log("ddffdsgfsgxdhfghffc")
+  // console.log("ddffdsgfsgxdhfghffc")
   const { paymentInfo,orderStatus,_id} =order;
   return (
     <div className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-3 rounded-lg">

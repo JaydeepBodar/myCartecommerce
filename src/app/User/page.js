@@ -16,7 +16,7 @@ async function getData() {
     },
   });
   if (!data) { 
-    console.log("error");
+    // console.log("error");
   }
   // console.log("data.address",data.address)
   return data.address;
@@ -24,7 +24,7 @@ async function getData() {
 const User = async () => {
   // console.log("process.env.API_URL",process.env.API_URL)
   const address = await getData();
-  console.log("address", address);
+  // console.log("address", address);
   return <Profile address={address} />;
 };
 

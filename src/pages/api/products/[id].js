@@ -7,6 +7,6 @@ const router=createRouter()
 // allproduct()
 db()
 router.get(singleProduct)
+// for post review
 router.put(postReview)
-router.delete(deleteReview)
 export default router.handler()

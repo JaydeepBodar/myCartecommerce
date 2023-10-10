@@ -12,7 +12,7 @@ const Updateprofile = () => {
   const session = useSession();
   const { user, loading, loaduser } = Globalusercontext();
   const router = useRouter();
-  console.log("data", session.data);
+  // console.log("data", session.data);
   const [pic, setPic] = useState(user[0]?.avatar);
   const [Input, setInput] = useState({
     name:  "",
@@ -28,7 +28,7 @@ const Updateprofile = () => {
     setInput({ ...Input, [name]: value });
   };
   const uploadImg = (pics) => {
-    console.log("picssssssssssssssssssss", pics);
+    // console.log("picssssssssssssssssssss", pics);
     const data = new FormData();
     data.append("file", pics);
     data.append("upload_preset", "htepld3m");
@@ -44,7 +44,7 @@ const Updateprofile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
+        // console.log("data", data);
         setPic(data.url.toString());
       })
       .catch((err) => {
@@ -127,6 +127,7 @@ const Updateprofile = () => {
               <div className="flex items-center gap-x-2 my-2">
                 <Image
                   src={user ? user[0]?.avatar : pic}
+                  alt={user[0]?.name}
                   loading="lazy"
                   width={80}
                   height={80}

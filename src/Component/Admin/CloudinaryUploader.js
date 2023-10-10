@@ -32,7 +32,7 @@ const CloudinaryUploader = () => {
 
     setImages([...images, ...uploadedImages]);
   };
-  console.log("imagesssssssss", images);
+  // console.log("imagesssssssss", images);
 
   return (
     <div>
@@ -43,6 +43,7 @@ const CloudinaryUploader = () => {
       <CloudinaryContext cloudName="dxlicroam">
         {images.map((image, index) => (
           <Image
+            alt="Image"
             key={index}
             publicId={image}
             loading="lazy"

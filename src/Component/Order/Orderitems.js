@@ -100,6 +100,7 @@ const Orderitems = ({ item }) => {
                 <Image
                   src={image[0]}
                   width={80}
+                  alt={name}
                   height={80}
                   loading="lazy"
                   className="border-[1px] border-[#cecbcb] object-fill rounded-lg w-[80px] h-[80px] "

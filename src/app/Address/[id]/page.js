@@ -17,7 +17,7 @@ async function getData(id) {
 	});
   // console.log("data",data)
   if (!data) {
-    console.log("error");
+    // console.log("error");
   }
   return data.address;
 }

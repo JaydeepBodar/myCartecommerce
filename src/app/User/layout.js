@@ -5,24 +5,40 @@ import React from "react";
 import Sidebar from "@/Component/User/Sidebar";
 import Tostify from "@/Component/Tostify";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 // import Loader from "@/Component/Loader"
 const Dashboard = ({ children }) => {
-  const {data}=useSession()
+  const { data } = useSession();
+  const pathname = usePathname();
   return (
     <>
       <section>
-        <Tostify/>
-        <div className="tracking-[1.2px] bg-red-600 text-white font-semibold text-2xl py-5">
-          <Container>
-            <h3>{data?.user?.role === 'Admin' ? <span>Admin</span> : <span>User</span>} Dashboard</h3>
-          </Container>
-        </div>
+        <Tostify />
+        {pathname !== "/User/Admin/Register" && (
+          <div className="tracking-[1.2px] bg-red-600 text-white font-semibold text-2xl py-5">
+            <Container>
+              <h3>
+                {data?.user?.role === "Admin" ? (
+                  <span>Admin</span>
+                ) : (
+                  <span>User</span>
+                )}{" "}
+                Dashboard
+              </h3>
+            </Container>
+          </div>
+        )}
         <Container>
           <div className="flex py-10 justify-between items-stretch max-sm:flex-col">
-            <div className="h-[55.4vh] max-sm:h-[auto] max-sm:pb-4" title="user info">
-              <Sidebar />
-            </div>
-            <div className="max-sm:basis-[97%] basis-[75%]">{children}</div>
+            {pathname !== "/User/Admin/Register" && (
+              <div
+                className="h-[55.4vh] max-sm:h-[auto] max-sm:pb-4"
+                title="user info"
+              >
+                <Sidebar />
+              </div>
+            )}
+            <div className={`${pathname !== "/User/Admin/Register" ? "max-sm:basis-[97%] basis-[75%]" : "mx-[auto]"}`}>{children}</div>
           </div>
         </Container>
       </section>
@@ -31,8 +47,10 @@ const Dashboard = ({ children }) => {
 };
 
 export default Dashboard;
-      {/* {session.status === "unauthenticated"  ?  session.status === 'loading' ? <div className="font-semibold text-xl h-[70vh] flex items-center justify-center"><Loader/></div>:(
+{
+  /* {session.status === "unauthenticated"  ?  session.status === 'loading' ? <div className="font-semibold text-xl h-[70vh] flex items-center justify-center"><Loader/></div>:(
         <Accessdenied />
       ) : session.status === 'loading' ? <div className="font-semibold text-xl h-[81.8vh] flex items-center justify-center"><Loader/></div> :(
        )}
-       {session.status === "unauthenticated" || session.status === "authenticated" && session.status === "loading" && <Accessdenied/>} */}
+       {session.status === "unauthenticated" || session.status === "authenticated" && session.status === "loading" && <Accessdenied/>} */
+}

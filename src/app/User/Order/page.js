@@ -23,14 +23,14 @@ async function getData(searchParams) {
     },
   });
   if (!data) { 
-    console.log("error");
+    // console.log("error");
   }
   // console.log("data.address",data?.order[0].paymentInfo)
   // console.log("datatatataatastat",data)
   return data;
 }
 const Ordercount = async({searchParams}) => {
-  console.log("searchParams",searchParams)
+  // console.log("searchParams",searchParams)
   const orders=await getData(searchParams)
   return (
     <Order order={orders?.order} itemperpage={orders?.productperpage} totalitem={orders?.productcount} />

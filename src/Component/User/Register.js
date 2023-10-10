@@ -9,15 +9,17 @@ import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Tostify from "@/Component/Tostify";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 const Register = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
     useFormik({
       initialValues: {
         name: "",
         email: "",
         password: "",
+        role: pathname === "/User/Admin/Register" ? "Admin" : "user",
       },
       validationSchema: yup.object().shape({
         name: yup
@@ -42,7 +44,7 @@ const Register = () => {
               toast.warn(e.response.data.message);
             }
           });
-        console.log("value",values);
+        // console.log("value", values);
       },
     });
   return (
@@ -58,6 +60,11 @@ const Register = () => {
         >
           <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-14">
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
+              {pathname === "/User/Admin/Register" ? (
+                <span>Admin</span>
+              ) : (
+                <span>User</span>
+              )}{" "}
               Sign up...
             </h4>
             <form onSubmit={handleSubmit}>

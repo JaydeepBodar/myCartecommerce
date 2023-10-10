@@ -8,13 +8,13 @@ const Custompagination = ({ itemperpage, totalitem ,loading}) => {
   const searchParams = useSearchParams();
   let page = searchParams.get("page");
   page = Number(page);
-  console.log("page", page);
+  // console.log("page", page);
   let urlsearch;
   const handleChange = (current) => {
     if (typeof window !== "undefined") {
       setloading(loading)
       urlsearch = new URLSearchParams(window.location.search);
-      console.log("urlsearch", urlsearch);
+      // console.log("urlsearch", urlsearch);
       if (urlsearch.has("page")) {
         urlsearch.set("page", current);
       } else {
@@ -23,7 +23,7 @@ const Custompagination = ({ itemperpage, totalitem ,loading}) => {
     }
     const path = "?" + urlsearch.toString();
     router.push(path);
-    console.log("urlsearch", path);
+    // console.log("urlsearch", path);  
   };
   return (
     <div className="py-4">
