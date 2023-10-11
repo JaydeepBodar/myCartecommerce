@@ -41,10 +41,13 @@ export default function Home({ searchParams }) {
     urlParams.category,
     urlParams.page,
   ]);
+  const loader=(load)=>{
+    setloading(load)
+  }
   // const product = await getData();
   return (
     <div>
-      <Productlist product={product} loading={loading} urlParams={urlParams} />
+      <Productlist product={product} loading={loading} urlParams={urlParams} loader={loader}/>
     </div>
   );
 }

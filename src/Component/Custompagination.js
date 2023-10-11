@@ -1,18 +1,17 @@
 "use client"
 import { useRouter, useSearchParams } from "next/navigation";
-import React,{useState} from "react";
+import React from "react";
 import Pagination from "react-js-pagination";
-const Custompagination = ({ itemperpage, totalitem ,loading}) => {
+const Custompagination = ({ itemperpage, totalitem ,loader}) => {
   const router = useRouter();
-  const [,setloading]=useState(false);
   const searchParams = useSearchParams();
   let page = searchParams.get("page");
   page = Number(page);
   // console.log("page", page);
   let urlsearch;
   const handleChange = (current) => {
+    loader(true)
     if (typeof window !== "undefined") {
-      setloading(loading)
       urlsearch = new URLSearchParams(window.location.search);
       // console.log("urlsearch", urlsearch);
       if (urlsearch.has("page")) {
@@ -23,7 +22,7 @@ const Custompagination = ({ itemperpage, totalitem ,loading}) => {
     }
     const path = "?" + urlsearch.toString();
     router.push(path);
-    // console.log("urlsearch", path);  
+    // console.log("urlsearch", path);  0
   };
   return (
     <div className="py-4">

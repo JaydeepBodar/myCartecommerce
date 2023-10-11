@@ -6,7 +6,7 @@ import Filter from "./Filter";
 import Custompagination from "../Custompagination";
 import Loader from "../Loader";
 import Item from "./Item";
-const Productlist = ({ product, loading }) => {
+const Productlist = ({ product, loading,loader }) => {
   const [open, setopen] = useState(false);
   const toogle = () => {
     setopen((prev) => !prev);
@@ -57,7 +57,7 @@ const Productlist = ({ product, loading }) => {
         <Custompagination
           totalitem={product.filterproductscount}
           itemperpage={product.productperpage}
-          loading={loading}
+          loader={loader}
         />
       )}
     </Container>

@@ -27,8 +27,11 @@ const Alluserdata = ({searchParams}) => {
         .catch((e) => console.log("error", e))
         .finally(() => setloading(false));
     }, [loading]);
+    const loader=(load)=>{
+      setloading(load)
+    }
   
-  return <Alluser user={user?.allUser} totalitem={user?.totaluser} userperpage={user?.userperPage} loading={loading}/>
+  return <Alluser user={user?.allUser} loader={loader} totalitem={user?.totaluser} userperpage={user?.userperPage} loading={loading}/>
 }
 
 export default Alluserdata

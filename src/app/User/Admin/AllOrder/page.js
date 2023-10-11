@@ -27,7 +27,10 @@ const Order = ({ searchParams }) => {
       .catch((e) => console.log("error", e))
       .finally(() => setloading(false));
   }, [loading,searchQuery]);
-  return <Allorder orderdata={order} loading={loading} />;
+  const loader=(load)=>{
+    setloading(load)
+  }
+  return <Allorder orderdata={order} loading={loading} loader={loader}/>;
 };
 
 export default Order;

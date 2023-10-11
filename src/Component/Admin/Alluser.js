@@ -2,7 +2,7 @@ import React from "react";
 import Custompagination from "../Custompagination";
 import Userview from "./Userview";
 import Loader from "../Loader";
-const Alluser = ({ user, totalitem, userperpage, loading }) => {
+const Alluser = ({ user, totalitem, userperpage, loading,loader }) => {
   return (
     <div>
       {loading && (
@@ -17,6 +17,7 @@ const Alluser = ({ user, totalitem, userperpage, loading }) => {
       <Custompagination
         itemperpage={userperpage}
         totalitem={totalitem}
+        loader={loader}
       />
     </div>
   );

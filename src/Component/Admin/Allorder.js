@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Tostify from "../Tostify";
 import Loader from "../Loader";
 import Custompagination from "../Custompagination";
-const Allorder = ({ orderdata, loading }) => {
+const Allorder = ({ orderdata, loading,loader }) => {
   const { order, productcount, productperpage } = orderdata;
   const router = useRouter();
 // useEffect(() => {
@@ -67,6 +67,7 @@ const Allorder = ({ orderdata, loading }) => {
           <Custompagination
             totalitem={productcount}
             itemperpage={productperpage}
+            loader={loader}
           />
         </React.Fragment>
       )}

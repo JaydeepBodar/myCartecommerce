@@ -83,7 +83,7 @@ const Address = () => {
   return (
     <Container>
       <div className="flex py-10 justify-between max-sm:flex-col max-sm:justify-self">
-        <div className="max-sm:pb-4 h-[81vh]">
+        <div className="max-sm:pb-4 sm:h-[81vh]">
           <Sidebar />
         </div>
         <div className="basis-[75%]">
