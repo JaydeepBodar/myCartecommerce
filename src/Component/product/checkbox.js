@@ -10,5 +10,11 @@ export const checkbox = [
   { name: "category", value: "jewelery", label: "Jewelery" },
   { name: "category", value: "electronics", label: "Electronics" },
   { name: "category", value: "women's clothing", label: "Women's clothing" },
-  { name: "category", value: "smart-watch", label: "Smart Watch" },
+  { name: "category", value: "watch", label: "Watch" },
+  { name: "category", value: "mens-shoes", label: "Mens-shoes" },
+  { name: "category", value: "womens-shoes", label: "Womens-shoes" },
+  { name: "category", value: "womens-watches", label: "Womens-watches" },
+  { name: "category", value: "mens-watches", label: "Mens-watches" },
+  { name: "category", value: "womens-bags", label: "Womens-bags" },
+  { name: "category", value: "sunglasses", label: "Sunglasses" },
 ];
