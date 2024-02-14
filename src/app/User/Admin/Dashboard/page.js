@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 import Piechart from "@/Component/Admin/Chart/Piechart";
-const page = () => {
+const Dashboard = () => {
   const [chartstate, setChartstate] = useState([]);
   const [loading, setloading] = useState(false);
   const productionheaders = Cookies.get("__Secure-next-auth.session-token");
@@ -22,7 +22,6 @@ const page = () => {
       .catch((e) => console.log("eee", e))
       .finally(() => setloading(false));
   }, [loading]);
-  console.log("chartstatechartstate", chartstate);
   return (
     <div>
       <h3 className="text-[18px] font-bold">Statastical Information</h3>
@@ -31,4 +30,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Dashboard;
