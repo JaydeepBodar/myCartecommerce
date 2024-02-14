@@ -1,6 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-
+import Loader from "@/Component/Loader";
 const PieChart = ({ chartdata, loading }) => {
   const options = {
     chart: {
