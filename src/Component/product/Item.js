@@ -30,6 +30,7 @@ const Item = ({ product, loading }) => {
       discountPercentage,
       price,
       discountprice:discount,
+      onlydiscount:price-discount
     });
     if (productbtn === true || cart?.cartItems?.length >= 0) {
       setbtn("Go to Cart");

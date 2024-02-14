@@ -25,7 +25,7 @@ const Cartitem = () => {
     const newqut = item.quantity - 1;
     const cartItem = { ...item, quantity: newqut };
     if (newqut <= 0) {
-    }
+    } 
     addItemtocart(cartItem);
   };
   const netAmount = cart?.cartItems?.reduce((acc, item) => {

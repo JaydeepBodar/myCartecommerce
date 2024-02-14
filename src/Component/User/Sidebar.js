@@ -56,6 +56,11 @@ const Sidebar = () => {
             <>
               {" "}
               <li>
+                <Link href="/User/Admin/Dashboard">
+                  Dashboard<span>(admin)</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/User/Admin/Addproduct">
                   Add New Product<span>(admin)</span>
                 </Link>

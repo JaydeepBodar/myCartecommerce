@@ -83,7 +83,7 @@ const Adminproduct = ({ product, loader, loading }) => {
                     Delete
                   </button>
                 </div>
-              </div>
+              </div>  
             );
           })}
           <Custompagination

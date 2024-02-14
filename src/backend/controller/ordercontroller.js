@@ -46,6 +46,7 @@ const getCartitems = async (line_items) => {
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
+      console.log("itemitemitem", item);
       // console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
       // console.log("productdetails", product)
@@ -54,6 +55,7 @@ const getCartitems = async (line_items) => {
         product: productid,
         name: product.name,
         image: product.images,
+        discount: item?.onlydiscount,
         price: item?.price?.unit_amount / 100,
         quantity: item.quantity,
       });
@@ -82,7 +84,7 @@ export const webhook = async (req, res) => {
       );
       // console.log("session", session);
       const getOrder = await getCartitems(line_items);
-      console.log("getOrder", getOrder)
+      console.log("getOrder", getOrder);
       const userId = session?.client_reference_id;
       const amountPaid = session?.amount_total / 100;
       const paymentInfo = {
@@ -143,12 +145,10 @@ export const deleteOrder = async (req, res) => {
       req.body,
       { new: true }
     );
-    res
-      .status(200)
-      .json({
-        message:
-          "Successfully Delete Order and refund will be back within 3-5 Buisness days",
-      });
+    res.status(200).json({
+      message:
+        "Successfully Delete Order and refund will be back within 3-5 Buisness days",
+    });
   } catch (e) {
     res.status(400).json({ message: "Order not deleted" });
   }
@@ -159,7 +159,7 @@ export const getSingleOrder = async (req, res) => {
       .findById(req.query.id)
       .populate("shippingInfo user");
     res.status(200).json({ order });
-  } catch (e) { 
+  } catch (e) {
     res.status(400).json({ message: "Product not shown" });
   }
 };
@@ -176,4 +176,14 @@ export const getallOrder = async (req, res) => {
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
   }
+};
+
+export const orderanylitic = async (req, res) => {
+  const orderbystatus1 = await orderSchema
+    .find({ orderStatus: "Delivered" })
+    .countDocuments();
+  const orderbystatus2 = await orderSchema
+    .find({ orderStatus: "Processing" })
+    .countDocuments();
+  res.json({ orderbystatus1, orderbystatus2 });
 };

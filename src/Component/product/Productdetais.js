@@ -197,6 +197,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                 singleproduct?.products?.discountPercentage,
                               discountprice: discount,
                               price: singleproduct?.products?.price,
+                              onlydiscount:price-discount
                             });
                             if (
                               productbtn === true ||
