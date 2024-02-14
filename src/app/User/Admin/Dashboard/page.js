@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-
 import Piechart from "@/Component/Admin/Chart/Piechart";
-const Dashboard = () => {
+const Dashboarddata = () => {
   const [chartstate, setChartstate] = useState([]);
   const [loading, setloading] = useState(false);
   const productionheaders = Cookies.get("__Secure-next-auth.session-token");
@@ -25,9 +24,9 @@ const Dashboard = () => {
   return (
     <div>
       <h3 className="text-[18px] font-bold">Statastical Information</h3>
-      <Piechart chartdata={chartstate}/>
+      <Piechart chartdata={chartstate} loading={loading}/>
     </div>
   );
 };
 
-export default Dashboard;
+export default Dashboarddata;
