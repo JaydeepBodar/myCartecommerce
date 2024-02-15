@@ -195,7 +195,7 @@ const Productupdate = ({ product }) => {
           placeholder="Product Rating..."
           className="basis-[49%] max-lg:basis-[100%]"
         />
-        <div className="flex items-center justify-between w-[100%]">
+        <div className="flex items-center justify-between w-[100%] max-lg:flex-col max-lg:gap-y-2">
           <div className="flex items-center gap-x-2 my-2 basis-[49%] max-lg:basis-[100%]">
             <Image
               src={
@@ -223,7 +223,7 @@ const Productupdate = ({ product }) => {
             name="stock"
             value={stock}
             onChange={handleChange}
-            className="basis-[49%] max-lg:basis-[100%] bg-white"
+            className="basis-[49%] max-lg:basis-[100%] bg-white max-lg:w-[100%]"
           >
             <option name="stock" value="Out of Stock">
               Out of Stock
