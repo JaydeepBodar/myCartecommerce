@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 // require('dotenv').config()
 const nextConfig = {
-  // experimental: {
-  //   appDir: true,
-  // },
+  experimental: {
+    appDir: false,
+  },
   images:{
     domains:['i.dummyjson.com',"fakestoreapi.com","res.cloudinary.com","cdn.dummyjson.com"]
   },
