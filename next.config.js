@@ -2,7 +2,7 @@
 // require('dotenv').config()
 const nextConfig = {
   experimental: {
-    appDir: false,
+    appDir: true,
   },
   images:{
     domains:['i.dummyjson.com',"fakestoreapi.com","res.cloudinary.com","cdn.dummyjson.com"]
