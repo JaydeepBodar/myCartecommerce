@@ -29,6 +29,6 @@ export const config = {
     "/User/Admin/updateProduct",
     "/User/Admin/Allproduct",
     "/User/Admin/Alluser",
-    "/User/Admin/Dashboard"
+    "/User/Admin/Anyalitic"
   ],
 };
