@@ -27,7 +27,7 @@ const Dashboarddata = () => {
   }, [loading]);
   
   return (
-      <div>
+      <div style={{zIndex:"1"}}>
         <h3 className="text-[18px] font-bold">Statastical Information</h3>
         <Piechart chartdata={chartstate} loading={loading} />
       </div>

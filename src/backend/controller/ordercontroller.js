@@ -185,5 +185,44 @@ export const orderanylitic = async (req, res) => {
   const orderbystatus2 = await orderSchema
     .find({ orderStatus: "Processing" })
     .countDocuments();
-  res.json({ orderbystatus1, orderbystatus2 });
+    const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    // const targetMonth = "Jan"; // Replace with the desired month
+    
+    const orderAnalysis = await orderSchema.aggregate([
+      {
+        $project: {
+          year: { $year: "$createdAt" },
+          month: { $month: "$createdAt" },
+          revenue: { $toDouble: "$paymentInfo.amountPaid" },
+        },
+      },
+      {
+        $group: {
+          _id: { year: "$year", month: "$month" },
+          totalRevenue: { $sum: "$revenue" },
+        },
+      },
+      {
+        $sort: {
+          "_id.year": 1,
+          "_id.month": 1,
+        },
+      },
+    ]);
+    
+    // Create a map to quickly access totalRevenue by year and month
+    const totalRevenueMap = new Map(orderAnalysis.map(item => [`${item._id.year}-${item._id.month}`, item.totalRevenue]));
+    
+    // Create the final result including all months and years
+    const resultWithAllMonthsAndYears = allMonths.flatMap(month => {
+      return Array.from(new Set(orderAnalysis.map(item => item._id.year))).map(year => ({
+        month,
+        year,
+        totalRevenue: totalRevenueMap.get(`${year}-${allMonths.indexOf(month) + 1}`) || 0,
+      }));
+    });
+    
+    console.log(resultWithAllMonthsAndYears);
+    
+  res.json({ orderbystatus1, orderbystatus2, resultWithAllMonthsAndYears });
 };

@@ -94,6 +94,10 @@ a {
   margin-bottom: 6px;
   padding-bottom: 6px;
 }
+select option {
+  background-color: #cecbcb;
+  padding: 8px 0;
+}
 @media screen and (max-width:600px) {
   .data span{
     padding-right: 0px;
