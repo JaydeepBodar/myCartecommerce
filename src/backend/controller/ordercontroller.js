@@ -222,7 +222,5 @@ export const orderanylitic = async (req, res) => {
       }));
     });
     
-    console.log(resultWithAllMonthsAndYears);
-    
   res.json({ orderbystatus1, orderbystatus2, resultWithAllMonthsAndYears });
 };

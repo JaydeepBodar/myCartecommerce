@@ -157,7 +157,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <p className="text-lg font-medium">
                 Category :- {singleproduct?.products?.category}
               </p>
-              <div onClick={openBox}>
+              <div onClick={openBox} className="flex items-center">
                 <ReactStars
                   edit={false}
                   count={5}
@@ -165,6 +165,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                   color2={"#ffd700"}
                   value={singleproduct?.products?.rating}
                 />
+                <h3 className="text-lg">(&nbsp;<span className={`${singleproduct?.products?.rating <= 2.5  ? "text-[#DC2626]" : "text-[#008000]"}`}>{singleproduct?.products?.rating.toFixed(2)}</span> Out of 5&nbsp;)</h3>
               </div>
               <p>Description :- {singleproduct?.products?.description}</p>
               <h5 className="text-xl font-semibold">

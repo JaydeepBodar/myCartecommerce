@@ -114,7 +114,7 @@ const Shiping = ({ address }) => {
             </div>
           </div>
         )}
-        <div className="max-md:w-[100%]">
+        <div className="max-md:w-[100%] basis-[25%]">
           <Cartitem />
         </div>
       </div>

@@ -18,7 +18,9 @@ const Item = ({ product, loading }) => {
     rating,
     stock,
   } = product;
-  const discount=parseInt((price-price *discountPercentage/100).toFixed(0))
+  const discount = parseInt(
+    (price - (price * discountPercentage) / 100).toFixed(0)
+  );
   // console.log("discount",typeof discount)
   const productbtn = cart?.cartItems?.some((item) => item._id === _id);
   const Additem = () => {
@@ -29,8 +31,8 @@ const Item = ({ product, loading }) => {
       category,
       discountPercentage,
       price,
-      discountprice:discount,
-      onlydiscount:price-discount
+      discountprice: discount,
+      onlydiscount: price - discount,
     });
     if (productbtn === true || cart?.cartItems?.length >= 0) {
       setbtn("Go to Cart");
@@ -70,19 +72,22 @@ const Item = ({ product, loading }) => {
             <span className="text-[green]">{discountPercentage}%</span>
           </h4>
           <p className="text-lg font-medium">Category :- {category}</p>
-          <ReactStars
-            edit={false}
-            count={5}
-            size={24}
-            value={rating}
-            color2={"#ffd700"}
-          />
+          <div className="flex items-center">
+            <ReactStars
+              edit={false}
+              count={5}
+              size={24}
+              value={rating}
+              color2={"#ffd700"}
+            />
+            <h3 className="text-lg">(&nbsp;<span className={`${rating <= 2.5  ? "text-[#DC2626]" : "text-[#008000]"}`}>{rating.toFixed(2)}</span> Out of 5&nbsp;)</h3>
+          </div>
         </Link>
         <div className="max-md:block md:hidden">
-          <h5 className="text-xl font-semibold">Price:- {price}₹</h5>
-          <h5 className="text-xl font-semibold">
+          <h5 className="text-lg font-semibold">Price:- {price}₹</h5>
+          <h5 className="text-lg font-semibold">
             <span className="text-[green]">
-              DiscountPrice:-
+              Discount:-
               {((price * discountPercentage) / 100).toFixed(0)}₹
             </span>
           </h5>
@@ -114,19 +119,19 @@ const Item = ({ product, loading }) => {
         </div>
       </div>
       <div className="basis-[20%] max-md:hidden pt-6">
-        <h5 className="text-xl font-semibold max-sm:text-xl">
+        <h5 className="text-lg font-semibold max-sm:text-xl">
           Price:-{price}₹
         </h5>
-        <h5 className="text-xl font-semibold max-sm:text-xl">
+        <h5 className="text-lg font-semibold max-sm:text-xl">
           <span className="text-[green]">
-            DiscountPrice:-
+            Discount:-
             {((price * discountPercentage) / 100).toFixed(0)}₹
           </span>
         </h5>
         {stock === "InStock" ? (
           <React.Fragment>
             <Link
-              onClick={Additem} 
+              onClick={Additem}
               href={`${btn === "Go to Cart" ? "Cart" : ""}`}
               className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
             >
@@ -144,7 +149,7 @@ const Item = ({ product, loading }) => {
             )}
           </React.Fragment>
         ) : (
-          <h2 className="text-red-600 font-semibold">Currently Out of Stock</h2>
+          <h2 className="text-red-600 font-semibold leading-6">Currently Out of Stock</h2>
         )}
       </div>
     </div>
