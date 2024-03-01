@@ -65,18 +65,27 @@ const Navbar = () => {
                 title="Profile"
               >
                 <Image
-                  src={user?.length > 0 ? user[0]?.avatar : session?.data?.user?.avatar}
+                  src={
+                    user?.length > 0
+                      ? user[0]?.avatar
+                      : session?.data?.user?.avatar
+                  }
                   width={30}
                   alt={user?.name}
                   loading="lazy"
                   height={30}
                   className="w-[30px] h-[30px] rounded-full object-fill"
                 />
-                <p>{user?.length > 0 ? user[0]?.name : session?.data?.user?.name}</p>
+                <p>
+                  {user?.length > 0 ? user[0]?.name : session?.data?.user?.name}
+                </p>
               </Link>
             ) : (
               <Link href="/login">
-                <MdAccountCircle className="w-6 h-6" title="Log in" />
+                <div className="flex font-semibold gap-2 items-center border-[1px] border-red-600 text-red-600 px-2 rounded-lg hover:bg-red-600 hover:text-white transition-all">
+                  <p>Sign in</p>
+                  <MdAccountCircle className="w-6 h-6" title="Sign iIn" />
+                </div>
               </Link>
             )}
             <Link href="/Cart" className="relative">

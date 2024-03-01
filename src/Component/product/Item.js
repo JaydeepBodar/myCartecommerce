@@ -51,15 +51,15 @@ const Item = ({ product, loading }) => {
   };
   // console.log("prductbtn", productbtn);
   return (
-    <div className="flex max-sm:flex-wrap gap-x-5 max-sm:gap-x-2 mb-3 bg-[#f2f2f2] rounded-lg border-[1px] border-[#e0dede]">
+    <div className="img-hover flex max-sm:flex-wrap gap-x-5 max-sm:gap-x-2 mb-3 bg-[#f2f2f2] rounded-lg border-[1px] border-[#e0dede]">
       <div className="basis-[30%] max-lg:basis-[40%] max-sm:basis-[100%]">
-        <Link href={`productdata/${_id}`}>
+        <Link href={`productdata/${_id}`} className='block overflow-hidden'>
           <Image
             src={product.thumbnail}
             width={300}
             loading="lazy"
             height={300}
-            className="flex items-stretch h-[250px] max-sm:w-[100%] max-sm:h-[280px] object-fill rounded-tl-lg rounded-bl-lg"
+            className=" hover-img flex items-stretch h-[250px] max-sm:w-[100%] max-sm:h-[280px] object-fill rounded-tl-lg rounded-bl-lg"
             alt={title}
           />
         </Link>
