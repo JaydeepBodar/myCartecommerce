@@ -37,7 +37,7 @@ const Register = () => {
         axios
           .post(`${env.APIURL}api/auth/Register`, values)
           .then((res) => {
-            router.push("/login"), actions.resetForm();
+            router.push("/Authentication/login"), actions.resetForm();
           })
           .catch((e) => {
             if (e.response.status === 400) {
@@ -55,7 +55,7 @@ const Register = () => {
           className={`${
             errors.name || errors.email || errors.password
               ? "h-[auto]"
-              : "h-[81.1vh]"
+              : "h-[90vh]"
           } md:mb-[4px] py-5 flex flex-col justify-center items-center`}
         >
           <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-14">
@@ -124,7 +124,7 @@ const Register = () => {
               </button>
             </form>
             <Link
-              href="login"
+              href="/Authentication/login"
               className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
             >
               Alreday an Account...

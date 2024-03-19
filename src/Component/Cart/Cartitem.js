@@ -4,6 +4,7 @@ import Link from "next/link";
 import Totalquantityt from "../Totalquantityt";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { Globalproductcontext } from "@/Context/Productprovider";
 const Cartitem = () => {
   const pathname = usePathname();
   const router = useRouter();

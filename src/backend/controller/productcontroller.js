@@ -1,6 +1,10 @@
 import productSchema from "../model/productSchema";
 import APIFilter from "../utils/APIFilter";
 import db from "../db";
+export const getAllproductdata=async(req,res)=>{
+  const products=await productSchema.find()
+  res.status(200).json({products})
+}
 export const getAllproduct = async (req, res) => {
   try {
     const productperpage = 4;

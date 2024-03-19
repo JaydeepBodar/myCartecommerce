@@ -64,7 +64,7 @@ export default async function auth(req, res) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
-      signIn: "/login",
+      signIn: "/Authentication/login",
     },
   });
 }

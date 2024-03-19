@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await signIn("credentials", {
-        redirect:false,
+        redirect: false,
         ...Input,
         callbackUrl: callbackUrl ? parseCallbackUrl(callbackUrl) : "/",
       });
@@ -73,7 +73,7 @@ const Login = () => {
                 label="password"
                 data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
                 className="flex-col"
-              /> 
+              />
               <button
                 onClick={handleSubmit}
                 type="submit"
@@ -82,12 +82,20 @@ const Login = () => {
                 Login
               </button>
             </form>
-            <Link
-              href="/Register"
-              className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
-            >
-              Create New Account...
-            </Link>
+            <div className="flex items-center max-sm:flex-col justify-between">
+              <Link
+                href="/Authentication/Register"
+                className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
+              >
+                Create New Account...
+              </Link>
+              <Link
+                href="/Authentication/Resetpassword"
+                className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
+              >
+                Forgot Password
+              </Link>
+            </div>
           </div>
         </div>
       </Container>

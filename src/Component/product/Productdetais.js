@@ -198,7 +198,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                 singleproduct?.products?.discountPercentage,
                               discountprice: discount,
                               price: singleproduct?.products?.price,
-                              onlydiscount:price-discount
+                              onlydiscount:singleproduct?.products-discount
                             });
                             if (
                               productbtn === true ||
