@@ -51,7 +51,7 @@ const Filter = () => {
     }
     if (checkBox.value === "all" || checkBox.value == 0) {
       // console.log("ggggggggggg")
-      router.push("/");
+      router.push("/Allshop");
     } else {
       const path = window.location.pathname+"?" + queryParams.toString();
       // console.log("qu", queryParams.toString());

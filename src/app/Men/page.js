@@ -1,19 +1,12 @@
-"use client";
-import React from "react";
+import Breadcrumb from "@/Component/Breadcrumb";
 import Commonproduct from "@/Component/Commonproduct";
-import { Globalproductcontext } from "@/Context/Productprovider";
 const Manpage = () => {
-  const { product, loading } = Globalproductcontext();
-  const productdata = product?.products?.filter(
-    (data) =>
-      data.category === "mens-shoes" ||
-      data.category === "mens-watches" ||
-      data?.category === "men's clothing" ||
-      data?.category === "sunglasses"
-  );
+  const menfilterproduct=["mens-shoes","mens-watches","men's clothing","sunglasses"]
+
   return (
     <div>
-      <Commonproduct product={productdata} loading={loading} />
+      <Breadcrumb title="/Men"/>
+      <Commonproduct filterdata={menfilterproduct}/>
     </div>
   );
 };

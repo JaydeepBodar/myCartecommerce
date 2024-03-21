@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { env } from "@/config/env";
 import queryString from "query-string";
+import Breadcrumb from "@/Component/Breadcrumb";
 // async function getData() {
 //   const data = await fetch(`${process.env.API_URL}/api/products`, {
 //     cache: "no-store",
@@ -47,6 +48,7 @@ export default function Home({ searchParams }) {
   // const product = await getData();
   return (
     <div>
+      <Breadcrumb title="/Allshop"/>
       <Productlist product={product} loading={loading} urlParams={urlParams} loader={loader}/>
     </div>
   );

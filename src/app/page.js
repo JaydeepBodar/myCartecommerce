@@ -1,14 +1,10 @@
-"use client"
-import React from 'react'
-import Commonproduct from '@/Component/Commonproduct'
-import { Globalproductcontext } from '@/Context/Productprovider'
-const pageData = () => {
-  const { product } = Globalproductcontext();
-  return (
-    <div>
-      <h3>Home</h3>
-    </div>
-  )
-}
+"use client";
+import React from "react";
+import { Globalproductcontext } from "@/Context/Productprovider";
+import Bannercarosel from "@/Component/Bannercarosel";
 
-export default pageData
+const homepageData = () => {
+  return <Bannercarosel />;
+};
+
+export default homepageData;

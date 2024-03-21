@@ -1,21 +1,12 @@
-"use client"
-import React from 'react'
-import { Globalproductcontext } from '@/Context/Productprovider';
+import Breadcrumb from '@/Component/Breadcrumb';
 import Commonproduct from '@/Component/Commonproduct';
 const Womenpage = () => {
-    const { product,loading } = Globalproductcontext();
-    console.log("productproductproductproduct", product);
-    const productdata = product?.products?.filter(
-      (data) =>
-        data?.category === "womens-bags" ||
-        data?.category === "womens-watches" ||
-        data?.category === "womens-bags" ||
-        data?.category === "women's clothing"
-    );
-    console.log("productdataproductdataproductdataproductdata", productdata);
+  const womencategory=["womens-bags","womens-watches","womens-bags","women's clothing"]
+
     return (
       <div>
-        <Commonproduct product={productdata} loading={loading} />
+        <Breadcrumb title="/Women"/>
+        <Commonproduct filterdata={womencategory} />
       </div>
     );
 }

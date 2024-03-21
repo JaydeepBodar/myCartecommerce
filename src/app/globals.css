@@ -117,6 +117,25 @@ select option {
 .img-hover{
   overflow: hidden;
 }
+/* carosel */
+.banner-carosel .slick-prev::before,.banner-carosel .slick-next:before{
+  color: #000;
+  font-size: 45px;
+}
+.banner-carosel .slick-next{
+  height: auto;
+  z-index: 555 ;
+  right: 55px;
+}
+.banner-carosel .slick-prev{
+  height: auto;
+  z-index: 555 ;
+  left: 25px;
+}
+.banner-carosel .slick-prev:hover{
+  color: black;
+  background-color:transparent;
+}
 @media screen and (max-width:600px) {
   .data span{
     padding-right: 0px;
@@ -142,6 +161,15 @@ select option {
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+}
+.banner-carosel .slick-prev{
+  left: 10px;
+}
+.banner-carosel .slick-next{
+  right: 10px;
+}
+.banner-carosel .slick-prev::before,.banner-carosel .slick-next:before{
+  font-size: 20px;
 }
 }
 @media screen and (max-width:400px) {

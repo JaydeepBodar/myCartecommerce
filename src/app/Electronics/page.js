@@ -1,16 +1,10 @@
-"use client"
-import React from 'react'
-import { Globalproductcontext } from '@/Context/Productprovider';
+import Breadcrumb from '@/Component/Breadcrumb';
 import Commonproduct from '@/Component/Commonproduct';
 const Womenpage = () => {
-    const { product,loading } = Globalproductcontext();
-    const productdata = product?.products?.filter(
-      (data) =>
-        data?.category === "electronics"
-    );
     return (
       <div>
-        <Commonproduct product={productdata} loading={loading} />
+        <Breadcrumb title="/Electronics"/>
+        <Commonproduct category="electronics"/>
       </div>
     );
 }

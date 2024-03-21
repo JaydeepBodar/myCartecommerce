@@ -6,20 +6,37 @@ import ReactStars from "react-stars";
 import Container from "./Container";
 import Loader from "./Loader";
 import Link from "next/link";
-const Commonproduct = ({ product,loading }) => {
-  console.log("productproductproduct", product);
+import { Globalproductcontext } from "@/Context/Productprovider";
+import { usePathname } from "next/navigation";
+const Commonproduct = ({ filterdata, category }) => {
+  const { product, loading } = Globalproductcontext();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  return (
+  const pathname = usePathname();
+  const Normalproduct = product?.products?.filter((data) => {
+    if (pathname === "/Specialdeal") {
+      return data?.discountPercentage >= category;
+    } else {
+      return data?.category === category;
+    }
+  });
+  const productmen = filterdata?.map((category) =>
+    product?.products?.filter((data) => data?.category === category)
+  );
+  const filterproduct =
+    pathname === "/Men" || pathname === "/Women"
+      ? [].concat(...productmen)
+      : Normalproduct;
+  return (  
     <>
       {" "}
       <Container>
         {!loading ? (
           <>
             <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-x-5 justify-center gap-y-5">
-              {product
+              {filterproduct
                 ?.slice(indexOfFirstItem, indexOfLastItem)
                 .map((val, index) => {
                   const {
@@ -42,7 +59,7 @@ const Commonproduct = ({ product,loading }) => {
                       <div className="w-[100%] h-[250px] overflow-hidden">
                         <Image
                           src={thumbnail}
-                          className="object-cover w-[100%] h-[100%]"
+                          className="object-contain w-[100%] h-[100%]"
                           width={200}
                           height={200}
                         />
@@ -59,6 +76,9 @@ const Commonproduct = ({ product,loading }) => {
                             value={rating}
                             color2={"#ffd700"}
                           />
+                          <h4 className="text-[green] font-medium">
+                            {discountPercentage}% OFF
+                          </h4>
                           <del className="text-[gray]">{price}₹</del>
                           <span className="text-[green] pl-3">
                             {withDiscount}₹
@@ -82,7 +102,7 @@ const Commonproduct = ({ product,loading }) => {
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={itemsPerPage}
-                totalItemsCount={product?.length}
+                totalItemsCount={filterproduct?.length}
                 onChange={(number) => {
                   setCurrentPage(number);
                 }}
