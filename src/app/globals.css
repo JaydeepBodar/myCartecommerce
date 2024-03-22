@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
 * {
   box-sizing: border-box;
   padding: 0;
@@ -10,56 +10,59 @@
 }
 body {
   box-sizing: border-box;
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   margin: 0;
   padding: 0;
   line-height: 30px;
   overflow-y: auto;
   height: 100%;
 }
-.adminorder h5{
+.adminorder h5 {
   font-size: 14px;
 }
-.adminorder h4{
+.adminorder h4 {
   font-weight: 600;
   margin-bottom: 8px;
 }
-.data span{
+.data span {
   padding-right: 10px;
 }
-.sidebar span{
-color:#dc2626;
+.sidebar span {
+  color: #dc2626;
 }
-.sidebar li{
+.sidebar li {
   padding-bottom: 10px;
   font-size: 18px;
   font-weight: 500;
 }
-.scrollbar{
+.scrollbar {
   max-height: 450px;
   overflow-y: auto;
   padding-right: 15px;
 }
-.scrollbar::-webkit-scrollbar,textarea::-webkit-scrollbar {
-  width: 8px;    
-  border-radius: 20px;             /* width of the entire scrollbar */
+.scrollbar::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 20px; /* width of the entire scrollbar */
 }
-.allorder span{
+.allorder span {
   font-weight: 600;
 }
-.scrollbar::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track {
-  background: #f2f2f2;        /* color of the tracking area */
+.scrollbar::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
+  background: #f2f2f2; /* color of the tracking area */
 }
 
-.scrollbar::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb {
-  background-color:#dc2626;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */ /* creates padding around scroll thumb */
+.scrollbar::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  background-color: #dc2626; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */ /* creates padding around scroll thumb */
 }
-.cartfont h4{
+.cartfont h4 {
   font-size: 18px;
   font-weight: 700;
 }
-.adminproduct .btn{
+.adminproduct .btn {
   display: flex;
   justify-content: center;
   font-size: 14px;
@@ -76,7 +79,9 @@ color:#dc2626;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
 }
-form input,form select,form textarea{
+form input,
+form select,
+form textarea {
   outline: none;
   padding: 15px;
   border-radius: 15px;
@@ -89,7 +94,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
-.content h4{
+.content h4 {
   border-bottom: 1px solid #cecbcb;
   margin-bottom: 6px;
   padding-bottom: 6px;
@@ -99,7 +104,7 @@ select option {
   padding: 8px 0;
 }
 
-.hover-img{
+.hover-img {
   overflow: hidden;
   transition: 0.2s all linear;
   -webkit-transition: 0.2s all linear;
@@ -107,99 +112,115 @@ select option {
   -ms-transition: 0.2s all linear;
   -o-transition: 0.2s all linear;
 }
-.img-hover:hover .hover-img{
+.img-hover:hover .hover-img {
   transform: scale(1.3);
   -webkit-transform: scale(1.3);
   -moz-transform: scale(1.3);
   -ms-transform: scale(1.3);
   -o-transform: scale(1.3);
 }
-.img-hover{
+.img-hover {
   overflow: hidden;
 }
 /* carosel */
-.banner-carosel .slick-prev::before,.banner-carosel .slick-next:before{
+.banner-carosel .slick-slider {
+  line-height: 0;
+}
+.banner-carosel .slick-prev::before,
+.banner-carosel .slick-next:before,
+.product_carosel .slick-next:before {
   color: #000;
   font-size: 45px;
 }
-.banner-carosel .slick-next{
+.banner-carosel .slick-next {
   height: auto;
-  z-index: 555 ;
+  z-index: 555;
   right: 55px;
 }
-.banner-carosel .slick-prev{
+.banner-carosel .slick-prev {
   height: auto;
-  z-index: 555 ;
+  z-index: 555;
   left: 25px;
 }
-.banner-carosel .slick-prev:hover{
-  color: black;
-  background-color:transparent;
+/* product carosel */
+.product_carosel .slick-next {
+  height: auto;
+  z-index: 555;
+  top: -30px;
+  right: 25px;
 }
-@media screen and (max-width:600px) {
-  .data span{
+@media screen and (max-width: 600px) {
+  .data span {
     padding-right: 0px;
   }
-  .day{
+  .day {
     display: block;
   }
-  .hide{
+  .hide {
     display: none;
   }
 }
-@media screen and (max-width:640px) {
-  .responsive a{
-      color: #f2f2f2;    
+@media screen and (max-width: 640px) {
+  .responsive a {
+    color: #f2f2f2;
   }
-  .hidedata{
-    display:none;
+  .hidedata {
+    display: none;
   }
-  form input,form select,form textarea{
+  form input,
+  form select,
+  form textarea {
     padding: 8px;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+  }
+  .banner-carosel .slick-prev {
+    left: 10px;
+  }
+  .banner-carosel .slick-next {
+    right: 10px;
+  }
+  .banner-carosel .slick-prev::before,
+  .banner-carosel .slick-next:before,
+  .product_carosel .slick-prev::before,
+  .product_carosel .slick-next:before {
+    font-size: 20px;
+  }
+  .product_carosel .slick-next{
+    top:-28px;
+  }
 }
-.banner-carosel .slick-prev{
-  left: 10px;
-}
-.banner-carosel .slick-next{
-  right: 10px;
-}
-.banner-carosel .slick-prev::before,.banner-carosel .slick-next:before{
-  font-size: 20px;
-}
-}
-@media screen and (max-width:400px) {
-  .newdata1{
+@media screen and (max-width: 400px) {
+  .newdata1 {
     flex-basis: 45% !important;
     flex-wrap: wrap;
   }
-  .newdata1 input{
+  .newdata1 input {
     width: 100%;
   }
-  .newdata2{
+  .newdata2 {
     flex-basis: 45% !important;
   }
-  .content h4{
+  .content h4 {
     font-size: 15px;
   }
 }
-@media screen and (max-width: 480px){
+@media screen and (max-width: 480px) {
   .Toastify .Toastify__toast-container {
-      width: 100%;
-      max-width: 250px;
-      top: 65px;
-      right: 0 !important;
-  }       
-} 
-@media screen and (max-width:768px){
-  body{
+    width: 100%;
+    max-width: 250px;
+    top: 65px;
+    right: 0 !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  body {
     line-height: 24px;
   }
-  .sidebar li{
+  .sidebar li {
     font-size: 15px;
     padding-bottom: 5px;
   }

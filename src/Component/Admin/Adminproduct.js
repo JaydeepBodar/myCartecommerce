@@ -81,7 +81,7 @@ const Adminproduct = ({ product, loader, loading }) => {
                     onClick={() => deleteProduct(_id, val)}
                   >
                     Delete
-                  </button>
+                  </button> 
                 </div>
               </div>  
             );

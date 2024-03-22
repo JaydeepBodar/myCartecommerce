@@ -17,6 +17,7 @@ const Productupdate = ({ product }) => {
     discountPercentage: product?.discountPercentage,
     rating: product?.rating,
     stock: product?.stock,
+    featured: product?.featured,
   });
   const [images, setImages] = useState([
     product.images[0],
@@ -32,6 +33,7 @@ const Productupdate = ({ product }) => {
     discountPercentage,
     rating,
     stock,
+    featured,
   } = Input;
   // console.log("producteeeeeeeeeeeee",stock)
   // console.log("title", title);
@@ -41,7 +43,7 @@ const Productupdate = ({ product }) => {
   };
   console.log("category", description);
   // for multiple images
-  const handleImageUpload = async (e,index) => {
+  const handleImageUpload = async (e, index) => {
     const files = e.target.files;
     for (const file of files) {
       const formData = new FormData();
@@ -63,7 +65,7 @@ const Productupdate = ({ product }) => {
         if (response.ok) {
           // console.log("imagesindex",index)
           const data = await response.json();
-          const dataimages= images.splice(index,1,data.secure_url)
+          const dataimages = images.splice(index, 1, data.secure_url);
           // console.log("firstimages",images)
         }
       } catch (e) {
@@ -140,13 +142,22 @@ const Productupdate = ({ product }) => {
             );
           })}
         </select>
+        <select
+          value={featured}
+          name="featured"
+          onChange={handleChange}
+          className="bg-white basis-[49%] max-lg:basis-[100%]"
+        >
+          <option value={false}>featured false</option>
+          <option value={true}>featured true</option>
+        </select>
         <input
           type="text"
           name="price"
           value={price}
           onChange={handleChange}
           placeholder="Product Price..."
-          className="basis-[49%] max-lg:basis-[100%]"
+          className="basis-[100%]"
         />
         <div className="w-[100%]">
           <h4 className="font-semibold pb-3">Upload Products Image</h4>
@@ -166,9 +177,9 @@ const Productupdate = ({ product }) => {
             })}
           </div>
           <div className="flex justify-between max-sm:flex-col max-sm:gap-y-2">
-            <input type="file" onChange={(e)=>handleImageUpload(e,0)} />
-            <input type="file" onChange={(e)=>handleImageUpload(e,1)} />
-            <input type="file" onChange={(e)=>handleImageUpload(e,2)} />
+            <input type="file" onChange={(e) => handleImageUpload(e, 0)} />
+            <input type="file" onChange={(e) => handleImageUpload(e, 1)} />
+            <input type="file" onChange={(e) => handleImageUpload(e, 2)} />
           </div>
         </div>
         <textarea

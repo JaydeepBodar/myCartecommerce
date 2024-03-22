@@ -59,7 +59,7 @@ const Commonproduct = ({ filterdata, category }) => {
                       <div className="w-[100%] h-[250px] overflow-hidden">
                         <Image
                           src={thumbnail}
-                          className="object-contain w-[100%] h-[100%]"
+                          className="object-fill w-[100%] h-[100%]"
                           width={200}
                           height={200}
                         />

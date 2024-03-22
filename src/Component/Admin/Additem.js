@@ -15,12 +15,20 @@ const Additem = () => {
     price: "",
     discountPercentage: "",
     rating: "",
+    featured: false,
   });
   const router = useRouter();
   const [images, setImages] = useState([]);
   const [pic, setPic] = useState();
-  const { title, category, description, price, discountPercentage, rating } =
-    Input;
+  const {
+    title,
+    category,
+    description,
+    price,
+    discountPercentage,
+    rating,
+    featured,
+  } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...Input, [name]: value });
@@ -132,13 +140,22 @@ const Additem = () => {
               );
             })}
           </select>
+          <select
+            value={featured}
+            name="featured"
+            onChange={handleChange}
+            className="bg-white basis-[49%] max-lg:basis-[100%]"
+          >
+            <option value={false}>featured false</option>
+            <option value={true}>featured true</option>
+          </select>
           <input
-            type="text"
+            type="Number"
             name="price"
             value={price}
             onChange={handleChange}
             placeholder="Product Price..."
-            className="basis-[49%] max-lg:basis-[100%]"
+            className="basis-[100%]"
           />
           <div className="w-[100%]">
             <h4 className="font-semibold pb-3">Upload Products Image</h4>
@@ -173,7 +190,7 @@ const Additem = () => {
             placeholder="Enter your Product description..."
           ></textarea>
           <input
-            type="text"
+            type="number"
             name="discountPercentage"
             value={discountPercentage}
             onChange={handleChange}
@@ -182,7 +199,7 @@ const Additem = () => {
           />
           <input
             name="rating"
-            type="text"
+            type="number"
             value={rating}
             onChange={handleChange}
             placeholder="Product Rating..."

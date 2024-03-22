@@ -1,10 +1,14 @@
-"use client";
 import React from "react";
-import { Globalproductcontext } from "@/Context/Productprovider";
 import Bannercarosel from "@/Component/Bannercarosel";
-
+import Services from "@/Component/Services";
+import Productcarosel from "@/Component/Productcarosel";
 const homepageData = () => {
-  return <Bannercarosel />;
+  return <section>
+    <Bannercarosel />
+    <Services/>
+    <Productcarosel category="laptops" title="laptops" path="/Laptop"/>
+    {/* <Productcarosel category="jewelery" title="Jewelery" path="/Jewelery"/> */}
+  </section>;
 };
 
 export default homepageData;

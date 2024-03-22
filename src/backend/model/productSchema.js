@@ -18,6 +18,10 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 4,
     },
+    featured:{
+      type:Boolean,
+      default:false,
+    },
     reviews: [
       {
         userdata: {

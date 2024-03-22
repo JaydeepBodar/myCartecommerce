@@ -12,13 +12,15 @@ import Link from "next/link";
 const Bannercarosel = () => {
   const settings = {
     nav: true,
-    loop:true,
+    loop: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    pauseOnHover: true,
   };
   const banerSlider = [
     {
@@ -51,8 +53,11 @@ const Bannercarosel = () => {
             value;
           return (
             <div className="w-[100%] relative" key={index}>
-              <div className="w-[100%] object-cover">
-                <Image src={inagepath} className="w-[100%] h-[500px]" />
+              <div className="object-cover">
+                <Image
+                  src={inagepath}
+                  className="w-[100%] h-[450px] max-sm:w-[auto] max-sm:h-[250px] max-sm:object-fill"
+                />
               </div>
               <div className="capitalize text-black absolute top-[30%] left-[10%] max-w-[500px] max-sm:max-w-[250px]">
                 <h1 className="leading-[55px] font-semibold text-2xl max-md:text-lg max-sm:text-base">
@@ -61,12 +66,14 @@ const Bannercarosel = () => {
                 <h1 className="font-bold text-3xl max-md:text-xl max-sm:text-lg">
                   {bannercontent}
                 </h1>
-                <Link
-                  href={path}
-                  className="w-[100%] max-sm:mt-2 max-w-[150px] max-md:max-w-[100px] max-md:text-sm hover:bg-transparent border-[1px] border-white-600 hover:text-black hover:border-black transition-all duration-500 bg-white text-red-600 py-2 block text-center mt-5 font-semibold tracking-wide uppercase"
-                >
-                  {bannerbtn}
-                </Link>
+                <div>
+                  <Link
+                    href={path}
+                    className="leading-5 max-sm:leading-4 w-[100%] max-sm:mt-2 max-w-[150px] max-md:max-w-[100px] max-md:text-sm hover:bg-transparent border-[1px] border-white-600 hover:text-black hover:border-black transition-all duration-500 bg-white text-red-600 py-2 block text-center mt-5 font-semibold tracking-wide uppercase"
+                  >
+                    {bannerbtn}
+                  </Link>
+                </div>
               </div>
             </div>
           );
