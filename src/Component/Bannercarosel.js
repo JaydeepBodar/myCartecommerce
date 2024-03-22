@@ -50,7 +50,7 @@ const Bannercarosel = () => {
           const { banertitle, bannercontent, bannerbtn, path, inagepath } =
             value;
           return (
-            <div className="w-[100%] relative">
+            <div className="w-[100%] relative" key={index}>
               <div className="w-[100%] object-cover">
                 <Image src={inagepath} className="w-[100%] h-[500px]" />
               </div>
