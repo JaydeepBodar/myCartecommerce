@@ -17,19 +17,21 @@ const Commonproduct = ({ filterdata, category }) => {
   const pathname = usePathname();
   const Normalproduct = product?.products?.filter((data) => {
     if (pathname === "/Specialdeal") {
-      return data?.discountPercentage >= category;
+      return data?.discountPercentage >= category && data?.featured === false;
     } else {
-      return data?.category === category;
+      return data?.category === category && data?.featured === false;
     }
   });
   const productmen = filterdata?.map((category) =>
-    product?.products?.filter((data) => data?.category === category)
+    product?.products?.filter(
+      (data) => data?.category === category && data?.featured === false
+    )
   );
   const filterproduct =
     pathname === "/Men" || pathname === "/Women"
       ? [].concat(...productmen)
       : Normalproduct;
-  return (  
+  return (
     <>
       {" "}
       <Container>

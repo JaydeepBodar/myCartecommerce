@@ -15,11 +15,12 @@ const Productcarosel = ({ category, title, path }) => {
   );
   const settings = {
     nav: true,
-    infinite: false,
     pauseOnHover: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     touchMove: true,
+    centerMode: true,
+    centerPadding: '60px',
     responsive: [
       {
         breakpoint: 1024,
@@ -46,17 +47,17 @@ const Productcarosel = ({ category, title, path }) => {
   };
   return (
     <>
-      {!loading ? (
-        <div className="product_carosel mb-20 max-md:mb-8">
-          <Container>
-            <div className="flex justify-between items-center mb-3 max-sm:mb-3">
-              <h2 className="text-2xl font-semibold uppercase max-md:text-lg">
-                {title} Deal
-              </h2>
-              <Link href={path} className="mr-12 tracking-wide uppercase">
-                view all
-              </Link>
-            </div>
+      <div className="product_carosel mb-20 max-md:mb-8">
+        <Container>
+          <div className="flex justify-between items-center mb-3 max-sm:mb-3">
+            <h2 className="text-2xl font-semibold uppercase max-md:text-lg">
+              {title} Deal
+            </h2>
+            <Link href={path} className="mr-12 tracking-wide uppercase">
+              view all
+            </Link>
+          </div>
+          {!loading ? (
             <Slider {...settings}>
               {productdara?.slice(0, 5).map((val, index) => {
                 const {
@@ -74,21 +75,21 @@ const Productcarosel = ({ category, title, path }) => {
                   <Link
                     href={`/productdata/${_id}`}
                     key={index}
-                    className="px-2 rounded-lg mx-[-8px] flex h-[100%] flex-col justify-stretch"
+                    className="px-2 rounded-lg mx-[-8px] block"
                   >
-                    <div className="w-[100%] h-[250px] overflow-hidden">
-                      <Image
-                        src={thumbnail}
-                        width={300}
-                        height={300}
-                        className="object-fill w-[100%] h-[100%]"
-                      />
-                    </div>
-                    <div className="pt-4 px-3 bg-[#f2f2f2]">
-                      <h3 className="font-semibold text-lg max-sm:text-base capitalize">
-                        {title}
-                      </h3>
-                      <div>
+                    <div className="flex flex-col flex-wrap">
+                      <div className="flex flex-1 flex-col">
+                        <Image
+                          src={thumbnail}
+                          width={300}
+                          height={250}
+                          className="object-fill w-[100%] h-[250px]"
+                        />
+                      </div>
+                      <div className="pt-4 px-3 flex flex-col flex-1">
+                        <h3 className="font-semibold text-lg max-sm:text-base capitalize">
+                          {title}
+                        </h3>
                         <ReactStars
                           edit={false}
                           count={5}
@@ -99,10 +100,12 @@ const Productcarosel = ({ category, title, path }) => {
                         <h4 className="text-[green] font-medium">
                           {discountPercentage}% OFF
                         </h4>
-                        <del className="text-[gray]">{price}₹</del>
-                        <span className="text-[green] pl-3">
-                          {withDiscount}₹
-                        </span>
+                        <div>
+                          <del className="text-[gray]">{price}₹</del>
+                          <span className="text-[green] pl-3">
+                            {withDiscount}₹
+                          </span>
+                        </div>
                         <h4
                           className={`${
                             stock === "InStock" ? "text-[green]" : "text-[red]"
@@ -116,13 +119,15 @@ const Productcarosel = ({ category, title, path }) => {
                 );
               })}
             </Slider>
-          </Container>
-        </div>
-      ) : (
-        <div className="flex justify-center items-center h-[30vh]">
-				<h2 className="text-2xl font-semibold uppercase max-md:text-lg">loading</h2>
-        </div>
-      )}
+          ) : (
+            <div className="flex justify-center items-center h-[30vh]">
+              <h2 className="text-2xl font-semibold uppercase max-md:text-lg">
+                loading...
+              </h2>
+            </div>
+          )}
+        </Container>
+      </div>
     </>
   );
 };

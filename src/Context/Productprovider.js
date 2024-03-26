@@ -1,10 +1,12 @@
 "use client";
 import axios from "axios";
+import { usePathname } from "next/navigation";
 import React, { useState, useEffect, createContext, useContext } from "react";
 const Productcontext = createContext();
 const Productprovider = ({ children }) => {
   const [product, setproduct] = useState([]);
   const [loading, setloading] = useState(true);
+  const path=usePathname()
   useEffect(() => {
     axios
       .get(`${process.env.API_URL}api/products/Allproduct`)
@@ -13,7 +15,7 @@ const Productprovider = ({ children }) => {
       })
       .catch((e) => console.log("eeee", e))
       .finally(() => setloading(false));
-  }, [loading]);
+  }, [loading,path]);
   console.log("productproductproduct", product);
   return (
     <Productcontext.Provider

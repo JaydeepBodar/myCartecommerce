@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { CloudinaryContext, Image } from "cloudinary-react";
 import { checkbox } from "../product/checkbox";
 import Inputdata from "../Inputdata";
@@ -32,9 +32,9 @@ const Productupdate = ({ product }) => {
     price,
     discountPercentage,
     rating,
-    stock,
-    featured,
+    stock
   } = Input;
+  const[featured,setfeatured]=useState(false)
   // console.log("producteeeeeeeeeeeee",stock)
   // console.log("title", title);
   const handleChange = (e) => {
@@ -72,8 +72,7 @@ const Productupdate = ({ product }) => {
         console.log("error", e);
       }
     }
-
-    setImages([...images]);
+    setImages([...images]);  
   };
   // for single images
   const uploadImg = (pics) => {
@@ -99,12 +98,23 @@ const Productupdate = ({ product }) => {
         console.log(err);
       });
   };
+  // const[featredval,setfeatredval]=useState(discountPercentage)
+  // useEffect(() => {
+  //     if(featured === true){
+  //       setfeatredval(discountPercentage+10)
+  //     }else{
+  //       setfeatredval(discountPercentage)
+  //     }
+  // }, [featured]);
+  // console.log("featuredfeaturedfeatured",featredval)
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log("imagesss",images )
     axios
       .put(`${process.env.API_URL}api/admin/product/${product?._id}`, {
         ...Input,
+        featured,
+        // discountPercentage:featredval,
         images: images,
         thumbnail: pic,
       })
@@ -145,7 +155,7 @@ const Productupdate = ({ product }) => {
         <select
           value={featured}
           name="featured"
-          onChange={handleChange}
+          onChange={()=>setfeatured(data=>!data)}
           className="bg-white basis-[49%] max-lg:basis-[100%]"
         >
           <option value={false}>featured false</option>
