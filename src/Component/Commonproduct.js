@@ -37,7 +37,7 @@ const Commonproduct = ({ filterdata, category }) => {
       <Container>
         {!loading ? (
           <>
-            <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-x-5 justify-center gap-y-5">
+            <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 justify-center gap-y-5">
               {filterproduct
                 ?.slice(indexOfFirstItem, indexOfLastItem)
                 .map((val, index) => {
@@ -58,7 +58,7 @@ const Commonproduct = ({ filterdata, category }) => {
                       key={index}
                       className=" border-[1px] border-[#cecbcb] rounded-lg"
                     >
-                      <div className="w-[100%] h-[250px] overflow-hidden">
+                      <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden">
                         <Image
                           src={thumbnail}
                           className="object-fill w-[100%] h-[100%]"

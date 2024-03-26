@@ -31,7 +31,7 @@ const Navbar = () => {
   };
   const secondnav = [
     { path: "/", label: "Home" },
-    { path: "/Allshop", label: "All Category" },
+    { path: "/Allshop", label: "All" },
     { path: "/Men", label: "Men's" },
     { path: "/Women", label: "Women's" },
     { path: "/Electronics", label: "Electronics" },
@@ -115,7 +115,7 @@ const Navbar = () => {
                     href={path}
                     className={`${
                       pathname === path && "bg-red-600 text-white"
-                    } border-r-[1px] border-r-[#cecbcb] text-center w-[100%] font-semibold py-1`}
+                    } border-r-[1px] border-r-[#cecbcb] text-center w-[100%] font-semibold py-1 max-sm:text-[13px]`}
                   >
                     <li>{label}</li>
                   </Link>
