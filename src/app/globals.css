@@ -149,6 +149,35 @@ select option {
   top: -30px;
   right: 25px;
 }
+.testmonalis:before {
+  content: open-quote;
+}
+
+.testmonalis:after {
+  content: close-quote;
+}
+
+.testmonalis:before,
+.testmonalis:after {
+ display:inline;
+  font-size: 50px;
+  color: #dc2626;
+  padding: 0;
+  position: relative;
+  top: .25em;
+}
+.testmonalis_wrapper .slick-dots li button:before{
+  font-size: 12px;
+}
+.testmonalis_wrapper .slick-dots li.slick-active button:before {
+  color: #dc2626;
+}
+.testmonalis_wrapper .slick-dots li button:before{
+  color: gray;
+}
+.brand-logo .rfm-marquee{
+  min-width: auto;
+}
 @media screen and (max-width: 600px) {
   .data span {
     padding-right: 0px;
@@ -190,7 +219,10 @@ select option {
     font-size: 20px;
   }
   .product_carosel .slick-next{
-    top:-28px;
+    top:-27px;
+  }
+  .testmonalis_wrapper .slick-dots li button:before{
+    font-size: 10px;
   }
 }
 @media screen and (max-width: 400px) {

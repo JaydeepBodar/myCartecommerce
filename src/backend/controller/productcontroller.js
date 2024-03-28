@@ -1,10 +1,10 @@
 import productSchema from "../model/productSchema";
 import APIFilter from "../utils/APIFilter";
 import db from "../db";
-export const getAllproductdata=async(req,res)=>{
-  const products=await productSchema.find()
-  res.status(200).json({products})
-}
+export const getAllproductdata = async (req, res) => {
+  const products = await productSchema.find();
+  res.status(200).json({ products });
+};
 export const getAllproduct = async (req, res) => {
   try {
     const productperpage = 4;
@@ -120,25 +120,25 @@ export const deleteReview = async (req, res) => {
 export const getReview = async (req, res) => {
   const product = await productSchema.findOne(
     { _id: req.query.id },
-    { reviews: { $elemMatch: { _id: req.query.id } },_id:0 }
+    { reviews: { $elemMatch: { _id: req.query.id } }, _id: 0 }
   );
   // console.log("objectproduct", product);
-  res.status(200).json({product});
+  res.status(200).json({ product });
 };
 export const updateReview = async (req, res) => {
-  const{rating,comment}=req.body
+  const { rating, comment } = req.body;
   const updateproduct = await productSchema.findOneAndUpdate(
     { _id: req.query.id, "reviews._id": req.query.id },
     {
-      $set: { 
+      $set: {
         "reviews.$.comment": comment, // Replace with the updated comment
         "reviews.$.rating": rating, // Replace with the updated rating
       },
     }
-  );
-  if(updateproduct){
+  ).populate('User')
+  if (updateproduct) {
     const product = await productSchema.findById({ _id: req.query.id[0] });
-    console.log("objectproduct",product)
+    console.log("objectproduct", product);
     let sum = 0;
     const userReviewfinds = product.reviews?.map((val) => {
       sum += val?.rating;
@@ -150,6 +150,28 @@ export const updateReview = async (req, res) => {
     );
     console.log("objectupdatereview", updatereview);
   }
-  console.log("updateeee",updateproduct)
-  res.status(200).json({message:"Succsessfully Review Update"});
+  console.log("updateeee", updateproduct);
+  res.status(200).json({ message: "Succsessfully Review Update" });
 };
+export const searchProduct = async (req, res) => {
+  const search = req.query.search;
+  const keyword = search
+    ? {
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { category: { $regex: search, $options: "i" } },
+        ],
+      }
+    : {};
+  // console.log("keywordkeywordkeyword", keyword);
+  const productdata = await productSchema.find(keyword);
+  res.status(200).json({ productdata });
+};
+export const testMonalis=async(req,res)=>{
+  const productreview=await productSchema.find({},{reviews:1,_id:0}).populate({
+    path: 'reviews.userdata',
+    model: 'User',
+    select: 'name email avatar', // Specify the fields you want to populate for the user
+  })
+  res.status(200).json({productreview})
+}

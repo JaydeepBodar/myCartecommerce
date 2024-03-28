@@ -53,7 +53,7 @@ const Productcarosel = ({ category, title, path }) => {
             <h2 className="text-2xl font-semibold uppercase max-md:text-lg">
               {title} Deal
             </h2>
-            <Link href={path} className="mr-12 tracking-wide uppercase">
+            <Link href={path} className="mr-12 tracking-wide uppercase max-sm:text-[13px]">
               view all
             </Link>
           </div>

@@ -149,7 +149,7 @@ const Singleaddress = ({ addressdata }) => {
               >
                 Edit
               </div>
-              <div
+              <button
                 title="delete"
                 className="cursor-pointer w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] mt-2 mb-3 text-[#dc2626] font-semibold tracking-wide rounded-md"
                 onClick={() => {
@@ -172,7 +172,7 @@ const Singleaddress = ({ addressdata }) => {
                 }}
               >
                 Delete
-              </div>
+              </button>
               <button className="w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md">
                 Submit
               </button>

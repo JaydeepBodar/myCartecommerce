@@ -56,6 +56,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
         100
     ).toFixed(0)
   );
+  console.log("reviewdatareviewdata", reviewdata?.reviews?.length);
   const getApi = async (id) => {
     // console.log("daaaaaa", id);
     await axios
@@ -66,7 +67,6 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
         setreviewdata(res?.data?.product);
       })
       .catch((e) => console.log("objecte", e))
-    // console.log("reviewdatareviewdata", reviewdata);
   };
   useEffect(() => {
     setrating(reviewdata?.reviews[0]?.rating);
@@ -79,7 +79,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     const productreview = singleproduct?.products?.reviews.filter(
       (data) => data?.userdata?._id == session?.data?.user?._id
     );
-    console.log("productreviewproductreviewproductreview",productreview)
+    console.log("productreviewproductreviewproductreview",productreview.length)
     if (!rating) {
       toast.error("Rating must required");
     } else if (session?.status === "unauthenticated") {
@@ -239,7 +239,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                   )}
                 </>
               </div>
-              {!show && (
+              {!show && reviewdata?.reviews?.length === undefined && (
                 <button
                   onClick={() => {
                     openBox(), setcomment(""), setrating("");

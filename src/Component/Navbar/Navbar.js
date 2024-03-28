@@ -10,6 +10,8 @@ import { usePathname, useRouter } from "next/navigation";
 import Totalquantityt from "../Totalquantityt";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Globalusercontext } from "@/Context/Userproider";
+import { IoIosSearch } from "react-icons/io";
+import axios from "axios";
 const Navbar = () => {
   const { user, loaduser } = Globalusercontext();
   const router = useRouter();
@@ -18,17 +20,17 @@ const Navbar = () => {
   useEffect(() => {
     loaduser();
   }, [user?.updatedAt]);
-  // console.log("session", session);
   const [query, setquery] = useState("");
-  const submitHandler = (e) => {
-    // setquery(e.target.value)
-    // console.log("query", query);
-    if (query) {
-      router.push(`?data=${query}`);
-    } else {
-      router.push("/");
-    }
-  };
+  const [product, setproduct] = useState([]);
+  const [block, setblock] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`${process.env.API_URL}api/searchproduct?search=${query}`)
+      .then((res) => setproduct(res.data.productdata))
+      .catch((e) => console.log("eee", e));
+  }, [query, block]);
+  console.log("session", query.leng);
+  const submitHandler = (e) => {};
   const secondnav = [
     { path: "/", label: "Home" },
     { path: "/Allshop", label: "All" },
@@ -46,25 +48,62 @@ const Navbar = () => {
               <Image alt="logo" src={Img} className="w-40 object-fill h-13" />
             </Link>
           </div>
-          {pathname === "/" && (
-            <div
-              className="flex max-lg:order-last max-lg:w-[100%] max-lg:mb-3"
-              onKeyUp={submitHandler}
-            >
+          <div
+            className="flex max-lg:order-last max-lg:w-[100%] max-lg:mb-3 relative"
+            onKeyUp={submitHandler}
+          >
+            <IoIosSearch className="absolute text-[25px] fill-[gray] top-[14%] left-[10px] z-10" />
+            <div className="w-[400px] max-md:w-[100%] relative">
               <input
                 value={query}
                 onChange={(e) => setquery(e.target.value)}
+                onClick={() => setblock(true)}
                 placeholder="Search..."
-                className="rounded-tl-lg w-[400px] max-md:w-[100%] rounded-bl-lg border-none outline-none bg-slate-200 px-3 py-1"
+                className="w-[100%] border-none outline-none bg-[#f2f2f2] pl-10 py-1 rounded-lg"
               />
-              <button
-                onClick={submitHandler}
-                className=" tracking-wide w-[100%] max-w-[80px] bg-red-600 py-1 font-semibold  text-[#fff] rounded-tr-lg rounded-br-lg"
-              >
-                Search
-              </button>
+              <div className="absolute top-10 z-10 bg-[#f2f2f2] left-0 right-0 rounded-lg">
+                {query.length > 1 && block && (
+                  <div className=" h-[100%] max-h-[440px] overflow-y-auto scrollbar mr-2 my-2">
+                    {product?.map((val, index) => {
+                      const {
+                        title,
+                        category,
+                        thumbnail,
+                        discountPercentage,
+                        _id,
+                      } = val;
+                      return (
+                        <Link
+                          href={`/productdata/${_id}`}
+                          onClick={() => setblock(false)}
+                          key={index}
+                        >
+                          <div
+                            className="m-3 flex gap-x-2 bg-[#fff] p-2"
+                          >
+                            <Image
+                              src={thumbnail}
+                              width={70}
+                              height={70}
+                              className="w-[70px] h-[70px] object-cover"
+                            />
+                            <div className="leading-6">
+                              <h3 className="font-semibold">{title}</h3>
+                              <span>{category}</span>
+                              <span className="text-green-600 pl-2">
+                                {discountPercentage}%&nbsp;OFF
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </div>
+
           <div className="flex gap-x-3 max-lg:basis-[50%] justify-end">
             {session.status === "authenticated" ? (
               <Link

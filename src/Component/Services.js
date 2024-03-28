@@ -32,8 +32,8 @@ const Services = () => {
                   <Image src={path} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-normal">{title}</h3>
-                  <h4>{contet}</h4>
+                  <h3 className="text-lg font-semibold max-sm:text-sm max-sm:leading-5">{title}</h3>
+                  <h4 className="max-sm:text-[13px] max-sm:leading-5">{contet}</h4>
                 </div>
               </div>
             );
