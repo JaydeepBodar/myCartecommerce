@@ -1,14 +1,25 @@
 "use client";
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ReactStars from "react-stars";
 import moment from "moment";
 import axios from "axios";
 import { toast } from "react-toastify";
-const UserReview = ({ review, user, product, handleEditing, show,showdata,getApi,handleOpen }) => {
+import { Globalthemeprovider } from "@/Context/Themeprovider";
+const UserReview = ({
+  review,
+  user,
+  product,
+  handleEditing,
+  show,
+  showdata,
+  getApi,
+  handleOpen,
+}) => {
   // console.log("user", user);
   // console.log("objectreviews", review._Id);
   const { comment, createdAt, userdata, rating, _id } = review;
+  const { theme } = Globalthemeprovider();
   const deleteone = () => {
     axios
       .put(`${process.env.API_URL}api/products/Deletereview/${product._id}`, {
@@ -18,7 +29,11 @@ const UserReview = ({ review, user, product, handleEditing, show,showdata,getApi
       .catch((e) => console.log("e", e));
   };
   return (
-    <div className="bg-[#f2f2f2] p-3 mb-3 rounded-lg">
+    <div
+      className={`${
+        theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"
+      } border-[#f2f2f2] border-[1px]  p-3 mb-3 rounded-lg`}
+    >
       <div className="flex gap-x-3 items-center leading-6 ">
         <div>
           <Image
@@ -55,7 +70,9 @@ const UserReview = ({ review, user, product, handleEditing, show,showdata,getApi
             </button>
             {!showdata && (
               <button
-                onClick={async()=>{await getApi(_id),show(),handleOpen()}}
+                onClick={async () => {
+                  await getApi(_id), show(), handleOpen();
+                }}
                 className="w-[100%] ml-3 mt-2 max-w-[70px] border-[1px] border-red-600 text-white bg-red-600 rounded-lg text-[14px] leading-7"
               >
                 Edit

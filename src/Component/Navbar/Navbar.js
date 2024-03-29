@@ -17,7 +17,7 @@ import axios from "axios";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Navbar = () => {
   const { user, loaduser } = Globalusercontext();
-  const {theme,settheme}=Globalthemeprovider()
+  const { theme, settheme } = Globalthemeprovider();
   const router = useRouter();
   const pathname = usePathname();
   const session = useSession();
@@ -67,9 +67,19 @@ const Navbar = () => {
                 onChange={(e) => setquery(e.target.value)}
                 onClick={() => setblock(true)}
                 placeholder="Search..."
-                className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} w-[100%] border-[1px] border-[#f2f2f2] outline-none pl-10 py-1 rounded-lg`}
+                className={`${
+                  theme === true
+                    ? "bg-[#f2f2f2] text-[#000]"
+                    : "bg-[#000] text-[#f2f2f2]"
+                } w-[100%] border-[1px] border-[#f2f2f2] outline-none pl-10 py-1 rounded-lg`}
               />
-              <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} absolute top-10 z-10 border-[#f2f2f2] border-[1px] left-0 right-0 rounded-lg`}>
+              <div
+                className={`${
+                  theme === true
+                    ? "bg-[#f2f2f2] text-[#000]"
+                    : "bg-[#000] text-[#f2f2f2]"
+                } z-[999] absolute top-10 left-0 right-0 rounded-lg`}
+              >
                 {query.length > 1 && block && (
                   <div className=" h-[100%] max-h-[440px] overflow-y-auto scrollbar mr-2 my-2">
                     {product?.map((val, index) => {
@@ -86,7 +96,13 @@ const Navbar = () => {
                           onClick={() => setblock(false)}
                           key={index}
                         >
-                          <div className="m-3 flex gap-x-2 bg-[#fff] p-2">
+                          <div
+                            className={`${ 
+                              theme === true
+                                ? "bg-[#fff] text-[#000]"
+                                : "bg-[#000] text-[#fff]  border-[#fff]"
+                            } m-3 flex gap-x-2 border-[1px] p-2`}
+                          >
                             <Image
                               src={thumbnail}
                               width={70}
@@ -110,7 +126,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex gap-x-3 max-lg:basis-[50%] justify-end items-center">
-            <div onClick={()=>settheme(!theme)}>
+            <div onClick={() => settheme(!theme)}>
               {theme ? <IoSunny /> : <FaRegMoon />}
             </div>
             {session.status === "authenticated" ? (
@@ -161,7 +177,8 @@ const Navbar = () => {
                     key={index}
                     href={path}
                     className={`${
-                      pathname === path && "bg-red-600 text-white block rounded-lg"
+                      pathname === path &&
+                      "bg-red-600 text-white block rounded-lg"
                     } text-center w-[100%] font-semibold py-1 max-sm:text-[13px]`}
                   >
                     <li>{label}</li>

@@ -14,18 +14,20 @@ import UserReview from "../User/UserReview";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const { cart, addItemtocart, deletItem } = CartgloblContext();
+  const {theme}=Globalthemeprovider()
   const session = useSession();
   const [img, setimg] = useState("");
   const [btn, setbtn] = useState("Add Cart");
   const [show, setshow] = useState(false);
   const openBox = () => setshow(true);
   const [reviewdata, setreviewdata] = useState();
-  const [dataload,setdataload]=useState(true)
-  const handleClose=()=>{
-    setdataload(false)
-  }
+  const [dataload, setdataload] = useState(true);
+  const handleClose = () => {
+    setdataload(false);
+  };
   const router = useRouter();
   const [comment, setcomment] = useState("");
   const [rating, setrating] = useState(0);
@@ -66,12 +68,12 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
       .then((res) => {
         setreviewdata(res?.data?.product);
       })
-      .catch((e) => console.log("objecte", e))
+      .catch((e) => console.log("objecte", e));
   };
   useEffect(() => {
     setrating(reviewdata?.reviews[0]?.rating);
     setcomment(reviewdata?.reviews[0]?.comment);
-    setopen(false)
+    setopen(false);
   }, [open]);
   // console.log("GFFGFf", reviewdata?.reviews[0]._id);
   const handleSubmit = async (e) => {
@@ -79,7 +81,6 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     const productreview = singleproduct?.products?.reviews.filter(
       (data) => data?.userdata?._id == session?.data?.user?._id
     );
-    console.log("productreviewproductreviewproductreview",productreview.length)
     if (!rating) {
       toast.error("Rating must required");
     } else if (session?.status === "unauthenticated") {
@@ -165,7 +166,19 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                   color2={"#ffd700"}
                   value={singleproduct?.products?.rating}
                 />
-                <h3 className="text-lg">(&nbsp;<span className={`${singleproduct?.products?.rating <= 2.5  ? "text-[#DC2626]" : "text-[#008000]"}`}>{singleproduct?.products?.rating.toFixed(2)}</span> Out of 5&nbsp;)</h3>
+                <h3 className="text-lg">
+                  (&nbsp;
+                  <span
+                    className={`${
+                      singleproduct?.products?.rating <= 2.5
+                        ? "text-[#DC2626]"
+                        : "text-[#008000]"
+                    }`}
+                  >
+                    {singleproduct?.products?.rating.toFixed(2)}
+                  </span>{" "}
+                  Out of 5&nbsp;)
+                </h3>
               </div>
               <p>Description :- {singleproduct?.products?.description}</p>
               <h5 className="text-xl font-semibold">
@@ -198,7 +211,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                 singleproduct?.products?.discountPercentage,
                               discountprice: discount,
                               price: singleproduct?.products?.price,
-                              onlydiscount:singleproduct?.products-discount
+                              onlydiscount: singleproduct?.products - discount,
                             });
                             if (
                               productbtn === true ||
@@ -252,7 +265,13 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               )}
               {show && (
                 <React.Fragment>
-                  <div className="bg-[#f2f2f2] p-3 rounded-lg flex flex-col gap-y-1 my-3 relative">
+                  <div
+                    className={`${
+                      theme === true
+                        ? "bg-[#f2f2f2] text-[#000]"
+                        : "bg-[#000] text-[#f2f2f2]"
+                    } border-[#f2f2f2] border-[1px] p-3 rounded-lg flex flex-col gap-y-1 my-3 relative`}
+                  >
                     <div
                       className="absolute right-4 cursor-pointer"
                       onClick={() => setshow(false)}
@@ -267,7 +286,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                       )}{" "}
                       your Rating
                     </h3>
-                    <form onSubmit={handleSubmit}>
+                    <form className="text-[#000]" onSubmit={handleSubmit}>
                       <ReactStars
                         onChange={(rating) => setrating(rating)}
                         value={rating}
