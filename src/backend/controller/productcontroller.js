@@ -173,5 +173,6 @@ export const testMonalis=async(req,res)=>{
     model: 'User',
     select: 'name email avatar', // Specify the fields you want to populate for the user
   })
+  console.log("productreviewproductreview",productreview)
   res.status(200).json({productreview})
 }

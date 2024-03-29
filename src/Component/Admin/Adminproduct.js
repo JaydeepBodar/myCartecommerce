@@ -8,9 +8,11 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Tostify from "../Tostify";
 import Loader from "../Loader";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Adminproduct = ({ product, loader, loading }) => {
   const { productperpage, productcount, filterproductscount, products } =
     product;
+  const { theme } = Globalthemeprovider();
   const router = useRouter();
   const deleteProduct = (id, val) => {
     // console.log("id", id);
@@ -43,7 +45,11 @@ const Adminproduct = ({ product, loader, loading }) => {
             return (
               <div
                 key={_id}
-                className="bg-[#f2f2f2] mb-2 p-3 max-sm:gap-x-1 rounded-lg flex justify-between items-center"
+                className={`${
+                  theme === true
+                    ? "bg-[#f2f2f2] text-[#000]"
+                    : "bg-[#000] text-[#f2f2f2]"
+                } border-[#f2f2f2] border-[1px] mb-2 p-3 max-sm:gap-x-1 rounded-lg flex justify-between items-center`}
               >
                 <div className="flex leading-6 gap-x-8">
                   <div>
@@ -81,9 +87,9 @@ const Adminproduct = ({ product, loader, loading }) => {
                     onClick={() => deleteProduct(_id, val)}
                   >
                     Delete
-                  </button> 
+                  </button>
                 </div>
-              </div>  
+              </div>
             );
           })}
           <Custompagination

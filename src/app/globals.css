@@ -149,6 +149,14 @@ select option {
   top: -30px;
   right: 25px;
 }
+.theme_changes .product_carosel .slick-prev:before,
+.theme_changes .testmonalis_wrapper .slick-prev:before,
+.theme_changes .testmonalis_wrapper .slick-next:before {
+  display: none;
+}
+.theme_changes .product_carosel .slick-next:before {
+  color: #f2f2f2;
+}
 .testmonalis:before {
   content: open-quote;
 }
@@ -159,24 +167,28 @@ select option {
 
 .testmonalis:before,
 .testmonalis:after {
- display:inline;
+  display: inline;
   font-size: 50px;
   color: #dc2626;
   padding: 0;
   position: relative;
-  top: .25em;
+  top: 0.25em;
 }
-.testmonalis_wrapper .slick-dots li button:before{
+.testmonalis_wrapper .slick-dots li button:before {
   font-size: 12px;
 }
 .testmonalis_wrapper .slick-dots li.slick-active button:before {
   color: #dc2626;
 }
-.testmonalis_wrapper .slick-dots li button:before{
+.testmonalis_wrapper .slick-dots li button:before {
   color: gray;
 }
-.brand-logo .rfm-marquee{
+.brand-logo .rfm-marquee {
   min-width: auto;
+}
+.theme_changes {
+  background-color: #000 !important;
+  color: #f2f2f2;
 }
 @media screen and (max-width: 600px) {
   .data span {
@@ -218,10 +230,10 @@ select option {
   .product_carosel .slick-next:before {
     font-size: 20px;
   }
-  .product_carosel .slick-next{
-    top:-27px;
+  .product_carosel .slick-next {
+    top: -27px;
   }
-  .testmonalis_wrapper .slick-dots li button:before{
+  .testmonalis_wrapper .slick-dots li button:before {
     font-size: 10px;
   }
 }

@@ -1,11 +1,12 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CloudinaryContext, Image } from "cloudinary-react";
 import { checkbox } from "../product/checkbox";
 import Inputdata from "../Inputdata";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 
 const Productupdate = ({ product }) => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const Productupdate = ({ product }) => {
     stock: product?.stock,
     featured: product?.featured,
   });
+  const { theme } = Globalthemeprovider();
   const [images, setImages] = useState([
     product.images[0],
     product.images[1],
@@ -32,9 +34,9 @@ const Productupdate = ({ product }) => {
     price,
     discountPercentage,
     rating,
-    stock
+    stock,
   } = Input;
-  const[featured,setfeatured]=useState(false)
+  const [featured, setfeatured] = useState(false);
   // console.log("producteeeeeeeeeeeee",stock)
   // console.log("title", title);
   const handleChange = (e) => {
@@ -72,7 +74,7 @@ const Productupdate = ({ product }) => {
         console.log("error", e);
       }
     }
-    setImages([...images]);  
+    setImages([...images]);
   };
   // for single images
   const uploadImg = (pics) => {
@@ -125,11 +127,18 @@ const Productupdate = ({ product }) => {
       });
   };
   return (
-    <div className="w-[100%] max-lg:max-w-[500px] max-w-[700px] bg-[#f2f2f2] p-4 mx-[auto] rounded-lg">
+    <div
+      className={`${
+        theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"
+      } w-[100%] border-[1px] border-[#f2f2f2] max-lg:max-w-[500px] max-w-[700px] text-[#000] p-4 mx-[auto] rounded-lg`}
+    >
       <h2 className="text-xl text-center font-semibold py-3">
         Update Product details
       </h2>
-      <form onSubmit={handleSubmit} className="flex flex-wrap gap-x-3 gap-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap gap-x-3 gap-y-4 text-[#000]"
+      >
         <input
           type="text"
           name="title"
@@ -155,7 +164,7 @@ const Productupdate = ({ product }) => {
         <select
           value={featured}
           name="featured"
-          onChange={()=>setfeatured(data=>!data)}
+          onChange={() => setfeatured((data) => !data)}
           className="bg-white basis-[49%] max-lg:basis-[100%]"
         >
           <option value={false}>featured false</option>

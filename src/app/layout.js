@@ -1,8 +1,8 @@
+"use client";
 import "./globals.css";
-import Navbar from "@/Component/Navbar/Navbar";
+import Applayout from "@/Component/Applayout";
 import { config } from "dotenv";
 import Head from "./head";
-import Footer from "@/Component/Footer/Footer";
 import Globalcontext from "@/Context/Globalcontext";
 config();
 export default function RootLayout({ children }) {
@@ -11,9 +11,7 @@ export default function RootLayout({ children }) {
       <Head />
       <body>
         <Globalcontext>
-          <Navbar />
-          {children}
-          <Footer />
+          <Applayout>{children}</Applayout>
         </Globalcontext>
       </body>
     </html>

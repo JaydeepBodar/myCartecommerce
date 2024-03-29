@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { IoSunny } from "react-icons/io5";
+import { FaRegMoon } from "react-icons/fa";
 import Container from "../Container";
 import Image from "next/image";
-import Img from "../../../public/images/logo.jpeg";
+import Img from "../../../public/images/logo.png";
 import { MdAccountCircle } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import Link from "next/link";
@@ -12,8 +14,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Globalusercontext } from "@/Context/Userproider";
 import { IoIosSearch } from "react-icons/io";
 import axios from "axios";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Navbar = () => {
   const { user, loaduser } = Globalusercontext();
+  const {theme,settheme}=Globalthemeprovider()
   const router = useRouter();
   const pathname = usePathname();
   const session = useSession();
@@ -45,7 +49,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center flex-wrap">
           <div className="max-lg:basis-[50%]">
             <Link href="/">
-              <Image alt="logo" src={Img} className="w-40 object-fill h-13" />
+              <Image
+                alt="logo"
+                src={Img}
+                className="w-[100px] object-cover h-[80px]"
+              />
             </Link>
           </div>
           <div
@@ -59,9 +67,9 @@ const Navbar = () => {
                 onChange={(e) => setquery(e.target.value)}
                 onClick={() => setblock(true)}
                 placeholder="Search..."
-                className="w-[100%] border-none outline-none bg-[#f2f2f2] pl-10 py-1 rounded-lg"
+                className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} w-[100%] border-[1px] border-[#f2f2f2] outline-none pl-10 py-1 rounded-lg`}
               />
-              <div className="absolute top-10 z-10 bg-[#f2f2f2] left-0 right-0 rounded-lg">
+              <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} absolute top-10 z-10 border-[#f2f2f2] border-[1px] left-0 right-0 rounded-lg`}>
                 {query.length > 1 && block && (
                   <div className=" h-[100%] max-h-[440px] overflow-y-auto scrollbar mr-2 my-2">
                     {product?.map((val, index) => {
@@ -78,9 +86,7 @@ const Navbar = () => {
                           onClick={() => setblock(false)}
                           key={index}
                         >
-                          <div
-                            className="m-3 flex gap-x-2 bg-[#fff] p-2"
-                          >
+                          <div className="m-3 flex gap-x-2 bg-[#fff] p-2">
                             <Image
                               src={thumbnail}
                               width={70}
@@ -103,8 +109,10 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-
-          <div className="flex gap-x-3 max-lg:basis-[50%] justify-end">
+          <div className="flex gap-x-3 max-lg:basis-[50%] justify-end items-center">
+            <div onClick={()=>settheme(!theme)}>
+              {theme ? <IoSunny /> : <FaRegMoon />}
+            </div>
             {session.status === "authenticated" ? (
               <Link
                 href="/User"
@@ -153,8 +161,8 @@ const Navbar = () => {
                     key={index}
                     href={path}
                     className={`${
-                      pathname === path && "bg-red-600 text-white"
-                    } border-r-[1px] border-r-[#cecbcb] text-center w-[100%] font-semibold py-1 max-sm:text-[13px]`}
+                      pathname === path && "bg-red-600 text-white block rounded-lg"
+                    } text-center w-[100%] font-semibold py-1 max-sm:text-[13px]`}
                   >
                     <li>{label}</li>
                   </Link>

@@ -5,9 +5,11 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import Tostify from "../Tostify";
 import { useRouter } from "next/navigation";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Userview = ({ user }) => {
   const [dropdown, setdropdown] = useState("");
-	const router=useRouter()
+  const { theme } = Globalthemeprovider();
+  const router = useRouter();
   const updateDetail = async () => {
     await axios
       .put(`${process.env.API_URL}api/admin/${user._id}`, { role: dropdown })
@@ -22,8 +24,14 @@ const Userview = ({ user }) => {
   };
   return (
     <React.Fragment>
-			<Tostify/>
-      <div className="bg-[#f2f2f2] p-3 rounded-lg mb-3 leading-6 flex justify-between items-center">
+      <Tostify />
+      <div
+        className={`${
+          theme === true
+            ? "bg-[#f2f2f2] text-[#000]"
+            : "bg-[#000] text-[#f2f2f2]"
+        }border-[#f2f2f2] border-[1px] p-3 rounded-lg mb-3 leading-6 flex justify-between items-center`}
+      >
         <div className="flex items-center gap-x-5">
           <div>
             <Image
@@ -45,7 +53,7 @@ const Userview = ({ user }) => {
           <select
             name="dropdown"
             value={dropdown ? dropdown : user?.role}
-            className="p-2 rounded-lg bg-[#fff] text-[14px]"
+            className="p-2 rounded-lg bg-[#fff] text-[#000] text-[14px]"
             onChange={(e) => setdropdown(e.target.value)}
           >
             <option name="dropdown" value="Admin">

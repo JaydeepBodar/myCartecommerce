@@ -4,6 +4,7 @@ import Link from "next/link";
 import ReactStars from "react-stars";
 import Image from "next/image";
 import { CartgloblContext } from "@/Context/Cartcontext";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Item = ({ product, loading }) => {
   // console.log("product", product._id);
   const { cart, addItemtocart, deletItem } = CartgloblContext();
@@ -50,10 +51,15 @@ const Item = ({ product, loading }) => {
     }
   };
   // console.log("prductbtn", productbtn);
+  const { theme } = Globalthemeprovider();
   return (
-    <div className="img-hover flex max-sm:flex-wrap gap-x-5 max-sm:gap-x-2 mb-3 bg-[#f2f2f2] rounded-lg border-[1px] border-[#e0dede]">
+    <div
+      className={`${
+        theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"
+      } img-hover flex max-sm:flex-wrap gap-x-5 max-sm:gap-x-2 mb-3 rounded-lg border-[1px] border-[#e0dede]`}
+    >
       <div className="basis-[30%] max-lg:basis-[40%] max-sm:basis-[100%]">
-        <Link href={`productdata/${_id}`} className='block overflow-hidden'>
+        <Link href={`productdata/${_id}`} className="block overflow-hidden">
           <Image
             src={product.thumbnail}
             width={300}
@@ -80,7 +86,17 @@ const Item = ({ product, loading }) => {
               value={rating}
               color2={"#ffd700"}
             />
-            <h3 className="text-lg">(&nbsp;<span className={`${rating <= 2.5  ? "text-[#DC2626]" : "text-[#008000]"}`}>{rating.toFixed(2)}</span> Out of 5&nbsp;)</h3>
+            <h3 className="text-lg">
+              (&nbsp;
+              <span
+                className={`${
+                  rating <= 2.5 ? "text-[#DC2626]" : "text-[#008000]"
+                }`}
+              >
+                {rating.toFixed(2)}
+              </span>{" "}
+              Out of 5&nbsp;)
+            </h3>
           </div>
         </Link>
         <div className="max-md:block md:hidden">
@@ -149,7 +165,9 @@ const Item = ({ product, loading }) => {
             )}
           </React.Fragment>
         ) : (
-          <h2 className="text-red-600 font-semibold leading-6">Currently Out of Stock</h2>
+          <h2 className="text-red-600 font-semibold leading-6">
+            Currently Out of Stock
+          </h2>
         )}
       </div>
     </div>

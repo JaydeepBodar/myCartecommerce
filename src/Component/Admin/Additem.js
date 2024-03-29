@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Tostify from "../Tostify";
 import { toast } from "react-toastify";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Additem = () => {
   const [Input, setInput] = useState({
     title: "",
@@ -17,6 +18,7 @@ const Additem = () => {
     rating: "",
     featured: false,
   });
+  const { theme } = Globalthemeprovider();
   const router = useRouter();
   const [images, setImages] = useState([]);
   const [pic, setPic] = useState();
@@ -110,7 +112,13 @@ const Additem = () => {
   return (
     <React.Fragment>
       <Tostify />
-      <div className="w-[100%] max-lg:max-w-[500px] max-w-[700px] bg-[#f2f2f2] p-4 mx-[auto] rounded-lg">
+      <div
+        className={`${
+          theme === true
+            ? "bg-[#f2f2f2] text-[#000]"
+            : "bg-[#000] text-[#f2f2f2]"
+        } w-[100%] border-[1px] border-[#f2f2f2] max-lg:max-w-[500px] max-w-[700px] text-[#000] p-4 mx-[auto] rounded-lg`}
+      >
         <h2 className="text-xl text-center font-semibold py-3">
           Add New Products...
         </h2>
@@ -129,7 +137,7 @@ const Additem = () => {
           <select
             value={category}
             name="category"
-            className="bg-white basis-[49%] max-lg:basis-[100%]"
+            className="bg-white text-[#000] basis-[49%] max-lg:basis-[100%]"
             onChange={handleChange}
           >
             {checkbox.map((val, index) => {
@@ -144,7 +152,7 @@ const Additem = () => {
             value={featured}
             name="featured"
             onChange={handleChange}
-            className="bg-white basis-[49%] max-lg:basis-[100%]"
+            className="bg-white text-[#000] basis-[49%] max-lg:basis-[100%]"
           >
             <option value={false}>featured false</option>
             <option value={true}>featured true</option>

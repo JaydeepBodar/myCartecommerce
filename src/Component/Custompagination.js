@@ -1,10 +1,12 @@
 "use client"
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import Pagination from "react-js-pagination";
 const Custompagination = ({ itemperpage, totalitem ,loader}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const{theme}=Globalthemeprovider()
   let page = searchParams.get("page");
   page = Number(page);
   // console.log("page", page);
@@ -34,7 +36,7 @@ const Custompagination = ({ itemperpage, totalitem ,loader}) => {
           onChange={handleChange}
           innerClass="flex justify-center"
           activeClass="bg-red-600 text-white"
-          itemClass="px-2 py-[4px] border-[1px] border-[#000]"
+          itemClass={`${theme === true ? "border-[#000]" : "border-[#fff]"} px-2 py-[4px] border-[1px]`}
           firstPageText={"First"}
           lastPageText={"Last"}
           nextPageText={"Next"}

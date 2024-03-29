@@ -5,10 +5,12 @@ import Totalquantityt from "../Totalquantityt";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Globalproductcontext } from "@/Context/Productprovider";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Cartitem = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { cart, addItemtocart, deletItem } = CartgloblContext();
+  const {theme}=Globalthemeprovider()
   // console.log("addItemtocart", cart?.cartItems?.length);
   // const additem=(item)=>{
   // 	console.log("item",item)
@@ -136,14 +138,14 @@ const Cartitem = () => {
                       >
                         <div className="flex items-center gap-x-2">
                           <button
-                            className="px-3 max-md:px-[6px] max-md:leading-[20px] py-1 bg-slate-200"
+                            className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} border-[#f2f2f2] border-[1px] px-3 max-md:px-[6px] max-md:leading-[20px] py-1`}
                             onClick={() => removeitem(value)}
                           >
                             -
                           </button>
                           <h5 className="text-lg font-semibold">{quantity}</h5>
                           <button
-                            className="px-3 py-1 max-md:px-[6px] max-md:leading-[20px] bg-slate-200"
+                            className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} border-[#f2f2f2] border-[1px] px-3 max-md:px-[6px] max-md:leading-[20px] py-1`}
                             onClick={() => additem(value)}
                           >
                             +
@@ -182,7 +184,7 @@ const Cartitem = () => {
               <h4>Total Price(Without Discount)</h4>
               <del>{netAmount.toFixed(2)}₹</del>
             </div>
-            <div className="flex justify-between items-center border-t-[2px] border-[#000] mt-2 text-lg font-semibold pt-2">
+            <div className={`${theme === true ? "border-[#000]" : "border-[#f2f2f2]"} flex justify-between items-center border-t-[2px] mt-2 text-lg font-semibold pt-2`}>
               <h3>Total Price(With Discount):-</h3>
               <h3>{Totalprice.toFixed(2)}₹</h3>
             </div>

@@ -8,6 +8,7 @@ import Tostify from "@/Component/Tostify";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { parseCallbackUrl } from "@/helper/getPricequeryparams";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Login = () => {
   const session = useSession();
   const router = useRouter();
@@ -45,12 +46,13 @@ const Login = () => {
   if (session.status === "authenticated") {
     router.push("/User");
   }
+  const {theme}=Globalthemeprovider()
   return (
     <React.Fragment>
       <Tostify />
       <Container>
         <div className="h-[81.1vh] md:mb-[4px] flex flex-col justify-center items-center">
-          <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14">
+          <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} w-[500px] border-[1px] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14`}>
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
               Log in...
             </h4>
@@ -61,7 +63,7 @@ const Login = () => {
                 name="email"
                 placeholder="Enter your Email..."
                 label="Email"
-                data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
+                data="block w-[100%] text-[#000] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
                 className="flex-col"
               />
               <Inputdata

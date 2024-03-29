@@ -11,8 +11,10 @@ import { CartgloblContext } from "@/Context/Cartcontext";
 import { toast } from "react-toastify";
 import Tostify from "../Tostify";
 import { useSession } from "next-auth/react";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Shiping = ({ address }) => {
   const { cart } = CartgloblContext();
+  const {theme}=Globalthemeprovider()
   const session=useSession()
   const router = useRouter();
   const [shippingInfo, setshippingInfo] = useState();
@@ -56,7 +58,7 @@ const Shiping = ({ address }) => {
       >
         <Tostify/>
         {!loading && (
-          <div className="w-[100%] basis-[75%] max-md:basis-[100%] max-md:py-2 border-[1px] border-[#cecbcb] px-4 py-3 h-[auto] mt-4 rounded-lg">
+          <div className="w-[100%] basis-[75%] max-md:basis-[100%] max-md:py-2 border-[1px] border-[#f2f2f2] px-4 py-3 h-[auto] mt-4 rounded-lg">
             <div className="pb-4 max-sm:text-[14px] flex justify-between flex-wrap gap-x-1">
               {address?.map((add, index) => {
                 {/* console.log("add", add); */}
@@ -65,7 +67,7 @@ const Shiping = ({ address }) => {
                 return (
                   <div
                     key={index}
-                    className="cursor-pointer leading-[25px] flex gap-x-4 bg-[#f2f2f2] basis-[48%] max-lg:basis-[100%] p-4 rounded-lg mb-3"
+                    className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} cursor-pointer leading-[25px] flex gap-x-4 border-[1px] basis-[48%] max-lg:basis-[100%] p-4 rounded-lg mb-3`}
                     title="shiping address"
                   >
                     <input
@@ -76,7 +78,7 @@ const Shiping = ({ address }) => {
                     />
                     <div>
                       <p>
-                        {street}, {city},
+                        {street}, {city}, 
                       </p>{" "}
                       <p>
                         {state} ,{country},

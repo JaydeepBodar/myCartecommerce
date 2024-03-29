@@ -85,7 +85,7 @@ const PieChart = ({ chartdata, loading }) => {
             <select
               value={year}
               onChange={(e) => setyear(e.target.value)}
-              className="rounded-lg ml-[auto] block px-10 py-3 border-[none] outline-none"
+              className="rounded-lg ml-[auto] block px-10 py-3 border-[none] text-[#000] outline-none"
             >
               {yeardata.map((val, index) => {
                 return (

@@ -1,4 +1,5 @@
 "use client";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,14 +7,15 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
-const Orderview = ({ order,loading }) => {
+const Orderview = ({ order, loading }) => {
   // console.log("order", order);
   const { paymentInfo, shippingInfo, orderItems, orderStatus, _id, user } =
     order;
+  const { theme } = Globalthemeprovider();
   const router = useRouter();
   // console.log("dropdown", orderStatus);
   const [dropdown, setdropdown] = useState("");
-  const updateDetail = async() => {
+  const updateDetail = async () => {
     await axios
       .put(`${process.env.API_URL}api/Order/${_id}`, { orderStatus: dropdown })
       .then((res) => {
@@ -33,7 +35,13 @@ const Orderview = ({ order,loading }) => {
         </div>
       )}
       {!loading && (
-        <div className=" bg-[#f2f2f2] p-4 rounded-lg adminorder leading-6">
+        <div
+          className={`${
+            theme === true
+              ? "bg-[#f2f2f2] text-[#000]"
+              : "bg-[#000] text-[#f2f2f2]"
+          } border-[#f2f2f2] border-[1px] p-4 rounded-lg adminorder leading-6`}
+        >
           <div className="flex flex-wrap gap-x-3 justify-between w-[100%] max-lg:gap-y-3">
             <div>
               <h4>Order Details</h4>
@@ -52,7 +60,7 @@ const Orderview = ({ order,loading }) => {
               <select
                 name="dropdown"
                 value={dropdown ? dropdown : orderStatus}
-                className="p-2 rounded-lg bg-[#fff] text-[14px]"
+                className="p-2 rounded-lg bg-[#fff] text-[#000] text-[14px]"
                 onChange={(e) => setdropdown(e.target.value)}
               >
                 <option name="dropdown" value="Processing">
@@ -91,7 +99,7 @@ const Orderview = ({ order,loading }) => {
                 return (
                   <div
                     key={product}
-                    className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 bg-[#fff] p-3 rounded-lg"
+                    className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 border-[#fff] border-[1px] p-3 rounded-lg"
                   >
                     <div className="flex items-center">
                       <Image
@@ -114,7 +122,7 @@ const Orderview = ({ order,loading }) => {
             </div>
           </div>
           <Link
-            className="inline-block text-[14px] text-center w-[100px] bg-[#fff] border-[1px] border-[red] text-red-600 mt-2 py-1 font-semibold rounded-lg"
+            className="inline-block text-[14px] text-center w-[100px] border-[1px] border-[red] text-red-600 mt-2 py-1 font-semibold rounded-lg"
             href="/User/Admin/AllOrder"
           >
             Back

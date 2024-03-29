@@ -27,7 +27,7 @@ const productSchema = mongoose.Schema(
         userdata: {
           type: mongoose.Schema.Types.ObjectId,
           required:true,
-          ref: "Users",
+          ref: "User",
         },
         comment: {
           type: String,

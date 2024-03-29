@@ -1,4 +1,5 @@
 "use client";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import Inputdata from "../Inputdata";
 const Userupdatepassword = () => {
   const router = useRouter();
   const { data } = useSession();
+  const {theme}=Globalthemeprovider()
   const [Input, setInput] = useState({
     currentpassword: "",
     newpassword: "",
@@ -25,7 +27,7 @@ const Userupdatepassword = () => {
       await axios
         .put(`${process.env.API_URL}api/auth/Updatepassword`, {
           id: data?.user?._id,
-          currentpassword:currentpassword,
+          currentpassword: currentpassword,
           newpassword,
         })
         .then((res) => {
@@ -40,7 +42,13 @@ const Userupdatepassword = () => {
   return (
     <React.Fragment>
       <div className="md:mb-[4px] py-5 flex flex-col justify-center items-center max-sm:min-h-[60vh]">
-        <div className="bg-[#f2f2f2] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-12">
+        <div
+          className={`${
+            theme === true
+              ? "bg-[#f2f2f2] text-[#000]"
+              : "bg-[#000] text-[#f2f2f2]"
+          } border-[1px] border-[#f2f2f2] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-12`}
+        >
           <h4 className="text-center font-semibold text-3xl max-sm:text-xl mb-4 tracking-normal">
             Upade Password...
           </h4>
@@ -52,7 +60,7 @@ const Userupdatepassword = () => {
               name="currentpassword"
               placeholder="Enter your Current Password..."
               label="Current Password:-"
-              data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
+              data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] text-[#000] rounded-lg outline-none"
               className="flex-col"
             />
             <Inputdata
@@ -62,7 +70,7 @@ const Userupdatepassword = () => {
               name="newpassword"
               placeholder="Enter your New Password..."
               label="New Password:-"
-              data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
+              data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] text-[#000] rounded-lg outline-none"
               className="flex-col"
             />
             <button

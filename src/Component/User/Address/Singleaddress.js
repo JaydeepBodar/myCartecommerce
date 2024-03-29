@@ -8,10 +8,12 @@ import Validations from "../../Validation";
 import { useRouter } from "next/navigation";
 import Loader from "@/Component/Loader";
 import { toast } from "react-toastify";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 
 const Singleaddress = ({ addressdata }) => {
   const router = useRouter();
   const [loading, setloading] = useState(true);
+  const { theme } = Globalthemeprovider();
   // console.log("address", addressdata);
   const getdata = () => {
     setInput(addressdata);
@@ -105,13 +107,20 @@ const Singleaddress = ({ addressdata }) => {
           <Sidebar />
         </div>
         <div className="basis-[75%]">
-          {loading && <div className="flex items-center justify-center h-[60vh]"><Loader/></div>}
-					{!loading && <form
-            onSubmit={handleSubmit}
-            className="rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 bg-[#f2f2f2] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap"
-          >
-          <h2 className="mx-[auto] font-semibold text-lg">Update Address</h2>
-            {address.map((val, index) => {
+          {loading && (
+            <div className="flex items-center justify-center h-[60vh]">
+              <Loader />
+            </div>
+          )}
+          {!loading && (
+            <form
+              onSubmit={handleSubmit}
+              className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 border-[#f2f2f2] border-[1px] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap`}
+            >
+              <h2 className="mx-[auto] font-semibold text-lg">
+                Update Address
+              </h2>
+              {address.map((val, index) => {
                 const { name, placeholder, value, error } = val;
                 return (
                   <>
@@ -132,8 +141,11 @@ const Singleaddress = ({ addressdata }) => {
                         }}
                         value={value}
                         data={`${
-                          disable === true ? "bg-[#9ca3af]" : "bg-[#fff]"
-                        } max-sm:text-[14px] outline-none border-none px-3 py-[10px] max-sm:py-[5px] rounded-lg w-[100%]`}
+                          disable === true ? "bg-[#9ca3af]" : ""
+                        }bg-[#fff] text-[#000] border-[1px] outline-none px-[6px] py-[10px] max-sm:py-[5px] border-[1px] rounded-lg w-[100%]`}
+                        // data={`${
+                        //   disable === true ? "bg-[#9ca3af]" : ""
+                        // } max-sm:text-[14px] outline-none border-none px-3 py-[10px] max-sm:py-[5px] rounded-lg w-[100%]`}
                         placeholder={placeholder}
                       />
                       {error && <p className="text-red-600">{error}</p>}
@@ -141,43 +153,44 @@ const Singleaddress = ({ addressdata }) => {
                   </>
                 );
               })}
-            <div className="flex w-[100%] gap-x-2 justify-center">
-              <div
-                title="Edit"
-                className="cursor-pointer w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] mt-2 mb-3 text-[#dc2626] font-semibold tracking-wide rounded-md"
-                onClick={() => setdisable(false)}
-              >
-                Edit
+              <div className="flex w-[100%] gap-x-2 justify-center">
+                <div
+                  title="Edit"
+                  className="cursor-pointer w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] mt-2 mb-3 text-[#dc2626] font-semibold tracking-wide rounded-md"
+                  onClick={() => setdisable(false)}
+                >
+                  Edit
+                </div>
+                <button
+                  title="delete"
+                  className="cursor-pointer w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] mt-2 mb-3 text-[#dc2626] font-semibold tracking-wide rounded-md"
+                  onClick={() => {
+                    let text =
+                      "if you really want to remove Address ? if yes then press ok otherwise press cancle";
+                    if (window.confirm(text) == true) {
+                      axios
+                        .delete(
+                          `${process.env.API_URL}api/Address/${addressdata._id}`,
+                          { ...Input }
+                        )
+                        .then((res) => {
+                          toast.success(res?.data?.message);
+                        })
+                        .catch((e) => {
+                          return e;
+                        });
+                      router.push("/User");
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+                <button className="w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md">
+                  Submit
+                </button>
               </div>
-              <button
-                title="delete"
-                className="cursor-pointer w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] mt-2 mb-3 text-[#dc2626] font-semibold tracking-wide rounded-md"
-                onClick={() => {
-                  let text =
-                    "if you really want to remove Address ? if yes then press ok otherwise press cancle";
-                  if (window.confirm(text) == true) {
-                    axios
-                      .delete(
-                        `${process.env.API_URL}api/Address/${addressdata._id}`,
-                        {...Input }
-                      )
-                      .then((res) => {
-                        toast.success(res?.data?.message)
-                      })
-                      .catch((e) => {
-                        return e;
-                      });         
-                    router.push("/User");
-                  }
-                }}
-              >
-                Delete
-              </button>
-              <button className="w-[100%] max-w-[120px] max-sm:max-w-[80px] max-sm:text-[14px] text-center max-sm:py-[5px] py-[10px] border-[1px] border-[#dc2626] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md">
-                Submit
-              </button>
-            </div>
-          </form>}
+            </form>
+          )}
         </div>
       </div>
     </Container>

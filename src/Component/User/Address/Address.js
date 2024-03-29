@@ -8,9 +8,11 @@ import Sidebar from "../Sidebar";
 import Validations from "../../Validation";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Address = () => {
   const router=useRouter()
   const { data } = useSession();
+  const {theme}=Globalthemeprovider()
   const [Input, setInput] = useState({
     street: "",
     country: "",
@@ -89,7 +91,7 @@ const Address = () => {
         <div className="basis-[75%]">
           <form
             onSubmit={handleSubmit}
-            className="rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 bg-[#f2f2f2] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap"
+            className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} rounded-lg w-[100%] max-w-[500px] max-sm:py-3 max-sm:px-3 py-6 px-10 border-[#f2f2f2] border-[1px] flex gap-x-3 gap-y-2 justify-between mx-[auto] flex-wrap`}
           >
           <h2 className="mx-[auto] font-semibold text-lg">Add Address</h2>
             {address.map((val, index) => {
@@ -110,7 +112,7 @@ const Address = () => {
                         setInput({ ...Input, [name]: value });
                       }}
                       value={value}
-                      data="bg-[#fff] outline-none border-none px-[6px] py-[10px] max-sm:py-[5px] rounded-lg w-[100%]"
+                      data={`bg-[#fff] text-[#000] border-[1px] outline-none px-[6px] py-[10px] max-sm:py-[5px] border-[1px] rounded-lg w-[100%]`}
                       placeholder={placeholder}
                     />
                     {error && <p className="text-red-600">{error}</p>}

@@ -7,15 +7,17 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 import Container from "./Container";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Testmonalis = () => {
   const [review, setreview] = useState([]);
   const [loading, setloading] = useState(true);
-
+  const {theme}=Globalthemeprovider()
   const settings = {
+    nav:false,
     dots: true,
     pauseOnHover: true,
     slidesToShow: 2,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 2000,
     slidesToScroll: 2,
     touchMove: true,
@@ -53,8 +55,8 @@ const Testmonalis = () => {
   }, []);
   return (
     <section className=" mb-20 max-md:mb-8 testmonalis_wrapper">
-      <h2 className="text-center font-semibold text-3xl max-md:text-xl max-md:text-[22px] capitalize pb-6">
-        What our customer are saying
+      <h2 className="text-center font-bold text-3xl max-md:text-xl max-md:text-[22px] capitalize pb-6">
+        What our customers are saying
       </h2>
       <Container>
         {!loading ? (
@@ -71,7 +73,7 @@ const Testmonalis = () => {
                     key={index}
                     className="cursor-pointer text-center my-[30px] px-2 relative z-0"
                   >
-                    <div className="absolute top-[-20px] left-[45%] z-10">
+                    <div className="absolute top-[-20px] left-[43%] z-10">
                       <Image
                         src={reviews[0]?.userdata?.avatar}
                         width={70}
@@ -79,7 +81,7 @@ const Testmonalis = () => {
                         className="w-[70px] h-[70px] object-fill mt-[-10px] rounded-full border-[1px] block border-[gray] text-center"
                       />
                     </div>
-                    <div className="bg-[#f2f2f2] p-4 rounded-lg z-0">
+                    <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} border-[1px] border-[#f2f2f2] p-4 rounded-lg z-0`}>
                       <p className="testmonalis pt-10 max-sm:text-[13px]">
                         {reviews[0]?.comment}
                       </p>

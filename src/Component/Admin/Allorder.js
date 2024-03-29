@@ -5,13 +5,15 @@ import { useRouter } from "next/navigation";
 import Tostify from "../Tostify";
 import Loader from "../Loader";
 import Custompagination from "../Custompagination";
-const Allorder = ({ orderdata, loading,loader }) => {
+import { Globalthemeprovider } from "@/Context/Themeprovider";
+const Allorder = ({ orderdata, loading, loader }) => {
   const { order, productcount, productperpage } = orderdata;
   const router = useRouter();
-// useEffect(() => {
-//     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
-//     router.refresh();
-//   }, [productperpage,productcount]);  
+  const { theme } = Globalthemeprovider();
+  // useEffect(() => {
+  //     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+  //     router.refresh();
+  //   }, [productperpage,productcount]);
   return (
     <section>
       <Tostify />
@@ -33,12 +35,23 @@ const Allorder = ({ orderdata, loading,loader }) => {
               return (
                 <div
                   key={_id}
-                  className="flex text-[15px] leading-6 flex-wrap justify-between w-[100%] bg-[#f2f2f2] p-5 rounded-lg max-sm:gap-y-4"
+                  className={`${
+                    theme === true
+                      ? "bg-[#f2f2f2] text-[#000]"
+                      : "bg-[#000] text-[#f2f2f2]"
+                  } flex text-[15px] leading-6 flex-wrap justify-between w-[100%] border-[#f2f2f2] border-[1px] p-5 rounded-lg max-sm:gap-y-4`}
                 >
                   <div>
-                    <h4><span>Order Id</span>&nbsp;:-&nbsp;{_id}</h4>
-                    <h4><span>Payment Id</span>&nbsp;:-&nbsp;{paymentInfo?.id}</h4>
-                    <h4><span>Order Created</span>&nbsp;:-&nbsp;{day}&nbsp;{month}&nbsp;{year}</h4>
+                    <h4>
+                      <span>Order Id</span>&nbsp;:-&nbsp;{_id}
+                    </h4>
+                    <h4>
+                      <span>Payment Id</span>&nbsp;:-&nbsp;{paymentInfo?.id}
+                    </h4>
+                    <h4>
+                      <span>Order Created</span>&nbsp;:-&nbsp;{day}&nbsp;{month}
+                      &nbsp;{year}
+                    </h4>
                   </div>
                   <div>
                     <Link
@@ -58,7 +71,10 @@ const Allorder = ({ orderdata, loading,loader }) => {
                     >
                       <span>Order Status</span>&nbsp;:-&nbsp;{orderStatus}
                     </h4>
-                    <h4><span>Payment Status</span>&nbsp;:-&nbsp;{paymentInfo?.status}</h4>
+                    <h4>
+                      <span>Payment Status</span>&nbsp;:-&nbsp;
+                      {paymentInfo?.status}
+                    </h4>
                   </div>
                 </div>
               );

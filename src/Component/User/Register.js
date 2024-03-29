@@ -10,9 +10,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Tostify from "@/Component/Tostify";
 import { usePathname, useRouter } from "next/navigation";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Register = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const {theme}=Globalthemeprovider()
   const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
     useFormik({
       initialValues: {
@@ -58,7 +60,7 @@ const Register = () => {
               : "h-[90vh]"
           } md:mb-[4px] py-5 flex flex-col justify-center items-center`}
         >
-          <div className="w-[500px] bg-[#f2f2f2] max-sm:max-w-[100%] mx-[auto] max-sm:px-8 max-sm:py-8 rounded-lg px-16 py-14">
+          <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} w-[500px] border-[1px] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14`}>
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
               {pathname === "/User/Admin/Register" ? (
                 <span>Admin</span>
@@ -76,7 +78,7 @@ const Register = () => {
                 name="name"
                 placeholder="Enter your Name..."
                 label="Name"
-                data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] rounded-lg outline-none"
+                data="block w-[100%] mb-2 px-3 py-1 bg-[#fff] text-[#000] rounded-lg outline-none"
                 className="flex-col"
               />
               {errors.name && touched.name ? (
