@@ -124,7 +124,7 @@ const Additem = () => {
         </h2>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-wrap gap-x-3 gap-y-4"
+          className="flex flex-wrap gap-x-3 gap-y-4 text-[#000]"
         >
           <input
             type="text"
@@ -137,7 +137,7 @@ const Additem = () => {
           <select
             value={category}
             name="category"
-            className="bg-white text-[#000] basis-[49%] max-lg:basis-[100%]"
+            className="bg-white basis-[49%] max-lg:basis-[100%]"
             onChange={handleChange}
           >
             {checkbox.map((val, index) => {

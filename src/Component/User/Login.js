@@ -46,17 +46,23 @@ const Login = () => {
   if (session.status === "authenticated") {
     router.push("/User");
   }
-  const {theme}=Globalthemeprovider()
+  const { theme } = Globalthemeprovider();
   return (
     <React.Fragment>
       <Tostify />
       <Container>
         <div className="h-[81.1vh] md:mb-[4px] flex flex-col justify-center items-center">
-          <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} w-[500px] border-[1px] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14`}>
+          <div
+            className={`${
+              theme === true
+                ? "bg-[#f2f2f2] text-[#000]"
+                : "bg-[#000] text-[#f2f2f2]"
+            } w-[500px] border-[1px] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14`}
+          >
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
               Log in...
             </h4>
-            <form>
+            <form className='text-[#000]'>
               <Inputdata
                 onChange={handleChange}
                 value={email}
@@ -77,7 +83,7 @@ const Login = () => {
                 className="flex-col"
               />
               <button
-                onClick={handleSubmit}
+                 onClick={handleSubmit}
                 type="submit"
                 className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md"
               >

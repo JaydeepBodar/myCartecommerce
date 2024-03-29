@@ -69,7 +69,7 @@ const Register = () => {
               )}{" "}
               Sign up...
             </h4>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='text-[#000]'>
               <Inputdata
                 type="text"
                 onChange={handleChange}

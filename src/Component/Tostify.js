@@ -1,7 +1,9 @@
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Tostify = () => {
+  const { theme } = Globalthemeprovider();
   return (
     <ToastContainer
       position="top-right"
@@ -13,7 +15,7 @@ const Tostify = () => {
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      theme="light"
+      theme={`${theme === false  ? "light" : "dark"}`}
     />
   );
 };
