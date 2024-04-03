@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "your/source/directory",
+        "use": "@vercel/node",
+        "build": {
+          "env": {
+            "NODE_ENV": "production"
+          },
+          "command": "npm install --force && npm run build"
+        }
+      }
+    ]
+  }
+  
