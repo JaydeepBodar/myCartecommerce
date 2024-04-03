@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "your/source/directory",
+        "src": "myCartecommerce",
         "use": "@vercel/node",
         "build": {
           "env": {
