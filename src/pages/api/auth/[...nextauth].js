@@ -43,7 +43,7 @@ export default async function auth(req, res) {
         user && (token.user = user);
         // console.log("req",req)
         // console.log("token",token)
-        
+
         if (req.url === "/api/auth/session?update") {
           // hit the db and eturn the updated user
           // console.log("dtatatat")
@@ -51,7 +51,7 @@ export default async function auth(req, res) {
           token.user = updatedUser;
           // console.log("updateUser",updatedUser)
         }
-        return Promise.resolve(token)
+        return Promise.resolve(token);
       },
       session: async ({ session, token }) => {
         // console.log("session",session)

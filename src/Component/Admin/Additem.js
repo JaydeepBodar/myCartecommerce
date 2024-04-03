@@ -15,6 +15,7 @@ const Additem = () => {
     description: "",
     price: "",
     discountPercentage: "",
+    subcategory:"",
     rating: "",
     featured: false,
   });
@@ -30,6 +31,7 @@ const Additem = () => {
     discountPercentage,
     rating,
     featured,
+    subcategory
   } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,7 +92,7 @@ const Additem = () => {
         setPic(data.url.toString());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const handleSubmit = (e) => {
@@ -157,6 +159,14 @@ const Additem = () => {
             <option value={false}>featured false</option>
             <option value={true}>featured true</option>
           </select>
+          <input
+            type="text"
+            name="subcategory"
+            value={subcategory}
+            onChange={handleChange}
+            placeholder="Enter Sub Category..."
+            className="basis-[100%]"
+          />
           <input
             type="Number"
             name="price"

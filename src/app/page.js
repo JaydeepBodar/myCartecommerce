@@ -47,12 +47,12 @@ const Homepagedata = () => {
                 <Productcarosel
                   category="jewelery"
                   title="Jewelery"
-                  path="/Jewelery"
+                  path="/productcategory/jewelery"
                 />
               );
-            case "watch":
+            case "watch": 
               return (
-                <Productcarosel category="watch" title="Watch" path="/Watch" />
+                <Productcarosel category="watch" title="Watch" path="/productcategory/watch" />
               );
           }
         })()}

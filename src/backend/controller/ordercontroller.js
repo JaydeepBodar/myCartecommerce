@@ -46,7 +46,7 @@ const getCartitems = async (line_items) => {
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
-      console.log("itemitemitem", item);
+      // console.log("itemitemitem", item);
       // console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
       // console.log("productdetails", product)
@@ -84,7 +84,7 @@ export const webhook = async (req, res) => {
       );
       // console.log("session", session);
       const getOrder = await getCartitems(line_items);
-      console.log("getOrder", getOrder);
+      // console.log("getOrder", getOrder);
       const userId = session?.client_reference_id;
       const amountPaid = session?.amount_total / 100;
       const paymentInfo = {

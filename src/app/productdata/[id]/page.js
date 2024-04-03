@@ -13,14 +13,11 @@ import { usePathname } from "next/navigation";
 //     return data.json()
 // }
 const Product = ({ params }) => {
+  const pathname = usePathname();
   const [singleproduct, setsingleproduct] = useState([]);
   const [edit, setedit] = useState(false);
-  const pathname = usePathname();
   // console.log("objectpathname", pathname);
   const [loading, setloading] = useState(true);
-  const handleEditing=()=>{
-    setedit(true)
-  }
   useEffect(() => {
     axios
       .get(`${env.APIURL}/api/products/${params.id}`)
@@ -28,6 +25,9 @@ const Product = ({ params }) => {
       .catch((e) => console.log("e", e))
       .finally(() => setloading(false),setedit(false));
   }, [loading,edit]);
+  const handleEditing=()=>{
+    setedit(true)
+  }
   // const singleproduct=await getData(params.id)
   return <Productdetais singleproduct={singleproduct} loading={loading} handleEditing={handleEditing} />;
 };

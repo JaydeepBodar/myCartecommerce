@@ -33,16 +33,14 @@ const Navbar = () => {
       .then((res) => setproduct(res.data.productdata))
       .catch((e) => console.log("eee", e));
   }, [query, block]);
-  console.log("session", query.leng);
   const submitHandler = (e) => {};
   const secondnav = [
     { path: "/", label: "Home" },
     { path: "/Allshop", label: "All" },
-    { path: "/Men", label: "Men's" },
+    { path: "/productcategory/men", label: "Men's" },
     { path: "/Women", label: "Women's" },
-    { path: "/Electronics", label: "Electronics" },
+    { path: "/productcategory/electronics", label: "Electronics" },
   ];
-
   return (
     <header>
       <Container>
@@ -179,7 +177,7 @@ const Navbar = () => {
                     className={`${
                       pathname === path &&
                       "bg-red-600 text-white block rounded-lg"
-                    } text-center w-[100%] font-semibold py-1 max-sm:text-[13px]`}
+                    } cursor-pointer text-center w-[100%] font-semibold py-1 max-sm:text-[13px] transtiton-all duration-500`}
                   >
                     <li>{label}</li>
                   </Link>

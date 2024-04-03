@@ -64,10 +64,6 @@ const Testmonalis = () => {
             {review?.map((value, index) => {
               const { reviews } = value;
               if (reviews.length > 0) {
-                console.log(
-                  "reviewreviewreviewreview",
-                  reviews[0]?.userdata?.avatar
-                );
                 return (
                   <div
                     key={index}

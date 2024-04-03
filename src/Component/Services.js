@@ -28,7 +28,7 @@ const Services = () => {
         <div className="flex justify-between flex-wrap max-md:gap-y-4 py-20 max-md:py-8  mb-20 max-md:mb-8">
           {service?.map((value, index) => {
             const { path, title, contet } = value;
-            console.log("pathpathpath",path)
+            {/* console.log("pathpathpath",path) */}
             return (
               <div className="flex items-center gap-x-5 max-sm:basis-[100%]" key={index}>
                 <div className="w-[50px] h-[50px] leading-[50px] text-center bg-[#f2f2f2] rounded-full">

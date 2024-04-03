@@ -65,6 +65,7 @@ const Productcarosel = ({ category, title, path }) => {
                   thumbnail,
                   title,
                   price,
+                  category,
                   rating,
                   stock,
                   discountPercentage,

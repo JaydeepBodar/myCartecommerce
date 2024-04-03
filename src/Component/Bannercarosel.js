@@ -34,14 +34,14 @@ const Bannercarosel = () => {
       banertitle: "going,fast and deal done",
       bannercontent: "Great Groceries deal for you!",
       bannerbtn: "get now",
-      path: "/Groceries",
+      path: "/productcategory/groceries",
       inagepath: Banner2,
     },
     {
       banertitle: "Best,almost,gone",
       bannercontent: "above 15% off For all mobile deal",
       bannerbtn: "Buy now",
-      path: "/Smartphone",
+      path: "/productcategory/smartphones",
       inagepath: Banner3,
     },
   ];

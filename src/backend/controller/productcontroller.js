@@ -63,6 +63,43 @@ export const singleProduct = async (req, res) => {
   //   res.json({ message: "unable to show" });
   // }
 };
+export const singleCategory = async (req, res) => {
+  const { category, subcategory, priceMin, priceMax,page } = req.query;
+  // const itemperpage = 6;
+  // const currentpage = Number(page) || 1;
+  // const totalskipitem = itemperpage * (currentpage - 1);
+  // try {
+  let query = {};
+  const numPricemax = Number(priceMax);
+  const numPricemin = Number(priceMin);
+  if (category) {
+    query.category = category;
+  }
+  if (subcategory) {
+    query.subcategory = subcategory;
+  }
+  if (priceMin || priceMax) {
+    query.price = { $gte: numPricemin, $lte: numPricemax };
+  }
+  // let data;
+  const productdata = await productSchema.find(query)
+    // .limit(itemperpage)
+    // .skip(totalskipitem);
+  // const totalproduct = await productSchema.find(query).countDocuments();
+  // console.log("productdataproductdata", query);
+  // // console.log("req.user._id",req.user._id)
+  // if (subcategory !== undefined) {
+  //   data = productdata?.filter((data) => data?.subcategory === subcategory);
+  // } else {
+  //   data = productdata;
+  // }
+  res.json({
+    productdata,
+  });
+  // } catch (e) {
+  //   res.json({ message: "unable to show" });
+  // }
+};
 export const updateProduct = async (req, res) => {
   try {
     const updateProduct = await productSchema.findByIdAndUpdate(
@@ -85,7 +122,7 @@ export const postReview = async (req, res) => {
     product?.reviews?.length > 0
       ? product?.reviews?.concat({ rating, userdata, comment })
       : review;
-  console.log("firstproductdata", productdata);
+  // console.log("firstproductdata", productdata);
   const ratingpost = await productSchema.updateOne(
     { _id: req.query.id },
     {
@@ -113,7 +150,7 @@ export const deleteReview = async (req, res) => {
       { _id: req.query.id },
       { rating: userReviewfinds?.length === 0 ? 0 : updaterating }
     );
-    console.log("objectupdatereview", updatereview);
+    // console.log("objectupdatereview", updatereview);
   }
   res.status(200).json({ message: "Succsessfully Review delete" });
 };
@@ -127,18 +164,20 @@ export const getReview = async (req, res) => {
 };
 export const updateReview = async (req, res) => {
   const { rating, comment } = req.body;
-  const updateproduct = await productSchema.findOneAndUpdate(
-    { _id: req.query.id, "reviews._id": req.query.id },
-    {
-      $set: {
-        "reviews.$.comment": comment, // Replace with the updated comment
-        "reviews.$.rating": rating, // Replace with the updated rating
-      },
-    }
-  ).populate('User')
+  const updateproduct = await productSchema
+    .findOneAndUpdate(
+      { _id: req.query.id, "reviews._id": req.query.id },
+      {
+        $set: {
+          "reviews.$.comment": comment, // Replace with the updated comment
+          "reviews.$.rating": rating, // Replace with the updated rating
+        },
+      }
+    )
+    .populate("User");
   if (updateproduct) {
     const product = await productSchema.findById({ _id: req.query.id[0] });
-    console.log("objectproduct", product);
+    // console.log("objectproduct", product);
     let sum = 0;
     const userReviewfinds = product.reviews?.map((val) => {
       sum += val?.rating;
@@ -148,9 +187,9 @@ export const updateReview = async (req, res) => {
       { _id: req.query.id },
       { rating: userReviewfinds?.length === 0 ? 0 : updaterating }
     );
-    console.log("objectupdatereview", updatereview);
+    // console.log("objectupdatereview", updatereview);
   }
-  console.log("updateeee", updateproduct);
+  // console.log("updateeee", updateproduct);
   res.status(200).json({ message: "Succsessfully Review Update" });
 };
 export const searchProduct = async (req, res) => {
@@ -167,12 +206,14 @@ export const searchProduct = async (req, res) => {
   const productdata = await productSchema.find(keyword);
   res.status(200).json({ productdata });
 };
-export const testMonalis=async(req,res)=>{
-  const productreview=await productSchema.find({},{reviews:1,_id:0}).populate({
-    path: 'reviews.userdata',
-    model: 'User',
-    select: 'name email avatar', // Specify the fields you want to populate for the user
-  })
-  console.log("productreviewproductreview",productreview)
-  res.status(200).json({productreview})
-}
+export const testMonalis = async (req, res) => {
+  const productreview = await productSchema
+    .find({}, { reviews: 1, _id: 0 })
+    .populate({
+      path: "reviews.userdata",
+      model: "User",
+      select: "name email avatar", // Specify the fields you want to populate for the user
+    });
+  // console.log("productreviewproductreview", productreview);
+  res.status(200).json({ productreview });
+};

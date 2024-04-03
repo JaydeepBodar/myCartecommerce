@@ -16,7 +16,6 @@ const Productprovider = ({ children }) => {
       .catch((e) => console.log("eeee", e))
       .finally(() => setloading(false));
   }, [loading,path]);
-  console.log("productproductproduct", product);
   return (
     <Productcontext.Provider
       value={{ product, loading}}

@@ -19,6 +19,7 @@ const Productupdate = ({ product }) => {
     rating: product?.rating,
     stock: product?.stock,
     featured: product?.featured,
+    subcategory: product?.subcategory,
   });
   const { theme } = Globalthemeprovider();
   const [images, setImages] = useState([
@@ -35,6 +36,7 @@ const Productupdate = ({ product }) => {
     discountPercentage,
     rating,
     stock,
+    subcategory,
   } = Input;
   const [featured, setfeatured] = useState(false);
   // console.log("producteeeeeeeeeeeee",stock)
@@ -43,7 +45,7 @@ const Productupdate = ({ product }) => {
     const { name, value } = e.target;
     setInput({ ...Input, [name]: value });
   };
-  console.log("category", description);
+  // console.log("category", description);
   // for multiple images
   const handleImageUpload = async (e, index) => {
     const files = e.target.files;
@@ -147,20 +149,14 @@ const Productupdate = ({ product }) => {
           placeholder="Enter Product Title..."
           className="basis-[100%]"
         />
-        <select
+        <input
+          type='text'
           value={category}
+          placeholder="Enter Product Category..."
           name="category"
           className="bg-white basis-[49%] max-lg:basis-[100%]"
           onChange={handleChange}
-        >
-          {checkbox.map((val, index) => {
-            return (
-              <option key={index} value={val.value}>
-                {val.label}
-              </option>
-            );
-          })}
-        </select>
+        />
         <select
           value={featured}
           name="featured"
@@ -215,6 +211,14 @@ const Productupdate = ({ product }) => {
           value={discountPercentage}
           onChange={handleChange}
           placeholder="Product Discount..."
+          className="basis-[49%] max-lg:basis-[100%]"
+        />
+        <input
+          type="text"
+          name="subcategory"
+          value={subcategory}
+          onChange={handleChange}
+          placeholder="Enter Sub Category..."
           className="basis-[49%] max-lg:basis-[100%]"
         />
         <input

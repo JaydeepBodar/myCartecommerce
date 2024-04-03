@@ -22,12 +22,17 @@ const productSchema = mongoose.Schema(
       type:Boolean,
       default:false,
     },
+    subcategory:{
+      type:String,
+      default:null,
+      required:true
+    },
     reviews: [
       {
         userdata: {
           type: mongoose.Schema.Types.ObjectId,
           required:true,
-          ref: "User",
+          ref: "User",  
         },
         comment: {
           type: String,

@@ -15,7 +15,7 @@ const Usercontextprovider = ({ children }) => {
     axios
       .get(`${process.env.API_URL}api/auth/getsingleUser`)
       .then((res) => setuser(res.data))
-      .catch((e) => console.log("e", e)).finally(()=>setloading(false))
+      .catch((e) => console.log(e)).finally(()=>setloading(false))
    }
   useEffect(() => {
     loaduser()
