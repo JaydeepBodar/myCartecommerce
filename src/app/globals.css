@@ -252,6 +252,18 @@ select option {
 .input-range__label--max .input-range__label.input-range__label--min {
   bottom: -25px;
 }
+.grid-cols-3,.grid-cols-2,.grid-cols-1{
+  display: grid;
+}
+.grid-cols-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.grid-cols-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-1{
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
 @media screen and (max-width: 600px) {
   .data span {
     padding-right: 0px;

@@ -33,7 +33,7 @@ const Categorydemo = ({
   const { theme } = Globalthemeprovider();
   const [grid, setgrid] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(grid === 3 ? 6 : 4);
+  const [itemsPerPage, setItemsPerPage] = useState(grid === 2 ? 6 : 4);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const gridarray = [
@@ -239,11 +239,11 @@ const Categorydemo = ({
                 }}
                 innerClass="flex justify-center"
                 activeClass="bg-red-600 text-white"
-                itemClass="px-2 py-[4px] border-[1px] border-[#000]"
-                firstPageText={"First"}
-                lastPageText={"Last"}
-                nextPageText={"Next"}
-                prevPageText={"Prev"}
+                itemClass="px-2 py-[4px]"
+                firstPageText={"<<"}
+                lastPageText={">>"}
+                nextPageText={">"}
+                prevPageText={"<"}
               />
             </div>
           </>
