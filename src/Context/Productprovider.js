@@ -25,6 +25,6 @@ const Productprovider = ({ children }) => {
   );
 };
 export default Productprovider;
-export const Globalproductcontext = () => {
+export const Globalproductcontext = () => { 
   return useContext(Productcontext);
 };

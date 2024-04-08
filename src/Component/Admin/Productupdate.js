@@ -7,7 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
-
+import { CiSquarePlus } from "react-icons/ci";
 const Productupdate = ({ product }) => {
   const router = useRouter();
   const [Input, setInput] = useState({
@@ -150,7 +150,7 @@ const Productupdate = ({ product }) => {
           className="basis-[100%]"
         />
         <input
-          type='text'
+          type="text"
           value={category}
           placeholder="Enter Product Category..."
           name="category"
@@ -205,6 +205,10 @@ const Productupdate = ({ product }) => {
           className="w-[100%]"
           placeholder="Enter your Product description..."
         ></textarea>
+        <div className="flex basis-[100%] justify-between">
+          <h5>For size</h5>
+          <CiSquarePlus />
+        </div>
         <input
           type="text"
           name="discountPercentage"

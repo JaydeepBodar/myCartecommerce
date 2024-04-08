@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const { cart, addItemtocart, deletItem } = CartgloblContext();
-  const {theme}=Globalthemeprovider()
+  const { theme } = Globalthemeprovider();
   const session = useSession();
   const [img, setimg] = useState("");
   const [btn, setbtn] = useState("Add Cart");
@@ -58,7 +58,6 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
         100
     ).toFixed(0)
   );
-  console.log("reviewdatareviewdata", reviewdata?.reviews?.length);
   const getApi = async (id) => {
     // console.log("daaaaaa", id);
     await axios
@@ -105,7 +104,9 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     setshow(false);
     setcomment(""), setrating("");
   };
-  // console.log("discount", typeof discount)
+  const [selection, setselection] = useState(null);
+  const [filter, setfilter] = useState({ size: "", color: "" });
+  console.log("filterfilter",filter?.color?.length)
   return (
     <Container>
       {loading && (
@@ -118,14 +119,24 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
           <Tostify />
           <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3 py-6">
             <div>
-              <Image
-                alt={singleproduct?.products?.title}
-                src={img ? img : singleproduct?.products?.thumbnail}
-                width={300}
-                height={400}
-                loading="lazy"
-                className="w-[100%] h-[400px] object-fill rounded-lg border-[1px] border-[#000]"
-              />
+              {singleproduct?.products?.thumbnail ? (
+                <Image
+                  alt={singleproduct?.products?.title}
+                  src={
+                    img
+                      ? img !== null
+                        ? img
+                        : ""
+                      : singleproduct?.products?.thumbnail
+                  }
+                  width={300}
+                  height={400}
+                  loading="lazy"
+                  className="w-[100%] h-[400px] object-fill rounded-lg border-[1px] border-[#000]"
+                />
+              ) : (
+                ""
+              )}
               <div className="flex gap-x-2 mt-4 justify-center">
                 {singleproduct?.products?.images
                   ?.slice(0, 3)
@@ -195,9 +206,50 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <h5 className="text-xl font-semibold">
                 Price:- {singleproduct?.products?.price}₹
               </h5>
+              <div className="flex gap-x-3 relative pb-4">
+                {singleproduct?.products?.sizes?.map((val, index) => {
+                  const { quantity, color, stock, _id, size } = val;
+                  return (
+                    <>
+                      <div
+                        key={_id}
+                        className={`${
+                          selection === index &&
+                          "border-[1px] border-[gray] rounded-full"
+                        } p-[2px]`}
+                        onClick={() => {
+                          setselection(index),
+                            setfilter({
+                              size: size,
+                              color: quantity > 0 && color,
+                            });
+                        }}
+                      >
+                        <p
+                          style={{ backgroundColor: color }}
+                          className={`w-[15px] h-[15px] rounded-full`}
+                        ></p>
+                      </div>
+                      {selection === index && size === "" && (
+                        <p className="absolute top-5">
+                          {quantity > 0 ? (
+                            <span className="text-green-600">
+                              InStock({quantity})
+                            </span>
+                          ) : (
+                            <span className="text-red-600">
+                              Out of Stock({quantity})
+                            </span>
+                          )}
+                        </p>
+                      )}
+                    </>
+                  );
+                })}
+              </div>
               <div className="flex items-center gap-x-3 mt-5">
                 <>
-                  {session?.data?.user?.role !== "Admin" &&
+                  {filter?.color?.length !== undefined && session?.data?.user?.role !== "Admin" &&
                     (singleproduct?.products?.stock === "InStock" ? (
                       <>
                         <button

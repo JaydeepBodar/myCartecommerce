@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 import model from "./Userschema";
+const SizeSchema = mongoose.Schema({
+  size: { type: String, required: true,default:null }, // Size value (e.g., S, M, L, 7, 8, 9)
+  quantity: { type: Number, default: 0 }, // Quantity available for this size
+  color: { type: String }, // Color of the product
+  stock: { type: Boolean, default: true }, // Stock availability for this size
+})
 const productSchema = mongoose.Schema(
   {
     id: String,
@@ -23,10 +29,10 @@ const productSchema = mongoose.Schema(
       default:false,
     },
     subcategory:{
-      type:String,
       default:null,
-      required:true
+      type:String,
     },
+    sizes:[SizeSchema],
     reviews: [
       {
         userdata: {

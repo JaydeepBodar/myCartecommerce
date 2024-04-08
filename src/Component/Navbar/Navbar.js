@@ -38,7 +38,7 @@ const Navbar = () => {
     { path: "/", label: "Home" },
     { path: "/Allshop", label: "All" },
     { path: "/productcategory/men", label: "Men's" },
-    { path: "/Women", label: "Women's" },
+    { path: "/productcategory/women", label: "Women's" },
     { path: "/productcategory/electronics", label: "Electronics" },
   ];
   return (
@@ -76,10 +76,21 @@ const Navbar = () => {
                   theme === true
                     ? "bg-[#f2f2f2] text-[#000]"
                     : "bg-[#000] text-[#f2f2f2]"
-                } z-[999] absolute top-10 left-0 right-0 rounded-lg`}
+                } z-[999] absolute top-11 left-0 right-0 rounded-lg`}
               >
                 {query.length > 1 && block && (
-                  <div className=" h-[100%] max-h-[440px] overflow-y-auto scrollbar mr-2 my-2">
+                  <div
+                    className={`${
+                      theme === true
+                        ? "bg-[#f2f2f2] text-[#000] border-[#f2f2f2]"
+                        : "bg-[#000] text-[#f2f2f2]  border-[#f2f2f2]"
+                    } border-[1px] h-[100%] max-h-[440px] overflow-y-auto scrollbar my-2`}
+                  >
+                    {product.length === 0 && (
+                      <p className="font-bold text-xl text-center max-sm:text-base py-3">
+                        No Product found 
+                      </p>
+                    )}
                     {product?.map((val, index) => {
                       const {
                         title,
@@ -94,13 +105,7 @@ const Navbar = () => {
                           onClick={() => setblock(false)}
                           key={index}
                         >
-                          <div
-                            className={`${ 
-                              theme === true
-                                ? "bg-[#fff] text-[#000]"
-                                : "bg-[#000] text-[#fff]  border-[#fff]"
-                            } m-3 flex gap-x-2 border-[1px] p-2`}
-                          >
+                          <div className={`m-3 flex gap-x-2 p-2`}>
                             <Image
                               src={thumbnail}
                               width={70}

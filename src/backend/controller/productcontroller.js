@@ -109,6 +109,7 @@ export const updateProduct = async (req, res) => {
     // console.log("updateProduct",updateProduct)
     res.status(200).json({ message: "Succsessfully update product" });
   } catch (e) {
+    console.log("eeee",e)
     res.status(400).json({ message: "Something went to wrong!" });
   }
 };
@@ -153,7 +154,7 @@ export const deleteReview = async (req, res) => {
     // console.log("objectupdatereview", updatereview);
   }
   res.status(200).json({ message: "Succsessfully Review delete" });
-};
+};  
 export const getReview = async (req, res) => {
   const product = await productSchema.findOne(
     { _id: req.query.id },

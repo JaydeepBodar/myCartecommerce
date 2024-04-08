@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "./Container";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import Pagination from "react-js-pagination";
 import { IoMenuOutline } from "react-icons/io5";
 import { FaGripLinesVertical } from "react-icons/fa";
 import { IoRemoveOutline } from "react-icons/io5";
+import { usePathname } from "next/navigation";
 const Categorydemo = ({
   singleproduct,
   setsubcategory,
@@ -33,9 +34,11 @@ const Categorydemo = ({
   const { theme } = Globalthemeprovider();
   const [grid, setgrid] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(grid === 2 ? 6 : 4);
+  const pathname = usePathname();
+  const itemsPerPage = grid === 1 ? 4 : 6;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   const gridarray = [
     { icon: <IoMenuOutline />, number: 3 },
     { icon: <FaGripLinesVertical />, number: 2 },
@@ -44,6 +47,9 @@ const Categorydemo = ({
   const categoryfield = [
     ...new Set(categorydata?.map((val) => val?.subcategory)),
   ];
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [subcategory]);
   return (
     <section className="product_category py-5">
       <Breadcrumb title={category} />
@@ -130,7 +136,7 @@ const Categorydemo = ({
               {singleproduct.length > 0 ? (
                 <div className="flex flex-col gap-y-4 w-[100%]">
                   <div className="flex justify-between">
-                    <h3 className="font-semibold text-2xl max-md:text-lg max-sm:text-base capitalize">
+                    <h3 className="font-bold text-2xl max-md:text-lg capitalize">
                       {subcategory === "" ? <span>All</span> : subcategory}
                     </h3>
                     <ul className="flex gap-x-3">
@@ -153,7 +159,9 @@ const Categorydemo = ({
                     </ul>
                   </div>
                   <div
-                    className={`grid grid-cols-${grid} max-md:grid-cols-${grid} max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 gap-y-5`}
+                    className={`grid grid-cols-${grid} max-md:grid-cols-${grid} max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 gap-y-5 ${
+                      grid === 2 && "sm:px-[100px]"
+                    } ${grid === 1 && "sm:px-[75px]"}`}
                   >
                     {singleproduct
                       ?.slice(indexOfFirstItem, indexOfLastItem)
@@ -174,14 +182,14 @@ const Categorydemo = ({
                           <Link
                             href={`/productdata/${_id}`}
                             key={index}
-                            className={`border-[1px] rounded-lg overflow-hidden ${
+                            className={`border-[1px] img-hover rounded-lg overflow-hidden ${
                               grid === 1 ? "flex gap-x-3" : "block"
                             }`}
                           >
                             <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden flex-1">
                               <Image
                                 src={thumbnail}
-                                className="object-fill w-[100%] h-[100%]"
+                                className="object-fill w-[100%] h-[100%] hover-img"
                                 width={200}
                                 height={200}
                               />
@@ -230,21 +238,23 @@ const Categorydemo = ({
               )}
             </div>
             <div className="py-6">
-              <Pagination
-                activePage={currentPage}
-                itemsCountPerPage={itemsPerPage}
-                totalItemsCount={singleproduct?.length}
-                onChange={(number) => {
-                  setCurrentPage(number);
-                }}
-                innerClass="flex justify-center"
-                activeClass="bg-red-600 text-white"
-                itemClass="px-2 py-[4px]"
-                firstPageText={"<<"}
-                lastPageText={">>"}
-                nextPageText={">"}
-                prevPageText={"<"}
-              />
+              {singleproduct?.length >= itemsPerPage && (
+                <Pagination
+                  activePage={currentPage}
+                  itemsCountPerPage={itemsPerPage}
+                  totalItemsCount={singleproduct?.length}
+                  onChange={(number) => {
+                    setCurrentPage(number);
+                  }}
+                  innerClass="flex justify-center"
+                  activeClass="bg-red-600 text-white"
+                  itemClass="px-2 py-[4px]"
+                  firstPageText={"<<"}
+                  lastPageText={">>"}
+                  nextPageText={">"}
+                  prevPageText={"<"}
+                />
+              )}
             </div>
           </>
         ) : (

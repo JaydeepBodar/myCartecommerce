@@ -24,7 +24,7 @@ const Product = ({ params }) => {
       .then((res) => setsingleproduct(res.data))
       .catch((e) => console.log("e", e))
       .finally(() => setloading(false),setedit(false));
-  }, [loading,edit]);
+  }, [loading,edit,pathname]);
   const handleEditing=()=>{
     setedit(true)
   }

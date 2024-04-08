@@ -11,7 +11,6 @@ const Categorypage = ({ params }) => {
   const [price, setprices] = useState({ price: { min: "", max: "" } });
   let Minvalue;
   let Maxvalue;
-  let allsucategory = [];
   // const [priceMax, setPriceMin] = useState('');
   // const [priceMax, setPriceMax] = useState('');
   useEffect(() => {
@@ -25,39 +24,35 @@ const Categorypage = ({ params }) => {
       )
       .then((res) => {
         if (subcategory === "") {
-          setsingleproduct(res.data.productdata);
           setcategorydata(res.data.productdata);
+          setsingleproduct(res.data.productdata);
         } else {
           setsingleproduct(res.data.productdata);
         }
       })
       .catch((e) => console.log("e", e))
       .finally(() => setloading(false));
-  }, [loading, subcategory, price?.price?.min, price?.price?.max]);
-  if (subcategory === "" && categorydata?.length > 0) {
-    const productdata = singleproduct?.map((data) => data?.price);
+  }, [loading, subcategory, price]);
+  const productdata = singleproduct?.map((data) => data?.price);
+  if (subcategory !== "") {
     // console.log("...productdata", ...productdata);
     // console.log("categorydata", categorydata);
-    Minvalue = Math?.min(...productdata);
-    Maxvalue = Math?.max(...productdata);
     // console.log("Minvalue", Minvalue);
     // console.log("Maxvalue", Maxvalue);
-  } else {
     const newdata = categorydata?.filter(
       (data) => data.subcategory === subcategory
     );
     const filtrprice = newdata?.map((val) => val.price);
     Minvalue = Math?.min(0);
     Maxvalue = Math?.max(...filtrprice);
-    // console.log("...filtrprice", ...filtrprice);
+  } else {
+    Minvalue = productdata?.length > 0 ? Math?.min(...productdata) : 0;
+    Maxvalue = productdata?.length > 0 ? Math?.max(...productdata) : 10000;
   }
   // console.log("productdata-----", productdata);
-  // console.log(
-  //   "MinvalueMinvalueMinvalueMinvalue",
-  //   Maxvalue,
-  //   "categorydatacategorydata",
-  //   Minvalue
-  // );
+  console.log(
+    "MinvalueMinvalueMinvalueMinvalue",singleproduct
+  );
   // for dynamic changes
   // const hanleMaxrange = (e) => {
   //   const value=e.target.value.replace(/\D/g, '')
