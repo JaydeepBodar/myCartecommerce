@@ -21,6 +21,13 @@ const Productupdate = ({ product }) => {
     featured: product?.featured,
     subcategory: product?.subcategory,
   });
+  const [selection, setselection] = useState({
+    size: "",
+    color: "",
+    quantity: "",
+  });
+  const [filterarray, settfilterarray] = useState([]);
+  const [featured, setfeatured] = useState(false);
   const { theme } = Globalthemeprovider();
   const [images, setImages] = useState([
     product.images[0],
@@ -38,9 +45,22 @@ const Productupdate = ({ product }) => {
     stock,
     subcategory,
   } = Input;
-  const [featured, setfeatured] = useState(false);
+  const { size, color, quantity } = selection;
+  console.log("selectionselection", filterarray);
   // console.log("producteeeeeeeeeeeee",stock)
   // console.log("title", title);
+  const handleFilter = (e) => {
+    const { name, value } = e.target;
+    setselection({ ...selection, [name]: value });
+  };
+  const allFilterdata = () => {
+    if (size !== "" && color !== "" && quantity !== "") {
+      // Add the current selection to the selectionsArray
+      settfilterarray([...filterarray, { ...selection }]);
+      // Reset the selection state for the next input
+      setselection({ size: "", color: "", quantity: "" });
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...Input, [name]: value });
@@ -118,6 +138,7 @@ const Productupdate = ({ product }) => {
       .put(`${process.env.API_URL}api/admin/product/${product?._id}`, {
         ...Input,
         featured,
+        sizes:filterarray,
         // discountPercentage:featredval,
         images: images,
         thumbnail: pic,
@@ -205,10 +226,57 @@ const Productupdate = ({ product }) => {
           className="w-[100%]"
           placeholder="Enter your Product description..."
         ></textarea>
-        <div className="flex basis-[100%] justify-between">
-          <h5>For size</h5>
-          <CiSquarePlus />
+
+        <div className="text-left basis-[100%] flex flex-col gap-y-2">
+          <h4>For Size,Color,Quantity filter</h4>
+          <div className="flex gap-x-4 gap-y-2 flex-wrap">
+            <input
+              className="flex-1 max-sm:basis-[100%]"
+              type="text"
+              value={size}
+              name="size"
+              onChange={(e) => handleFilter(e)}
+            />
+            <input
+              className="flex-1 max-sm:basis-[100%]"
+              type="number"
+              value={quantity}
+              name="quantity"
+              onChange={(e) => handleFilter(e)}
+            />
+            <input
+              className="bg-[#fff] h-[43px] flex-1 max-sm:basis-[100%]  "
+              type="color"
+              value={color}
+              name="color"
+              onChange={(e) => handleFilter(e)}
+            />
+          </div>
+          <div>
+            <CiSquarePlus onClick={allFilterdata} />
+          </div>
         </div>
+        {filterarray?.length > 0 && (
+          <table className="w-[100%] text-center border-[1px] border-[gray]">
+            <tr>
+              <th>sr</th>
+              <th>size</th>
+              <th>color</th>
+              <th>quantity</th>
+            </tr>
+            {filterarray?.map((val, index) => {
+              const { quantity, size, color } = val;
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{size}</td>
+                  <td className="flex items-baseline justify-center gap-x-2">{color} <span style={{backgroundColor:color}} className="w-[15px] h-[15px] rounded-full"></span></td>
+                  <td>{quantity}</td>
+                </tr>
+              );
+            })}
+          </table>
+        )}
         <input
           type="text"
           name="discountPercentage"

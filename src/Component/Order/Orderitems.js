@@ -1,12 +1,13 @@
 "use client";
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Tostify from "../Tostify";
 import { useRouter } from "next/navigation";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Orderitems = ({ item }) => {
-  // console.log("item", item);
+  console.log("item", item);
   const {
     orderItems,
     paymentInfo,
@@ -25,6 +26,7 @@ const Orderitems = ({ item }) => {
   });
   const day = new Date(createdAt).getDate();
   const year = new Date(createdAt).getFullYear();
+  const { theme } = Globalthemeprovider();
   const deleteOrderitem = () => {
     let text =
       "if you really want to delete your order ? if yes then press ok otherwise press cancle";
@@ -87,10 +89,11 @@ const Orderitems = ({ item }) => {
       </div>
       <div className="flex flex-wrap gap-x-2 gap-y-4 justify-between items-center mt-7 max-sm:mt-3 border-t-[1px] border-[#cecbcb] pt-2">
         {orderItems?.map((val, index) => {
-          
-           {/* console.log("val", val) */}
-          
-          const { name, quantity, image, price } = val;
+          {
+            /* console.log("val", val) */
+          }
+
+          const { name, quantity, image, price, color, size } = val;
           return (
             <div
               key={index}
@@ -112,12 +115,29 @@ const Orderitems = ({ item }) => {
               <div>
                 <h5>Product:-&nbsp;{name}</h5>
                 <h4>Price:-&nbsp;{price}₹</h4>
+                <h5 className="flex items-center gap-x-2">
+                  {color?.length > 0 && (
+                    <div
+                      className={`${
+                        theme === true ? "border-[#000000]" : "border-[#f2f2f2]"
+                      } p-[2px] rounded-full border-[1px]`}
+                    >
+                      <span
+                        style={{ backgroundColor: color }}
+                        className="w-[10px] h-[10px] rounded-full block"
+                      ></span>
+                    </div>
+                  )}
+                  <span>{size}</span>
+                </h5>
               </div>
             </div>
           );
         })}
       </div>
-      {orderStatus === "Delivered" ? "" :(
+      {orderStatus === "Delivered" ? (
+        ""
+      ) : (
         <div className="text-right pt-2" onClick={deleteOrderitem}>
           <button className="w-[100%] font-semibold tracking-wide text-center max-w-[80px] text-[14px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 hover:bg-red-600 hover:text-[#fff] hover:transition-all hover:duration-1000">
             Cancel

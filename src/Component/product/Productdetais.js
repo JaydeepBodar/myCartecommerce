@@ -50,14 +50,15 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     (item) => item._id === singleproduct?.products?._id
   );
 
-  const discount = parseInt(
-    (
-      singleproduct?.products?.price -
-      (singleproduct?.products?.price *
-        singleproduct?.products?.discountPercentage) /
-        100
-    ).toFixed(0)
-  );
+  const discount = (
+    singleproduct?.products?.price -
+    (singleproduct?.products?.price *
+      singleproduct?.products?.discountPercentage) /
+      100
+  ).toFixed(0);
+
+  // const onlydiscount= singleproduct?.products?.price - discount
+  // console.log("onlydiscountonlydiscount",onlydiscount)
   const getApi = async (id) => {
     // console.log("daaaaaa", id);
     await axios
@@ -105,8 +106,12 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     setcomment(""), setrating("");
   };
   const [selection, setselection] = useState(null);
-  const [filter, setfilter] = useState({ size: "", color: "" });
-  console.log("filterfilter",filter?.color?.length)
+  const [selection1, setselection1] = useState(null);
+  const [filter, setfilter] = useState({ size: null, color: "", stock: true });
+  const uniqueColors = Array.from(
+    new Set(singleproduct?.products?.sizes.map((product) => product.color))
+  );
+  console.log("filterfilterfilterfilter", filter);
   return (
     <Container>
       {loading && (
@@ -206,23 +211,35 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <h5 className="text-xl font-semibold">
                 Price:- {singleproduct?.products?.price}₹
               </h5>
-              <div className="flex gap-x-3 relative pb-4">
-                {singleproduct?.products?.sizes?.map((val, index) => {
-                  const { quantity, color, stock, _id, size } = val;
+              <p>Color Selection :-</p>
+              <div
+                className={`${
+                  filter?.size?.length > 0 ? "pb-14" : "pb-7"
+                } flex gap-x-3 relative`}
+              >
+                {uniqueColors.map((color, index) => {
+                  const filtercolor = singleproduct?.products?.sizes?.filter(
+                    (val) => val.color === color
+                  );
+                  console.log("filtercolorfiltercolor", filtercolor);
+                  {
+                    /* const { quantity, color, stock, _id, size } = val; */
+                  }
                   return (
                     <>
                       <div
-                        key={_id}
+                        key={index}
                         className={`${
                           selection === index &&
                           "border-[1px] border-[gray] rounded-full"
                         } p-[2px]`}
                         onClick={() => {
-                          setselection(index),
-                            setfilter({
-                              size: size,
-                              color: quantity > 0 && color,
-                            });
+                          setselection(index);
+                          setselection1(null);
+                          setfilter({
+                            size: "",
+                            color: color,
+                          });
                         }}
                       >
                         <p
@@ -230,7 +247,77 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           className={`w-[15px] h-[15px] rounded-full`}
                         ></p>
                       </div>
-                      {selection === index && size === "" && (
+                      <div className="absolute top-5 w-[100%]">
+                        <div className="flex items-center gap-x-2 mt-1 relative">
+                          {selection === index &&
+                            filtercolor.map((val, indexdata) => {
+                              const { size, quantity, color, stock } = val;
+                              if (size !== "") {
+                                return (
+                                  <>
+                                    <p
+                                      key={indexdata}
+                                      className={`${
+                                        selection1 === indexdata &&
+                                        "bg-red-600 text-white"
+                                      } p-1 w-[30px] text-center rounded-lg cursor-pointer`}
+                                      onClick={() => {
+                                        setselection1(indexdata),
+                                          setfilter({
+                                            color: color,
+                                            size: size,
+                                          });
+                                      }}
+                                    >
+                                      {size}{" "}
+                                    </p>
+                                    <span className="absolute top-9">
+                                      {selection1 === indexdata && (
+                                        <span
+                                          className={`${
+                                            stock === true
+                                              ? "text-green-600"
+                                              : "text-red-600"
+                                          }`}
+                                        >
+                                          {stock === true > 0 ? (
+                                            <span>In Stock</span>
+                                          ) : (
+                                            <span>Out of Stock</span>
+                                          )}
+                                          ({quantity} Items Avilabel)
+                                        </span>
+                                      )}
+                                    </span>
+                                  </>
+                                );
+                              } else {
+                                return (
+                                  <span
+                                    className="absolute top-0"
+                                    key={indexdata}
+                                  >
+                                    <span
+                                      className={`${
+                                        stock === true
+                                          ? "text-green-600"
+                                          : "text-red-600"
+                                      }`}
+                                    >
+                                      {stock === true ? (
+                                        <span>In Stock</span>
+                                      ) : (
+                                        <span>Out of Stock</span>
+                                      )}
+                                      ({quantity} Items Avilabel)
+                                    </span>
+                                  </span>
+                                );
+                              }
+                            })}
+                        </div>
+                      </div>
+                      {/* {selection === index && size === "" && (
                         <p className="absolute top-5">
                           {quantity > 0 ? (
                             <span className="text-green-600">
@@ -242,14 +329,15 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                             </span>
                           )}
                         </p>
-                      )}
+                      )} */}
                     </>
                   );
                 })}
               </div>
               <div className="flex items-center gap-x-3 mt-5">
                 <>
-                  {filter?.color?.length !== undefined && session?.data?.user?.role !== "Admin" &&
+                  {filter?.stock !== false &&
+                    session?.data?.user?.role !== "Admin" &&
                     (singleproduct?.products?.stock === "InStock" ? (
                       <>
                         <button
@@ -263,7 +351,10 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                 singleproduct?.products?.discountPercentage,
                               discountprice: discount,
                               price: singleproduct?.products?.price,
-                              onlydiscount: singleproduct?.products - discount,
+                              onlydiscount:
+                                singleproduct?.products?.price - discount,
+                              size: filter?.size !== "" ? filter?.size : null,
+                              color: filter?.color,
                             });
                             if (
                               productbtn === true ||

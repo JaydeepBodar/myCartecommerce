@@ -83,7 +83,7 @@ form input,
 form select,
 form textarea {
   outline: none;
-  padding: 15px;
+  padding: 8px 12px;
   border-radius: 15px;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;

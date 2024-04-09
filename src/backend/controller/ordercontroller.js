@@ -6,14 +6,19 @@ const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
   const line_items = body?.items?.map((item) => {
-    // console.log("itemdddddddddd", item)
+    console.log("itemdddddddddd", item);
     return {
       price_data: {
         currency: "inr",
         product_data: {
           name: item?.title,
           images: [item?.thumbnail],
-          metadata: { productId: item?._id },
+          metadata: {
+            productId: item?._id,
+            size: item.size,
+            color: item?.color,
+            onlydiscount: item?.onlydiscount,
+          },
         },
         unit_amount: item?.discountprice * 100,
       },
@@ -38,27 +43,30 @@ export const checkoutsession = async (req, res) => {
     ],
     line_items,
   });
-  // console.log("sessionurl",session)
+  console.log("line_itemsline_itemsline_itemsline_items", line_items);
   res.status(200).json({ url: session.url });
 };
 const getCartitems = async (line_items) => {
-  // console.log("line_items?.data", line_items)
+  console.log("line_items?.data", line_items);
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
-      // console.log("itemitemitem", item);
+      console.log("itemitemitem", item);
       // console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
-      // console.log("productdetails", product)
+      console.log("productdetails", product);
       const productid = product?.metadata?.productId;
       cartItems?.push({
         product: productid,
         name: product.name,
         image: product.images,
-        discount: item?.onlydiscount,
+        discount: product?.metadata?.onlydiscount,
         price: item?.price?.unit_amount / 100,
         quantity: item.quantity,
+        size: product?.metadata?.size,
+        color: product?.metadata?.color,
       });
+      console.log("cartItemscartItemscartItems", cartItems);
       if (cartItems?.length === line_items?.data?.length) {
         // console.log("resolvedatatatatatatta")
         resolve(cartItems);
@@ -82,7 +90,10 @@ export const webhook = async (req, res) => {
       const line_items = await stripe.checkout.sessions.listLineItems(
         event.data.object.id
       );
-      // console.log("session", session);
+      console.log(
+        "sessionline_itemsline_itemsline_itemsline_itemsline_items",
+        session
+      );
       const getOrder = await getCartitems(line_items);
       // console.log("getOrder", getOrder);
       const userId = session?.client_reference_id;
@@ -185,42 +196,63 @@ export const orderanylitic = async (req, res) => {
   const orderbystatus2 = await orderSchema
     .find({ orderStatus: "Processing" })
     .countDocuments();
-    const allMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    // const targetMonth = "Jan"; // Replace with the desired month
-    
-    const orderAnalysis = await orderSchema.aggregate([
-      {
-        $project: {
-          year: { $year: "$createdAt" },
-          month: { $month: "$createdAt" },
-          revenue: { $toDouble: "$paymentInfo.amountPaid" },
-        },
+  const allMonths = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  // const targetMonth = "Jan"; // Replace with the desired month
+
+  const orderAnalysis = await orderSchema.aggregate([
+    {
+      $project: {
+        year: { $year: "$createdAt" },
+        month: { $month: "$createdAt" },
+        revenue: { $toDouble: "$paymentInfo.amountPaid" },
       },
-      {
-        $group: {
-          _id: { year: "$year", month: "$month" },
-          totalRevenue: { $sum: "$revenue" },
-        },
+    },
+    {
+      $group: {
+        _id: { year: "$year", month: "$month" },
+        totalRevenue: { $sum: "$revenue" },
       },
-      {
-        $sort: {
-          "_id.year": 1,
-          "_id.month": 1,
-        },
+    },
+    {
+      $sort: {
+        "_id.year": 1,
+        "_id.month": 1,
       },
-    ]);
-    
-    // Create a map to quickly access totalRevenue by year and month
-    const totalRevenueMap = new Map(orderAnalysis.map(item => [`${item._id.year}-${item._id.month}`, item.totalRevenue]));
-    
-    // Create the final result including all months and years
-    const resultWithAllMonthsAndYears = allMonths.flatMap(month => {
-      return Array.from(new Set(orderAnalysis.map(item => item._id.year))).map(year => ({
+    },
+  ]);
+
+  // Create a map to quickly access totalRevenue by year and month
+  const totalRevenueMap = new Map(
+    orderAnalysis.map((item) => [
+      `${item._id.year}-${item._id.month}`,
+      item.totalRevenue,
+    ])
+  );
+
+  // Create the final result including all months and years
+  const resultWithAllMonthsAndYears = allMonths.flatMap((month) => {
+    return Array.from(new Set(orderAnalysis.map((item) => item._id.year))).map(
+      (year) => ({
         month,
         year,
-        totalRevenue: totalRevenueMap.get(`${year}-${allMonths.indexOf(month) + 1}`) || 0,
-      }));
-    });
-    
+        totalRevenue:
+          totalRevenueMap.get(`${year}-${allMonths.indexOf(month) + 1}`) || 0,
+      })
+    );
+  });
+
   res.json({ orderbystatus1, orderbystatus2, resultWithAllMonthsAndYears });
 };

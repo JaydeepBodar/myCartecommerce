@@ -37,7 +37,6 @@ const Shiping = ({ address }) => {
           email:session.data?.user?.email
         }) 
         window.location.href=data.url
-        
       }catch(e){
         console.log("e",e)
       }

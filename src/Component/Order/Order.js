@@ -25,9 +25,9 @@ const Order = ({ order, totalitem, itemperpage, loader, loading }) => {
       {!loading && (
         <div>
           <h2 className="text-2xl font-semibold pb-3">Order details</h2>
-          {order.length !== 0 ? (
+          {order?.length !== 0 ? (
             <>
-              {order.map((item) => {
+              {order?.map((item) => {
                 return <Orderitems item={item} key={item._id} />;
               })}
             </>

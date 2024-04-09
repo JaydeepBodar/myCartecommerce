@@ -10,7 +10,7 @@ const Cartitem = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { cart, addItemtocart, deletItem } = CartgloblContext();
-  const {theme}=Globalthemeprovider()
+  const { theme } = Globalthemeprovider();
   // console.log("addItemtocart", cart?.cartItems?.length);
   // const additem=(item)=>{
   // 	console.log("item",item)
@@ -62,7 +62,15 @@ const Cartitem = () => {
                 {
                   /* console.log("value", value); */
                 }
-                const { title, category, thumbnail, _id, quantity } = value;
+                const {
+                  title,
+                  category,
+                  thumbnail,
+                  _id,
+                  quantity,
+                  color,
+                  size,
+                } = value;
                 return (
                   <div
                     key={_id}
@@ -75,42 +83,41 @@ const Cartitem = () => {
                         pathname === "/shiping" && "basis-[100%] w-[100%]"
                       } basis-[70%] max-sm:basis-[100%] max-sm:w-[100%] flex items-center gap-x-4`}
                     >
-                      <div className="relative" style={{flex:"0 0 auto"}}>
-                          <div
+                      <div className="relative" style={{ flex: "0 0 auto" }}>
+                        <div
+                          className={`${
+                            pathname === "/shiping"
+                              ? "block absolute right-0 top-[-8px]"
+                              : "hidden"
+                          }`}
+                        >
+                          <p className="w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center">
+                            {quantity}
+                          </p>
+                        </div>
+                        <Link
+                          href={`/productdata/${_id}`}
+                          className={`${
+                            pathname === "/shiping" && "w-[auto] h-[auto]"
+                          }`}
+                        >
+                          <Image
+                            src={thumbnail}
+                            loading="lazy"
+                            alt={title}
+                            width={150}
+                            height={200}
                             className={`${
-                              pathname === "/shiping"
-                                ? "block absolute right-0 top-[-8px]"
-                                : "hidden"
-                            }`}
-                          >
-                            <p className="w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center">
-                              {quantity}
-                            </p>
-                          </div>
-                          <Link
-                            href={`/productdata/${_id}`}
-                            className={`${
-                              pathname === "/shiping" && "w-[auto] h-[auto]"
-                            } w-[100%] max-w-[150px] h-[100%] max-h-[200px] flex justify-center`}
-                          >
-                            <Image
-                              src={thumbnail}
-                              loading="lazy"
-                              alt={title}
-                              width={150}
-                              height={200}
-                              className={`${
-                                pathname === "/shiping" &&
-                                "w-[50px] h-[50px] object-cover"
-                              } border-[1px] border-[#bbbbbb]`}
-                              style={{
-                                borderRadius: "50%",
-                                objectFill: "contain",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </Link>
-                        
+                              pathname === "/shiping" ?
+                              "h-[70px] w-[70px] object-fill": " h-[150px]"
+                            } border-[1px] border-[#bbbbbb] object-fill`}
+                            style={{
+                              borderRadius: "50%",
+                              objectFill: "contain",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </Link>
                       </div>
                       <div>
                         <h3
@@ -127,6 +134,21 @@ const Cartitem = () => {
                         >
                           {category}
                         </h4>
+                        <h5 className="flex items-center gap-x-2">
+                          {color.length  > 0 && <div className={`${theme === true ? "border-[#000000]" : "border-[#f2f2f2]"} p-[2px] rounded-full border-[1px]`}>
+                            <span
+                              style={{ backgroundColor: color }}
+                              className="w-[15px] h-[15px] rounded-full block"
+                            ></span>
+                          </div>}
+                          <span
+                            className={`${
+                              pathname === "/shiping" ? "text-sm" : "text-xl"
+                            }  font-semibold max-sm:text-lg`}
+                          >
+                            {size}
+                          </span>
+                        </h5>
                       </div>
                     </div>
                     {pathname === "/Cart" && (
@@ -138,14 +160,22 @@ const Cartitem = () => {
                       >
                         <div className="flex items-center gap-x-2">
                           <button
-                            className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} border-[#f2f2f2] border-[1px] px-3 max-md:px-[6px] max-md:leading-[20px] py-1`}
+                            className={`${
+                              theme === true
+                                ? "bg-[#f2f2f2] text-[#000]"
+                                : "bg-[#000] text-[#f2f2f2]"
+                            } border-[#f2f2f2] border-[1px] px-3 max-md:px-[6px] max-md:leading-[20px] py-1`}
                             onClick={() => removeitem(value)}
                           >
                             -
                           </button>
                           <h5 className="text-lg font-semibold">{quantity}</h5>
                           <button
-                            className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} border-[#f2f2f2] border-[1px] px-3 max-md:px-[6px] max-md:leading-[20px] py-1`}
+                            className={`${
+                              theme === true
+                                ? "bg-[#f2f2f2] text-[#000]"
+                                : "bg-[#000] text-[#f2f2f2]"
+                            } border-[#f2f2f2] border-[1px] px-3 max-md:px-[6px] max-md:leading-[20px] py-1`}
                             onClick={() => additem(value)}
                           >
                             +
@@ -184,7 +214,11 @@ const Cartitem = () => {
               <h4>Total Price(Without Discount)</h4>
               <del>{netAmount.toFixed(2)}₹</del>
             </div>
-            <div className={`${theme === true ? "border-[#000]" : "border-[#f2f2f2]"} flex justify-between items-center border-t-[2px] mt-2 text-lg font-semibold pt-2`}>
+            <div
+              className={`${
+                theme === true ? "border-[#000]" : "border-[#f2f2f2]"
+              } flex justify-between items-center border-t-[2px] mt-2 text-lg font-semibold pt-2`}
+            >
               <h3>Total Price(With Discount):-</h3>
               <h3>{Totalprice.toFixed(2)}₹</h3>
             </div>
