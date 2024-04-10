@@ -50,9 +50,9 @@ const Categorypage = ({ params }) => {
     Maxvalue = productdata?.length > 0 ? Math?.max(...productdata) : 10000;
   }
   // console.log("productdata-----", productdata);
-  console.log(
-    "MinvalueMinvalueMinvalueMinvalue",singleproduct
-  );
+  // console.log(
+  //   "MinvalueMinvalueMinvalueMinvalue",singleproduct
+  // );
   // for dynamic changes
   // const hanleMaxrange = (e) => {
   //   const value=e.target.value.replace(/\D/g, '')
