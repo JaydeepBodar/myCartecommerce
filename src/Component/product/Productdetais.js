@@ -107,7 +107,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   };
   const [selection, setselection] = useState(null);
   const [selection1, setselection1] = useState(null);
-  const [filter, setfilter] = useState({ size: null, color: "", stock: true });
+  const [filter, setfilter] = useState({ size: "", color: "", stock: true });
   const uniqueColors = Array.from(
     new Set(singleproduct?.products?.sizes.map((product) => product.color))
   );
