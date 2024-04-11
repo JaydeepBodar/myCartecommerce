@@ -8,7 +8,6 @@ import Brand from "@/Component/Brand";
 const Homepagedata = () => {
   const [categorydata, setcategorydata] = useState("laptops");
   const categorymap = ["laptops", "jewelery", "watch"];
-  console.log("WEBHOOKS_SECERATKEY_PRODUCTIONWEBHOOKS_SECERATKEY_PRODUCTION",process.env.WEBHOOKS_SECERATKEY_PRODUCTION)
   return (
     <>
       <Bannercarosel />

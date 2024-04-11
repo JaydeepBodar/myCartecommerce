@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import Tostify from "../Tostify";
 import { toast } from "react-toastify";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import { CiSquarePlus } from "react-icons/ci";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 const Additem = () => {
   const [Input, setInput] = useState({
     title: "",
@@ -15,9 +18,10 @@ const Additem = () => {
     description: "",
     price: "",
     discountPercentage: "",
-    subcategory:"",
+    subcategory: "",
     rating: "",
     featured: false,
+    stock: true,
   });
   const { theme } = Globalthemeprovider();
   const router = useRouter();
@@ -31,13 +35,45 @@ const Additem = () => {
     discountPercentage,
     rating,
     featured,
-    subcategory
+    subcategory,
+ 
   } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...Input, [name]: value });
   };
-  // console.log("category", description);
+  // size-color-selection -start
+  const [filterarray, settfilterarray] = useState([]);
+  const [disable, setdisable] = useState(false);
+  const [selection, setselection] = useState({
+    size: "",
+    color: "",
+    quantity: "",
+  });
+  const { size, color, quantity } = selection;
+  const handleFilter = (e) => {
+    const { name, value } = e.target;
+    setselection({ ...selection, [name]: value });
+  };
+  const allFilterdata = () => {
+    if (color !== "" && quantity !== "") {
+      // Add the current selection to the selectionsArray
+      settfilterarray([...filterarray, { ...selection }]);
+      // Reset the selection state for the next input
+      setselection({ size: "", color: "", quantity: "" });
+      setdisable(false);
+    }
+
+  };
+  const handleEditItem = (index) => {
+    setselection({ size: size, color: color, quantity: quantity });
+    const editedItems = [...filterarray];
+    const selectedItem = editedItems[index];
+    setselection(selectedItem);
+    editedItems.splice(index, 1);
+    settfilterarray(editedItems);
+  };
+  // size-color-selection - end
   // for multiple images
   const handleImageUpload = async (e) => {
     const files = e.target.files;
@@ -103,6 +139,7 @@ const Additem = () => {
       axios
         .post(`${process.env.API_URL}api/admin/product`, {
           ...Input,
+          sizes: filterarray,
           images: images,
           thumbnail: pic,
         })
@@ -136,20 +173,14 @@ const Additem = () => {
             placeholder="Enter Product Title..."
             className="basis-[100%]"
           />
-          <select
+          <input
+            type="text"
             value={category}
+            placeholder="Enter Product Category..."
             name="category"
             className="bg-white basis-[49%] max-lg:basis-[100%]"
             onChange={handleChange}
-          >
-            {checkbox.map((val, index) => {
-              return (
-                <option key={index} value={val.value}>
-                  {val.label}
-                </option>
-              );
-            })}
-          </select>
+          />
           <select
             value={featured}
             name="featured"
@@ -165,7 +196,7 @@ const Additem = () => {
             value={subcategory}
             onChange={handleChange}
             placeholder="Enter Sub Category..."
-            className="basis-[100%]"
+            className="basis-[49%]"
           />
           <input
             type="Number"
@@ -207,6 +238,84 @@ const Additem = () => {
             className="w-[100%]"
             placeholder="Enter your Product description..."
           ></textarea>
+          <div className="text-left basis-[100%] flex flex-col gap-y-2">
+            <h4>For Size,Color,Quantity filter</h4>
+            <div className="flex gap-x-4 gap-y-2 flex-wrap">
+              <input
+                className="flex-1 max-sm:basis-[100%]"
+                type="text"
+                value={size}
+                name="size"
+                onChange={(e) => handleFilter(e)}
+              />
+              <input
+                className="flex-1 max-sm:basis-[100%]"
+                type="number"
+                value={quantity}
+                name="quantity"
+                onChange={(e) => handleFilter(e)}
+              />
+              <input
+                className="bg-[#fff] h-[43px] flex-1 max-sm:basis-[100%]  "
+                type="color"
+                value={color}
+                name="color"
+                onChange={(e) => handleFilter(e)}
+              />
+            </div>
+            <div>
+              <CiSquarePlus
+                className="fill-red-600 text-[24px] font-bold"
+                onClick={allFilterdata}
+              />
+            </div>
+          </div>
+          {filterarray?.length > 0 && (
+            <table className="w-[100%] text-center max-sm:text-[13px]">
+              <tr>
+                <th>sr</th>
+                <th>size</th>
+                <th>color</th>
+                <th>quantity</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+              {filterarray?.map((val, index) => {
+                const { quantity, size, color } = val;
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{size}</td>
+                    <td>
+                      <span
+                        style={{ backgroundColor: color }}
+                        className="block mx-[auto] w-[15px] h-[15px] rounded-full"
+                      ></span>
+                    </td>
+                    <td>{quantity}</td>
+                    <td onClick={() => handleEditItem(index)}>
+                      <button
+                        type="button"
+                        disabled={disable === true}
+                        onClick={() => setdisable(true)}
+                      >
+                        <FaEdit
+                          className={`${
+                            disable === true && "opacity-50"
+                          } fill-red-600 text-xl font-bold mx-[auto] opacity-100`}
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button">
+                        <MdDeleteOutline className="fill-red-600 text-xl font-bold mx-[auto]" />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </table>
+          )}
           <input
             type="number"
             name="discountPercentage"

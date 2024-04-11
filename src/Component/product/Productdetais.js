@@ -107,11 +107,10 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   };
   const [selection, setselection] = useState(null);
   const [selection1, setselection1] = useState(null);
-  const [filter, setfilter] = useState({ size: "", color: "", stock: true });
+  const [filter, setfilter] = useState({ size: "", color: "",stock:true });
   const uniqueColors = Array.from(
     new Set(singleproduct?.products?.sizes.map((product) => product.color))
   );
-  console.log("filterfilterfilterfilter", filter);
   return (
     <Container>
       {loading && (
@@ -214,17 +213,13 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <p>Color Selection :-</p>
               <div
                 className={`${
-                  filter?.size?.length > 0 ? "pb-14" : "pb-7"
+                  filter?.size !== "" ? "pb-14" : "pb-7"
                 } flex gap-x-3 relative`}
               >
                 {uniqueColors.map((color, index) => {
                   const filtercolor = singleproduct?.products?.sizes?.filter(
                     (val) => val.color === color
                   );
-                  console.log("filtercolorfiltercolor", filtercolor);
-                  {
-                    /* const { quantity, color, stock, _id, size } = val; */
-                  }
                   return (
                     <>
                       <div
@@ -237,14 +232,15 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           setselection(index);
                           setselection1(null);
                           setfilter({
-                            size: "",
+                            size:"",
                             color: color,
+                            stock: filtercolor[0]?.quantity > 0 ? true : false
                           });
                         }}
                       >
                         <p
                           style={{ backgroundColor: color }}
-                          className={`w-[15px] h-[15px] rounded-full`}
+                          className={`w-[15px] h-[15px] rounded-full border-[gray] border-[1px]`}
                         ></p>
                       </div>
                       <div className="absolute top-5 w-[100%]">
@@ -252,7 +248,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           {selection === index &&
                             filtercolor.map((val, indexdata) => {
                               const { size, quantity, color, stock } = val;
-                              if (size !== "") {
+                              if (size !== "-") {
                                 return (
                                   <>
                                     <p
@@ -266,6 +262,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                           setfilter({
                                             color: color,
                                             size: size,
+                                            stock: quantity > 0 ? true : false,
                                           });
                                       }}
                                     >
@@ -275,12 +272,12 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                       {selection1 === indexdata && (
                                         <span
                                           className={`${
-                                            stock === true
+                                            quantity > 0
                                               ? "text-green-600"
                                               : "text-red-600"
                                           }`}
                                         >
-                                          {stock === true > 0 ? (
+                                          {quantity > 0 ? (
                                             <span>In Stock</span>
                                           ) : (
                                             <span>Out of Stock</span>
@@ -299,12 +296,12 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                   >
                                     <span
                                       className={`${
-                                        stock === true
+                                        quantity > 0
                                           ? "text-green-600"
                                           : "text-red-600"
                                       }`}
                                     >
-                                      {stock === true ? (
+                                      {quantity > 0 ? (
                                         <span>In Stock</span>
                                       ) : (
                                         <span>Out of Stock</span>
@@ -336,7 +333,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               </div>
               <div className="flex items-center gap-x-3 mt-5">
                 <>
-                  {filter?.stock !== false &&
+                  {filter?.stock === true &&
                     session?.data?.user?.role !== "Admin" &&
                     (singleproduct?.products?.stock === "InStock" ? (
                       <>
@@ -356,13 +353,18 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                               size: filter?.size !== "" ? filter?.size : null,
                               color: filter?.color,
                             });
-                            if (
+                            if (filter?.color?.length === 0) {
+                              toast.error("Please select color variant")
+                            }
+                            else{
+                              if (
                               productbtn === true ||
                               cart?.cartItems?.length >= 0
                             ) {
                               setbtn("Go to Cart");
                             } else {
                               setbtn("Add Cart");
+                            }
                             }
                           }}
                           className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-red-600"

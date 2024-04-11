@@ -1,6 +1,5 @@
 import productSchema from "../model/productSchema";
 import APIFilter from "../utils/APIFilter";
-import db from "../db";
 export const getAllproductdata = async (req, res) => {
   const products = await productSchema.find();
   res.status(200).json({ products });
@@ -54,9 +53,11 @@ export const deleteProduct = async (req, res) => {
 export const singleProduct = async (req, res) => {
   const { id } = req.query;
   // try {
-  const data = await productSchema
-    .findById({ _id: id })
-    .populate("reviews.userdata");
+  const data = await productSchema.findById({ _id: id }).populate({
+    path: "reviews.userdata",
+    model: "User",
+    select: "name email avatar", // Specify the fields you want to populate for the user
+  });
   // console.log("req.user._id",req.user._id)
   res.json({ products: data });
   // } catch (e) {
@@ -64,7 +65,7 @@ export const singleProduct = async (req, res) => {
   // }
 };
 export const singleCategory = async (req, res) => {
-  const { category, subcategory, priceMin, priceMax,page } = req.query;
+  const { category, subcategory, priceMin, priceMax, page } = req.query;
   // const itemperpage = 6;
   // const currentpage = Number(page) || 1;
   // const totalskipitem = itemperpage * (currentpage - 1);
@@ -82,9 +83,9 @@ export const singleCategory = async (req, res) => {
     query.price = { $gte: numPricemin, $lte: numPricemax };
   }
   // let data;
-  const productdata = await productSchema.find(query)
-    // .limit(itemperpage)
-    // .skip(totalskipitem);
+  const productdata = await productSchema.find(query);
+  // .limit(itemperpage)
+  // .skip(totalskipitem);
   // const totalproduct = await productSchema.find(query).countDocuments();
   // console.log("productdataproductdata", query);
   // // console.log("req.user._id",req.user._id)
@@ -109,7 +110,7 @@ export const updateProduct = async (req, res) => {
     // console.log("updateProduct",updateProduct)
     res.status(200).json({ message: "Succsessfully update product" });
   } catch (e) {
-    console.log("eeee",e)
+    console.log("eeee", e);
     res.status(400).json({ message: "Something went to wrong!" });
   }
 };
@@ -154,7 +155,7 @@ export const deleteReview = async (req, res) => {
     // console.log("objectupdatereview", updatereview);
   }
   res.status(200).json({ message: "Succsessfully Review delete" });
-};  
+};
 export const getReview = async (req, res) => {
   const product = await productSchema.findOne(
     { _id: req.query.id },
@@ -218,3 +219,23 @@ export const testMonalis = async (req, res) => {
   // console.log("productreviewproductreview", productreview);
   res.status(200).json({ productreview });
 };
+  // export const singlesize = async (req, res) => {
+  //   const { product_id ,updateData,size_id} = req.body;
+  //   const productreview = await productSchema
+  //     .findById(product_id)
+  //     .then((product) => {
+  //       console.log("productproduct", product);
+  //       const productsize=product?.sizes?.findIndex(size=>size._id == size_id)
+  //       if (sizeIndex !== -1) {
+  //         // Update the size object at the found index with the update data
+  //         product.sizes[productsize].set(updateData);
+  //         // Save the updated product document
+  //         return product.save();
+  //       } else {
+  //         console.log("Size not found");
+  //         return;
+  //       }
+  //     });
+  //   console.log("productsizeproductsize", productreview);
+  //   res.status(200).json(productreview);
+  // };

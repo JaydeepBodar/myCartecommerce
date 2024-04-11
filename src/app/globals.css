@@ -252,30 +252,49 @@ select option {
 .input-range__label--max .input-range__label.input-range__label--min {
   bottom: -25px;
 }
-.grid-cols-3,.grid-cols-2,.grid-cols-1{
+.grid-cols-3,
+.grid-cols-2,
+.grid-cols-1 {
   display: grid;
 }
-.grid-cols-3{
+.grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-.grid-cols-2{
+.grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.grid-cols-1{
+.grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-@media screen and (max-width: 600px) {
-  .data span {
-    padding-right: 0px;
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  color: #000;
+}
+.theme_changes table,
+.theme_changes th,
+.theme_changes td {
+  border: 1px solid #f2f2f2;
+  border-collapse: collapse;
+  color: #f2f2f2;
+}
+.fotter_bottom h4{
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+.fotter_bottom a{
+  font-weight: 500;
+}
+@media screen and (max-width: 768px) {
+  body {
+    line-height: 24px;
   }
-  .day {
-    display: block;
-  }
-  .hide {
-    display: none;
-  }
-  .input_range_price .input-range__label-container {
-    font-size: 13px;
+  .sidebar li {
+    font-size: 15px;
+    padding-bottom: 5px;
   }
 }
 @media screen and (max-width: 640px) {
@@ -313,7 +332,37 @@ select option {
   .testmonalis_wrapper .slick-dots li button:before {
     font-size: 10px;
   }
+  .fotter_bottom h4{
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .fotter_bottom a,.fotter_bottom p{
+    font-size: 13px;
+  }
 }
+@media screen and (max-width: 600px) {
+  .data span {
+    padding-right: 0px;
+  }
+  .day {
+    display: block;
+  }
+  .hide {
+    display: none;
+  }
+  .input_range_price .input-range__label-container {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .Toastify .Toastify__toast-container {
+    width: 100%;
+    max-width: 250px;
+    top: 65px;
+    right: 0 !important;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .newdata1 {
     flex-basis: 45% !important;
@@ -327,22 +376,5 @@ select option {
   }
   .content h4 {
     font-size: 15px;
-  }
-}
-@media screen and (max-width: 480px) {
-  .Toastify .Toastify__toast-container {
-    width: 100%;
-    max-width: 250px;
-    top: 65px;
-    right: 0 !important;
-  }
-}
-@media screen and (max-width: 768px) {
-  body {
-    line-height: 24px;
-  }
-  .sidebar li {
-    font-size: 15px;
-    padding-bottom: 5px;
   }
 }

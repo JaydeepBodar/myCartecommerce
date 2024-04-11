@@ -10,7 +10,7 @@ const Breadcrumb = ({ title }) => {
       /&nbsp;
       <span
         className={`${
-          pathname === `/productcategory/${title}` && "text-red-600"
+          pathname === `/productcategory/${title}` || pathname === `/${title}` ? "text-red-600":""
         } capitalize`}
       >
         {title}

@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import { CiSquarePlus } from "react-icons/ci";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 const Productupdate = ({ product }) => {
   const router = useRouter();
   const [Input, setInput] = useState({
@@ -26,8 +28,11 @@ const Productupdate = ({ product }) => {
     color: "",
     quantity: "",
   });
-  const [filterarray, settfilterarray] = useState([]);
+  const [filterarray, settfilterarray] = useState(
+    product?.sizes?.length > 0 ? product?.sizes : []
+  );
   const [featured, setfeatured] = useState(false);
+  const [disable, setdisable] = useState(false);
   const { theme } = Globalthemeprovider();
   const [images, setImages] = useState([
     product.images[0],
@@ -46,7 +51,6 @@ const Productupdate = ({ product }) => {
     subcategory,
   } = Input;
   const { size, color, quantity } = selection;
-  console.log("selectionselection", filterarray);
   // console.log("producteeeeeeeeeeeee",stock)
   // console.log("title", title);
   const handleFilter = (e) => {
@@ -59,7 +63,16 @@ const Productupdate = ({ product }) => {
       settfilterarray([...filterarray, { ...selection }]);
       // Reset the selection state for the next input
       setselection({ size: "", color: "", quantity: "" });
+      setdisable(false)
     }
+  };
+  const handleEditItem = (index) => {
+    setselection({ size: size, color: color, quantity: quantity });
+    const editedItems = [...filterarray];
+    const selectedItem = editedItems[index];
+    setselection(selectedItem);
+    editedItems.splice(index, 1);
+    settfilterarray(editedItems);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -138,7 +151,7 @@ const Productupdate = ({ product }) => {
       .put(`${process.env.API_URL}api/admin/product/${product?._id}`, {
         ...Input,
         featured,
-        sizes:filterarray,
+        sizes: filterarray,
         // discountPercentage:featredval,
         images: images,
         thumbnail: pic,
@@ -253,16 +266,18 @@ const Productupdate = ({ product }) => {
             />
           </div>
           <div>
-            <CiSquarePlus onClick={allFilterdata} />
+            <CiSquarePlus className="fill-red-600 text-[24px] font-bold" onClick={allFilterdata} />
           </div>
         </div>
         {filterarray?.length > 0 && (
-          <table className="w-[100%] text-center border-[1px] border-[gray]">
+          <table className="w-[100%] text-center max-sm:text-[13px]">
             <tr>
               <th>sr</th>
               <th>size</th>
               <th>color</th>
               <th>quantity</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
             {filterarray?.map((val, index) => {
               const { quantity, size, color } = val;
@@ -270,8 +285,23 @@ const Productupdate = ({ product }) => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{size}</td>
-                  <td className="flex items-baseline justify-center gap-x-2">{color} <span style={{backgroundColor:color}} className="w-[15px] h-[15px] rounded-full"></span></td>
+                  <td>
+                    <span
+                      style={{ backgroundColor: color }}
+                      className="block mx-[auto] w-[15px] h-[15px] rounded-full"
+                    ></span>
+                  </td>
                   <td>{quantity}</td>
+                  <td onClick={() => handleEditItem(index)}>
+                    <button type="button" disabled={disable === true} onClick={()=>setdisable(true)}>
+                      <FaEdit className={`${disable === true && "opacity-50"} fill-red-600 text-xl font-bold mx-[auto] opacity-100`} />
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button">
+                      <MdDeleteOutline className="fill-red-600 text-xl font-bold mx-[auto]" />
+                    </button>
+                  </td>
                 </tr>
               );
             })}

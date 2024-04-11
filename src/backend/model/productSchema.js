@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import model from "./Userschema";
 const SizeSchema = mongoose.Schema({
-  size: { type: String, required: true,default:null }, // Size value (e.g., S, M, L, 7, 8, 9)
+  size: { type: String,default:null }, // Size value (e.g., S, M, L, 7, 8, 9)
   quantity: { type: Number, default: 0 }, // Quantity available for this size
   color: { type: String }, // Color of the product
   stock: { type: Boolean, default: true }, // Stock availability for this size
@@ -16,7 +16,7 @@ const productSchema = mongoose.Schema(
     images: [String],
     price: Number,
     discountPercentage: Number,
-    stock: {
+    Instock: {
       type: String,
       default: "InStock",
     },
