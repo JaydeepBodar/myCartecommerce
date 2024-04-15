@@ -8,7 +8,7 @@ const Categorypage = ({ params }) => {
   const [loading, setloading] = useState(true);
   const [subcategory, setsubcategory] = useState("");
   const [categorydata, setcategorydata] = useState([]);
-  const [price, setprices] = useState({ price: { min: "", max: "" } });
+  const [price, setprices] = useState({ min: "", max: "" });
   let Minvalue;
   let Maxvalue;
   // const [priceMax, setPriceMin] = useState('');
@@ -20,34 +20,31 @@ const Categorypage = ({ params }) => {
     //     : `${env.APIURL}/api/productcategory/${params.category}?subcategory=${subcategory}`;
     axios
       .get(
-        `${env.APIURL}/api/productcategory/${params.category}?subcategory=${subcategory}&priceMin=${price?.price?.min}&priceMax=${price?.price?.max}`
+        `${env.APIURL}/api/productcategory/${params.category}?subcategory=${subcategory}&priceMin=${price?.min}&priceMax=${price?.max}`
       )
       .then((res) => {
-        if (subcategory === "") {
-          setcategorydata(res.data.productdata);
           setsingleproduct(res.data.productdata);
-        } else {
-          setsingleproduct(res.data.productdata);
-        }
       })
       .catch((e) => console.log("e", e))
       .finally(() => setloading(false));
   }, [loading, subcategory, price]);
-  const productdata = singleproduct?.map((data) => data?.price);
+  useEffect(() => {
+    axios
+      .get(`${env.APIURL}/api/productcategory/${params.category}`)
+      .then((res) => setcategorydata(res.data.productdata))
+      .catch((e) => e);
+  }, []);
+  const productdata = categorydata?.map((data) => data?.price);
   if (subcategory !== "") {
-    // console.log("...productdata", ...productdata);
-    // console.log("categorydata", categorydata);
-    // console.log("Minvalue", Minvalue);
-    // console.log("Maxvalue", Maxvalue);
     const newdata = categorydata?.filter(
       (data) => data.subcategory === subcategory
     );
     const filtrprice = newdata?.map((val) => val.price);
     Minvalue = Math?.min(0);
     Maxvalue = Math?.max(...filtrprice);
-  } else {
-    Minvalue = productdata?.length > 0 ? Math?.min(...productdata) : 0;
-    Maxvalue = productdata?.length > 0 ? Math?.max(...productdata) : 10000;
+  } else if (subcategory === "") {
+    Minvalue = Math?.min(0);
+    Maxvalue = Math?.max(...productdata)
   }
   // console.log("productdata-----", productdata);
   // console.log(
@@ -64,7 +61,7 @@ const Categorypage = ({ params }) => {
   // };
   // for packages changes
   const handleSliderChange = (value) => {
-    setprices((prev) => ({ ...prev, price: value }));
+    setprices(value);
   };
   return (
     <div>
@@ -82,7 +79,7 @@ const Categorypage = ({ params }) => {
         // priceMin={priceMin}
         // priceMax={priceMax}
         setprices={setprices}
-        price={price?.price}
+        price={price}
         handleSliderChange={handleSliderChange}
       />
     </div>

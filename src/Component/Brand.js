@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { lazy } from "react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import img1 from "../../public/images/brand/brand-01.png";

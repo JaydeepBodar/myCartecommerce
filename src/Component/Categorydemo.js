@@ -34,6 +34,7 @@ const Categorydemo = ({
   const { theme } = Globalthemeprovider();
   const [grid, setgrid] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
+  const[width,setwidth]=useState(window.innerWidth)
   const pathname = usePathname();
   const itemsPerPage = grid === 1 ? 4 : 6;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -50,6 +51,19 @@ const Categorydemo = ({
   useEffect(() => {
     setCurrentPage(1);
   }, [subcategory]);
+  useEffect(() => {
+    const handleResize = () => {
+      setwidth(window.innerWidth)
+      if(width < 768 ){
+        setgrid(2);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [width]);
+  console.log("categoryfieldcategoryfieldcategoryfield", singleproduct);
   return (
     <section className="product_category py-5">
       <Breadcrumb title={category} />
@@ -103,11 +117,11 @@ const Categorydemo = ({
                       className={`${
                         subcategory === "" && "bg-red-600 text-[#fff]"
                       } ${
-                        theme === true && "text-[#fff]"
-                      }cursor-pointer max-sm:px-2 px-5 py-1 font-semibold rounded-lg transtiton-all duration-500`}
+                        theme === false ? "text-[#fff]" : "text-[#000]"
+                      } capitalize cursor-pointer max-sm:px-2 px-5 py-1 font-semibold rounded-lg transtiton-all duration-500`}
                       onClick={() => {
                         setsubcategory("");
-                        setprices({ price: { min: "", max: "" } });
+                        setprices({ min: "", max: "" });
                       }}
                     >
                       All
@@ -120,10 +134,10 @@ const Categorydemo = ({
                             data === subcategory && "bg-red-600 text-[#fff]"
                           } ${
                             theme === false && "text-[#fff]"
-                          } cursor-pointer max-sm:px-2 px-5 py-1 font-semibold text-[#000] rounded-lg transtiton-all duration-500`}
+                          } capitalize cursor-pointer max-sm:px-2 px-5 py-1 font-semibold text-[#000] rounded-lg transtiton-all duration-500`}
                           onClick={() => {
                             setsubcategory(data);
-                            setprices({ price: { min: "", max: "" } });
+                            setprices({ min: "", max: "" });
                           }}
                         >
                           {data}

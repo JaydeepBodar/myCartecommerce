@@ -1,4 +1,3 @@
-"use client";
 import React,{useState} from "react";
 import { GoMoveToTop } from "react-icons/go";
 import Link from "next/link";
@@ -55,7 +54,7 @@ const Footer = () => {
                 <ul>
                   <li><Link href="#">Search</Link></li>
                   <li><Link href="#">About us</Link></li>
-                  <li><Link href="#">Account</Link></li>
+                  <li><Link href="/User">Account</Link></li>
                   <li><Link href="#">Contact us</Link></li>
                 </ul>
               </div>
@@ -63,9 +62,9 @@ const Footer = () => {
                 <h4>Quick Links</h4>
                 <ul>
                   <li><Link href="/productcategory/Headphone">Headphone</Link></li>
-                  <li><Link href="#">About us</Link></li>
-                  <li><Link href="/User">Account</Link></li>
-                  <li><Link href="#">Contact us</Link></li>
+                  <li><Link href="/productcategory/home-decoration">Home Decoration</Link></li>
+                  <li><Link href="/productcategory/fragrances">Fragrances</Link></li>
+                  <li><Link href="/productcategory/skincare">Skin care</Link></li>
                 </ul>
               </div>
             </div>
