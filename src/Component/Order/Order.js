@@ -35,7 +35,7 @@ const Order = ({ order, totalitem, itemperpage, loader, loading }) => {
             <div className="h-[50vh] flex justify-center items-center font-semibold text-xl">
               <h2>
                 No order Found{" "}
-                <Link href="/" className="font-light text-[red]">
+                <Link href="/" className="font-light text-[#197693]">
                   back to Shop
                 </Link>
               </h2>

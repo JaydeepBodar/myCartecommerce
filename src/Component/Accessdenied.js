@@ -7,7 +7,7 @@ const Accessdenied = () => {
         Access Denied First you need to login to Access This page&nbsp;
         <Link
           href="/login"
-          className="text-[red] decoration-slice font-semibold"
+          className="text-[#197693] decoration-slice font-semibold"
         >
           Log in...
         </Link>

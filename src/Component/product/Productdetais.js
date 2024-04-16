@@ -107,7 +107,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   };
   const [selection, setselection] = useState(null);
   const [selection1, setselection1] = useState(null);
-  const [filter, setfilter] = useState({ size: "", color: "",stock:true });
+  const [filter, setfilter] = useState({ size: "", color: "", stock: true });
   const uniqueColors = Array.from(
     new Set(singleproduct?.products?.sizes.map((product) => product.color))
   );
@@ -213,7 +213,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <p>Color Selection :-</p>
               <div
                 className={`${
-                  filter?.size !== "" ? "pb-14" : "pb-7"
+                  selection !== null && filter?.size !== "-" ? "pb-14" : "pb-7"
                 } flex gap-x-3 relative`}
               >
                 {uniqueColors.map((color, index) => {
@@ -230,11 +230,11 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                         } p-[2px]`}
                         onClick={() => {
                           setselection(index);
-                          setselection1(null);
+                          setselection1(0);
                           setfilter({
-                            size:"",
+                            size: filtercolor[0]?.size === "-" ? "-" : filtercolor[0]?.size,
                             color: color,
-                            stock: filtercolor[0]?.quantity > 0 ? true : false
+                            stock: filtercolor[0]?.quantity > 0 ? true : false,
                           });
                         }}
                       >
@@ -255,7 +255,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                       key={indexdata}
                                       className={`${
                                         selection1 === indexdata &&
-                                        "bg-red-600 text-white"
+                                        "bg-[#197693] text-white"
                                       } p-1 w-[30px] text-center rounded-lg cursor-pointer`}
                                       onClick={() => {
                                         setselection1(indexdata),
@@ -269,46 +269,72 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                       {size}{" "}
                                     </p>
                                     <span className="absolute top-9">
-                                      {selection1 === indexdata && (
-                                        <span
-                                          className={`${
-                                            quantity > 0
-                                              ? "text-green-600"
-                                              : "text-red-600"
-                                          }`}
-                                        >
-                                          {quantity > 0 ? (
-                                            <span>In Stock</span>
-                                          ) : (
-                                            <span>Out of Stock</span>
-                                          )}
-                                          ({quantity} Items Avilabel)
-                                        </span>
-                                      )}
+                                      {selection1 === indexdata  &&
+                                        filter?.size?.length > 0 && (
+                                          <span
+                                            className={`${
+                                              quantity > 0
+                                                ? "text-green-600"
+                                                : "text-red-600"
+                                            }`}
+                                          >
+                                            {quantity > 0 ? (
+                                              <span>In Stock</span>
+                                            ) : (
+                                              <span>Out of Stock</span>
+                                            )}
+                                            (
+                                            {quantity <= 2 && quantity > 0 ? (
+                                              <span>
+                                                Hurray! only {quantity} Item
+                                                left
+                                              </span>
+                                            ) : (
+                                              <span>
+                                                {quantity} Items Avilabel
+                                              </span>
+                                            )}
+                                            )
+                                          </span>
+                                        )}
                                     </span>
                                   </>
                                 );
                               } else {
                                 return (
-                                  <span
-                                    className="absolute top-0"
-                                    key={indexdata}
-                                  >
-                                    <span
-                                      className={`${
-                                        quantity > 0
-                                          ? "text-green-600"
-                                          : "text-red-600"
-                                      }`}
-                                    >
-                                      {quantity > 0 ? (
-                                        <span>In Stock</span>
-                                      ) : (
-                                        <span>Out of Stock</span>
+                                  <>
+                                    {selection === index &&
+                                      filter?.size === "-" && (
+                                        <span
+                                          className="absolute top-0"
+                                          key={indexdata}
+                                        >
+                                          <span
+                                            className={`${
+                                              filter?.stock === true
+                                                ? "text-green-600"
+                                                : "text-red-600"
+                                            }`}
+                                          >
+                                            {filter?.stock === true ? (
+                                              <span>In Stock</span>
+                                            ) : (
+                                              <span>Out of Stock</span>
+                                            )}
+                                            ({quantity <= 2 && quantity > 0 ? (
+                                              <span>
+                                                Hurray! only {quantity} Item
+                                                left
+                                              </span>
+                                            ) : (
+                                              <span>
+                                                {quantity} Items Avilabel
+                                              </span>
+                                            )})
+                                          </span>
+                                        </span>
                                       )}
-                                      ({quantity} Items Avilabel)
-                                    </span>
-                                  </span>
+                                  </>
                                 );
                               }
                             })}
@@ -354,20 +380,19 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                               color: filter?.color,
                             });
                             if (filter?.color?.length === 0) {
-                              toast.error("Please select color variant")
-                            }
-                            else{
-                              if (
-                              productbtn === true ||
-                              cart?.cartItems?.length >= 0
-                            ) {
-                              setbtn("Go to Cart");
+                              toast.error("Please select color variant");
                             } else {
-                              setbtn("Add Cart");
-                            }
+                              if (
+                                productbtn === true ||
+                                cart?.cartItems?.length >= 0
+                              ) {
+                                setbtn("Go to Cart");
+                              } else {
+                                setbtn("Add Cart");
+                              }
                             }
                           }}
-                          className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-red-600"
+                          className="w-[100%] max-w-[100px] bg-[#197693] text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-[#197693]"
                         >
                           {btn}
                         </button>
@@ -375,7 +400,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           <button
                             className={`${
                               productbtn === false && "hidden"
-                            } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg tracking-wide`}
+                            } text-center py-2 w-[100%] max-w-[100px] border-[1px] border-[#197693] text-[#197693] rounded-lg tracking-wide`}
                             onClick={Removeitem}
                           >
                             Remove
@@ -390,7 +415,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                   {session?.data?.user?.role === "Admin" && (
                     <Link
                       href="/User/Admin/Allproduct"
-                      className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center font-semibold tracking-wide rounded-lg"
+                      className="w-[100%] max-w-[100px] bg-[#197693] text-white py-2 block text-center font-semibold tracking-wide rounded-lg"
                     >
                       Back
                     </Link>
@@ -402,7 +427,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                   onClick={() => {
                     openBox(), setcomment(""), setrating("");
                   }}
-                  className="flex items-center justify-center gap-x-2 mt-3 w-[100%] max-w-[130px] border-red-600 text-red-600 border-[1px] py-1 text-center font-semibold tracking-wide rounded-lg"
+                  className="flex items-center justify-center gap-x-2 mt-3 w-[100%] max-w-[130px] border-[#197693] text-[#197693] border-[1px] py-1 text-center font-semibold tracking-wide rounded-lg"
                 >
                   <AiOutlinePlus />
                   Add Review
@@ -423,7 +448,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                     >
                       <AiOutlineClose />
                     </div>
-                    <h3 className="text-red-600">
+                    <h3 className="text-[#197693]">
                       {reviewdata?.reviews?.length > 0 ? (
                         <span>Edit</span>
                       ) : (
@@ -448,7 +473,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                       />
                       <button
                         onClick={handleEditing}
-                        className="w-[100%] max-w-[120px] py-1 text-red-600 border-[1px] border-red-600 rounded-lg mt-2"
+                        className="w-[100%] max-w-[120px] py-1 text-[#197693] border-[1px] border-[#197693] rounded-lg mt-2"
                         type="submit"
                       >
                         {reviewdata?.reviews.length > 0 ? (

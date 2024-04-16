@@ -266,7 +266,7 @@ const Productupdate = ({ product }) => {
             />
           </div>
           <div>
-            <CiSquarePlus className="fill-red-600 text-[24px] font-bold" onClick={allFilterdata} />
+            <CiSquarePlus className="fill-[#197693] text-[24px] font-bold" onClick={allFilterdata} />
           </div>
         </div>
         {filterarray?.length > 0 && (
@@ -294,12 +294,12 @@ const Productupdate = ({ product }) => {
                   <td>{quantity}</td>
                   <td onClick={() => handleEditItem(index)}>
                     <button type="button" disabled={disable === true} onClick={()=>setdisable(true)}>
-                      <FaEdit className={`${disable === true && "opacity-50"} fill-red-600 text-xl font-bold mx-[auto] opacity-100`} />
+                      <FaEdit className={`${disable === true && "opacity-50"} fill-[#197693] text-xl font-bold mx-[auto] opacity-100`} />
                     </button>
                   </td>
                   <td>
                     <button type="button">
-                      <MdDeleteOutline className="fill-red-600 text-xl font-bold mx-[auto]" />
+                      <MdDeleteOutline className="fill-[#197693] text-xl font-bold mx-[auto]" />
                     </button>
                   </td>
                 </tr>
@@ -370,7 +370,7 @@ const Productupdate = ({ product }) => {
           </select>
         </div>
         <div className="text-center w-[100%]">
-          <button className="mt-3 text-center py-2 w-[100%] font-semibold border-[1px] bg-red-600 text-white rounded-lg tracking-wide">
+          <button className="mt-3 text-center py-2 w-[100%] font-semibold border-[1px] bg-[#197693] text-white rounded-lg tracking-wide">
             Update Product
           </button>
         </div>

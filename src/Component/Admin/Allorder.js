@@ -65,7 +65,7 @@ const Allorder = ({ orderdata, loading, loader }) => {
                     <h4
                       className={`${
                         orderStatus === "Processing"
-                          ? "text-[red]"
+                          ? "text-[#197693]"
                           : "text-[green]"
                       }`}
                     >

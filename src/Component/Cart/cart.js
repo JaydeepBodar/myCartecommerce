@@ -7,7 +7,7 @@ const cart = () => {
   return (
     <React.Fragment>
       <div className="max-lg:h-[auto]">
-        <div className="tracking-[1.2px] bg-red-600 text-white font-semibold text-2xl py-5">
+        <div className="tracking-[1.2px] bg-[#197693] text-white font-semibold text-2xl py-5">
           <Container>
             <h3>
               {" "}

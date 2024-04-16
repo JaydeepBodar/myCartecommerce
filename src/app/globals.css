@@ -28,7 +28,7 @@ body {
   padding-right: 10px;
 }
 .sidebar span {
-  color: #dc2626;
+  color: #197693;
 }
 .sidebar li {
   padding-bottom: 10px;
@@ -55,7 +55,7 @@ textarea::-webkit-scrollbar-track {
 
 .scrollbar::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb {
-  background-color: #dc2626; /* color of the scroll thumb */
+  background-color: #197693; /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */ /* creates padding around scroll thumb */
 }
 .cartfont h4 {
@@ -169,7 +169,7 @@ select option {
 .testmonalis:after {
   display: inline;
   font-size: 50px;
-  color: #dc2626;
+  color: #197693;
   padding: 0;
   position: relative;
   top: 0.25em;
@@ -181,7 +181,7 @@ select option {
   font-size: 12px;
 }
 .testmonalis_wrapper .slick-dots li.slick-active button:before {
-  color: #dc2626;
+  color: #197693;
 }
 .testmonalis_wrapper .slick-dots li button:before {
   color: gray;
@@ -225,11 +225,11 @@ select option {
   padding: 25px 0;
 }
 .input_range_price .input-range__track--active {
-  background: #dc2626;
+  background: #197693;
 }
 .input_range_price .input-range__slider {
-  background: #dc2626;
-  border-color: #dc2626;
+  background: #197693;
+  border-color: #197693;
 }
 .input_range_price .input-range__label-container {
   color: #000;

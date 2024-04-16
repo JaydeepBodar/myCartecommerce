@@ -120,14 +120,14 @@ const Register = () => {
               )}
               <button
                 type="submit"
-                className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md"
+                className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#197693] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md"
               >
                 Sign up
               </button>
             </form>
             <Link
               href="/Authentication/login"
-              className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
+              className="pt-2 flex justify-center hover:text-[#197693] transition-all duration-500"
             >
               Alreday an Account...
             </Link>

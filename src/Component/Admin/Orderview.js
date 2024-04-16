@@ -72,7 +72,7 @@ const Orderview = ({ order, loading }) => {
               </select>
               <button
                 onClick={updateDetail}
-                className="text-[14px] w-[100%] max-w-[100px] bg-[red] text-white mt-2 py-1 font-semibold rounded-lg"
+                className="text-[14px] w-[100%] max-w-[100px] bg-[#197693] text-white mt-2 py-1 font-semibold rounded-lg"
               >
                 Update
               </button>
@@ -122,7 +122,7 @@ const Orderview = ({ order, loading }) => {
             </div>
           </div>
           <Link
-            className="inline-block text-[14px] text-center w-[100px] border-[1px] border-[red] text-red-600 mt-2 py-1 font-semibold rounded-lg"
+            className="inline-block text-[14px] text-center w-[100px] border-[1px] border-[#197693] text-[#197693] mt-2 py-1 font-semibold rounded-lg"
             href="/User/Admin/AllOrder"
           >
             Back

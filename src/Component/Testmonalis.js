@@ -68,7 +68,7 @@ const Testmonalis = () => {
                   return (
                     <div
                       key={index}
-                      className="cursor-pointer text-center my-[30px] px-2 relative z-0"
+                      className="cursor-pointer text-center my-[30px] px-2 relative z-0 flex flex-col h-[100%]"
                     >
                       <div className="absolute top-[-20px] left-[43%] z-10">
                         <Image

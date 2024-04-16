@@ -50,7 +50,7 @@ const Orderitems = ({ item }) => {
             <h4>Order id:-&nbsp;{_id}</h4>
             <h4
               className={`${
-                orderStatus === "Processing" ? "text-[red]" : "text-[green]"
+                orderStatus === "Processing" ? "text-[#197693]" : "text-[green]"
               }`}
             >
               Order Status:-&nbsp;{orderStatus}
@@ -139,7 +139,7 @@ const Orderitems = ({ item }) => {
         ""
       ) : (
         <div className="text-right pt-2" onClick={deleteOrderitem}>
-          <button className="w-[100%] font-semibold tracking-wide text-center max-w-[80px] text-[14px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 hover:bg-red-600 hover:text-[#fff] hover:transition-all hover:duration-1000">
+          <button className="w-[100%] font-semibold tracking-wide text-center max-w-[80px] text-[14px] py-1 rounded-lg border-[1px] border-[#197693] text-[#197693] hover:bg-[#197693] hover:text-[#fff] hover:transition-all hover:duration-1000">
             Cancel
           </button>
         </div>

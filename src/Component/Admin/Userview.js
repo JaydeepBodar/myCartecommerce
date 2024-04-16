@@ -65,7 +65,7 @@ const Userview = ({ user }) => {
           </select>
           <button
             onClick={updateDetail}
-            className="text-[14px] w-[100%] max-w-[100px] bg-[red] text-white mt-2 py-1 font-semibold rounded-lg"
+            className="text-[14px] w-[100%] max-w-[100px] bg-[#197693] text-white mt-2 py-1 font-semibold rounded-lg"
           >
             Update
           </button>

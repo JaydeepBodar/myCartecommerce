@@ -32,7 +32,7 @@ const Categorydemo = ({
   handleSliderChange,
 }) => {
   const { theme } = Globalthemeprovider();
-  const [grid, setgrid] = useState(2);
+  const [grid, setgrid] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const[width,setwidth]=useState(window.innerWidth)
   const pathname = usePathname();
@@ -50,7 +50,7 @@ const Categorydemo = ({
   ];
   useEffect(() => {
     setCurrentPage(1);
-  }, [subcategory]);
+  }, [subcategory,price]);
   useEffect(() => {
     const handleResize = () => {
       setwidth(window.innerWidth)
@@ -112,10 +112,10 @@ const Categorydemo = ({
                       onChange={(e) => handleSliderChange(e)}
                     />
                   </div>
-                  <ul className="flex gap-x-5 max-sm:gap-x-1 max-sm:gap-y-2 max-sm:text-[13px] pb-2 flex-col gap-y-4 text-center max-md:flex-row max-md:flex-wrap">
+                  <ul className="flex gap-x-5 max-sm:gap-x-1 max-sm:gap-y-2 max-sm:text-[14px] pb-2 flex-col gap-y-4 text-center max-md:flex-row max-md:flex-wrap">
                     <li
                       className={`${
-                        subcategory === "" && "bg-red-600 text-[#fff]"
+                        subcategory === "" && "bg-[#197693] text-[#fff]"
                       } ${
                         theme === false ? "text-[#fff]" : "text-[#000]"
                       } capitalize cursor-pointer max-sm:px-2 px-5 py-1 font-semibold rounded-lg transtiton-all duration-500`}
@@ -131,7 +131,7 @@ const Categorydemo = ({
                         <li
                           key={index}
                           className={`${
-                            data === subcategory && "bg-red-600 text-[#fff]"
+                            data === subcategory && "bg-[#197693] text-[#fff]"
                           } ${
                             theme === false && "text-[#fff]"
                           } capitalize cursor-pointer max-sm:px-2 px-5 py-1 font-semibold text-[#000] rounded-lg transtiton-all duration-500`}
@@ -162,7 +162,7 @@ const Categorydemo = ({
                             className={`cursor-pointer rounded-lg text-[20px] ${
                               index === 0 && "max-sm:hidden"
                             } ${
-                              grid === number && "bg-red-600 text-white"
+                              grid === number && "bg-[#197693] text-white"
                             } font-bold p-2 max-sm:p-1`}
                             onClick={() => setgrid(number)}
                           >
@@ -261,7 +261,7 @@ const Categorydemo = ({
                     setCurrentPage(number);
                   }}
                   innerClass="flex justify-center"
-                  activeClass="bg-red-600 text-white"
+                  activeClass="bg-[#197693] text-white"
                   itemClass="px-2 py-[4px]"
                   firstPageText={"<<"}
                   lastPageText={">>"}

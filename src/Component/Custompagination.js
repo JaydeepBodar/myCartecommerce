@@ -35,7 +35,7 @@ const Custompagination = ({ itemperpage, totalitem ,loader}) => {
           totalItemsCount={totalitem}
           onChange={handleChange}
           innerClass="flex justify-center"
-          activeClass="bg-red-600 text-white"
+          activeClass="bg-[#197693] text-white"
           itemClass={`${theme === true ? "border-[#000]" : "border-[#fff]"} px-2 py-[4px] border-[1px]`}
           firstPageText={"First"}
           lastPageText={"Last"}

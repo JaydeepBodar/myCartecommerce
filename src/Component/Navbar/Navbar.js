@@ -5,6 +5,7 @@ import { FaRegMoon } from "react-icons/fa";
 import Container from "../Container";
 import Image from "next/image";
 import Img from "../../../public/images/logo.png";
+import Img2 from "../../../public/images/logo-white.svg" 
 import { MdAccountCircle } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import Link from "next/link";
@@ -44,13 +45,13 @@ const Navbar = () => {
   return (
     <header>
       <Container>
-        <div className="flex justify-between items-center flex-wrap">
+        <div className="flex justify-between items-center flex-wrap py-3">
           <div className="max-lg:basis-[50%]">
             <Link href="/">
               <Image
                 alt="logo"
                 src={Img}
-                className="w-[100px] object-cover h-[80px]"
+                className="w-[100%] object-fill h-[60px]"
               />
             </Link>
           </div>
@@ -156,7 +157,7 @@ const Navbar = () => {
               </Link>
             ) : (
               <Link href="/Authentication/login">
-                <div className="flex font-semibold gap-2 items-center border-[1px] border-red-600 text-red-600 px-2 rounded-lg hover:bg-red-600 hover:text-white transition-all">
+                <div className="flex font-semibold gap-2 items-center border-[1px] border-[#197693] text-[#197693] px-2 rounded-lg hover:bg-[#197693] hover:text-white transition-all max-sm:text-[14px]">
                   <p>Sign in</p>
                   <MdAccountCircle className="w-6 h-6" title="Sign In" />
                 </div>
@@ -164,7 +165,7 @@ const Navbar = () => {
             )}
             <Link href="/Cart" className="relative">
               <BsCart3 title="Cart" className="w-6 h-6" />
-              <p className="absolute w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center top-[-18px] right-2">
+              <p className="absolute w-[25px] h-[25px] text-white bg-[#197693] rounded-full leading-[25px] text-center top-[-18px] right-2">
                 <Totalquantityt />
               </p>
             </Link>
@@ -181,8 +182,8 @@ const Navbar = () => {
                     href={path}
                     className={`${
                       pathname === path &&
-                      "bg-red-600 text-white block rounded-lg"
-                    } cursor-pointer text-center w-[100%] font-semibold py-1 max-sm:text-[13px] transtiton-all duration-500`}
+                      "bg-[#197693] text-white block rounded-lg"
+                    } cursor-pointer text-center w-[100%] font-semibold py-1 max-sm:text-[14px] transtiton-all duration-500`}
                   >
                     <li>{label}</li>
                   </Link>

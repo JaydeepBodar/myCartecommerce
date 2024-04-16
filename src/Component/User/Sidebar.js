@@ -27,9 +27,9 @@ const Sidebar = () => {
       >
         <AiOutlineMenu
           onClick={toggleData}
-          className="w-[30px] h-[30px] fill-red-600"
+          className="w-[30px] h-[30px] fill-[#197693]"
         />
-        <span className=" text-red-600">User profile</span>
+        <span className=" text-[#197693]">User profile</span>
       </div>
       <div
         onClick={() => settoggle(false)}
@@ -95,7 +95,7 @@ const Sidebar = () => {
             <Link href="/User/updatepassword">Update Password</Link>
           </li> 
 
-          <li className="cursor-pointer text-red-600" onClick={() => signOut()}>
+          <li className="cursor-pointer text-[#197693]" onClick={() => signOut()}>
             Log out
           </li>
         </ul>

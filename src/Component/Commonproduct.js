@@ -109,7 +109,7 @@ const Commonproduct = ({ filterdata, category }) => {
                   setCurrentPage(number);
                 }}
                 innerClass="flex justify-center"
-                activeClass="bg-red-600 text-white"
+                activeClass="bg-[#197693] text-white"
                 itemClass="px-2 py-[4px] border-[1px] border-[#000]"
                 firstPageText={"First"}
                 lastPageText={"Last"}

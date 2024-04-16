@@ -90,7 +90,7 @@ const Filter = () => {
           />
           <button
             onClick={buttonClick}
-            className="max-sm:w-[100%] max-sm:py-1 max-sm:px-2 w-[80px] bg-red-600 px-2 text-white font-semibold rounded-lg"
+            className="max-sm:w-[100%] max-sm:py-1 max-sm:px-2 w-[80px] bg-[#197693] px-2 text-white font-semibold rounded-lg"
           >
             Go
           </button>

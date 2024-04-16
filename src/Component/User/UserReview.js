@@ -61,7 +61,7 @@ const UserReview = ({
         {userdata?._id === user && (
           <React.Fragment>
             <button
-              className="w-[100%] mt-2 max-w-[70px] border-[1px] border-red-600 text-red-600 rounded-lg text-[14px] leading-7"
+              className="w-[100%] mt-2 max-w-[70px] border-[1px] border-[#197693] text-[#197693] rounded-lg text-[14px] leading-7"
               onClick={() => {
                 deleteone(), handleEditing();
               }}
@@ -73,7 +73,7 @@ const UserReview = ({
                 onClick={async () => {
                   await getApi(_id), show(), handleOpen();
                 }}
-                className="w-[100%] ml-3 mt-2 max-w-[70px] border-[1px] border-red-600 text-white bg-red-600 rounded-lg text-[14px] leading-7"
+                className="w-[100%] ml-3 mt-2 max-w-[70px] border-[1px] border-[#197693] text-white bg-[#197693] rounded-lg text-[14px] leading-7"
               >
                 Edit
               </button>

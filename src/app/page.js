@@ -23,7 +23,7 @@ const Homepagedata = () => {
                 key={index}
                 className={`${
                   categorydata === value &&
-                  "text-red-600 border-b-[1px] border-b-red-600 font-semibold"
+                  "text-[#197693] border-b-[1px] border-b-[#197693] font-semibold"
                 } capitalize my-4 cursor-pointer text-lg px-3 max-md:text-sm `}
                 onClick={() => setcategorydata(value)}
               >
@@ -39,7 +39,7 @@ const Homepagedata = () => {
                 <Productcarosel
                   category="laptops"
                   title="laptops"
-                  path="/Laptop"
+                  path="/productcategory/laptops"
                 />
               );
             case "jewelery":

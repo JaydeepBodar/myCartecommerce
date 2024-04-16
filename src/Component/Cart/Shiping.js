@@ -92,7 +92,7 @@ const Shiping = ({ address }) => {
             </div>
             <Link
               href="/Address/New"
-              className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 block"
+              className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-[#197693] text-[#197693] block"
             >
               <button className="flex items-center justify-center w-[100%] gap-x-2 max-md:gap-x-[2px]">
                 <AiOutlinePlus />
@@ -102,7 +102,7 @@ const Shiping = ({ address }) => {
             <div className="flex justify-end gap-x-2 max-lg:pt-2">
               <Link
                 href="/Cart"
-                className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 block"
+                className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-[#197693] text-[#197693] block"
               >
                 Back
               </Link>

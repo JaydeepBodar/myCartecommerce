@@ -102,7 +102,7 @@ const Profile = ({ address }) => {
                       className="leading-[25px] flex gap-x-4"
                       title="address"
                     >
-                      <ImLocation className="w-[50px] h-[40px] fill-red-600" />
+                      <ImLocation className="w-[50px] h-[40px] fill-[#197693]" />
                       <div>
                         <p>
                           {street}, {city},
@@ -120,7 +120,7 @@ const Profile = ({ address }) => {
               })}
               <Link
                 href="/Address/New"
-                className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-red-600 text-red-600 block"
+                className="w-[100%] text-center max-w-[160px] max-sm:text-[14px] max-sm:max-w-[120px] text-[17px] py-1 rounded-lg border-[1px] border-[#197693] text-[#197693] block"
               >
                 <button className="flex items-center justify-center w-[100%] gap-x-2 max-md:gap-x-[2px]">
                   <AiOutlinePlus />

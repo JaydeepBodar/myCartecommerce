@@ -91,7 +91,7 @@ const Cartitem = () => {
                               : "hidden"
                           }`}
                         >
-                          <p className="w-[25px] h-[25px] text-white bg-red-600 rounded-full leading-[25px] text-center">
+                          <p className="w-[25px] h-[25px] text-white bg-[#197693] rounded-full leading-[25px] text-center">
                             {quantity}
                           </p>
                         </div>
@@ -183,7 +183,7 @@ const Cartitem = () => {
                         </div>
                         <button
                           onClick={() => deleteProduct(_id)}
-                          className="w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg"
+                          className="w-[100%] max-w-[100px] border-[1px] border-[#197693] text-[#197693] rounded-lg"
                         >
                           Remove
                         </button>
@@ -210,7 +210,7 @@ const Cartitem = () => {
               <h4>Discount</h4>
               <h4>{(netAmount - Totalprice).toFixed(2)}₹</h4>
             </div>
-            <div className="flex justify-between items-center text-[red]">
+            <div className="flex justify-between items-center text-[#197693]">
               <h4>Total Price(Without Discount)</h4>
               <del>{netAmount.toFixed(2)}₹</del>
             </div>
@@ -252,7 +252,7 @@ const Cartitem = () => {
                   Your cart is empty&nbsp;
                   <Link
                     href="/"
-                    className="text-[red] font-normal decoration-slice"
+                    className="text-[#197693] font-normal decoration-slice"
                   >
                     Back to Shop
                   </Link>
@@ -264,7 +264,7 @@ const Cartitem = () => {
                   Your cart is empty&nbsp;
                   <Link
                     href="/"
-                    className="text-[red] font-normal decoration-slice"
+                    className="text-[#197693] font-normal decoration-slice"
                   >
                     Back to Shop
                   </Link>

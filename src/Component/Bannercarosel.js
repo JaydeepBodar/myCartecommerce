@@ -69,7 +69,7 @@ const Bannercarosel = () => {
                 <div>
                   <Link
                     href={path}
-                    className="leading-5 max-sm:leading-4 w-[100%] max-sm:mt-2 max-w-[150px] max-md:max-w-[100px] max-md:text-sm hover:bg-transparent border-[1px] border-white-600 hover:text-black hover:border-black transition-all duration-500 bg-white text-red-600 py-2 block text-center mt-5 font-semibold tracking-wide uppercase"
+                    className="leading-5 max-sm:leading-4 w-[100%] max-sm:mt-2 max-w-[150px] max-md:max-w-[100px] max-md:text-sm hover:bg-transparent border-[1px] border-white-600 hover:text-black hover:border-black transition-all duration-500 bg-white text-[#197693] py-2 block text-center mt-5 font-semibold tracking-wide uppercase"
                   >
                     {bannerbtn}
                   </Link>

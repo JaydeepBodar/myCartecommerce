@@ -85,7 +85,7 @@ const Login = () => {
               <button
                  onClick={handleSubmit}
                 type="submit"
-                className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#dc2626] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md"
+                className="w-[100%] max-sm:py-[5px] py-[10px] bg-[#197693] mt-2 mb-3 text-white font-semibold tracking-wide rounded-md"
               >
                 Login
               </button>
@@ -93,13 +93,13 @@ const Login = () => {
             <div className="flex items-center max-sm:flex-col justify-between">
               <Link
                 href="/Authentication/Register"
-                className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
+                className="pt-2 flex justify-center hover:text-[#197693] transition-all duration-500"
               >
                 Create New Account...
               </Link>
               <Link
                 href="/Authentication/Resetpassword"
-                className="pt-2 flex justify-center hover:text-red-600 transition-all duration-500"
+                className="pt-2 flex justify-center hover:text-[#197693] transition-all duration-500"
               >
                 Forgot Password
               </Link>

@@ -112,7 +112,7 @@ const Item = ({ product, loading }) => {
               <button
                 onClick={Additem}
                 href="#"
-                className="w-[100%] max-sm:text-[13px] max-sm:max-w-[80px] max-sm:py-1 max-sm:mt-2 max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
+                className="w-[100%] max-sm:text-[13px] max-sm:max-w-[80px] max-sm:py-1 max-sm:mt-2 max-w-[100px] bg-[#197693] text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
               >
                 {btn}
               </button>
@@ -120,7 +120,7 @@ const Item = ({ product, loading }) => {
                 <div
                   className={`${
                     productbtn === false && "hidden"
-                  } max-sm:text-[13px] max-sm:max-w-[80px] max-md:mt-[4px] max-sm:py-[3px] mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
+                  } max-sm:text-[13px] max-sm:max-w-[80px] max-md:mt-[4px] max-sm:py-[3px] mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-[#197693] text-[#197693] rounded-lg`}
                   onClick={Removeitem}
                 >
                   Remove
@@ -149,7 +149,7 @@ const Item = ({ product, loading }) => {
             <Link
               onClick={Additem}
               href={`${btn === "Go to Cart" ? "Cart" : ""}`}
-              className="w-[100%] max-w-[100px] bg-red-600 text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
+              className="w-[100%] max-w-[100px] bg-[#197693] text-white py-2 block text-center mt-5 font-semibold tracking-wide rounded-lg"
             >
               {btn}
             </Link>
@@ -157,7 +157,7 @@ const Item = ({ product, loading }) => {
               <button
                 className={`${
                   productbtn === false && "hidden"
-                } mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-red-600 text-red-600 rounded-lg`}
+                } mt-2 text-center py-[6px] w-[100%] max-w-[100px] border-[1px] border-[#197693] text-[#197693] rounded-lg`}
                 onClick={Removeitem}
               >
                 Remove
