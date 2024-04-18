@@ -46,12 +46,12 @@ const Navbar = () => {
     <header>
       <Container>
         <div className="flex justify-between items-center flex-wrap py-3">
-          <div className="max-lg:basis-[50%]">
+          <div className="max-lg:basis-[50%] max-sm:py-2">
             <Link href="/">
               <Image
                 alt="logo"
                 src={Img}
-                className="w-[100%] object-fill h-[60px]"
+                className="w-[100px] object-fill h-[60px]"
               />
             </Link>
           </div>

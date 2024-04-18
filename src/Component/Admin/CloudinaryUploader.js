@@ -11,11 +11,11 @@ const CloudinaryUploader = () => {
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "htepld3m"); // Set your Cloudinary upload preset
-      formData.append("cloud_name", "dxlicroam");
+      formData.append("upload_preset", process.env.UPLOAD_PREST); // Set your Cloudinary upload preset
+      formData.append("cloud_name", process.env.CLOUD_NAME);
       try {
         const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dxlicroam/image/upload",
+          `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`,
           {
             method: "POST",
             body: formData,
@@ -40,7 +40,7 @@ const CloudinaryUploader = () => {
       <input type="file" onChange={handleImageUpload} />
       <input type="file" onChange={handleImageUpload} />
 
-      <CloudinaryContext cloudName="dxlicroam">
+      <CloudinaryContext cloudName={process.env.CLOUD_NAME}>
         {images.map((image, index) => (
           <Image
             alt="Image"

@@ -50,16 +50,16 @@ const PieChart = ({ chartdata, loading }) => {
     plotOptions: {
       bar: {
         horizontal: true,
-        columnWidth: '50%',
-        borderRadius: 5, 
-      }
+        columnWidth: "50%",
+        borderRadius: 5,
+      },
     },
   };
 
   const series1 = [
     {
       name: "Total Revenue",
-      data: yearwiseAnyalisis?.map((item) => item?.totalRevenue+ "" + "₹"),
+      data: yearwiseAnyalisis?.map((item) => item?.totalRevenue + "" + "₹"),
     },
   ];
   return (
@@ -98,13 +98,17 @@ const PieChart = ({ chartdata, loading }) => {
             {yearfull >= year ? (
               <div className="max-sm:flex max-sm:flex-col max-sm:items-center">
                 <h4 className="font-light">Revenue Details</h4>
-                <ReactApexChart
-                  options={options1}
-                  series={series1}
-                  type="bar"
-                  height={350}
-                  style={{ zIndex: "-1" }}
-                />
+                <div className="w-[100%]"> 
+                  <ReactApexChart
+                    className="piechart"
+                    options={options1}
+                    series={series1}
+                    type="bar"  
+                    height={350}
+                    width={700}
+                    style={{ zIndex: "-1",overflowX:"auto" }}
+                  />
+                </div>
               </div>
             ) : (
               <div>

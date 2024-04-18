@@ -54,11 +54,7 @@ const Register = () => {
       <Tostify />
       <Container>
         <div
-          className={`${
-            errors.name || errors.email || errors.password
-              ? "h-[auto]"
-              : "h-[90vh]"
-          } md:mb-[4px] py-5 flex flex-col justify-center items-center`}
+          className={`pt-12 pb-14 md:mb-[4px] flex flex-col justify-center items-center`}
         >
           <div className={`${theme === true ? "bg-[#f2f2f2] text-[#000]" : "bg-[#000] text-[#f2f2f2]"} w-[500px] border-[1px] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14`}>
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">

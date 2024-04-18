@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
   const line_items = body?.items?.map((item) => {
-    console.log("itemdddddddddd", item);
+    // console.log("itemdddddddddd", item);
     return {
       price_data: {
         currency: "inr",
@@ -43,18 +43,18 @@ export const checkoutsession = async (req, res) => {
     ],
     line_items,
   });
-  console.log("line_itemsline_itemsline_itemsline_items", line_items);
+  // console.log("line_itemsline_itemsline_itemsline_items", line_items);
   res.status(200).json({ url: session.url });
 };
 const getCartitems = async (line_items) => {
-  console.log("line_items?.data", line_items);
+  // console.log("line_items?.data", line_items);
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
-      console.log("itemitemitem", item);
+      // console.log("itemitemitem", item);
       // console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
-      console.log("productdetails", product);
+      // console.log("productdetails", product);
       const productid = product?.metadata?.productId;
       cartItems?.push({
         product: productid,
@@ -66,7 +66,7 @@ const getCartitems = async (line_items) => {
         size: product?.metadata?.size,
         color: product?.metadata?.color,
       });
-      console.log("cartItemscartItemscartItems", cartItems);
+      // console.log("cartItemscartItemscartItems", cartItems);
       if (cartItems?.length === line_items?.data?.length) {
         // console.log("resolvedatatatatatatta")
         resolve(cartItems);

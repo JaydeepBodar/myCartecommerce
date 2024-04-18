@@ -85,15 +85,15 @@ const Productupdate = ({ product }) => {
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "htepld3m"); // Set your Cloudinary upload preset
-      formData.append("cloud_name", "dxlicroam");
+      formData.append("upload_preset", process.env.UPLOAD_PREST); // Set your Cloudinary upload preset
+      formData.append("cloud_name", process.env.CLOUD_NAME);
       formData.append(
         "public_id",
         "myCarteCommerce/Product/" + title + "_" + new Date()
       );
       try {
         const response = await fetch(
-          "https://api.cloudinary.com/v1_1/dxlicroam/image/upload",
+          `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`,
           {
             method: "POST",
             body: formData,
@@ -116,13 +116,13 @@ const Productupdate = ({ product }) => {
     // console.log("picssssssssssssssssssss", pics);
     const data = new FormData();
     data.append("file", pics);
-    data.append("upload_preset", "htepld3m");
+    data.append("upload_preset", process.env.UPLOAD_PREST);
     data.append(
       "public_id",
       "myCarteCommerce/Product/" + title + "_" + new Date()
     );
-    data.append("cloud_name", "dxlicroam");
-    fetch("https://api.cloudinary.com/v1_1/dxlicroam/image/upload", {
+    data.append("cloud_name",process.env.CLOUD_NAME);
+    fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
       method: "post",
       body: data,
     })

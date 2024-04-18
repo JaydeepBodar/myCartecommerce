@@ -51,7 +51,7 @@ const Login = () => {
     <React.Fragment>
       <Tostify />
       <Container>
-        <div className="h-[81.1vh] md:mb-[4px] flex flex-col justify-center items-center">
+        <div className=" pt-12 pb-14 md:mb-[4px] flex flex-col justify-center items-center">
           <div
             className={`${
               theme === true
