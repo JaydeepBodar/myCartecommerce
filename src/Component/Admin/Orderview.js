@@ -1,6 +1,7 @@
 "use client";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,12 +9,26 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
 const Orderview = ({ order, loading }) => {
+  const { data } = useSession();
+  console.log("object", order);
   // console.log("order", order);
-  const { paymentInfo, shippingInfo, orderItems, orderStatus, _id, user } =
-    order;
+  const {
+    status,
+    shippingInfo,
+    orderStatus,
+    _id,
+    user,
+    paymentId,
+    amountPaid,
+    image,
+    name: title,
+    price,
+    retailerId,
+    quantity,
+    size,
+    color,                                      
+  } = order;
   const { theme } = Globalthemeprovider();
-  const router = useRouter();
-  // console.log("dropdown", orderStatus);
   const [dropdown, setdropdown] = useState("");
   const updateDetail = async () => {
     await axios
@@ -47,12 +62,11 @@ const Orderview = ({ order, loading }) => {
               <h4>Order Details</h4>
               <h5>User Name&nbsp;:-&nbsp;{user?.name}</h5>
               <h5>Order id&nbsp;:-&nbsp;{_id}</h5>
-              <h5>Payment id&nbsp;:-&nbsp;{paymentInfo?.id}</h5>
-              <h5>Payment Status&nbsp;:-&nbsp;{paymentInfo?.status}</h5>
-              <h5>Tax&nbsp;:-&nbsp;{paymentInfo?.taxPaid}₹</h5>
+              <h5>Payment id&nbsp;:-&nbsp;{paymentId}</h5>
+              <h5>Payment Status&nbsp;:-&nbsp;{status}</h5>
               <h5>
-                Total Payment(including Tax)&nbsp;:-&nbsp;
-                {paymentInfo?.amountPaid}₹
+                Total Payment&nbsp;:-&nbsp;
+                {amountPaid}₹
               </h5>
             </div>
             <div className="flex flex-col">
@@ -93,32 +107,43 @@ const Orderview = ({ order, loading }) => {
           </div>
           <div className="border-t-[1px] border-[gray] mt-3 pt-3">
             <h4>Products Details</h4>
-            <div className="flex flex-wrap gap-3">
-              {orderItems?.map((val) => {
-                const { name, quantity, price, image, product } = val;
-                return (
-                  <div
-                    key={product}
-                    className="flex items-center basis-[49%] max-sm:basis-[100%] gap-x-7 border-[#fff] border-[1px] p-3 rounded-lg"
-                  >
-                    <div className="flex items-center">
-                      <Image
-                        src={image[0]}
-                        loading="lazy"
-                        width={90}
-                        height={90}
-                        className="w-[90px] h-[90px] rounded-full"
-                        alt={name}
-                      />
-                      <span>&nbsp;x&nbsp;{quantity}</span>
+
+            <div className="flex items-center gap-x-7 border-[#197693] border-[1px] p-3 rounded-lg">
+              <div className="flex items-center">
+                <Image
+                  src={image[0]}
+                  loading="lazy"
+                  width={90}
+                  height={90}
+                  className="w-[90px] h-[90px] rounded-full"
+                  alt={title}
+                />
+                <span>&nbsp;x&nbsp;{quantity}</span>
+              </div>
+              <div>
+                {data?.user?.role === "Admin" && (
+                  <h5 className="text-[#197693] font-semibold">
+                    Seller&nbsp;:-&nbsp;{retailerId?.name}
+                  </h5>
+                )}
+                <h5>Title&nbsp;:-&nbsp;{title}</h5>
+                <h5>Price&nbsp;:-&nbsp;{price}₹</h5>
+                <h5 className="flex items-center gap-x-2">
+                  {color?.length > 0 && (
+                    <div
+                      className={`${
+                        theme === true ? "border-[#000000]" : "border-[#f2f2f2]"
+                      } p-[2px] rounded-full border-[1px]`}
+                    >
+                      <span
+                        style={{ backgroundColor: color }}
+                        className="w-[10px] h-[10px] rounded-full block"
+                      ></span>
                     </div>
-                    <div>
-                      <h5>Title&nbsp;:-&nbsp;{name}</h5>
-                      <h5>Price&nbsp;:-&nbsp;{price}₹</h5>
-                    </div>
-                  </div>
-                );
-              })}
+                  )}
+                  {size === "-" ? <span></span> : <span>{size}</span>}
+                </h5>
+              </div>
             </div>
           </div>
           <Link

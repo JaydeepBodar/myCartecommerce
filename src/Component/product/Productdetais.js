@@ -210,6 +210,9 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <h5 className="text-xl font-semibold">
                 Price:- {singleproduct?.products?.price}₹
               </h5>
+              <h5 className="text-xl font-semibold">
+                Seller:- {singleproduct?.products?.retailer?.name}₹
+              </h5>
               <p>Color Selection :-</p>
               <div
                 className={`${
@@ -378,6 +381,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                 singleproduct?.products?.price - discount,
                               size: filter?.size !== "" ? filter?.size : null,
                               color: filter?.color,
+                              retailerId:singleproduct?.products?.retailer?._id
                             });
                             if (filter?.color?.length === 0) {
                               toast.error("Please select color variant");

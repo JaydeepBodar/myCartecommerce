@@ -4,6 +4,27 @@ export const getAllproductdata = async (req, res) => {
   const products = await productSchema.find();
   res.status(200).json({ products });
 };
+export const getRetailproduct = async (req, res) => {
+  const { page } = req.query;
+  const productperpage = 5;
+  const filterproductscount=""
+  const currentpage = Number(page) || 1;
+  const skippage = productperpage * (currentpage - 1);
+  console.log("req.user", req.user);
+  const productcount = await productSchema
+    .find({ retailer: req.user._id })
+    .countDocuments();
+  const products = await productSchema
+    .find({ retailer: req.user._id })
+    .limit(productperpage)
+    .skip(skippage);
+  res.json({
+    productperpage,
+    productcount,
+    filterproductscount,
+    products,
+  });
+};
 export const getAllproduct = async (req, res) => {
   try {
     const productperpage = 4;
@@ -53,11 +74,14 @@ export const deleteProduct = async (req, res) => {
 export const singleProduct = async (req, res) => {
   const { id } = req.query;
   // try {
-  const data = await productSchema.findById({ _id: id }).populate({
-    path: "reviews.userdata",
-    model: "User",
-    select: "name email avatar", // Specify the fields you want to populate for the user
-  });
+  const data = await productSchema.findById({ _id: id }).populate([
+    {
+      path: "reviews.userdata",
+      model: "User",
+      select: "name email avatar", // Specify the fields you want to populate for the user
+    },
+    "retailer",
+  ]);
   // console.log("req.user._id",req.user._id)
   res.json({ products: data });
   // } catch (e) {
@@ -83,7 +107,7 @@ export const singleCategory = async (req, res) => {
     query.price = { $gte: numPricemin, $lte: numPricemax };
   }
   // let data;
-  const productdata = await productSchema.find(query);
+  const productdata = await productSchema.find(query).populate("retailer")
   // .limit(itemperpage)
   // .skip(totalskipitem);
   // const totalproduct = await productSchema.find(query).countDocuments();
@@ -219,23 +243,23 @@ export const testMonalis = async (req, res) => {
   // console.log("productreviewproductreview", productreview);
   res.status(200).json({ productreview });
 };
-  // export const singlesize = async (req, res) => {
-  //   const { product_id ,updateData,size_id} = req.body;
-  //   const productreview = await productSchema
-  //     .findById(product_id)
-  //     .then((product) => {
-  //       console.log("productproduct", product);
-  //       const productsize=product?.sizes?.findIndex(size=>size._id == size_id)
-  //       if (sizeIndex !== -1) {
-  //         // Update the size object at the found index with the update data
-  //         product.sizes[productsize].set(updateData);
-  //         // Save the updated product document
-  //         return product.save();
-  //       } else {
-  //         console.log("Size not found");
-  //         return;
-  //       }
-  //     });
-  //   console.log("productsizeproductsize", productreview);
-  //   res.status(200).json(productreview);
-  // };
+// export const singlesize = async (req, res) => {
+//   const { product_id ,updateData,size_id} = req.body;
+//   const productreview = await productSchema
+//     .findById(product_id)
+//     .then((product) => {
+//       console.log("productproduct", product);
+//       const productsize=product?.sizes?.findIndex(size=>size._id == size_id)
+//       if (sizeIndex !== -1) {
+//         // Update the size object at the found index with the update data
+//         product.sizes[productsize].set(updateData);
+//         // Save the updated product document
+//         return product.save();
+//       } else {
+//         console.log("Size not found");
+//         return;
+//       }
+//     });
+//   console.log("productsizeproductsize", productreview);
+//   res.status(200).json(productreview);
+// };

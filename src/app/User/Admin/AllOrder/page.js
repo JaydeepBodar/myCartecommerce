@@ -4,9 +4,10 @@ import Allorder from "@/Component/Admin/Allorder";
 import axios from "axios";
 import queryString from "query-string";
 import Cookies from "js-cookie";
+import { useSession } from "next-auth/react";
 const Order = ({ searchParams }) => {
   const [loading, setloading] = useState(true);
-
+  const {data}=useSession()
   const [order, setorder] = useState([]);
   const urlsearchParams = {
     page: searchParams.page,
@@ -19,8 +20,9 @@ const Order = ({ searchParams }) => {
       ? `__Secure-next-auth.session-token=${productionheaders?.value}`
       : `next-auth.session-token=${nextauthheaders?.value}`;
   useEffect(() => {
+    const apiget=data?.user?.role==="Admin" ? `${process.env.API_URL}api/Order/Allorderdata?${searchQuery}` : `${process.env.API_URL}api/retailer/Order`
     axios
-      .get(`${process.env.API_URL}api/Order/Allorderdata?${searchQuery}`, {
+      .get(apiget, {
         headers: { Cookie: cookie },
       })
       .then((response) => setorder(response.data))

@@ -32,6 +32,10 @@ const productSchema = mongoose.Schema(
       default:null,
       type:String,
     },
+    retailer:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"User"     
+    },
     sizes:[SizeSchema],
     reviews: [
       {
@@ -60,3 +64,4 @@ const productSchema = mongoose.Schema(
 );
 export default mongoose.models.Product ||
   mongoose.model("Product", productSchema);
+  

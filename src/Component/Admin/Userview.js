@@ -62,6 +62,9 @@ const Userview = ({ user }) => {
             <option name="dropdown" value="user">
               User
             </option>
+            <option name="dropdown" value="Retailer">
+              Retailer
+            </option>
           </select>
           <button
             onClick={updateDetail}

@@ -26,7 +26,7 @@ const Allorder = ({ orderdata, loading, loader }) => {
         <React.Fragment>
           <div className="allorder flex flex-wrap gap-y-3">
             {order?.map((item) => {
-              const { paymentInfo, _id, orderStatus, createdAt } = item;
+              const { paymentId, _id, orderStatus, createdAt,status } = item;
               const month = new Date(createdAt).toLocaleString("en-us", {
                 month: "short",
               });
@@ -46,7 +46,7 @@ const Allorder = ({ orderdata, loading, loader }) => {
                       <span>Order Id</span>&nbsp;:-&nbsp;{_id}
                     </h4>
                     <h4>
-                      <span>Payment Id</span>&nbsp;:-&nbsp;{paymentInfo?.id}
+                      <span>Payment Id</span>&nbsp;:-&nbsp;{paymentId}
                     </h4>
                     <h4>
                       <span>Order Created</span>&nbsp;:-&nbsp;{day}&nbsp;{month}
@@ -65,7 +65,7 @@ const Allorder = ({ orderdata, loading, loader }) => {
                     <h4
                       className={`${
                         orderStatus === "Processing"
-                          ? "text-[#197693]"
+                          ? "text-red-600"
                           : "text-[green]"
                       }`}
                     >
@@ -73,7 +73,7 @@ const Allorder = ({ orderdata, loading, loader }) => {
                     </h4>
                     <h4>
                       <span>Payment Status</span>&nbsp;:-&nbsp;
-                      {paymentInfo?.status}
+                      {status}
                     </h4>
                   </div>
                 </div>

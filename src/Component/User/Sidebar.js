@@ -43,7 +43,9 @@ const Sidebar = () => {
             toggle === true
               ? "max-sm:block absolute text-center w-[30px] h-[30px] bottom-0"
               : "max-sm:hidden"
-          } sm:hidden fill-[#f2f2f2] ${data?.user?.role === "Admin" ? "top-[25%]" : "top-[35%]" }`}
+          } sm:hidden fill-[#f2f2f2] ${
+            data?.user?.role === "Admin" ? "top-[25%]" : "top-[35%]"
+          }`}
           onClick={() => settoggle(false)}
         />
         <ul
@@ -52,37 +54,41 @@ const Sidebar = () => {
           } sidebar sm:basis-[25%] max-sm:pr-2 pr-6`}
           onClick={() => settoggle(false)}
         >
-          {data?.user?.role === "Admin" && (
+          {data?.user?.role === "Admin" || data?.user?.role === "Retailer" ? (
             <>
               {" "}
               <li>
                 <Link href="/User/Admin/Anyalitic">
-                  Dashboard<span>(admin)</span>
+                  Dashboard<span>({data?.user?.role})</span>
                 </Link>
               </li>
               <li>
                 <Link href="/User/Admin/Addproduct">
-                  Add New Product<span>(admin)</span>
+                  Add New Product<span>({data?.user?.role})</span>
                 </Link>
               </li>
               <li className="">
                 <Link href="/User/Admin/Allproduct">
-                  All Product<span>(admin)</span>
+                  All Product<span>({data?.user?.role})</span>
                 </Link>
               </li>
               <li>
                 <Link href="/User/Admin/AllOrder">
-                  All Order<span>(admin)</span>
+                  All Order<span>({data?.user?.role})</span>
                 </Link>
               </li>
-              <li className="border-b-[1px] border-[#d4d3d3]">
-                <Link href="/User/Admin/Alluser">
-                  All User<span>(admin)</span>
-                </Link>
-              </li>
+              {data?.user?.role === "Admin" && (
+                <li>
+                  <Link href="/User/Admin/Alluser">
+                    All User<span>({data?.user?.role})</span>
+                  </Link>
+                </li>
+              )}
             </>
+          ) : (
+            ""
           )}
-          <li>
+          <li className="border-t-[1px] border-[#d4d3d3]">
             <Link href="/User/Profile">Your Profile</Link>
           </li>
           <li>
@@ -93,9 +99,12 @@ const Sidebar = () => {
           </li>
           <li className="border-b-[1px] border-[#d4d3d3]">
             <Link href="/User/updatepassword">Update Password</Link>
-          </li> 
+          </li>
 
-          <li className="cursor-pointer text-[#197693]" onClick={() => signOut()}>
+          <li
+            className="cursor-pointer text-[#197693]"
+            onClick={() => signOut()}
+          >
             Log out
           </li>
         </ul>

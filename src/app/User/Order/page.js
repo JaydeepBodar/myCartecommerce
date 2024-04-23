@@ -35,12 +35,12 @@ const Ordercount = ({ searchParams }) => {
   // const orders=await getData(searchParams)
   const [orders, setorders] = useState([]);
   const [loading, setloading] = useState(true);
+  const productionheaders = Cookies.get("__Secure-next-auth.session-token");
+  const nextauthheaders = Cookies.get("next-auth.session-token");
   const Urlsearch = {
     page: searchParams.page,
   };
   const searchQuery = queryString.stringify(Urlsearch);
-  const productionheaders = Cookies.get("__Secure-next-auth.session-token");
-  const nextauthheaders = Cookies.get("next-auth.session-token");
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
       ? `__Secure-next-auth.session-token=${productionheaders?.value}`
@@ -60,6 +60,7 @@ const Ordercount = ({ searchParams }) => {
   const loader = (load) => {
     setloading(load);
   };
+  console.log("ordersordersordersordersordersordersordersordersordersorders",orders)
   return (
     <Order
       order={orders?.order}

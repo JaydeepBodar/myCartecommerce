@@ -41,6 +41,7 @@ const Overview = ({ params }) => {
       .catch((e) => console.log("eeeee", e))
       .finally(() => setloading(false));
   }, [loading]);
+  console.log("order",order)
   return <Orderview order={order} loading={loading} />;
 };
 

@@ -32,9 +32,9 @@ const Categorydemo = ({
   handleSliderChange,
 }) => {
   const { theme } = Globalthemeprovider();
-  const [grid, setgrid] = useState(3);
+  const [grid, setgrid] = useState(window.innerWidth <= 768 ? 2 : 3);
   const [currentPage, setCurrentPage] = useState(1);
-  const[width,setwidth]=useState(window.innerWidth)
+  const [width, setwidth] = useState(window.innerWidth);
   const pathname = usePathname();
   const itemsPerPage = grid === 1 ? 4 : 6;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -50,11 +50,11 @@ const Categorydemo = ({
   ];
   useEffect(() => {
     setCurrentPage(1);
-  }, [subcategory,price]);
+  }, [subcategory, price]);
   useEffect(() => {
     const handleResize = () => {
-      setwidth(window.innerWidth)
-      if(width < 768 ){
+      setwidth(window.innerWidth);
+      if (width <= 768) {
         setgrid(2);
       }
     };
@@ -63,6 +63,7 @@ const Categorydemo = ({
       window.removeEventListener("resize", handleResize);
     };
   }, [width]);
+  console.log("gridgridgridgridgridgrid",grid)
   console.log("categoryfieldcategoryfieldcategoryfield", singleproduct);
   return (
     <section className="product_category py-5">
@@ -188,6 +189,7 @@ const Categorydemo = ({
                           rating,
                           stock,
                           discountPercentage,
+                          retailer,
                         } = val;
                         const withDiscount =
                           price -
@@ -200,13 +202,20 @@ const Categorydemo = ({
                               grid === 1 ? "flex gap-x-3" : "block"
                             }`}
                           >
-                            <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden flex-1">
-                              <Image
-                                src={thumbnail}
-                                className="object-fill w-[100%] h-[100%] hover-img"
-                                width={200}
-                                height={200}
-                              />
+                            <div className="relative">
+                              <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden flex-1">
+                                <Image
+                                  src={thumbnail}
+                                  className="object-fill w-[100%] h-[100%] hover-img"
+                                  width={200}
+                                  height={200}
+                                />
+                              </div>
+                              {retailer?.name?.length > 0 && rating >= 4 && (
+                                <h4 className="absolute left-0 top-3 uppercase img_clip text-[14px] pl-2 font-bold bg-[#197693] w-[140px] box-border h-[135px] text-[#f2f2f2] max-md:h-[105px]">
+                                  bestseller
+                                </h4>
+                              )}
                             </div>
                             <div className="pt-4 px-3 flex-1 w-[100%]">
                               <h3 className="font-semibold text-lg max-sm:text-base capitalize">
@@ -236,6 +245,11 @@ const Categorydemo = ({
                                 >
                                   {stock}
                                 </h4>
+                                {retailer?.name?.length > 0 && (
+                                  <h4 className="capitalize text-[#197693]">
+                                    seller:-{retailer?.name}
+                                  </h4>
+                                )}
                               </div>
                             </div>
                           </Link>

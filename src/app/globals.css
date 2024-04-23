@@ -122,6 +122,9 @@ select option {
 .img-hover {
   overflow: hidden;
 }
+.img_clip{
+  clip-path: polygon(25% 0%, 100% 0, 74% 11%, 100% 23%, 0 24%, 0 0) ;
+}
 /* carosel */
 .banner-carosel .slick-slider {
   line-height: 0;

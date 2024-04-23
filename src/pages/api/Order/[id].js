@@ -6,6 +6,6 @@ const router = createRouter();
 db();
 router.put(updateOrder)
 router.delete(deleteOrder)
-router.use(isAuthenticateuser,adminAuthorize("Admin")).get(getSingleOrder);
+router.use(isAuthenticateuser,adminAuthorize("Retailer","Admin")).get(getSingleOrder);
 
 export default router.handler();

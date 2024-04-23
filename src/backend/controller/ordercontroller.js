@@ -1,6 +1,8 @@
 import getRawBody from "raw-body";
 import Stripe from "stripe";
+import mongoose from "mongoose";
 import orderSchema from "../model/Orderschema";
+import Userschema from "../model/Userschema";
 import APIFilter from "../utils/APIFilter";
 const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
@@ -18,15 +20,16 @@ export const checkoutsession = async (req, res) => {
             size: item.size,
             color: item?.color,
             onlydiscount: item?.onlydiscount,
+            retailerId: item?.retailerId,
+            orderStatus: "Processing",
           },
         },
         unit_amount: item?.discountprice * 100,
       },
-      tax_rates: ["txr_1Ns02KSFLEGSzdCiV4DSB8Ye"],
       quantity: item.quantity,
     };
   });
-  // console.log("line_items datatata",line_items[0].price_data)
+  console.log("line_items datatata", line_items[0]?.price_data?.product_data);
   const shipinginfo = body?.shippingInfo;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -43,30 +46,34 @@ export const checkoutsession = async (req, res) => {
     ],
     line_items,
   });
-  // console.log("line_itemsline_itemsline_itemsline_items", line_items);
+  console.log("line_itemsline_itemsline_itemsline_items", session);
   res.status(200).json({ url: session.url });
 };
 const getCartitems = async (line_items) => {
-  // console.log("line_items?.data", line_items);
+  console.log(
+    "line_items?.data",
+    line_items.data.map((val) => val.price)
+  );
   return new Promise((resolve, reject) => {
     let cartItems = [];
     line_items?.data?.forEach(async (item) => {
       // console.log("itemitemitem", item);
       // console.log("itemdataatata", item)
       const product = await stripe.products.retrieve(item?.price?.product);
-      // console.log("productdetails", product);
       const productid = product?.metadata?.productId;
       cartItems?.push({
         product: productid,
         name: product.name,
         image: product.images,
-        discount: product?.metadata?.onlydiscount,
+        onlydiscount: product?.metadata?.onlydiscount,
         price: item?.price?.unit_amount / 100,
         quantity: item.quantity,
         size: product?.metadata?.size,
         color: product?.metadata?.color,
+        retailerId: product?.metadata?.retailerId,
+        orderStatus: product?.metadata?.orderStatus,
       });
-      // console.log("cartItemscartItemscartItems", cartItems);
+      console.log("cartItemscartItemscartItems", cartItems);
       if (cartItems?.length === line_items?.data?.length) {
         // console.log("resolvedatatatatatatta")
         resolve(cartItems);
@@ -81,7 +88,7 @@ export const webhook = async (req, res) => {
     const event = stripe.webhooks.constructEvent(
       rawbody,
       signature,
-      process.env.WEBHOOKS_SECERATKEY_PRODUCTION
+      process.env.WEBHOOKS_SECERATKEY
       // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
     // console.log("event", event);
@@ -94,24 +101,38 @@ export const webhook = async (req, res) => {
         "sessionline_itemsline_itemsline_itemsline_itemsline_items",
         session
       );
-      const getOrder = await getCartitems(line_items);
-      // console.log("getOrder", getOrder);
+      let orderItems = [];
       const userId = session?.client_reference_id;
-      const amountPaid = session?.amount_total / 100;
-      const paymentInfo = {
-        id: session?.payment_intent,
-        status: session?.payment_status,
-        taxPaid: session?.total_details?.amount_tax / 100,
-        amountPaid,
-      };
-      const orderData = {
-        user: userId,
-        shippingInfo: session?.metadata?.shipinginfo,
-        orderItems: getOrder,
-        paymentInfo,
-      };
-      // console.log("orderData",orderData)
-      const order = await orderSchema.create(orderData);
+      await Promise.all(
+        line_items?.data?.map(async (item) => {
+          const product = await stripe.products.retrieve(item?.price?.product);
+          const productid = product?.metadata?.productId;
+          const orderItem = {
+            user: userId,
+            shippingInfo: session?.metadata?.shipinginfo,
+            product: productid,
+            name: product.name,
+            image: product.images,
+            onlydiscount: product?.metadata?.onlydiscount,
+            price: item?.price?.unit_amount / 100,
+            quantity: item.quantity,
+            size: product?.metadata?.size,
+            color: product?.metadata?.color,
+            retailerId: product?.metadata?.retailerId,
+            orderStatus: product?.metadata?.orderStatus,
+            paymentId: session?.payment_intent,
+            status: session?.payment_status,
+            amountPaid: item?.price?.unit_amount / 100,
+          };
+          orderItems.push(orderItem);
+        })
+      );
+
+      console.log(
+        "OrderdataOrderdataOrderdataOrderdataOrderdataOrderdata",
+        orderItems
+      );
+      const order = await orderSchema.insertMany(orderItems);
       // console.log("orderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", order);
       res.status(200).json({ success: "true" });
     }
@@ -121,7 +142,7 @@ export const webhook = async (req, res) => {
 };
 export const getOrder = async (req, res) => {
   try {
-    const productperpage = 3;
+    const productperpage = 6;
     const productcount = await orderSchema
       .find({ user: req.user._id })
       .countDocuments();
@@ -135,6 +156,14 @@ export const getOrder = async (req, res) => {
   } catch (e) {
     res.status(400).json({ message: "order not found" });
   }
+};
+export const getsingleuserorder = async (req, res) => {
+  const { id } = req.query;
+  const order = await orderSchema
+    .findById({ _id: id, user: req.user._id })
+    .populate("shippingInfo user retailerId");
+  console.log("orderorderorderorderorder", order);
+  res.status(200).json({ order });
 };
 export const updateOrder = async (req, res) => {
   try {
@@ -168,10 +197,10 @@ export const getSingleOrder = async (req, res) => {
   try {
     const order = await orderSchema
       .findById(req.query.id)
-      .populate("shippingInfo user");
+      .populate("user shippingInfo retailerId");
     res.status(200).json({ order });
   } catch (e) {
-    res.status(400).json({ message: "Product not shown" });
+    res.status(400).json({ message: "Order not shown" });
   }
 };
 export const getallOrder = async (req, res) => {
@@ -182,14 +211,29 @@ export const getallOrder = async (req, res) => {
       productperpage
     );
     const order = await apifillter.query.find();
-    // console.log("ordergggggggggggggggg",order)
+    console.log("retaileruserfound", order[0]?.orderItems);
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
   }
 };
-
+export const getallOrderforretailer = async (req, res) => {
+  try {
+    console.log("req.user._idreq.user._idreq.user._idreq.user._id",req.user._id)
+    const productperpage = 6;
+    const productcount = await orderSchema.countDocuments();
+    const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
+      productperpage
+    );
+    const order = await apifillter.query.find({retailerId:req.user._id});
+    console.log("retaileruserfound", order);
+    res.status(200).json({ order, productcount, productperpage });
+  } catch (e) {
+    res.status(400).json({ message: "Order not found" });
+  }
+};
 export const orderanylitic = async (req, res) => {
+  console.log("req.user._idreq.user._id", req.user._id);
   const orderbystatus1 = await orderSchema
     .find({ orderStatus: "Delivered" })
     .countDocuments();
@@ -210,9 +254,20 @@ export const orderanylitic = async (req, res) => {
     "Nov",
     "Dec",
   ];
+  const orderFind = await orderSchema.find({
+    "orderItems.retailerId": req.user._id,
+  });
+  console.log(
+    "orderFindorderFindorderFindorderFindorderFindorderFind",
+    orderFind
+  );
   // const targetMonth = "Jan"; // Replace with the desired month
-
   const orderAnalysis = await orderSchema.aggregate([
+    {
+      $match: {
+        "orderItems.retailerId": new mongoose.Types.ObjectId(req.user._id),
+      },
+    },
     {
       $project: {
         year: { $year: "$createdAt" },
@@ -233,7 +288,7 @@ export const orderanylitic = async (req, res) => {
       },
     },
   ]);
-
+  console.log("orderAnalysisorderAnalysisorderAnalysis", orderAnalysis);
   // Create a map to quickly access totalRevenue by year and month
   const totalRevenueMap = new Map(
     orderAnalysis.map((item) => [
@@ -241,7 +296,7 @@ export const orderanylitic = async (req, res) => {
       item.totalRevenue,
     ])
   );
-
+  console.log("totalRevenueMaptotalRevenueMaptotalRevenueMap", totalRevenueMap);
   // Create the final result including all months and years
   const resultWithAllMonthsAndYears = allMonths.flatMap((month) => {
     return Array.from(new Set(orderAnalysis.map((item) => item._id.year))).map(

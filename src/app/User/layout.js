@@ -15,15 +15,10 @@ const Dashboard = ({ children }) => {
       <section>
         <Tostify />
         {pathname !== "/User/Admin/Register" && (
-          <div className="tracking-[1.2px] bg-[#197693] text-white font-semibold text-2xl py-5">
+          <div className="capitalize tracking-[1.2px] bg-[#197693] text-white font-semibold text-2xl py-5 max-sm:py-2 max-sm:text-lg">
             <Container>
               <h3>
-                {data?.user?.role === "Admin" ? (
-                  <span>Admin</span>
-                ) : (
-                  <span>User</span>
-                )}{" "}
-                Dashboard
+                <span>{data?.user?.role}</span> Dashboard
               </h3>
             </Container>
           </div>
@@ -38,7 +33,15 @@ const Dashboard = ({ children }) => {
                 <Sidebar />
               </div>
             )}
-            <div className={`${pathname !== "/User/Admin/Register" ? "max-sm:basis-[97%] basis-[75%]" : "mx-[auto]"}`}>{children}</div>
+            <div
+              className={`${
+                pathname !== "/User/Admin/Register"
+                  ? "max-sm:basis-[97%] basis-[75%]"
+                  : "mx-[auto]"
+              }`}
+            >
+              {children}
+            </div>
           </div>
         </Container>
       </section>

@@ -41,6 +41,7 @@ const Adminproduct = ({ product, loader, loading }) => {
       {!loading && (
         <div className="adminproduct">
           {products?.map((val) => {
+            console.log("valllllll",val)
             const { title, price, thumbnail, category, _id } = val;
             return (
               <div

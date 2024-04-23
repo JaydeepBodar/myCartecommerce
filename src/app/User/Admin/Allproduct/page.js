@@ -1,9 +1,10 @@
 "use client";
 import Adminproduct from "@/Component/Admin/Adminproduct";
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import queryString from "query-string";
+import { useSession } from "next-auth/react";
 // async function getData(searchParams) {
 //     const Urlsearch={
 //     page: searchParams.page,
@@ -30,6 +31,7 @@ import queryString from "query-string";
 // }
 const Product = ({ searchParams }) => {
   // const product=await getData(searchParams)
+  const { data } = useSession();
   const [loading, setloading] = useState(true);
   const [product, setproduct] = useState([]);
   const Urlsearch = {
@@ -43,8 +45,12 @@ const Product = ({ searchParams }) => {
       ? `__Secure-next-auth.session-token=${productionheaders?.value}`
       : `next-auth.session-token=${nextauthheaders?.value}`;
   useEffect(() => {
+    const apifetch =
+      data?.user?.role === "Admin"
+        ? `${process.env.API_URL}api/admin/product?${searchQuery}`
+        : `${process.env.API_URL}api/retailer/product`;
     axios
-      .get(`${process.env.API_URL}api/admin/product?${searchQuery}`, {
+      .get(apifetch, {
         cache: "no-store",
         headers: {
           Cookie: cookie,
@@ -53,11 +59,11 @@ const Product = ({ searchParams }) => {
       .then((res) => setproduct(res?.data))
       .catch((e) => console.log("eeeee", e))
       .finally(() => setloading(false));
-  }, [loading,Urlsearch?.page]);
+  }, [loading, Urlsearch?.page]);
   const loader = (load) => {
     setloading(load);
   };
-  console.log("product",product)
+  console.log("product", product);
   return <Adminproduct product={product} loader={loader} loading={loading} />;
 };
 
