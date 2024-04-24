@@ -88,7 +88,7 @@ export const webhook = async (req, res) => {
     const event = stripe.webhooks.constructEvent(
       rawbody,
       signature,
-      process.env.WEBHOOKS_SECERATKEY
+      process.env.WEBHOOKS_SECERATKEY_PRODUCTION
       // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
     // console.log("event", event);
@@ -210,8 +210,15 @@ export const getallOrder = async (req, res) => {
     const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
       productperpage
     );
-    const order = await apifillter.query.find();
-    console.log("retaileruserfound", order[0]?.orderItems);
+    const order = await apifillter.query
+      .find({
+        $or: [
+          { "retailerId?.name": req.query.retailer }, // Populate if req.query.retailer matches retailerId.name
+          { retailerId: null }, // Optionally handle cases where retailerId is null
+        ],
+      })
+      .populate("retailerId");
+
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
@@ -219,27 +226,35 @@ export const getallOrder = async (req, res) => {
 };
 export const getallOrderforretailer = async (req, res) => {
   try {
-    console.log("req.user._idreq.user._idreq.user._idreq.user._id",req.user._id)
     const productperpage = 6;
     const productcount = await orderSchema.countDocuments();
     const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
       productperpage
     );
-    const order = await apifillter.query.find({retailerId:req.user._id});
-    console.log("retaileruserfound", order);
+    const order = await apifillter.query.find({ retailerId: req.user._id });
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
   }
 };
 export const orderanylitic = async (req, res) => {
-  console.log("req.user._idreq.user._id", req.user._id);
-  const orderbystatus1 = await orderSchema
-    .find({ orderStatus: "Delivered" })
-    .countDocuments();
-  const orderbystatus2 = await orderSchema
-    .find({ orderStatus: "Processing" })
-    .countDocuments();
+  const { retailer } = req.query;
+  console.log(
+    "retailerretailerretailerretailerretailer",
+    new mongoose.Types.ObjectId(retailer)
+  );
+  const orderbystatus1 =
+    retailer?.length > 0
+      ? await orderSchema
+          .find({ retailerId: retailer, orderStatus: "Delivered" })
+          .countDocuments()
+      : await orderSchema.find({ orderStatus: "Delivered" }).countDocuments();
+  const orderbystatus2 =
+    retailer?.length > 0
+      ? await orderSchema
+          .find({ retailerId: retailer, orderStatus: "Processing" })
+          .countDocuments()
+      : await orderSchema.find({ orderStatus: "Processing" }).countDocuments();
   const allMonths = [
     "Jan",
     "Feb",
@@ -255,40 +270,58 @@ export const orderanylitic = async (req, res) => {
     "Dec",
   ];
   const orderFind = await orderSchema.find({
-    "orderItems.retailerId": req.user._id,
+    retailerId: req.user._id,
   });
-  console.log(
-    "orderFindorderFindorderFindorderFindorderFindorderFind",
-    orderFind
-  );
   // const targetMonth = "Jan"; // Replace with the desired month
-  const orderAnalysis = await orderSchema.aggregate([
-    {
-      $match: {
-        "orderItems.retailerId": new mongoose.Types.ObjectId(req.user._id),
-      },
-    },
-    {
-      $project: {
-        year: { $year: "$createdAt" },
-        month: { $month: "$createdAt" },
-        revenue: { $toDouble: "$paymentInfo.amountPaid" },
-      },
-    },
-    {
-      $group: {
-        _id: { year: "$year", month: "$month" },
-        totalRevenue: { $sum: "$revenue" },
-      },
-    },
-    {
-      $sort: {
-        "_id.year": 1,
-        "_id.month": 1,
-      },
-    },
-  ]);
-  console.log("orderAnalysisorderAnalysisorderAnalysis", orderAnalysis);
+  const orderAnalysis =
+    retailer?.length > 0
+      ? await orderSchema.aggregate([
+          {
+            $match: {
+              retailerId: new mongoose.Types.ObjectId(retailer),
+            },
+          },
+          {
+            $project: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+              revenue: { $toDouble: "$amountPaid" },
+            },
+          },
+          {
+            $group: {
+              _id: { year: "$year", month: "$month" },
+              totalRevenue: { $sum: "$revenue" },
+            },
+          },
+          {
+            $sort: {
+              "_id.year": 1,
+              "_id.month": 1,
+            },
+          },
+        ])
+      : await orderSchema.aggregate([
+          {
+            $project: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+              revenue: { $toDouble: "$amountPaid" },
+            },
+          },
+          {
+            $group: {
+              _id: { year: "$year", month: "$month" },
+              totalRevenue: { $sum: "$revenue" },
+            },
+          },
+          {
+            $sort: {
+              "_id.year": 1,
+              "_id.month": 1,
+            },
+          },
+        ]);
   // Create a map to quickly access totalRevenue by year and month
   const totalRevenueMap = new Map(
     orderAnalysis.map((item) => [
@@ -296,7 +329,6 @@ export const orderanylitic = async (req, res) => {
       item.totalRevenue,
     ])
   );
-  console.log("totalRevenueMaptotalRevenueMaptotalRevenueMap", totalRevenueMap);
   // Create the final result including all months and years
   const resultWithAllMonthsAndYears = allMonths.flatMap((month) => {
     return Array.from(new Set(orderAnalysis.map((item) => item._id.year))).map(

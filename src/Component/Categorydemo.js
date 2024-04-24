@@ -212,7 +212,7 @@ const Categorydemo = ({
                                 />
                               </div>
                               {retailer?.name?.length > 0 && rating >= 4 && (
-                                <h4 className="absolute left-0 top-3 uppercase img_clip text-[14px] pl-2 font-bold bg-[#197693] w-[140px] box-border h-[135px] text-[#f2f2f2] max-md:h-[105px]">
+                                <h4 className="absolute left-0 top-3 uppercase img_clip text-[14px] py-[2px] rounded-tr-lg rounded-br-lg px-2 tracking-wide text-[#f2f2f2] font-extrabold bg-red-500">
                                   bestseller
                                 </h4>
                               )}

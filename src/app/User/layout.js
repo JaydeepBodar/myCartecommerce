@@ -15,7 +15,7 @@ const Dashboard = ({ children }) => {
       <section>
         <Tostify />
         {pathname !== "/User/Admin/Register" && (
-          <div className="capitalize tracking-[1.2px] bg-[#197693] text-white font-semibold text-2xl py-5 max-sm:py-2 max-sm:text-lg">
+          <div className="capitalize tracking-[1.2px] bg-[#197693] text-white font-semibold text-2xl py-5 max-sm:py-2 max-sm:text-base">
             <Container>
               <h3>
                 <span>{data?.user?.role}</span> Dashboard
@@ -27,7 +27,7 @@ const Dashboard = ({ children }) => {
           <div className="flex py-10 justify-between items-stretch max-sm:flex-col">
             {pathname !== "/User/Admin/Register" && (
               <div
-                className="h-[55.4vh] max-sm:h-[auto] max-sm:pb-4"
+                className="max-sm:pb-4"
                 title="user info"
               >
                 <Sidebar />

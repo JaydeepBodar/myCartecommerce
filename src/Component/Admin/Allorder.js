@@ -6,10 +6,13 @@ import Tostify from "../Tostify";
 import Loader from "../Loader";
 import Custompagination from "../Custompagination";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import { CiGlass } from "react-icons/ci";
 const Allorder = ({ orderdata, loading, loader }) => {
   const { order, productcount, productperpage } = orderdata;
   const router = useRouter();
   const { theme } = Globalthemeprovider();
+  const retailerorderdata=order?.map(data=>data?.retailerId?.name)
+  console.log("retailerorderdataretailerorderdata",retailerorderdata)
   // useEffect(() => {
   //     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
   //     router.refresh();
@@ -26,7 +29,7 @@ const Allorder = ({ orderdata, loading, loader }) => {
         <React.Fragment>
           <div className="allorder flex flex-wrap gap-y-3">
             {order?.map((item) => {
-              const { paymentId, _id, orderStatus, createdAt,status } = item;
+              const { paymentId, _id, orderStatus, createdAt, status,retailerId } = item;
               const month = new Date(createdAt).toLocaleString("en-us", {
                 month: "short",
               });
@@ -51,6 +54,9 @@ const Allorder = ({ orderdata, loading, loader }) => {
                     <h4>
                       <span>Order Created</span>&nbsp;:-&nbsp;{day}&nbsp;{month}
                       &nbsp;{year}
+                    </h4>
+                    <h4 className="text-[#197693] font-semibold">
+                      Seller&nbsp;:-&nbsp;{retailerId?.name}
                     </h4>
                   </div>
                   <div>

@@ -75,7 +75,6 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     setcomment(reviewdata?.reviews[0]?.comment);
     setopen(false);
   }, [open]);
-  // console.log("GFFGFf", reviewdata?.reviews[0]._id);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const productreview = singleproduct?.products?.reviews.filter(

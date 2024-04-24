@@ -1,7 +1,7 @@
 import Userschema from "../model/Userschema";
 import bcrypt from "bcrypt";
 import APIFilter from "../utils/APIFilter";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 export const registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -110,8 +110,10 @@ export const resetPassword = async (req, res) => {
 
   try {
     const userfind = await Userschema.findOne({ email: email });
-    if(email){
-      const token = jwt.sign({ _id: userfind._id }, process.env.RESET_SECREAT, {expiresIn:'1200s'});
+    if (email) {
+      const token = jwt.sign({ _id: userfind._id }, process.env.RESET_SECREAT, {
+        expiresIn: "1200s",
+      });
 
       const setusertoken = await Userschema.findByIdAndUpdate(
         { _id: userfind._id },
@@ -194,15 +196,15 @@ export const resetPassword = async (req, res) => {
           }
         });
       }
-    }else{
-      res.status(401).json({message:"Invalid Email"})
+    } else {
+      res.status(401).json({ message: "Invalid Email" });
     }
   } catch (error) {
     res.status(401).json({ status: 401, message: "invalid Email" });
   }
 };
 
-export const forgotpasswordverify=async(req,res)=>{
+export const forgotpasswordverify = async (req, res) => {
   const { id, token } = req.query;
   const verifyToken = jwt.verify(token, process.env.RESET_SECREAT);
   try {
@@ -213,15 +215,15 @@ export const forgotpasswordverify=async(req,res)=>{
       res.status(401).json({ status: 401, message: "user not exist" });
     }
   } catch (error) {
-    res.status(401).json({ status: 401,message:"Link Was expired" });
+    res.status(401).json({ status: 401, message: "Link Was expired" });
   }
-}
-export const changePassword=async(req,res)=>{
+};
+export const changePassword = async (req, res) => {
   const { id, token } = req.query;
   const { password } = req.body;
   try {
     const validuser = await Userschema.findOne({ _id: id, verifytoken: token });
-    const verifyToken = jwt.verify(token,process.env.RESET_SECREAT);
+    const verifyToken = jwt.verify(token, process.env.RESET_SECREAT);
 
     if (validuser && verifyToken._id) {
       const newpassword = await bcrypt.hash(password, 12);
@@ -239,4 +241,4 @@ export const changePassword=async(req,res)=>{
   } catch (error) {
     res.status(401).json({ status: 401, error });
   }
-}
+};
