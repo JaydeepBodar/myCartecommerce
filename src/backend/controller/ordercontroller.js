@@ -211,12 +211,7 @@ export const getallOrder = async (req, res) => {
       productperpage
     );
     const order = await apifillter.query
-      .find({
-        $or: [
-          { "retailerId?.name": req.query.retailer }, // Populate if req.query.retailer matches retailerId.name
-          { retailerId: null }, // Optionally handle cases where retailerId is null
-        ],
-      })
+      .find()
       .populate("retailerId");
 
     res.status(200).json({ order, productcount, productperpage });
@@ -231,7 +226,7 @@ export const getallOrderforretailer = async (req, res) => {
     const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
       productperpage
     );
-    const order = await apifillter.query.find({ retailerId: req.user._id });
+    const order = await apifillter.query.find({ retailerId: req.user._id }) 
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
@@ -269,10 +264,6 @@ export const orderanylitic = async (req, res) => {
     "Nov",
     "Dec",
   ];
-  const orderFind = await orderSchema.find({
-    retailerId: req.user._id,
-  });
-  // const targetMonth = "Jan"; // Replace with the desired month
   const orderAnalysis =
     retailer?.length > 0
       ? await orderSchema.aggregate([

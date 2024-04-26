@@ -63,8 +63,6 @@ const Categorydemo = ({
       window.removeEventListener("resize", handleResize);
     };
   }, [width]);
-  console.log("gridgridgridgridgridgrid",grid)
-  console.log("categoryfieldcategoryfieldcategoryfield", singleproduct);
   return (
     <section className="product_category py-5">
       <Breadcrumb title={category} />
@@ -198,8 +196,8 @@ const Categorydemo = ({
                           <Link
                             href={`/productdata/${_id}`}
                             key={index}
-                            className={`border-[1px] img-hover rounded-lg overflow-hidden ${
-                              grid === 1 ? "flex gap-x-3" : "block"
+                            className={`border-[1px] img-hover rounded-lg overflow-hidden h-[100%] ${
+                              grid === 1 ? "flex gap-x-3" : "flex flex-col"
                             }`}
                           >
                             <div className="relative">
@@ -212,12 +210,12 @@ const Categorydemo = ({
                                 />
                               </div>
                               {retailer?.name?.length > 0 && rating >= 4 && (
-                                <h4 className="absolute left-0 top-3 uppercase img_clip text-[14px] py-[2px] rounded-tr-lg rounded-br-lg px-2 tracking-wide text-[#f2f2f2] font-extrabold bg-red-500">
+                                <h4 className="absolute left-0 top-3 uppercase img_clip text-[14px] max-sm:text-[8px] py-[2px] max-sm:px-1 max-sm:leading-4 rounded-tr-lg rounded-br-lg px-2 tracking-wide text-[#f2f2f2] font-extrabold bg-red-500">
                                   bestseller
                                 </h4>
                               )}
                             </div>
-                            <div className="pt-4 px-3 flex-1 w-[100%]">
+                            <div className="pt-4 px-3 flex-1 w-[100%] flex flex-col h-[100%] justify-between">
                               <h3 className="font-semibold text-lg max-sm:text-base capitalize">
                                 {title}
                               </h3>
@@ -243,7 +241,7 @@ const Categorydemo = ({
                                       : "text-[red]"
                                   }`}
                                 >
-                                  {stock}
+                                  {stock === "InStock" ? <span>{stock}</span> : <span className="text-red-600">Out of Stock</span>}
                                 </h4>
                                 {retailer?.name?.length > 0 && (
                                   <h4 className="capitalize text-[#197693]">

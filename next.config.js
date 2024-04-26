@@ -3,6 +3,9 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverActions: {
+      allowedOrigins: ['my-proxy.com', '*.my-proxy.com'],
+    },
   },
   images:{
     domains:['i.dummyjson.com',"fakestoreapi.com","res.cloudinary.com","cdn.dummyjson.com"]

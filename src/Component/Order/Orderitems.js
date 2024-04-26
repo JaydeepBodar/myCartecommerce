@@ -2,10 +2,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
-import { toast } from "react-toastify";
-import Tostify from "../Tostify";
-import { useRouter } from "next/navigation";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Orderitems = ({ item }) => {
   console.log("item", item);
@@ -15,7 +11,6 @@ const Orderitems = ({ item }) => {
   });
   const day = new Date(createdAt).getDate();
   const year = new Date(createdAt).getFullYear();
-  const router = useRouter();
   const { theme } = Globalthemeprovider();
   // console.log("paymentInfo", paymentInfo);
   return (

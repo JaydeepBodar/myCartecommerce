@@ -88,7 +88,7 @@ const Sidebar = () => {
           ) : (
             ""
           )}
-          <li className="border-t-[1px] border-[#d4d3d3]">
+          <li className={`${data?.user?.role !== "user" && "border-t-[1px] border-[#d4d3d3]"}`}>
             <Link href="/User/Profile">Your Profile</Link>
           </li>
           <li>

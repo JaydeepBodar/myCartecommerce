@@ -30,6 +30,7 @@ const Orderview = ({ order, loading }) => {
   } = order;
   const { theme } = Globalthemeprovider();
   const [dropdown, setdropdown] = useState("");
+  const router = useRouter();
   const updateDetail = async () => {
     await axios
       .put(`${process.env.API_URL}api/Order/${_id}`, { orderStatus: dropdown })

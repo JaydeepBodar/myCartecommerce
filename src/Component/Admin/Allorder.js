@@ -7,12 +7,11 @@ import Loader from "../Loader";
 import Custompagination from "../Custompagination";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import { CiGlass } from "react-icons/ci";
+import { useSession } from "next-auth/react";
 const Allorder = ({ orderdata, loading, loader }) => {
   const { order, productcount, productperpage } = orderdata;
-  const router = useRouter();
+  const {data}=useSession()
   const { theme } = Globalthemeprovider();
-  const retailerorderdata=order?.map(data=>data?.retailerId?.name)
-  console.log("retailerorderdataretailerorderdata",retailerorderdata)
   // useEffect(() => {
   //     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
   //     router.refresh();
@@ -55,9 +54,9 @@ const Allorder = ({ orderdata, loading, loader }) => {
                       <span>Order Created</span>&nbsp;:-&nbsp;{day}&nbsp;{month}
                       &nbsp;{year}
                     </h4>
-                    <h4 className="text-[#197693] font-semibold">
+                    {data?.user?.role === "Admin" && <h4 className="text-[#197693] font-semibold">
                       Seller&nbsp;:-&nbsp;{retailerId?.name}
-                    </h4>
+                    </h4>}
                   </div>
                   <div>
                     <Link

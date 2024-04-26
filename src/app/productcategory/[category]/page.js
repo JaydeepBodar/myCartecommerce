@@ -3,6 +3,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { env } from "@/config/env";
 import Categorydemo from "@/Component/Categorydemo";
+// servr rendering start
+// import Democomponent from "@/Component/Democomponent";
+// async function getCategoryproduct(category,subcategory) {
+//   // try {
+//     const response = await axios.get(`${process.env.API_URL}/api/productcategory/${category}?subcategory=${subcategory}`);
+//     return response.data;
+
+//   // } catch (error) {
+//   //   return {
+//   //     props: { error: 'Internal Server Error' },
+//   //   };
+//   // }
+// }
+// export async function getServerSideProps({ query }){
+//   console.log("queryqueryqueryqueryquery",query)
+// }
+// const page=async({params})=>{
+//   let newcategory=""
+//   const hadleCategorydata=(data)=>{
+//       newcategory=data
+//       console.log("subcategorysubcategorysubcategorysubcategory",newcategory)
+//   }
+//   const data=await getCategoryproduct(params.category,newcategory)
+//   return <Democomponent data={data} subcategory={hadleCategorydata}/>
+// }
+// export default page
+// server rendering end
 const Categorypage = ({ params }) => {
   const [singleproduct, setsingleproduct] = useState([]);
   const [loading, setloading] = useState(true);

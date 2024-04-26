@@ -209,140 +209,157 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               <h5 className="text-xl font-semibold">
                 Price:- {singleproduct?.products?.price}₹
               </h5>
-              <h5 className="text-xl font-semibold">
-                Seller:- {singleproduct?.products?.retailer?.name}₹
-              </h5>
-              <p>Color Selection :-</p>
-              <div
-                className={`${
-                  selection !== null && filter?.size !== "-" ? "pb-14" : "pb-7"
-                } flex gap-x-3 relative`}
-              >
-                {uniqueColors.map((color, index) => {
-                  const filtercolor = singleproduct?.products?.sizes?.filter(
-                    (val) => val.color === color
-                  );
-                  return (
-                    <>
-                      <div
-                        key={index}
-                        className={`${
-                          selection === index &&
-                          "border-[1px] border-[gray] rounded-full"
-                        } p-[2px]`}
-                        onClick={() => {
-                          setselection(index);
-                          setselection1(0);
-                          setfilter({
-                            size: filtercolor[0]?.size === "-" ? "-" : filtercolor[0]?.size,
-                            color: color,
-                            stock: filtercolor[0]?.quantity > 0 ? true : false,
-                          });
-                        }}
-                      >
-                        <p
-                          style={{ backgroundColor: color }}
-                          className={`w-[15px] h-[15px] rounded-full border-[gray] border-[1px]`}
-                        ></p>
-                      </div>
-                      <div className="absolute top-5 w-[100%]">
-                        <div className="flex items-center gap-x-2 mt-1 relative">
-                          {selection === index &&
-                            filtercolor.map((val, indexdata) => {
-                              const { size, quantity, color, stock } = val;
-                              if (size !== "-") {
-                                return (
-                                  <>
-                                    <p
-                                      key={indexdata}
-                                      className={`${
-                                        selection1 === indexdata &&
-                                        "bg-[#197693] text-white"
-                                      } p-1 w-[30px] text-center rounded-lg cursor-pointer`}
-                                      onClick={() => {
-                                        setselection1(indexdata),
-                                          setfilter({
-                                            color: color,
-                                            size: size,
-                                            stock: quantity > 0 ? true : false,
-                                          });
-                                      }}
-                                    >
-                                      {size}{" "}
-                                    </p>
-                                    <span className="absolute top-9">
-                                      {selection1 === indexdata  &&
-                                        filter?.size?.length > 0 && (
-                                          <span
-                                            className={`${
-                                              quantity > 0
-                                                ? "text-green-600"
-                                                : "text-red-600"
-                                            }`}
-                                          >
-                                            {quantity > 0 ? (
-                                              <span>In Stock</span>
-                                            ) : (
-                                              <span>Out of Stock</span>
-                                            )}
-                                            (
-                                            {quantity <= 2 && quantity > 0 ? (
-                                              <span>
-                                                Hurray! only {quantity} Item
-                                                left
-                                              </span>
-                                            ) : (
-                                              <span>
-                                                {quantity} Items Avilabel
-                                              </span>
-                                            )}
-                                            )
-                                          </span>
-                                        )}
-                                    </span>
-                                  </>
-                                );
-                              } else {
-                                return (
-                                  <>
-                                    {selection === index &&
-                                      filter?.size === "-" && (
-                                        <span
-                                          className="absolute top-0"
+              {singleproduct?.products?.retailer?.name?.length > 0 && (
+                <h5 className="text-xl font-semibold">
+                  Seller:- {singleproduct?.products?.retailer?.name}
+                </h5>
+              )}
+              {singleproduct?.products?.stock === "InStock" && (
+                <>
+                  {" "}
+                  <p>Color Selection :-</p>
+                  <div
+                    className={`${
+                      selection !== null && filter?.size !== "-"
+                        ? "pb-14"
+                        : "pb-7"
+                    } flex gap-x-3 relative`}
+                  >
+                    {uniqueColors.map((color, index) => {
+                      const filtercolor =
+                        singleproduct?.products?.sizes?.filter(
+                          (val) => val.color === color
+                        );
+                      return (
+                        <>
+                          <div
+                            key={index}
+                            className={`${
+                              selection === index &&
+                              "border-[1px] border-[gray] rounded-full"
+                            } p-[2px]`}
+                            onClick={() => {
+                              setselection(index);
+                              setselection1(0);
+                              setfilter({
+                                size:
+                                  filtercolor[0]?.size === "-"
+                                    ? "-"
+                                    : filtercolor[0]?.size,
+                                color: color,
+                                stock:
+                                  filtercolor[0]?.quantity > 0 ? true : false,
+                              });
+                            }}
+                          >
+                            <p
+                              style={{ backgroundColor: color }}
+                              className={`w-[15px] h-[15px] rounded-full border-[gray] border-[1px]`}
+                            ></p>
+                          </div>
+                          <div className="absolute top-5 w-[100%]">
+                            <div className="flex items-center gap-x-2 mt-1 relative">
+                              {selection === index &&
+                                filtercolor.map((val, indexdata) => {
+                                  const { size, quantity, color, stock } = val;
+                                  if (size !== "-") {
+                                    return (
+                                      <>
+                                        <p
                                           key={indexdata}
+                                          className={`${
+                                            selection1 === indexdata &&
+                                            "bg-[#197693] text-white"
+                                          } p-1 w-[30px] text-center rounded-lg cursor-pointer`}
+                                          onClick={() => {
+                                            setselection1(indexdata),
+                                              setfilter({
+                                                color: color,
+                                                size: size,
+                                                stock:
+                                                  quantity > 0 ? true : false,
+                                              });
+                                          }}
                                         >
-                                          <span
-                                            className={`${
-                                              filter?.stock === true
-                                                ? "text-green-600"
-                                                : "text-red-600"
-                                            }`}
-                                          >
-                                            {filter?.stock === true ? (
-                                              <span>In Stock</span>
-                                            ) : (
-                                              <span>Out of Stock</span>
+                                          {size}{" "}
+                                        </p>
+                                        <span className="absolute top-9">
+                                          {selection1 === indexdata &&
+                                            filter?.size?.length > 0 && (
+                                              <span
+                                                className={`${
+                                                  quantity > 0
+                                                    ? "text-green-600"
+                                                    : "text-red-600"
+                                                }`}
+                                              >
+                                                {quantity > 0 ? (
+                                                  <span>In Stock</span>
+                                                ) : (
+                                                  <span>Out of Stock</span>
+                                                )}
+                                                (
+                                                {quantity <= 2 &&
+                                                quantity > 0 ? (
+                                                  <span>
+                                                    Hurray! only {quantity} Item
+                                                    left
+                                                  </span>
+                                                ) : (
+                                                  <span>
+                                                    {quantity} Items Avilabel
+                                                  </span>
+                                                )}
+                                                )
+                                              </span>
                                             )}
-                                            ({quantity <= 2 && quantity > 0 ? (
-                                              <span>
-                                                Hurray! only {quantity} Item
-                                                left
-                                              </span>
-                                            ) : (
-                                              <span>
-                                                {quantity} Items Avilabel
-                                              </span>
-                                            )})
-                                          </span>
                                         </span>
-                                      )}
-                                  </>
-                                );
-                              }
-                            })}
-                        </div>
-                      </div>
-                      {/* {selection === index && size === "" && (
+                                      </>
+                                    );
+                                  } else {
+                                    return (
+                                      <>
+                                        {selection === index &&
+                                          filter?.size === "-" && (
+                                            <span
+                                              className="absolute top-0"
+                                              key={indexdata}
+                                            >
+                                              <span
+                                                className={`${
+                                                  filter?.stock === true
+                                                    ? "text-green-600"
+                                                    : "text-red-600"
+                                                }`}
+                                              >
+                                                {filter?.stock === true ? (
+                                                  <span>In Stock</span>
+                                                ) : (
+                                                  <span>Out of Stock</span>
+                                                )}
+                                                (
+                                                {quantity <= 2 &&
+                                                quantity > 0 ? (
+                                                  <span>
+                                                    Hurray! only {quantity} Item
+                                                    left
+                                                  </span>
+                                                ) : (
+                                                  <span>
+                                                    {quantity} Items Avilabel
+                                                  </span>
+                                                )}
+                                                )
+                                              </span>
+                                            </span>
+                                          )}
+                                      </>
+                                    );
+                                  }
+                                })}
+                            </div>
+                          </div>
+                          {/* {selection === index && size === "" && (
                         <p className="absolute top-5">
                           {quantity > 0 ? (
                             <span className="text-green-600">
@@ -355,10 +372,12 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           )}
                         </p>
                       )} */}
-                    </>
-                  );
-                })}
-              </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
               <div className="flex items-center gap-x-3 mt-5">
                 <>
                   {filter?.stock === true &&
@@ -380,7 +399,8 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                 singleproduct?.products?.price - discount,
                               size: filter?.size !== "" ? filter?.size : null,
                               color: filter?.color,
-                              retailerId:singleproduct?.products?.retailer?._id
+                              retailerId:
+                                singleproduct?.products?.retailer?._id,
                             });
                             if (filter?.color?.length === 0) {
                               toast.error("Please select color variant");
