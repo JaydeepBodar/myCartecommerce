@@ -28,7 +28,7 @@ const Categorydemo = ({
   minValue,
   // priceMin,
   // priceMax,
-  setprices,
+  setprices, 
   handleSliderChange,
 }) => {
   const { theme } = Globalthemeprovider();
@@ -39,7 +39,7 @@ const Categorydemo = ({
   const itemsPerPage = grid === 1 ? 4 : 6;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
+  
   const gridarray = [
     { icon: <IoMenuOutline />, number: 3 },
     { icon: <FaGripLinesVertical />, number: 2 },

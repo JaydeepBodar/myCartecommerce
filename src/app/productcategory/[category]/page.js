@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { env } from "@/config/env";
 import Categorydemo from "@/Component/Categorydemo";
+import usePreventUrlEdit from "@/Component/usePreventUrlEdit";
 // servr rendering start
 // import Democomponent from "@/Component/Democomponent";
 // async function getCategoryproduct(category,subcategory) {
@@ -40,6 +41,7 @@ const Categorypage = ({ params }) => {
   let Maxvalue;
   // const [priceMax, setPriceMin] = useState('');
   // const [priceMax, setPriceMax] = useState('');
+  usePreventUrlEdit()
   useEffect(() => {
     // const categorydata =
     //   subcategory === undefined

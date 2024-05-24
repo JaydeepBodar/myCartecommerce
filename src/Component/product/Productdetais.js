@@ -49,7 +49,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const productbtn = cart?.cartItems?.some(
     (item) => item._id === singleproduct?.products?._id
   );
-
+  console.log("productbtnproductbtnproductbtnproductbtn",productbtn)
   const discount = (
     singleproduct?.products?.price -
     (singleproduct?.products?.price *
@@ -107,6 +107,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const [selection, setselection] = useState(null);
   const [selection1, setselection1] = useState(null);
   const [filter, setfilter] = useState({ size: "", color: "", stock: true });
+  console.log("singleproduct?.products?.sizes",singleproduct?.products?.sizes[0]?.color,singleproduct?.products?.sizes[0]?.stock)
   const uniqueColors = Array.from(
     new Set(singleproduct?.products?.sizes.map((product) => product.color))
   );
@@ -386,7 +387,10 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                       <>
                         <button
                           onClick={() => {
-                            addItemtocart({
+                            if (filter?.color?.length === 0) {
+                              toast.error("Please select color variant");
+                            } else {
+                              addItemtocart({
                               _id: singleproduct?.products?._id,
                               title: singleproduct?.products?.title,
                               thumbnail: singleproduct?.products?.thumbnail,
@@ -402,17 +406,16 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                               retailerId:
                                 singleproduct?.products?.retailer?._id,
                             });
-                            if (filter?.color?.length === 0) {
-                              toast.error("Please select color variant");
-                            } else {
                               if (
                                 productbtn === true ||
                                 cart?.cartItems?.length >= 0
                               ) {
                                 setbtn("Go to Cart");
+                                router.push("/Cart")
                               } else {
                                 setbtn("Add Cart");
                               }
+                              
                             }
                           }}
                           className="w-[100%] max-w-[100px] bg-[#197693] text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-[#197693]"

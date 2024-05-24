@@ -141,13 +141,13 @@ const Cartitem = () => {
                               className="w-[15px] h-[15px] rounded-full block"
                             ></span>
                           </div>}
-                          <span
+                          {size !== "-" && <span
                             className={`${
                               pathname === "/shiping" ? "text-sm" : "text-xl"
                             }  font-semibold max-sm:text-lg`}
                           >
                             {size}
-                          </span>
+                          </span>}
                         </h5>
                       </div>
                     </div>

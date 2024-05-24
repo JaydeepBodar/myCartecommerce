@@ -210,9 +210,7 @@ export const getallOrder = async (req, res) => {
     const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
       productperpage
     );
-    const order = await apifillter.query
-      .find()
-      .populate("retailerId");
+    const order = await apifillter.query.find().populate("retailerId");
 
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
@@ -226,7 +224,7 @@ export const getallOrderforretailer = async (req, res) => {
     const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
       productperpage
     );
-    const order = await apifillter.query.find({ retailerId: req.user._id }) 
+    const order = await apifillter.query.find({ retailerId: req.user._id });
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });

@@ -7,7 +7,7 @@ export const getAllproductdata = async (req, res) => {
 export const getRetailproduct = async (req, res) => {
   const { page } = req.query;
   const productperpage = 5;
-  const filterproductscount=""
+  const filterproductscount = "";
   const currentpage = Number(page) || 1;
   const skippage = productperpage * (currentpage - 1);
   console.log("req.user", req.user);
@@ -78,7 +78,7 @@ export const singleProduct = async (req, res) => {
     {
       path: "reviews.userdata",
       model: "User",
-      select: "name email avatar", // Specify the fields you want to populate for the user
+      select: "name email avatar", 
     },
     "retailer",
   ]);
@@ -107,7 +107,7 @@ export const singleCategory = async (req, res) => {
     query.price = { $gte: numPricemin, $lte: numPricemax };
   }
   // let data;
-  const productdata = await productSchema.find(query).populate("retailer")
+  const productdata = await productSchema.find(query).populate("retailer");
   // .limit(itemperpage)
   // .skip(totalskipitem);
   // const totalproduct = await productSchema.find(query).countDocuments();
