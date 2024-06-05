@@ -202,7 +202,7 @@ const Categorydemo = ({
                           >
                             <div className="relative">
                               <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden flex-1">
-                                <Image
+                                <Image   
                                   src={thumbnail}
                                   className="object-fill w-[100%] h-[100%] hover-img"
                                   width={200}

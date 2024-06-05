@@ -5,7 +5,7 @@ import { useEffect } from "react";
 const usePreventUrlEdit = () => {
   const router = useRouter();
   const pathname = usePathname();
-  console.log("routerrouterrouter", pathname);
+  // console.log("routerrouterrouter", pathname);
   useEffect(() => {
     if (router.events) {
       // Add a null check here
@@ -15,7 +15,6 @@ const usePreventUrlEdit = () => {
         }
       };
       router.events.on("routeChangeStart", handleRouteChange);
-
       return () => {
         router.events.off("routeChangeStart", handleRouteChange);
       };  

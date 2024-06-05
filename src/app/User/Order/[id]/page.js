@@ -4,7 +4,6 @@ import axios from "axios";
 import Singleorder from "@/Component/Order/Singleorder";
 import Cookies from "js-cookie";
 const Singleorderpage = ({ params }) => {
-  console.log("paramsparamsparamsparamsparams",params)
   const [orders, setorders] = useState([]);
   const [loading, setloading] = useState(true);
   const productionheaders = Cookies.get("__Secure-next-auth.session-token");

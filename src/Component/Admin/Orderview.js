@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import Loader from "../Loader";
 const Orderview = ({ order, loading }) => {
   const { data } = useSession();
-  console.log("object", order);
   // console.log("order", order);
   const {
     status,
@@ -80,6 +79,12 @@ const Orderview = ({ order, loading }) => {
               >
                 <option name="dropdown" value="Processing">
                   Processing
+                </option>
+                <option name="dropdown" value="Shipped">
+                Shipped
+                </option>
+                <option name="dropdown" value="Out for Delivery">
+                Out for Delivery
                 </option>
                 <option name="dropdown" value="Delivered">
                   Delivered

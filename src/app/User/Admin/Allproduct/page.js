@@ -63,7 +63,6 @@ const Product = ({ searchParams }) => {
   const loader = (load) => {
     setloading(load);
   };
-  console.log("product", product);
   return <Adminproduct product={product} loader={loader} loading={loading} />;
 };
 

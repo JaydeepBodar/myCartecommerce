@@ -29,7 +29,6 @@ export const checkoutsession = async (req, res) => {
       quantity: item.quantity,
     };
   });
-  console.log("line_items datatata", line_items[0]?.price_data?.product_data);
   const shipinginfo = body?.shippingInfo;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -37,7 +36,7 @@ export const checkoutsession = async (req, res) => {
     cancel_url: `${process.env.API_URL}`,
     customer_email: body?.email,
     client_reference_id: body?.id,
-    mode: "payment",
+    mode: "payment",  
     metadata: { shipinginfo },
     shipping_options: [
       {
@@ -127,7 +126,6 @@ export const webhook = async (req, res) => {
           orderItems.push(orderItem);
         })
       );
-
       console.log(
         "OrderdataOrderdataOrderdataOrderdataOrderdataOrderdata",
         orderItems
@@ -211,7 +209,6 @@ export const getallOrder = async (req, res) => {
       productperpage
     );
     const order = await apifillter.query.find().populate("retailerId");
-
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
@@ -232,10 +229,6 @@ export const getallOrderforretailer = async (req, res) => {
 };
 export const orderanylitic = async (req, res) => {
   const { retailer } = req.query;
-  console.log(
-    "retailerretailerretailerretailerretailer",
-    new mongoose.Types.ObjectId(retailer)
-  );
   const orderbystatus1 =
     retailer?.length > 0
       ? await orderSchema

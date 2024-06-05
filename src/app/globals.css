@@ -280,13 +280,72 @@ td {
   border-collapse: collapse;
   color: #f2f2f2;
 }
-.fotter_bottom h4{
+.fotter_bottom h4 {
   margin-bottom: 10px;
   font-weight: 600;
   font-size: 20px;
 }
-.fotter_bottom a{
+.fotter_bottom a {
   font-weight: 500;
+}
+/* for order_track */
+.order_track span.without_animation:nth-child(1),
+.order_track span.animation_class:nth-child(1)::before {
+  position: relative;
+}
+.order_track span.without_animation:nth-child(1)::before,
+.order_track span.without_animation:nth-child(2):before,
+.order_track span.without_animation:nth-child(3):before,
+.order_track span.without_animation:nth-child(4):before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: -20px;
+  top: 2px;
+  width: 15px;
+  height: 15px;
+  background-color: #cecbcb;
+  -webkit-border-radius: 50;
+  -moz-border-radius: 50;
+  -ms-border-radius: 50;
+  -o-border-radius: 50;
+}
+.order_track span.without_animation_data:nth-child(1)::before,
+.order_track span.without_animation_data:nth-child(2):before,
+.order_track span.without_animation_data:nth-child(3):before,
+.order_track span.without_animation_data:nth-child(4):before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: -20px;
+  top: 2px;
+  width: 15px;
+  height: 15px;
+  background-color: #197693;
+  -webkit-border-radius: 50;
+  -moz-border-radius: 50;
+  -ms-border-radius: 50;
+  -o-border-radius: 50;
+}
+.order_track span.animation_class:nth-child(1)::before,
+.order_track span.animation_class:nth-child(2):before,
+.order_track span.animation_class:nth-child(3):before,
+.order_track span.animation_class:nth-child(4):before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: -20px;
+  top: 2px;
+  width: 15px;
+  height: 15px;
+  background-color: #197693;
+  -webkit-box-shadow: -0.5px 2px 15px 5px #16769380;
+  -moz-box-shadow: -0.5px 2px 15px 5px #16769380;
+  box-shadow: -0.5px 2px 15px 5px #16769380;
+  -webkit-border-radius: 50;
+  -moz-border-radius: 50;
+  -ms-border-radius: 50;
+  -o-border-radius: 50;
 }
 @media screen and (max-width: 768px) {
   body {
@@ -332,11 +391,12 @@ td {
   .testmonalis_wrapper .slick-dots li button:before {
     font-size: 10px;
   }
-  .fotter_bottom h4{
+  .fotter_bottom h4 {
     font-size: 16px;
     margin-bottom: 5px;
   }
-  .fotter_bottom a,.fotter_bottom p{
+  .fotter_bottom a,
+  .fotter_bottom p {
     font-size: 13px;
   }
 }

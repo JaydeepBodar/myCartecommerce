@@ -3,8 +3,7 @@ import Image from "next/image";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import Loader from "../Loader";
 const Singleorder = ({ order, loading }) => {
-
-  const {theme}=Globalthemeprovider()
+  const { theme } = Globalthemeprovider();
   const month = new Date(order?.createdAt).toLocaleString("en-us", {
     month: "short",
   });
@@ -21,6 +20,20 @@ const Singleorder = ({ order, loading }) => {
         .finally(() => router.refresh());
     }
   };
+  const orderStatusdata = (orderStatus) => {
+    switch (orderStatus) {
+      case "Processing":
+        return "0px";
+      case "Shipped":
+        return "80px";
+      case "Out for Delivery":
+        return "160px";
+      case "Delivered":
+        return "250px";
+      default:
+        return null;
+    }
+  };
   return (
     <>
       {!loading ? (
@@ -31,6 +44,72 @@ const Singleorder = ({ order, loading }) => {
               <div>
                 {" "}
                 <h4>Order id:-&nbsp;{order?._id}</h4>
+                <h4 className="text-base font-semibold">Order tracking</h4>
+                <p className="h-[250px] text-left border-l-[2px] border-[#cecbcb] relative my-6 order_track">
+                  <span
+                    className={`${
+                      order?.orderStatus === "Processing"
+                        ? "animation_class"
+                        : ""
+                    } ${
+                      order?.orderStatus !== "Processing"
+                        ? "without_animation_data"
+                        : ""
+                    } without_animation absolute top-[-10px] left-3`}
+                  >
+                    {order?.orderStatus === "Processing"
+                      ? order?.orderStatus
+                      : "Processing"}
+                  </span>
+                  <span
+                    className={`${
+                      order?.orderStatus === "Shipped" ? "animation_class" : ""
+                    }  ${
+                      order?.orderStatus === "Out for Delivery" ||
+                      order?.orderStatus === "Delivered"
+                        ? "without_animation_data"
+                        : ""
+                    } absolute top-[31%] left-3 without_animation`}
+                  >
+                    {order?.orderStatus === "Shipped"
+                      ? order?.orderStatus
+                      : "Shipped"}
+                  </span>
+                  <span
+                    className={`${
+                      order?.orderStatus === "Out for Delivery"
+                        ? "animation_class"
+                        : ""
+                    }  ${
+                      order?.orderStatus === "Delivered"
+                        ? "without_animation_data"
+                        : ""
+                    } absolute top-[63%] left-3 without_animation`}
+                  >
+                    {order?.orderStatus === "Out for Delivery"
+                      ? order?.orderStatus
+                      : "Out for Delivery"}
+                  </span>
+                  <span
+                    className={`${
+                      order?.orderStatus === "Delivered"
+                        ? "animation_class"
+                        : ""
+                    } absolute top-[93%] left-3 without_animation`}
+                  >
+                    {order?.orderStatus === "Delivered"
+                      ? order?.orderStatus
+                      : "Delivered"}
+                  </span>
+                  <span
+                    className="text-left border-l-[2px] border-[#197693] absolute left-[-1px]"
+                    style={{
+                      maxHeight: orderStatusdata(order?.orderStatus),
+                      transition: "height 2s ease",
+                      height: "100%",
+                    }}
+                  ></span>
+                </p>
                 <h4
                   className={`${
                     order?.orderStatus === "Processing"
@@ -60,7 +139,8 @@ const Singleorder = ({ order, loading }) => {
                 <span>{order?.shippingInfo?.country}</span>,
               </h5>
               <h5>
-                <span>{order?.shippingInfo?.city}</span>-<span>{order?.shippingInfo?.zipcode}</span>,
+                <span>{order?.shippingInfo?.city}</span>-
+                <span>{order?.shippingInfo?.zipcode}</span>,
               </h5>
               <h5>Mobile No:-&nbsp;{order?.shippingInfo?.phoneNo}</h5>
             </div>
@@ -71,43 +151,47 @@ const Singleorder = ({ order, loading }) => {
               <h5>Total payment :-&nbsp;{order?.amountPaid}₹</h5>
             </div>
           </div>
-          <div
-              className="flex items-center gap-x-4 gap-y-2 font-semibold p-4"
-            >
-              <div className="flex items-center gap-x-2 max-sm:gap-x-1 max-sm:basis-[45%]">
-                <Image
-                  src={order?.image[0]}
-                  width={80}
-                  alt={order?.name}
-                  height={80}
-                  loading="lazy"
-                  className="border-[1px] border-[#cecbcb] object-fill rounded-lg w-[80px] h-[80px] "
-                />
-                <p className="flex">
-                  <span>x&nbsp;</span> {order?.quantity}
-                </p>
-              </div>
-              <div>
-              <h4 className="text-[#197693] font-semibold">Seller:-&nbsp;{order?.retailerId?.name}</h4>
-                <h5>Product:-&nbsp;{order?.name}</h5>
-                <h4>Price:-&nbsp;{order?.price}₹</h4>
-                <h5 className="flex items-center gap-x-2">
-                  {order?.color?.length > 0 && (
-                    <div
-                      className={`${
-                        theme === true ? "border-[#000000]" : "border-[#f2f2f2]"
-                      } p-[2px] rounded-full border-[1px]`}
-                    >
-                      <span
-                        style={{ backgroundColor: order?.color }}
-                        className="w-[10px] h-[10px] rounded-full block"
-                      ></span>
-                    </div>
-                  )}
-                  {order?.size === "-" ? <span></span> : <span>{order?.size}</span>}
-                </h5>
-              </div>
+          <div className="flex items-center gap-x-4 gap-y-2 font-semibold p-4">
+            <div className="flex items-center gap-x-2 max-sm:gap-x-1 max-sm:basis-[45%]">
+              <Image
+                src={order?.image[0]}
+                width={80}
+                alt={order?.name}
+                height={80}
+                loading="lazy"
+                className="border-[1px] border-[#cecbcb] object-fill rounded-lg w-[80px] h-[80px] "
+              />
+              <p className="flex">
+                <span>x&nbsp;</span> {order?.quantity}
+              </p>
             </div>
+            <div>
+              <h4 className="text-[#197693] font-semibold">
+                Seller:-&nbsp;{order?.retailerId?.name}
+              </h4>
+              <h5>Product:-&nbsp;{order?.name}</h5>
+              <h4>Price:-&nbsp;{order?.price}₹</h4>
+              <h5 className="flex items-center gap-x-2">
+                {order?.color?.length > 0 && (
+                  <div
+                    className={`${
+                      theme === true ? "border-[#000000]" : "border-[#f2f2f2]"
+                    } p-[2px] rounded-full border-[1px]`}
+                  >
+                    <span
+                      style={{ backgroundColor: order?.color }}
+                      className="w-[10px] h-[10px] rounded-full block"
+                    ></span>
+                  </div>
+                )}
+                {order?.size === "-" ? (
+                  <span></span>
+                ) : (
+                  <span>{order?.size}</span>
+                )}
+              </h5>
+            </div>
+          </div>
           {order?.orderStatus === "Delivered" ? (
             ""
           ) : (

@@ -78,7 +78,7 @@ export const singleProduct = async (req, res) => {
     {
       path: "reviews.userdata",
       model: "User",
-      select: "name email avatar", 
+      select: "name email avatar",
     },
     "retailer",
   ]);
@@ -119,7 +119,7 @@ export const singleCategory = async (req, res) => {
   //   data = productdata;
   // }
   res.json({
-    productdata,
+    productdata, 
   });
   // } catch (e) {
   //   res.json({ message: "unable to show" });
@@ -195,8 +195,8 @@ export const updateReview = async (req, res) => {
       { _id: req.query.id, "reviews._id": req.query.id },
       {
         $set: {
-          "reviews.$.comment": comment, // Replace with the updated comment
-          "reviews.$.rating": rating, // Replace with the updated rating
+          "reviews.$.comment": comment,
+          "reviews.$.rating": rating,
         },
       }
     )
@@ -238,7 +238,7 @@ export const testMonalis = async (req, res) => {
     .populate({
       path: "reviews.userdata",
       model: "User",
-      select: "name email avatar", // Specify the fields you want to populate for the user
+      select: "name email avatar",
     });
   // console.log("productreviewproductreview", productreview);
   res.status(200).json({ productreview });

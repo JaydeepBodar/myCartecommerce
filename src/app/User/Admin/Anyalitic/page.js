@@ -9,7 +9,6 @@ const Piechart = dynamic(() => import("@/Component/Admin/Chart/Piechart"), {
 });
 const Dashboarddata = () => {
   const { data } = useSession();
-  console.log("datadatadatadatadata", data);
   const [chartstate, setchartstate] = useState([]);
   const [loading, setloading] = useState(true);
   const productionheaders = Cookies.get("__Secure-next-auth.session-token");
