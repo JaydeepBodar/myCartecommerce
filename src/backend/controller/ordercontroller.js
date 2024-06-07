@@ -37,17 +37,17 @@ export const checkoutsession = async (req, res) => {
         customer: customerId,
         limit: 1,
       });
-  
+
       return charges.data.length === 0;
     } catch (error) {
-      console.error('Error checking customer charges:', error);
+      console.error("Error checking customer charges:", error);
       return false;
     }
   }
   const isFirstTime = await isFirstTimeCustomer(body?.id);
-  console.log("body?.idbody?.idbody?.id",body?.id)
+  console.log("body?.idbody?.idbody?.id", body?.id);
   const shipinginfo = body?.shippingInfo;
-  const sessionCreatedata={
+  const sessionCreatedata = {
     payment_method_types: ["card"],
     success_url: `${process.env.API_URL}User/Order?order_success=true`,
     cancel_url: `${process.env.API_URL}`,
@@ -61,20 +61,24 @@ export const checkoutsession = async (req, res) => {
       },
     ],
     line_items,
-  }
+  };
   if (isFirstTime) {
-    console.log("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnnnnnnnn--------------------")
+    console.log(
+      "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnnnnnnnn--------------------"
+    );
     const coupon = await stripe.coupons.create({
       percent_off: 20,
-      duration: 'once',
+      duration: "once",
     });
     const promotionCode = await stripe.promotionCodes.create({
       coupon: coupon.id,
       max_redemptions: 1,
     });
-    sessionParams.discounts = [{
-      discount: promotionCode.id,
-    }];
+    sessionParams.discounts = [
+      {
+        discount: promotionCode.id,
+      },
+    ];
   }
   const session = await stripe.checkout.sessions.create(sessionCreatedata);
   console.log("line_itemsline_itemsline_itemsline_items", session);
@@ -115,7 +119,7 @@ export const checkoutsession = async (req, res) => {
 export const webhook = async (req, res) => {
   try {
     const rawbody = await getRawBody(req);
-    console.log("reqreqreqreqreqreq",rawbody)
+    console.log("reqreqreqreqreqreq", rawbody);
     const signature = req.headers["stripe-signature"];
     const event = stripe.webhooks.constructEvent(
       rawbody,
@@ -448,8 +452,11 @@ export const webhook = async (req, res) => {
                                                   <tr>
                                                   <td style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px; padding-bottom: 10px;">
                                                       <a href="${
-                                                        process.env.API_URL
-                                                      }//User/Order/${
+                                                        process.env.API_URL ===
+                                                        "https://my-cartecommerce-ljdm.vercel.app"
+                                                          ? "https://my-cartecommerce-ljdm.vercel.app"
+                                                          : process.env.API_URL
+                                                      }/User/Order/${
             orderDataget[0]?._id
           }" style="display: inline-block;padding: 7px 0; text-align: center; background-color: #197693; color: #ffffff; width: 130px; border-radius: 15px; letter-spacing: 0.8px; font-size: 13px;">View Your Order</a>
                                                   </td>

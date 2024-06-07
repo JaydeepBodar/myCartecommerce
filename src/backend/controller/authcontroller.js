@@ -151,7 +151,14 @@ export const resetPassword = async (req, res) => {
                                             </p>
                                             <p style="padding-bottom: 16px">
                                               <a
-                                                href=${process.env.API_URL}/Authentication/Forgotpassword/${userfind.id}/${setusertoken.verifytoken}
+                                                href=${
+                                                  process.env.API_URL ===
+                                                  "https://my-cartecommerce-ljdm.vercel.app"
+                                                    ? "https://my-cartecommerce-ljdm.vercel.app"
+                                                    : process.env.API_URL
+                                                }/Authentication/Forgotpassword/${
+            userfind.id
+          }/${setusertoken.verifytoken}
                                                 // target="_blank"
                                                 style="padding: 12px 24px; border-radius: 4px; color: #FFF; background: #2B52F5;display: inline-block;margin: 0.5rem 0; text-decoration:none"
                                               >
