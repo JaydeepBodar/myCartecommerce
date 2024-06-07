@@ -5,7 +5,6 @@ import { checkbox } from "../product/checkbox";
 import Inputdata from "../Inputdata";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Tostify from "../Tostify";
 import { toast } from "react-toastify";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import { CiSquarePlus } from "react-icons/ci";
@@ -150,7 +149,6 @@ const Additem = () => {
   };
   return (
     <React.Fragment>
-      <Tostify />
       <div
         className={`${
           theme === true

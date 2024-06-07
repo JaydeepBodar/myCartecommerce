@@ -6,7 +6,6 @@ import newsleter from "../../../public/images/newsletter.png";
 import Container from "../Container";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Tostify from "../Tostify";
 const Footer = () => {
   const date = new Date().getFullYear();
   const [email, setemail] = useState("");
@@ -33,7 +32,6 @@ const Footer = () => {
   };
   return (
     <>
-      <Tostify />
       <div className="relative text-white bg-[#197693] py-10">
         <div
           title="back to top"

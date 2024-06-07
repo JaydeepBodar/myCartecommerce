@@ -4,7 +4,6 @@ import Inputdata from "@/Component/Inputdata";
 import { signIn, useSession } from "next-auth/react";
 import React, { useState } from "react";
 import Link from "next/link";
-import Tostify from "@/Component/Tostify";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { parseCallbackUrl } from "@/helper/getPricequeryparams";
@@ -49,7 +48,6 @@ const Login = () => {
   const { theme } = Globalthemeprovider();
   return (
     <React.Fragment>
-      <Tostify />
       <Container>
         <div className=" pt-12 pb-14 md:mb-[4px] flex flex-col justify-center items-center">
           <div

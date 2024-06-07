@@ -112,7 +112,7 @@ export const resetPassword = async (req, res) => {
     const userfind = await Userschema.findOne({ email: email });
     if (email) {
       const token = jwt.sign({ _id: userfind._id }, process.env.RESET_SECREAT, {
-        expiresIn: "1200s",
+        expiresIn: "600s",
       });
 
       const setusertoken = await Userschema.findByIdAndUpdate(

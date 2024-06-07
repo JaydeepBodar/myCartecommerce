@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Tostify from "../Tostify";
 import Loader from "../Loader";
 import Custompagination from "../Custompagination";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
@@ -18,7 +17,6 @@ const Allorder = ({ orderdata, loading, loader }) => {
   //   }, [productperpage,productcount]);
   return (
     <section>
-      <Tostify />
       {loading && (
         <div className="h-[60vh] flex items-center justify-center">
           <Loader />

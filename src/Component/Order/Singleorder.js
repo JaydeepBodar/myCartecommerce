@@ -1,8 +1,13 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import Loader from "../Loader";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 const Singleorder = ({ order, loading }) => {
+  console.log("orderorderorderorder",order)
+  const router=useRouter()
   const { theme } = Globalthemeprovider();
   const month = new Date(order?.createdAt).toLocaleString("en-us", {
     month: "short",
@@ -14,10 +19,10 @@ const Singleorder = ({ order, loading }) => {
       "if you really want to delete your order ? if yes then press ok otherwise press cancle";
     if (window.confirm(text) == true) {
       axios
-        .delete(`${process.env.API_URL}api/Order/${_id}`, { item })
+        .delete(`${process.env.API_URL}api/Order/${order?._id}`, { order })
         .then((res) => toast.success(res?.data?.message))
         .catch((e) => console.log("eeee", e))
-        .finally(() => router.refresh());
+        .finally(() => router.push('/User/Order'));
     }
   };
   const orderStatusdata = (orderStatus) => {

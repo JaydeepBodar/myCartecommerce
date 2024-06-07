@@ -9,7 +9,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Loader from "../Loader";
 import { CartgloblContext } from "@/Context/Cartcontext";
 import { toast } from "react-toastify";
-import Tostify from "../Tostify";
 import { useSession } from "next-auth/react";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Shiping = ({ address }) => {
@@ -55,7 +54,6 @@ const Shiping = ({ address }) => {
           cart?.cartItems?.length === 0 && "h-[81vh]"
         } flex gap-x-3 py-[66.5px] max-md:py-[20px] items-start max-md:flex-col`}
       >
-        <Tostify/>
         {!loading && (
           <div className="w-[100%] basis-[75%] max-md:basis-[100%] max-md:py-2 border-[1px] border-[#f2f2f2] px-4 py-3 h-[auto] mt-4 rounded-lg">
             <div className="pb-4 max-sm:text-[14px] flex justify-between flex-wrap gap-x-1">

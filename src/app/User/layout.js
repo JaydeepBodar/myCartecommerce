@@ -3,7 +3,6 @@ import Container from "@/Component/Container";
 import React from "react";
 // import Accessdenied from "@/Component/Accessdenied";
 import Sidebar from "@/Component/User/Sidebar";
-import Tostify from "@/Component/Tostify";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 // import Loader from "@/Component/Loader"
@@ -13,7 +12,6 @@ const Dashboard = ({ children }) => {
   return (
     <>
       <section>
-        <Tostify />
         {pathname !== "/User/Admin/Register" && (
           <div className="capitalize tracking-[1.2px] bg-[#197693] text-white font-semibold text-2xl py-5 max-sm:py-2 max-sm:text-base">
             <Container>

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Container from "../Container";
 import Inputdata from "../Inputdata";
-import Tostify from "../Tostify";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Resetpassword = () => {
   const [email, setemail] = useState("");
@@ -18,7 +17,6 @@ const Resetpassword = () => {
   };
   return (
     <React.Fragment>
-      <Tostify />
       <Container>
         <div className="md:mb-[4px] pt-12 pb-14 flex flex-col justify-center items-center">
           <div

@@ -9,7 +9,6 @@ import { CartgloblContext } from "@/Context/Cartcontext";
 import { useSession } from "next-auth/react";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
-import Tostify from "../Tostify";
 import UserReview from "../User/UserReview";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -120,7 +119,6 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
       )}
       {!loading && (
         <React.Fragment>
-          <Tostify />
           <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3 py-6">
             <div>
               {singleproduct?.products?.thumbnail ? (

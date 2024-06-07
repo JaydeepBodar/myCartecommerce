@@ -6,7 +6,6 @@ import Custompagination from "../Custompagination";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Tostify from "../Tostify";
 import Loader from "../Loader";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Adminproduct = ({ product, loader, loading }) => {
@@ -32,7 +31,6 @@ const Adminproduct = ({ product, loader, loading }) => {
   // }, []);
   return (
     <React.Fragment>
-      <Tostify />
       {loading && (
         <div className="h-[60vh] flex items-center justify-center">
           <Loader />

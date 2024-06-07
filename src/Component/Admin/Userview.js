@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import Tostify from "../Tostify";
 import { useRouter } from "next/navigation";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Userview = ({ user }) => {
@@ -24,7 +23,6 @@ const Userview = ({ user }) => {
   };
   return (
     <React.Fragment>
-      <Tostify />
       <div
         className={`${
           theme === true

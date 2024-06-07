@@ -8,7 +8,6 @@ import Link from "next/link";
 import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Tostify from "@/Component/Tostify";
 import { usePathname, useRouter } from "next/navigation";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Register = () => {
@@ -51,7 +50,6 @@ const Register = () => {
     });
   return (
     <React.Fragment>
-      <Tostify />
       <Container>
         <div
           className={`pt-12 pb-14 md:mb-[4px] flex flex-col justify-center items-center`}

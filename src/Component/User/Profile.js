@@ -9,7 +9,6 @@ import Loader from "../Loader";
 import { useRouter } from "next/navigation";
 // import Modal from 'react-modal';
 import { Globalusercontext } from "@/Context/Userproider";
-import Tostify from "../Tostify";
 const Profile = ({ address }) => {
   const router = useRouter();
   const [loading, setloading] = useState(true);
@@ -49,7 +48,6 @@ const Profile = ({ address }) => {
   const year = new Date(date).getFullYear();
   return (
     <React.Fragment>
-      <Tostify/>
       {loading && (
         <div className="h-[60vh] flex items-center justify-center">
           <Loader />

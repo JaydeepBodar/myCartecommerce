@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Container from "../Container";
 import Inputdata from "../Inputdata";
-import Tostify from "../Tostify";
 const Forgotpassword = ({ id, token }) => {
   const [password, setpassword] = useState("");
   const{theme}=Globalthemeprovider()
@@ -35,7 +34,6 @@ const Forgotpassword = ({ id, token }) => {
   }, []);
   return (
     <React.Fragment>
-      <Tostify />
       <Container>
         <div className="md:mb-[4px] pt-12 pb-14 flex flex-col justify-center items-center">
           <div className={`${
