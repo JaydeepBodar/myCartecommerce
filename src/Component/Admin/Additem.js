@@ -35,7 +35,6 @@ const Additem = () => {
     rating,
     featured,
     subcategory,
- 
   } = Input;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +61,6 @@ const Additem = () => {
       setselection({ size: "", color: "", quantity: "" });
       setdisable(false);
     }
-
   };
   const handleEditItem = (index) => {
     setselection({ size: size, color: color, quantity: quantity });
@@ -81,7 +79,7 @@ const Additem = () => {
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset",process.env.UPLOAD_PREST); // Set your Cloudinary upload preset
+      formData.append("upload_preset", process.env.UPLOAD_PREST); // Set your Cloudinary upload preset
       formData.append("cloud_name", process.env.CLOUD_NAME);
       formData.append(
         "public_id",
@@ -117,10 +115,13 @@ const Additem = () => {
       "myCarteCommerce/Product/" + title + "_" + new Date()
     );
     data.append("cloud_name", process.env.CLOUD_NAME);
-    fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
-      method: "post",
-      body: data,
-    })
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`,
+      {
+        method: "post",
+        body: data,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log("data", data);

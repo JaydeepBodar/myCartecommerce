@@ -174,13 +174,10 @@ export const resetPassword = async (req, res) => {
                                               <img
                                               src="https://res.cloudinary.com/dxlicroam/image/upload/v1713345213/logo_lrnabv.png"
                                               alt="Company logo"
-                                              style="padding-top:10px; width: 50px; height:30px display:block"
+                                              style="padding-top:10px;  width:100px; height:75px; background-size: cover;"
                                             />
                                           
                                           </div>
-                                        </div>
-                                        <div style="padding-top: 20px; color: rgb(153, 153, 153); text-align: center;">
-                                          <p style="padding-bottom: 16px">Made with ♥ in India</p>
                                         </div>
                                       </td>
                                     </tr>

@@ -153,7 +153,7 @@ const Singleorder = ({ order, loading }) => {
               <h4 className="font-semibold">Payment details</h4>
               <h5>Payment id:-&nbsp;{order?.paymentId}</h5>
               <h5>Payment Status:-&nbsp;{order?.status} </h5>
-              <h5>Total payment :-&nbsp;{order?.amountPaid}₹</h5>
+              <h5>Total payment :-&nbsp;{(order?.amountPaid * order?.quantity)}₹</h5>
             </div>
           </div>
           <div className="flex items-center gap-x-4 gap-y-2 font-semibold p-4">

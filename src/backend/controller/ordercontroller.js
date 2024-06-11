@@ -9,6 +9,12 @@ import APIFilter from "../utils/APIFilter";
 const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
+  console.log(
+    "hhhhhhhhhhhhhhhhhhhhhhhh",
+    body?.items?.reduce((acc, data) => {
+      return acc + Number(data?.discountprice);
+    }, 0)
+  );
   const line_items = body?.items?.map((item) => {
     // console.log("itemdddddddddd", item);
     return {
@@ -124,7 +130,7 @@ export const webhook = async (req, res) => {
     const event = stripe.webhooks.constructEvent(
       rawbody,
       signature,
-      process.env.WEBHOOKS_SECERATKEY_PRODUCTION
+      process.env.WEBHOOKS_SECERATKEY
       // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
     // console.log("event", event);
@@ -186,7 +192,7 @@ export const webhook = async (req, res) => {
         const mailOptions = {
           from: process.env.NODEMAILER_EMAIL,
           to: session.customer_email,
-          subject: `Order placed Succssefully #${orderDataget[0]?._id}`,
+          subject: `Order placed Succssefully`,
           html: `<html lang="en">
           <head>
               <meta charset="UTF-8">
@@ -283,7 +289,7 @@ export const webhook = async (req, res) => {
                                                               } | <strong>Order Date:</strong> ${orderdate}
                                                           </td>
                                                       </tr>
-                                                  </tbody>
+                                                  </tbody>  
                                               </table>
                                           </td>
                                       </tr>
@@ -331,30 +337,27 @@ export const webhook = async (req, res) => {
                                           </td>
                                       </tr>
                                       <tr>
+                                         ${orderItems.map((item) => {
+                                           return `                                      <tr>
                                           <td style="padding-top: 0;">
                                               <table align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidthinner" style="border-bottom: 1px solid #eeeeee;">
                                                   <tbody>
                                                       <tr>
                                                           <td rowspan="4" style="padding-right: 10px; padding-bottom: 10px;">
-                                                              <img style="height: 80px;" src=${
-                                                                orderDataget[0]
-                                                                  ?.image[0]
+                                                              <img style="height: 80px; width:80px;" src=${
+                                                                item?.image[0]
                                                               } alt=${
-            orderDataget[0]?.name
-          } />
+                                             item?.name
+                                           } />
                                                           </td>
                                                           <td colspan="2" style="font-size: 14px; font-weight: bold; color: #666666; padding-bottom: 5px;">
-                                                          ${
-                                                            orderDataget[0]
-                                                              ?.name
-                                                          }
+                                                          ${item?.name}
                                                           </td>
                                                       </tr>
                                                       <tr>
                                                           <td style="font-size: 14px; line-height: 18px; color: #757575; width: 440px;">
                                                               Quantity: ${
-                                                                orderDataget[0]
-                                                                  ?.quantity
+                                                                item?.quantity
                                                               }
                                                           </td>
                                                           <td class="mobile-hide" style="width: 130px;"></td>
@@ -362,36 +365,36 @@ export const webhook = async (req, res) => {
                                                       <tr>
                                                           <td style="font-size: 14px; line-height: 18px; color: #757575;">
                                                               Color: <span style="width:10px; height:10px; border-radius:50%; background-color:${
-                                                                orderDataget[0]
-                                                                  ?.color
+                                                                item?.color
                                                               }; display: inline-block;;"></span>
                                                           </td>
                                                           <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
                                                               ${
-                                                                orderDataget[0]
-                                                                  ?.amountPaid
+                                                                item?.amountPaid
                                                               }₹ Per Unit
                                                           </td>
                                                       </tr>
                                                       <tr>
                                                           <td style="font-size: 14px; line-height: 18px; color: #757575; padding-bottom: 10px;">
                                                               ${
-                                                                orderDataget[0]
-                                                                  ?.size === "-"
+                                                                item?.size ===
+                                                                "-"
                                                                   ? ""
-                                                                  : `Size: ${orderDataget[0]?.size}`
+                                                                  : `Size: ${item?.size}`
                                                               }
                                                           </td>
                                                           <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; padding-bottom: 10px;">
                                                               <b style="color: #666666;">${
-                                                                orderDataget[0]
-                                                                  ?.amountPaid
+                                                                item?.amountPaid *
+                                                                item?.quantity
                                                               }₹</b> Total
                                                           </td>
                                                       </tr>
                                                   </tbody>
                                               </table>
                                           </td>
+                                      </tr>`;
+                                         })}
                                       </tr>
                                       <tr>
                                           <td style="padding-top: 0;">
@@ -403,10 +406,17 @@ export const webhook = async (req, res) => {
                                                               Sub-Total:
                                                           </td>
                                                           <td style="font-size: 14px; line-height: 18px; color: #666666; width: 130px; text-align: right;">
-                                                          ${
-                                                            orderDataget[0]
-                                                              ?.amountPaid
-                                                          }₹
+                                                          ${orderItems.reduce(
+                                                            (acc, data) => {
+                                                              return (
+                                                                acc +
+                                                                Number(
+                                                                  data?.amountPaid
+                                                                )
+                                                              );
+                                                            },
+                                                            0
+                                                          )}₹
                                                           </td>
                                                       </tr>
                                                       <tr>
@@ -422,10 +432,17 @@ export const webhook = async (req, res) => {
                                                               Order Total
                                                           </td>
                                                           <td style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px; text-align: right;">
-                                                          ${
-                                                            orderDataget[0]
-                                                              ?.amountPaid
-                                                          }₹
+                                                          ${orderItems.reduce(
+                                                            (acc, data) => {
+                                                              return (
+                                                                acc +
+                                                                Number(
+                                                                  data?.amountPaid
+                                                                )
+                                                              );
+                                                            },
+                                                            0
+                                                          )}₹
                                                           </td>
                                                       </tr>
                                                       <tr>
@@ -448,7 +465,7 @@ export const webhook = async (req, res) => {
                                       <tr>
                                           <td style="padding-top: 0;">
                                               <table align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb; text-align: center;">
-                                                  <tbody>
+                                                  <tbody >
                                                   <tr>
                                                   <td style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px; padding-bottom: 10px;">
                                                       <a href="${
@@ -456,9 +473,7 @@ export const webhook = async (req, res) => {
                                                         "https://my-cartecommerce-ljdm.vercel.app"
                                                           ? "https://my-cartecommerce-ljdm.vercel.app"
                                                           : process.env.API_URL
-                                                      }/User/Order/${
-            orderDataget[0]?._id
-          }" style="display: inline-block;padding: 7px 0; text-align: center; background-color: #197693; color: #ffffff; width: 130px; border-radius: 15px; letter-spacing: 0.8px; font-size: 13px;">View Your Order</a>
+                                                      }/User/Order" style="display: inline-block;padding: 7px 0; text-align: center; background-color: #197693; color: #ffffff; width: 130px; border-radius: 15px; letter-spacing: 0.8px; font-size: 13px;">View Your Order</a>
                                                   </td>
                                               </tr>
                                                       <tr>
@@ -467,7 +482,7 @@ export const webhook = async (req, res) => {
                                                           </td>
                                                       </tr>
                                                   </tbody>
-                                              </table>
+                                              </table> 
                                           </td>
                                       </tr>
                                       <tr>
@@ -491,12 +506,14 @@ export const webhook = async (req, res) => {
                                                       </tr>
                                                       <tr>
                                                           <td style="font-size: 14px; line-height: 18px; color: #666666; padding-top: 10px;">
-                                                              Or email us at <a href=${
+                                                              Or email us at <a href=https://mail.google.com/mail/?view=cm&fs=1&to=${
                                                                 process.env
                                                                   .NODEMAILER_EMAIL
-                                                              } style="color: #197693;">${
-            process.env.NODEMAILER_EMAIL
-          }</a>
+                                                              }
+                                                             style="color: #197693;">${
+                                                               process.env
+                                                                 .NODEMAILER_EMAIL
+                                                             }</a>
                                                           </td>
                                                       </tr>
                                                       <tr>
@@ -514,6 +531,9 @@ export const webhook = async (req, res) => {
                       </tr>
                   </tbody>
               </table>
+              <div style="padding-top: 20px; color: rgb(153, 153, 153); text-align: center;">
+              <p style="padding-bottom: 16px">Made with ♥ in India</p>
+            </div>
           </body>
           </html>`,
         };
