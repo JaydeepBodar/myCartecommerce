@@ -130,7 +130,7 @@ export const webhook = async (req, res) => {
     const event = stripe.webhooks.constructEvent(
       rawbody,
       signature,
-      process.env.WEBHOOKS_SECERATKEY
+      process.env.WEBHOOKS_SECERATKEY_PRODUCTION
       // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
     // console.log("event", event);
