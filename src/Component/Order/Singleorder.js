@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
@@ -6,8 +6,8 @@ import Loader from "../Loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 const Singleorder = ({ order, loading }) => {
-  console.log("orderorderorderorder",order)
-  const router=useRouter()
+  // console.log("orderorderorderorder", order);
+  const router = useRouter();
   const { theme } = Globalthemeprovider();
   const month = new Date(order?.createdAt).toLocaleString("en-us", {
     month: "short",
@@ -22,19 +22,19 @@ const Singleorder = ({ order, loading }) => {
         .delete(`${process.env.API_URL}api/Order/${order?._id}`, { order })
         .then((res) => toast.success(res?.data?.message))
         .catch((e) => console.log("eeee", e))
-        .finally(() => router.push('/User/Order'));
+        .finally(() => router.push("/User/Order"));
     }
   };
   const orderStatusdata = (orderStatus) => {
     switch (orderStatus) {
       case "Processing":
-        return "0px";
+        return { height: "0px", color: "#e62626" };
       case "Shipped":
-        return "80px";
+        return { height: "80px", color: "#dba81a" };
       case "Out for Delivery":
-        return "160px";
+        return { height: "160px", color: "#1369b8" };
       case "Delivered":
-        return "250px";
+        return { height: "250px", color: "#008000" };
       default:
         return null;
     }
@@ -109,20 +109,15 @@ const Singleorder = ({ order, loading }) => {
                   <span
                     className="text-left border-l-[2px] border-[#197693] absolute left-[-1px]"
                     style={{
-                      maxHeight: orderStatusdata(order?.orderStatus),
+                      maxHeight: orderStatusdata(order?.orderStatus).height,
                       transition: "height 2s ease",
                       height: "100%",
                     }}
                   ></span>
                 </p>
                 <h4
-                  className={`${
-                    order?.orderStatus === "Processing"
-                      ? "text-[#197693]"
-                      : "text-[green]"
-                  }`}
                 >
-                  Order Status:-&nbsp;{order?.orderStatus}
+                  Order Status:-&nbsp;<span style={{ color: orderStatusdata(order?.orderStatus).color}}>{order?.orderStatus}</span>
                 </h4>
               </div>
               <h4>
@@ -153,7 +148,9 @@ const Singleorder = ({ order, loading }) => {
               <h4 className="font-semibold">Payment details</h4>
               <h5>Payment id:-&nbsp;{order?.paymentId}</h5>
               <h5>Payment Status:-&nbsp;{order?.status} </h5>
-              <h5>Total payment :-&nbsp;{(order?.amountPaid * order?.quantity)}₹</h5>
+              <h5>
+                Total payment :-&nbsp;{order?.amountPaid * order?.quantity}₹
+              </h5>
             </div>
           </div>
           <div className="flex items-center gap-x-4 gap-y-2 font-semibold p-4">

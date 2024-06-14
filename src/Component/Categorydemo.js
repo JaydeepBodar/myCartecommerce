@@ -28,7 +28,7 @@ const Categorydemo = ({
   minValue,
   // priceMin,
   // priceMax,
-  setprices, 
+  setprices,
   handleSliderChange,
 }) => {
   const { theme } = Globalthemeprovider();
@@ -39,7 +39,7 @@ const Categorydemo = ({
   const itemsPerPage = grid === 1 ? 4 : 6;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  
+
   const gridarray = [
     { icon: <IoMenuOutline />, number: 3 },
     { icon: <FaGripLinesVertical />, number: 2 },
@@ -201,10 +201,14 @@ const Categorydemo = ({
                             }`}
                           >
                             <div className="relative">
-                              <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden flex-1">
-                                <Image   
+                              <div
+                                className={`h-[250px] max-sm:h-[180px] overflow-hidden flex-1`}
+                              >
+                                <Image
                                   src={thumbnail}
-                                  className="object-fill w-[100%] h-[100%] hover-img"
+                                  className={`${
+                                    grid === 1 ? "" : "w-[100%]"
+                                  } object-fill h-[100%] hover-img`}
                                   width={200}
                                   height={200}
                                 />
@@ -241,7 +245,13 @@ const Categorydemo = ({
                                       : "text-[red]"
                                   }`}
                                 >
-                                  {stock === "InStock" ? <span>{stock}</span> : <span className="text-red-600">Out of Stock</span>}
+                                  {stock === "InStock" ? (
+                                    <span>{stock}</span>
+                                  ) : (
+                                    <span className="text-red-600">
+                                      Out of Stock
+                                    </span>
+                                  )}
                                 </h4>
                                 {retailer?.name?.length > 0 && (
                                   <h4 className="capitalize text-[#197693]">
@@ -256,7 +266,7 @@ const Categorydemo = ({
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-center items-center h-[50vh] max-sm:text-center">
+                <div className="flex justify-center items-center h-[50vh] max-sm:text-center mx-[auto]">
                   <h4 className="text-3xl max-sm:text-2xl font-bold">
                     No product Found For Your Filter...
                   </h4>

@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import Pagination from "react-js-pagination";
 import Link from "next/link";
 import Custompagination from "../Custompagination";
 import axios from "axios";
@@ -8,10 +9,26 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
-const Adminproduct = ({ product, loader, loading }) => {
-  const { productperpage, productcount, filterproductscount, products } =
-    product;
+import { Globalproductcontext } from "@/Context/Productprovider";
+const Adminproduct = ({
+  product,
+  loader,
+  loading,
+  setcategory,
+  category,
+  role,
+}) => {
+  const { products } = product;
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const { theme } = Globalthemeprovider();
+  const { product: categorydata } = Globalproductcontext();
+  // console.log("productsproducts", products);
+  const uniqueCategory = Array.from(
+    new Set(categorydata?.products?.map((product) => product.category))
+  );
   const router = useRouter();
   const deleteProduct = (id, val) => {
     // console.log("id", id);
@@ -38,8 +55,43 @@ const Adminproduct = ({ product, loader, loading }) => {
       )}
       {!loading && (
         <div className="adminproduct">
-          {products?.map((val) => {
-            {/* console.log("valllllll",val) */}
+          <ul className="flex gap-2 flex-wrap pb-4">
+            <li
+              onClick={() => {
+                setcategory("");
+                setCurrentPage(1);
+              }}
+              className={`${
+                category === ""
+                  ? "bg-[#197693] text-[#fff]"
+                  : "bg-[#f2f2f2] text-[#000]"
+              } max-sm:text-[13px] rounded-lg md:py-2 md:px-4 max-md:p-2 transtiton-all duration-500 cursor-pointer`}
+            >
+              All
+            </li>
+            {uniqueCategory?.map((categoryitem, index) => {
+              return (
+                <li
+                  onClick={() => {
+                    setcategory(categoryitem);
+                    setCurrentPage(1);
+                  }}
+                  key={index}
+                  className={`${
+                    category === categoryitem
+                      ? "bg-[#197693] text-[#fff]"
+                      : "bg-[#f2f2f2] text-[#000]"
+                  } max-sm:text-[13px] rounded-lg md:py-2 md:px-4 max-md:p-2 transtiton-all duration-500 cursor-pointer`}
+                >
+                  {categoryitem}
+                </li>
+              );
+            })}
+          </ul>
+          {products?.slice(indexOfFirstItem, indexOfLastItem).map((val) => {
+            {
+              /* console.log("valllllll",val) */
+            }
             const { title, price, thumbnail, category, _id } = val;
             return (
               <div
@@ -91,11 +143,35 @@ const Adminproduct = ({ product, loader, loading }) => {
               </div>
             );
           })}
-          <Custompagination
+          {products.length <= 0 && (
+            <div className="flex justify-center items-center h-[50vh] max-sm:text-center mx-[auto]">
+              <h4 className="text-3xl max-sm:text-2xl font-bold">
+                Not Product show for this {role}
+              </h4>
+            </div>
+          )}
+          {products?.length >= itemsPerPage && (
+            <Pagination
+              activePage={currentPage}
+              itemsCountPerPage={itemsPerPage}
+              totalItemsCount={products?.length}
+              onChange={(number) => {
+                setCurrentPage(number);
+              }}
+              innerClass="flex justify-center"
+              activeClass="bg-[#197693] text-white"
+              itemClass="px-2 py-[4px]"
+              firstPageText={"<<"}
+              lastPageText={">>"}
+              nextPageText={">"}
+              prevPageText={"<"}
+            />
+          )}
+          {/* <Custompagination
             totalitem={filterproductscount}
             itemperpage={productperpage}
             loader={loader}
-          />
+          /> */}
         </div>
       )}
     </React.Fragment>

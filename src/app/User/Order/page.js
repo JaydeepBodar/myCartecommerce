@@ -60,7 +60,7 @@ const Ordercount = ({ searchParams }) => {
   const loader = (load) => {
     setloading(load);
   };
-  console.log("ordersordersordersordersordersordersordersordersordersorders",orders)
+  // console.log("ordersordersordersordersordersordersordersordersordersorders",orders)
   return (
     <Order
       order={orders?.order}

@@ -191,7 +191,7 @@ export const webhook = async (req, res) => {
       if (orderItems?.length > 0) {
         const mailOptions = {
           from: process.env.NODEMAILER_EMAIL,
-          to: session.customer_email,
+          to: orderDataget[0]?.user?.email,
           subject: `Order placed Succssefully`,
           html: `<html lang="en">
           <head>
@@ -369,9 +369,9 @@ export const webhook = async (req, res) => {
                                                               }; display: inline-block;;"></span>
                                                           </td>
                                                           <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
-                                                              ${
-                                                                item?.amountPaid
-                                                              }₹ Per Unit
+                                                               ${
+                                                                 item?.amountPaid
+                                                               }₹ Per Unit
                                                           </td>
                                                       </tr>
                                                       <tr>
@@ -629,11 +629,14 @@ export const getallOrder = async (req, res) => {
 export const getallOrderforretailer = async (req, res) => {
   try {
     const productperpage = 6;
-    const productcount = await orderSchema.countDocuments();
-    const apifillter = new APIFilter(orderSchema.find(), req.query).pagination(
-      productperpage
-    );
-    const order = await apifillter.query.find({ retailerId: req.user._id });
+    const currentpage = Number(req.query.page) || 1;
+    const skippage = productperpage * (currentpage - 1);
+    const productcount = await orderSchema.countDocuments({ retailerId: req.user._id });
+    // const apifillter = new APIFilter(orderSchema.find({ retailerId: req.user._id }), req.query).pagination(
+    //   productperpage
+    // );
+    // const order = await apifillter.query.find();
+    const order = await orderSchema.find({ retailerId: req.user._id }).limit(productperpage).skip(skippage)
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
@@ -653,6 +656,20 @@ export const orderanylitic = async (req, res) => {
           .find({ retailerId: retailer, orderStatus: "Processing" })
           .countDocuments()
       : await orderSchema.find({ orderStatus: "Processing" }).countDocuments();
+  const orderbystatus3 =
+    retailer?.length > 0
+      ? await orderSchema
+          .find({ retailerId: retailer, orderStatus: "Shipped" })
+          .countDocuments()
+      : await orderSchema.find({ orderStatus: "Shipped" }).countDocuments();
+  const orderbystatus4 =
+    retailer?.length > 0
+      ? await orderSchema
+          .find({ retailerId: retailer, orderStatus: "Out for Delivery" })
+          .countDocuments()
+      : await orderSchema
+          .find({ orderStatus: "Out for Delivery" })
+          .countDocuments();
   const allMonths = [
     "Jan",
     "Feb",
@@ -734,6 +751,11 @@ export const orderanylitic = async (req, res) => {
       })
     );
   });
-
-  res.json({ orderbystatus1, orderbystatus2, resultWithAllMonthsAndYears });
+  res.json({
+    orderbystatus1,
+    orderbystatus2,
+    orderbystatus3,
+    orderbystatus4,
+    resultWithAllMonthsAndYears,
+  });
 };

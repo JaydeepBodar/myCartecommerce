@@ -12,6 +12,20 @@ const Orderitems = ({ item }) => {
   const day = new Date(createdAt).getDate();
   const year = new Date(createdAt).getFullYear();
   const { theme } = Globalthemeprovider();
+  const orderStatusdata = (orderStatusdata) => {
+    switch (orderStatusdata) {
+      case "Processing":
+        return "#e62626";
+      case "Shipped":
+        return "#dba81a";
+      case "Out for Delivery":
+        return "#1369b8";
+      case "Delivered":
+        return "#008000";
+      default:
+        return null;
+    }
+  };
   // console.log("paymentInfo", paymentInfo);
   return (
     <Link
@@ -37,7 +51,7 @@ const Orderitems = ({ item }) => {
           />
         </div>
         <h4>{title}</h4>
-        <h4>{orderStatus}</h4>
+        <h4 style={{ color: orderStatusdata(orderStatus)}}>{orderStatus}</h4>
       </div>
     </Link>
   );

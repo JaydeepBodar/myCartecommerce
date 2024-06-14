@@ -5,50 +5,77 @@ export const getAllproductdata = async (req, res) => {
   res.status(200).json({ products });
 };
 export const getRetailproduct = async (req, res) => {
-  const { page } = req.query;
-  const productperpage = 5;
-  const filterproductscount = "";
-  const currentpage = Number(page) || 1;
-  const skippage = productperpage * (currentpage - 1);
-  console.log("req.user", req.user);
-  const productcount = await productSchema
-    .find({ retailer: req.user._id })
-    .countDocuments();
-  const products = await productSchema
-    .find({ retailer: req.user._id })
-    .limit(productperpage)
-    .skip(skippage);
-  res.json({
-    productperpage,
-    productcount,
-    filterproductscount,
-    products,
-  });
+  try{
+    const{category}=req.query
+    let query = {};
+    if (category) {
+      query.category = category;
+    }
+    query.retailer=req.user._id
+    console.log("categorycategorycategorycategory",category)
+    const products = await productSchema.find(query).populate("retailer");
+    res.json({
+      products
+    });
+  }catch(err){
+    res.status(500).json({message:"Internal server Error"})
+  }
+  // const { page } = req.query;
+  // const productperpage = 5;
+  // const filterproductscount = "";
+  // const currentpage = Number(page) || 1;
+  // const skippage = productperpage * (currentpage - 1);
+  // console.log("req.user", req.user);
+  // const productcount = await productSchema
+  //   .find({ retailer: req.user._id })
+  //   .countDocuments();
+  // const products = await productSchema
+  //   .find({ retailer: req.user._id })
+  //   .limit(productperpage)
+  //   .skip(skippage);
+  // res.json({
+  //   productperpage,
+  //   productcount,
+  //   filterproductscount,
+  //   products,
+  // });
 };
 export const getAllproduct = async (req, res) => {
-  try {
-    const productperpage = 4;
-    const productcount = await productSchema.countDocuments();
-    // await db();
-    const apiFilter = new APIFilter(productSchema.find(), req.query)
-      .search()
-      .filter();
-    // console.log('apifil',apiFilter)
-    let products = await apiFilter.query;
-    const filterproductscount = products.length;
-    apiFilter.pagination(productperpage);
-    products = await apiFilter.query.clone();
-    // console.log("data",data)
-    // console.log("data",typeof data);
-    res.status(200).json({
-      productperpage,
-      productcount,
-      filterproductscount,
-      products,
-    });
-  } catch (e) {
-    res.json({ message: "error" });
+  try{const{category}=req.query
+  let query = {};
+  if (category) {
+    query.category = category;
   }
+  const products = await productSchema.find(query).populate("retailer");
+  res.json({
+    products
+  }); }catch(err){
+    res.status(500).json({message:"Internal server Error"})
+  }
+  // try {
+
+  //   const productperpage = 4;
+  //   const productcount = await productSchema.countDocuments();
+  //   // await db();
+  //   const apiFilter = new APIFilter(productSchema.find(), req.query)
+  //     .search()
+  //     .filter();
+  //   // console.log('apifil',apiFilter)
+  //   let products = await apiFilter.query;
+  //   const filterproductscount = products.length;
+  //   apiFilter.pagination(productperpage);
+  //   products = await apiFilter.query.clone();
+  //   // console.log("data",data)
+  //   // console.log("data",typeof data);
+  //   res.status(200).json({
+  //     productperpage,
+  //     productcount,
+  //     filterproductscount,
+  //     products,
+  //   });
+  // } catch (e) {
+  //   res.json({ message: "error" });
+  // }
 };
 export const postProduct = async (req, res) => {
   // req.body.user=req.user._id

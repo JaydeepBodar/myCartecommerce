@@ -9,7 +9,7 @@ import { CiGlass } from "react-icons/ci";
 import { useSession } from "next-auth/react";
 const Allorder = ({ orderdata, loading, loader }) => {
   const { order, productcount, productperpage } = orderdata;
-  const {data}=useSession()
+  const { data } = useSession();
   const { theme } = Globalthemeprovider();
   // useEffect(() => {
   //     // console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
@@ -26,12 +26,33 @@ const Allorder = ({ orderdata, loading, loader }) => {
         <React.Fragment>
           <div className="allorder flex flex-wrap gap-y-3">
             {order?.map((item) => {
-              const { paymentId, _id, orderStatus, createdAt, status,retailerId } = item;
+              const {
+                paymentId,
+                _id,
+                orderStatus,
+                createdAt,
+                status,
+                retailerId,
+              } = item;
               const month = new Date(createdAt).toLocaleString("en-us", {
                 month: "short",
               });
               const day = new Date(createdAt).getDate();
               const year = new Date(createdAt).getFullYear();
+              const orderStatusdata = (orderStatusdata) => {
+                switch (orderStatusdata) {
+                  case "Processing":
+                    return "#e62626";
+                  case "Shipped":
+                    return "#dba81a";
+                  case "Out for Delivery":
+                    return "#1369b8";
+                  case "Delivered":
+                    return "#008000";
+                  default:
+                    return null;
+                }
+              };
               return (
                 <div
                   key={_id}
@@ -52,9 +73,11 @@ const Allorder = ({ orderdata, loading, loader }) => {
                       <span>Order Created</span>&nbsp;:-&nbsp;{day}&nbsp;{month}
                       &nbsp;{year}
                     </h4>
-                    {data?.user?.role === "Admin" && <h4 className="text-[#197693] font-semibold">
-                      Seller&nbsp;:-&nbsp;{retailerId?.name}
-                    </h4>}
+                    {data?.user?.role === "Admin" && (
+                      <h4 className="text-[#197693] font-semibold">
+                        Seller&nbsp;:-&nbsp;{retailerId?.name}
+                      </h4>
+                    )}
                   </div>
                   <div>
                     <Link
@@ -65,14 +88,8 @@ const Allorder = ({ orderdata, loading, loader }) => {
                     </Link>
                   </div>
                   <div>
-                    <h4
-                      className={`${
-                        orderStatus === "Processing"
-                          ? "text-red-600"
-                          : "text-[green]"
-                      }`}
-                    >
-                      <span>Order Status</span>&nbsp;:-&nbsp;{orderStatus}
+                    <h4>
+                      Order Status&nbsp;:-&nbsp;<span style={{ color: orderStatusdata(orderStatus)}}>{orderStatus}</span>
                     </h4>
                     <h4>
                       <span>Payment Status</span>&nbsp;:-&nbsp;

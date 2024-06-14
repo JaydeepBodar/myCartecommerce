@@ -135,7 +135,7 @@ const Cartitem = () => {
                           {category}
                         </h4>
                         <h5 className="flex items-center gap-x-2">
-                          {color.length  > 0 && <div className={`${theme === true ? "border-[#000000]" : "border-[#f2f2f2]"} p-[2px] rounded-full border-[1px]`}>
+                          {color?.length  > 0 && <div className={`${theme === true ? "border-[#000000]" : "border-[#f2f2f2]"} p-[2px] rounded-full border-[1px]`}>
                             <span
                               style={{ backgroundColor: color }}
                               className="w-[15px] h-[15px] rounded-full block"

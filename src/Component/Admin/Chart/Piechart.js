@@ -5,7 +5,7 @@ import Loader from "@/Component/Loader";
 const PieChart = ({ chartdata, loading }) => {
   const yearfull = new Date().getFullYear();
   const [year, setyear] = useState(yearfull);
-  const yeardata = ["2023", "2024", "2025", "2026", "2027"];
+  const yeardata = ["2024", "2025", "2026", "2027", "2028", "2029", "2030"];
   const yearwiseAnyalisis = chartdata?.resultWithAllMonthsAndYears?.filter(
     (item) => item?.year == year
   );
@@ -13,8 +13,8 @@ const PieChart = ({ chartdata, loading }) => {
     chart: {
       type: "pie",
     },
-    labels: ["Delivered", "Processing"],
-    colors: ["#008000", "#e62626"],
+    labels: ["Processing", "Shipped", "Out for Delivery", "Delivered"],
+    colors: ["#e62626", "#dba81a", "#1369b8", "#008000"],
     responsive: [
       {
         breakpoint: 480,
@@ -38,7 +38,12 @@ const PieChart = ({ chartdata, loading }) => {
     },
   };
 
-  const series = [+chartdata?.orderbystatus1, +chartdata?.orderbystatus2];
+  const series = [
+    +chartdata?.orderbystatus2,
+    +chartdata?.orderbystatus3,
+    +chartdata?.orderbystatus4,
+    +chartdata?.orderbystatus1,
+  ];
   // for bar chart
   const options1 = {
     chart: {
@@ -98,15 +103,15 @@ const PieChart = ({ chartdata, loading }) => {
             {yearfull >= year ? (
               <div className="max-sm:flex max-sm:flex-col max-sm:items-center">
                 <h4 className="font-light">Revenue Details</h4>
-                <div className="w-[100%]"> 
+                <div className="w-[100%]">
                   <ReactApexChart
                     className="piechart"
                     options={options1}
                     series={series1}
-                    type="bar"  
+                    type="bar"
                     height={350}
                     width={700}
-                    style={{ zIndex: "-1",overflowX:"auto" }}
+                    style={{ zIndex: "-1", overflowX: "auto" }}
                   />
                 </div>
               </div>
