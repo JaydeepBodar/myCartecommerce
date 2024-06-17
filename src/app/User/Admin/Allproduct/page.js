@@ -39,8 +39,8 @@ const Product = () => {
   const nextauthheaders = Cookies.get("next-auth.session-token");
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
-      ? `__Secure-next-auth.session-token=${productionheaders?.valueOf}`
-      : `next-auth.session-token=${nextauthheaders?.valueOf}`;
+      ? `__Secure-next-auth.session-token=${productionheaders?.value}`
+      : `next-auth.session-token=${nextauthheaders?.value}`;
   useEffect(() => {
     const apifetch =
       data?.user?.role === "Admin"
