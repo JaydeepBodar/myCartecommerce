@@ -54,19 +54,24 @@ const Additem = () => {
     setselection({ ...selection, [name]: value });
   };
   const allFilterdata = () => {
-    if (color !== "" && quantity !== "") {
-      // Add the current selection to the selectionsArray
-      settfilterarray([...filterarray, { ...selection }]);
-      // Reset the selection state for the next input
-      setselection({ size: "", color: "", quantity: "" });
-      setdisable(false);
-    }
+    // if (color !== "" && quantity !== "") {
+    // Add the current selection to the selectionsArray
+    settfilterarray([...filterarray, { ...selection }]);
+    // Reset the selection state for the next input
+    setselection({ size: "", color: "", quantity: "" });
+    setdisable(false);
+    // }
   };
   const handleEditItem = (index) => {
     setselection({ size: size, color: color, quantity: quantity });
     const editedItems = [...filterarray];
     const selectedItem = editedItems[index];
     setselection(selectedItem);
+    editedItems.splice(index, 1);
+    settfilterarray(editedItems);
+  };
+  const handelDeleteitem = (index) => {
+    const editedItems = [...filterarray];
     editedItems.splice(index, 1);
     settfilterarray(editedItems);
   };
@@ -242,6 +247,7 @@ const Additem = () => {
             <div className="flex gap-x-4 gap-y-2 flex-wrap">
               <input
                 className="flex-1 max-sm:basis-[100%]"
+                placeholder="Enter Size..."
                 type="text"
                 value={size}
                 name="size"
@@ -250,12 +256,13 @@ const Additem = () => {
               <input
                 className="flex-1 max-sm:basis-[100%]"
                 type="number"
+                placeholder="Enter Quantity..."
                 value={quantity}
                 name="quantity"
                 onChange={(e) => handleFilter(e)}
               />
               <input
-                className="bg-[#fff] h-[43px] flex-1 max-sm:basis-[100%]  "
+                className="bg-[#fff] h-[43px] flex-1 max-sm:basis-[100%]"
                 type="color"
                 value={color}
                 name="color"
@@ -307,7 +314,10 @@ const Additem = () => {
                     </td>
                     <td>
                       <button type="button">
-                        <MdDeleteOutline className="fill-[#197693] text-xl font-bold mx-[auto]" />
+                        <MdDeleteOutline
+                          className="fill-[#197693] text-xl font-bold mx-[auto]"
+                          onClick={() => handelDeleteitem(index)}
+                        />
                       </button>
                     </td>
                   </tr>

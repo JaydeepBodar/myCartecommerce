@@ -58,13 +58,13 @@ const Productupdate = ({ product }) => {
     setselection({ ...selection, [name]: value });
   };
   const allFilterdata = () => {
-    if (size !== "" && color !== "" && quantity !== "") {
-      // Add the current selection to the selectionsArray
-      settfilterarray([...filterarray, { ...selection }]);
-      // Reset the selection state for the next input
-      setselection({ size: "", color: "", quantity: "" });
-      setdisable(false)
-    }
+    // if (size !== "" && color !== "" && quantity !== "") {
+    // Add the current selection to the selectionsArray
+    settfilterarray([...filterarray, { ...selection }]);
+    // Reset the selection state for the next input
+    setselection({ size: "", color: "", quantity: "" });
+    setdisable(false);
+    // }
   };
   const handleEditItem = (index) => {
     setselection({ size: size, color: color, quantity: quantity });
@@ -73,6 +73,11 @@ const Productupdate = ({ product }) => {
     setselection(selectedItem);
     editedItems.splice(index, 1);
     settfilterarray(editedItems);
+  }; 
+  const handelDeleteitem = (index) => {
+    const editedItems = [...filterarray];
+    editedItems.splice(index,1)
+    settfilterarray(editedItems)
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,11 +126,14 @@ const Productupdate = ({ product }) => {
       "public_id",
       "myCarteCommerce/Product/" + title + "_" + new Date()
     );
-    data.append("cloud_name",process.env.CLOUD_NAME);
-    fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`, {
-      method: "post",
-      body: data,
-    })
+    data.append("cloud_name", process.env.CLOUD_NAME);
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/image/upload`,
+      {
+        method: "post",
+        body: data,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log("data", data);
@@ -245,6 +253,7 @@ const Productupdate = ({ product }) => {
           <div className="flex gap-x-4 gap-y-2 flex-wrap">
             <input
               className="flex-1 max-sm:basis-[100%]"
+              placeholder="Enter Size"
               type="text"
               value={size}
               name="size"
@@ -252,6 +261,7 @@ const Productupdate = ({ product }) => {
             />
             <input
               className="flex-1 max-sm:basis-[100%]"
+              placeholder="Enter Quantity..."
               type="number"
               value={quantity}
               name="quantity"
@@ -266,7 +276,10 @@ const Productupdate = ({ product }) => {
             />
           </div>
           <div>
-            <CiSquarePlus className="fill-[#197693] text-[24px] font-bold" onClick={allFilterdata} />
+            <CiSquarePlus
+              className="fill-[#197693] text-[24px] font-bold"
+              onClick={allFilterdata}
+            />
           </div>
         </div>
         {filterarray?.length > 0 && (
@@ -293,13 +306,26 @@ const Productupdate = ({ product }) => {
                   </td>
                   <td>{quantity}</td>
                   <td onClick={() => handleEditItem(index)}>
-                    <button type="button" disabled={disable === true} onClick={()=>setdisable(true)}>
-                      <FaEdit className={`${disable === true && "opacity-50"} fill-[#197693] text-xl font-bold mx-[auto] opacity-100`} />
+                    <button
+                      type="button"
+                      disabled={disable === true}
+                      onClick={() => setdisable(true)}
+                    >
+                      <FaEdit
+                        className={`${
+                          disable === true && "opacity-50"
+                        } fill-[#197693] text-xl font-bold mx-[auto] opacity-100`}
+                      />
                     </button>
                   </td>
                   <td>
                     <button type="button">
-                      <MdDeleteOutline className="fill-[#197693] text-xl font-bold mx-[auto]" />
+                      <MdDeleteOutline
+                        className="fill-[#197693] text-xl font-bold mx-[auto]"
+                        onClick={() => {
+                          handelDeleteitem(index);
+                        }}
+                      />
                     </button>
                   </td>
                 </tr>

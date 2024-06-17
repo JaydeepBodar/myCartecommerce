@@ -48,7 +48,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const productbtn = cart?.cartItems?.some(
     (item) => item._id === singleproduct?.products?._id
   );
-  console.log("productbtnproductbtnproductbtnproductbtn",productbtn)
+  // console.log("productbtnproductbtnproductbtnproductbtn",productbtn)
   const discount = (
     singleproduct?.products?.price -
     (singleproduct?.products?.price *
@@ -65,6 +65,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
         `${process.env.API_URL}api/products/Getreview/${singleproduct?.products?._id}/${id}`
       )
       .then((res) => {
+        console.log("resresres", res);
         setreviewdata(res?.data?.product);
       })
       .catch((e) => console.log("objecte", e));
@@ -75,6 +76,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
     setopen(false);
   }, [open]);
   const handleSubmit = async (e) => {
+    // console.log("reviewdatareviewdatareviewdata", reviewdata);
     e.preventDefault();
     const productreview = singleproduct?.products?.reviews.filter(
       (data) => data?.userdata?._id == session?.data?.user?._id
@@ -98,7 +100,8 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
           userdata: session?.data?.user?._id,
         })
         .then((res) => console.log("objectres", res))
-        .catch((e) => console.log("eeeeeeeeeeee", e));
+        .catch((e) => console.log("eeeeeeeeeeee", e))
+        .finally(() => router.refresh());
     }
     setshow(false);
     setcomment(""), setrating("");
@@ -108,10 +111,14 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   );
   const [selection, setselection] = useState(0);
   const [selection1, setselection1] = useState(0);
-  const [filter, setfilter] = useState({ size: "", color:"", stock: true });
-  useEffect(()=>{
-    setfilter({ size: singleproduct?.products?.sizes[0]?.size, color:singleproduct?.products?.sizes[0]?.color, stock: true })
-  },[loading])
+  const [filter, setfilter] = useState({ size: "", color: "", stock: true });
+  useEffect(() => {
+    setfilter({
+      size: singleproduct?.products?.sizes[0]?.size,
+      color: singleproduct?.products?.sizes[0]?.color,
+      stock: true,
+    });
+  }, [loading]);
   // console.log("singleproduct?.products?.sizes",singleproduct?.products?.sizes[0]?.color)
   // console.log("uniqueColorsuniqueColorsuniqueColors",filter)
   return (
@@ -238,8 +245,9 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           <div
                             key={index}
                             className={`${
-                              selection === index  ?
-                              "border-[1px] border-[gray] rounded-full" : ""
+                              selection === index
+                                ? "border-[1px] border-[gray] rounded-full"
+                                : ""
                             } p-[2px]`}
                             onClick={() => {
                               setselection(index);
@@ -324,38 +332,37 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                                       <>
                                         {/* {selection1 === indexdata &&
                                           filter === "-" && ( */}
-                                            <span
-                                              className="absolute top-0"
-                                              key={indexdata}
-                                            >
-                                              <span
-                                                className={`${
-                                                  filter?.stock === true
-                                                    ? "text-green-600"
-                                                    : "text-red-600"
-                                                }`}
-                                              >
-                                                {filter?.stock === true ? (
-                                                  <span>In Stock</span>
-                                                ) : (
-                                                  <span>Out of Stock</span>
-                                                )}
-                                                (
-                                                {quantity <= 2 &&
-                                                quantity > 0 ? (
-                                                  <span>
-                                                    Hurray! only {quantity} Item
-                                                    left
-                                                  </span>
-                                                ) : (
-                                                  <span>
-                                                    {quantity} Items Avilabel
-                                                  </span>
-                                                )}
-                                                )
+                                        <span
+                                          className="absolute top-0"
+                                          key={indexdata}
+                                        >
+                                          <span
+                                            className={`${
+                                              filter?.stock === true
+                                                ? "text-green-600"
+                                                : "text-red-600"
+                                            }`}
+                                          >
+                                            {filter?.stock === true ? (
+                                              <span>In Stock</span>
+                                            ) : (
+                                              <span>Out of Stock</span>
+                                            )}
+                                            (
+                                            {quantity <= 2 && quantity > 0 ? (
+                                              <span>
+                                                Hurray! only {quantity} Item
+                                                left
                                               </span>
-                                            </span>
-                                          {/* )} */}
+                                            ) : (
+                                              <span>
+                                                {quantity} Items Avilabel
+                                              </span>
+                                            )}
+                                            )
+                                          </span>
+                                        </span>
+                                        {/* )} */}
                                       </>
                                     );
                                   }
@@ -389,7 +396,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                       <>
                         <button
                           onClick={() => {
-                              addItemtocart({
+                            addItemtocart({
                               _id: singleproduct?.products?._id,
                               title: singleproduct?.products?.title,
                               thumbnail: singleproduct?.products?.thumbnail,
@@ -405,17 +412,15 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                               retailerId:
                                 singleproduct?.products?.retailer?._id,
                             });
-                              if (
-                                productbtn === true ||
-                                cart?.cartItems?.length >= 0
-                              ) {
-                                setbtn("Go to Cart");
-                                router.push("/Cart")
-                              } else {
-                                setbtn("Add Cart");
-                              }
-                              
-                            
+                            if (
+                              productbtn === true ||
+                              cart?.cartItems?.length >= 0
+                            ) {
+                              setbtn("Go to Cart");
+                              router.push("/Cart");
+                            } else {
+                              setbtn("Add Cart");
+                            }
                           }}
                           className="w-[100%] max-w-[100px] bg-[#197693] text-white py-2 block text-center font-semibold tracking-wide rounded-lg border-[1px] border-[#197693]"
                         >
@@ -528,6 +533,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                       getApi={getApi}
                       handleOpen={handleOpen}
                       handleClose={handleClose}
+                      setreviewdata={setreviewdata}
                     />
                   );
                 })}

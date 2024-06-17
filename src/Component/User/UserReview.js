@@ -15,6 +15,7 @@ const UserReview = ({
   showdata,
   getApi,
   handleOpen,
+  setreviewdata
 }) => {
   // console.log("user", user);
   // console.log("objectreviews", review._Id);
@@ -26,7 +27,7 @@ const UserReview = ({
         id: _id,
       })
       .then((res) => toast.success(res.data?.message))
-      .catch((e) => console.log("e", e));
+      .catch((e) => console.log("e", e)).finally(()=>setreviewdata())
   };
   return (
     <div
@@ -62,8 +63,8 @@ const UserReview = ({
           <React.Fragment>
             <button
               className="w-[100%] mt-2 max-w-[70px] border-[1px] border-[#197693] text-[#197693] rounded-lg text-[14px] leading-7"
-              onClick={() => {
-                deleteone(), handleEditing();
+              onClick={() => {handleEditing(),
+                deleteone();
               }}
             >
               delete

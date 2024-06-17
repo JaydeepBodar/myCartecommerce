@@ -227,7 +227,6 @@ export const updateReview = async (req, res) => {
         },
       }
     )
-    .populate("User");
   if (updateproduct) {
     const product = await productSchema.findById({ _id: req.query.id[0] });
     // console.log("objectproduct", product);

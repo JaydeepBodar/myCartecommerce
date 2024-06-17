@@ -740,6 +740,7 @@ export const orderanylitic = async (req, res) => {
       item.totalRevenue,
     ])
   );
+  console.log("totalRevenueMaptotalRevenueMaptotalRevenueMap",totalRevenueMap)
   // Create the final result including all months and years
   const resultWithAllMonthsAndYears = allMonths.flatMap((month) => {
     return Array.from(new Set(orderAnalysis.map((item) => item._id.year))).map(
