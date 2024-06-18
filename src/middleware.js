@@ -23,6 +23,7 @@ export const config = {
     "/shiping",
     "/User/Order",
     "/User/Admin/Addproduct",
+    "/User/Admin/updateProduct/:path*",
     "/User/Admin/AllOrder",
     "/User/Admin/Orderviewdata/:path*",
     "/User/Order/:path*",

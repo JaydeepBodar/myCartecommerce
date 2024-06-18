@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Orderitems = ({ item }) => {
-  console.log("item", item);
+  // console.log("item", item);
   const { _id, name: title, image, orderStatus, createdAt,paymentId } = item;
   const month = new Date(createdAt).toLocaleString("en-us", {
     month: "short",

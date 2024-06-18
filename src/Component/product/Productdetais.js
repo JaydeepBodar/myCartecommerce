@@ -13,7 +13,16 @@ import UserReview from "../User/UserReview";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import Commonproduct from "../Commonproduct";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+
 const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const { cart, addItemtocart, deletItem } = CartgloblContext();
   const { theme } = Globalthemeprovider();
@@ -65,7 +74,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
         `${process.env.API_URL}api/products/Getreview/${singleproduct?.products?._id}/${id}`
       )
       .then((res) => {
-        console.log("resresres", res);
+        // console.log("resresres", res);
         setreviewdata(res?.data?.product);
       })
       .catch((e) => console.log("objecte", e));
@@ -121,6 +130,8 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   }, [loading]);
   // console.log("singleproduct?.products?.sizes",singleproduct?.products?.sizes[0]?.color)
   // console.log("uniqueColorsuniqueColorsuniqueColors",filter)
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const slides = [];
   return (
     <Container>
       {loading && (
@@ -130,9 +141,123 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
       )}
       {!loading && (
         <React.Fragment>
-          <div className="grid grid-flow-col grid-col-2 gap-x-6 max-md:grid-flow-row mb-3 py-6">
-            <div>
-              {singleproduct?.products?.thumbnail ? (
+          <div className="flex flex-wrap gap-x-6 mb-3 py-6">
+            <div className="responsive_swiper w-[48%] basis-[48%] max-md:w-[100%]">
+              <Swiper
+                style={{
+                  "--swiper-navigation-color": "#fff",
+                  "--swiper-pagination-color": "#fff",
+                }}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[Navigation, Thumbs]}
+                className="mySwiper2"
+              >
+                {singleproduct?.products?.images
+                  ?.slice(0, 3)
+                  .map((img, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Image
+                          alt={singleproduct?.products?.title}
+                          width={400}
+                          height={400}
+                          // className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
+                          onClick={() => setimg(img)}
+                          src={img}
+                          loading="lazy"
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Thumbs]}
+                className="mySwiper"
+              >
+                {singleproduct?.products?.images
+                  ?.slice(0, 3)
+                  .map((img, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Image
+                          alt={singleproduct?.products?.title}
+                          width={150}
+                          height={100}
+                          // className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
+                          onClick={() => setimg(img)}
+                          src={img}
+                          loading="lazy"
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper>
+              {/* <Swiper
+                style={{
+                  "--swiper-navigation-color": "#fff",
+                  "--swiper-pagination-color": "#fff",
+                }}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="mySwiper2"
+              >
+                {singleproduct?.products?.images
+                  ?.slice(0, 3)
+                  .map((img, index) => {
+                    console.log("imgimgimgimgimgimgimg",img)
+                    return (
+                      <SwiperSlide>
+                        <Image
+                          alt={singleproduct?.products?.title}
+                          width={150}
+                          height={100}
+                          className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
+                          // onClick={() => setimg(img)}
+                          src={img}
+                          key={index}
+                          loading="lazy"
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper> */}
+              {/* {singleproduct?.products?.thumbnail ? (
+                <Image
+                  alt={singleproduct?.products?.title}
+                  src={
+                    img
+                      ? img !== null
+                        ? img
+                        : ""
+                      : singleproduct?.products?.thumbnail
+                  }
+                  width={300}
+                  height={400}
+                  loading="lazy"
+                  className="w-[100%] h-[400px] object-fill rounded-lg border-[1px] border-[#000]"
+                />
+              ) : (
+                ""
+              )} */}
+              {/* <Swiper
+        onSwiper={setThumbsSwiper}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
+        modules={[FreeMode, Navigation, Thumbs]}
+        className="mySwiper"
+      >
+                      {singleproduct?.products?.thumbnail ? (
                 <Image
                   alt={singleproduct?.products?.title}
                   src={
@@ -150,7 +275,8 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
               ) : (
                 ""
               )}
-              <div className="flex gap-x-2 mt-4 justify-center">
+      </Swiper> */}
+              {/* <div className="flex gap-x-2 mt-4 justify-center">
                 {singleproduct?.products?.images
                   ?.slice(0, 3)
                   .map((img, index) => {
@@ -167,9 +293,9 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                       />
                     );
                   })}
-              </div>
+              </div> */}
             </div>
-            <div className="px-2 py-2">
+            <div className="responsive_swiper px-2 py-2 w-[47%] basis-[47%]">
               <h3 className="font-semibold text-2xl pb-2 pt-1reviwes0">
                 {singleproduct?.products?.title}
               </h3>
@@ -539,6 +665,15 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                 })}
               </div>
             </div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold uppercase max-md:text-lg text-center">
+              Related Product
+            </h2>
+            <Commonproduct
+              category={singleproduct?.products?.category}
+              releatedProductId={singleproduct?.products?._id}
+            />
           </div>
         </React.Fragment>
       )}

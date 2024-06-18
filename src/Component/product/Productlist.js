@@ -15,10 +15,10 @@ const Productlist = ({ product, loading,loader }) => {
     <Container>
       <div className="max-sm:block sm:hidden relative">
         <div className="absolute left-[220px] top-3">
-          <AiOutlineCaretDown/>
+          <AiOutlineCaretDown className="text-[#000]"/>
         </div>
         <button
-          className="w-[100%] max-w-[250px] bg-[#f2f2f2] text-left px-3 py-2 rounded-lg mb-3"
+          className={`text-[#000000] border-[#f2f2f2] border-[1px] w-[100%] max-w-[250px] bg-[#f2f2f2] text-left px-3 py-2 rounded-lg mb-3`}
           onClick={toogle}
         >
           Filter product

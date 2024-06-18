@@ -9,8 +9,10 @@ import { toast } from "react-toastify";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import { CiSquarePlus } from "react-icons/ci";
 import { FaEdit } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 import { MdDeleteOutline } from "react-icons/md";
 const Additem = () => {
+  const{data}=useSession()
   const [Input, setInput] = useState({
     title: "",
     category: "",
@@ -147,6 +149,7 @@ const Additem = () => {
           sizes: filterarray,
           images: images,
           thumbnail: pic,
+          retailer:data?.user?._id
         })
         .then((res) => console.log("ress", res))
         .catch((e) => console.log("e", e))

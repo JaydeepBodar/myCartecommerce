@@ -30,7 +30,7 @@ export default function Home({ searchParams }) {
   const [loading, setloading] = useState(true);
   useEffect(() => {
     axios
-      .get(`${env.APIURL}/api/products?${searchQuery}`)
+      .get(`${env.APIURL}/api/products/Allproduct?${searchQuery}`)
       .then((res) => {
         setproduct(res.data);
       })

@@ -1,11 +1,12 @@
 import Breadcrumb from "@/Component/Breadcrumb";
 import Commonproduct from "@/Component/Commonproduct";
+import Container from "@/Component/Container";
 const specialdeal = () => {
   return (
-    <div>
-      <Breadcrumb title="/Specialdeal"/>
+    <Container>
+      <Breadcrumb title="Specialdeal"/>
       <Commonproduct category={20} />
-    </div>
+    </Container>
   );
 };
 

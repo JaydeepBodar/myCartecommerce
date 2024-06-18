@@ -1,8 +1,34 @@
 import productSchema from "../model/productSchema";
 import APIFilter from "../utils/APIFilter";
+export const Comomuseproduct=async(req,res)=>{
+  const products=await productSchema.find()
+  res.status(200).json({products})
+}
 export const getAllproductdata = async (req, res) => {
-  const products = await productSchema.find();
-  res.status(200).json({ products });
+  try {
+
+    const productperpage = 4;
+    const productcount = await productSchema.countDocuments();
+    // await db();
+    const apiFilter = new APIFilter(productSchema.find(), req.query)
+      .search()
+      .filter();
+    // console.log('apifil',apiFilter)
+    let products = await apiFilter.query;
+    const filterproductscount = products.length;
+    apiFilter.pagination(productperpage);
+    products = await apiFilter.query.clone();
+    // console.log("data",data)
+    // console.log("data",typeof data);
+    res.status(200).json({
+      productperpage,
+      productcount,
+      filterproductscount,
+      products,
+    });
+  } catch (e) {
+    res.json({ message: "error" });
+  }
 };
 export const getRetailproduct = async (req, res) => {
   try{
@@ -12,7 +38,7 @@ export const getRetailproduct = async (req, res) => {
       query.category = category;
     }
     query.retailer=req.user._id
-    console.log("categorycategorycategorycategory",category)
+    // console.log("categorycategorycategorycategory",category)
     const products = await productSchema.find(query).populate("retailer");
     res.json({
       products
@@ -255,7 +281,7 @@ export const searchProduct = async (req, res) => {
       }
     : {};
   // console.log("keywordkeywordkeyword", keyword);
-  const productdata = await productSchema.find(keyword);
+  const productdata = await productSchema.find(keyword).populate("retailer")
   res.status(200).json({ productdata });
 };
 export const testMonalis = async (req, res) => {

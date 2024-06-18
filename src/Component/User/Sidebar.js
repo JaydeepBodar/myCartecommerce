@@ -14,7 +14,7 @@ const Sidebar = () => {
     <div
       className={`${
         toggle === true &&
-        "fixed left-0 right-0 top-0 bottom-0 h-[100%] bg-zinc-900/70"
+        "fixed left-0 right-0 top-0 bottom-0 h-[100%] bg-zinc-900/70 z-30"
       }`}
       onScroll={() => settoggle(false)}
     >
@@ -44,7 +44,7 @@ const Sidebar = () => {
               ? "max-sm:block absolute text-center w-[30px] h-[30px] bottom-0"
               : "max-sm:hidden"
           } sm:hidden fill-[#f2f2f2] ${
-            data?.user?.role === "Admin" ? "top-[25%]" : "top-[35%]"
+            data?.user?.role === "Admin" || data?.user?.role === "Retailer" ? "top-[25%]" : "top-[35%]"
           }`}
           onClick={() => settoggle(false)}
         />

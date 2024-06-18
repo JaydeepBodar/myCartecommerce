@@ -99,6 +99,7 @@ const Navbar = () => {
                         thumbnail,
                         discountPercentage,
                         _id,
+                        retailer
                       } = val;
                       return (
                         <Link
@@ -119,6 +120,7 @@ const Navbar = () => {
                               <span className="text-green-600 pl-2">
                                 {discountPercentage}%&nbsp;OFF
                               </span>
+                              {retailer?.name?.length > 0 && <h3 className="text-[#197693]">Seller :- {retailer?.name}</h3>}
                             </div>
                           </div>
                         </Link>

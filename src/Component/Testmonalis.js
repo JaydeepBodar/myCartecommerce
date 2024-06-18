@@ -64,7 +64,7 @@ const Testmonalis = () => {
           {!loading
             ? review?.map((value, index) => {
                 const { reviews } = value;
-                if (reviews.length > 0) {
+                if (reviews.length > 0 && reviews[0]?.rating >=4) {
                   return (
                     <div
                       key={index}

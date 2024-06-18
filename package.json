@@ -52,6 +52,7 @@
     "slick-carousel": "^1.8.1",
     "socket.io": "^4.7.5",
     "stripe": "^12.17.0",
+    "swiper": "^11.1.4",
     "yup": "^1.2.0"
   },
   "devDependencies": {

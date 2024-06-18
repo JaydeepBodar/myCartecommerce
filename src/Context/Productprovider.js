@@ -9,7 +9,7 @@ const Productprovider = ({ children }) => {
   const path=usePathname()
   useEffect(() => {
     axios
-      .get(`${process.env.API_URL}api/products/Allproduct`)
+      .get(`${process.env.API_URL}api/products/comon`)
       .then((res) => {
         setproduct(res.data);
       })

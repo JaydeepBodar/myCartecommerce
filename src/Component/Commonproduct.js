@@ -3,13 +3,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Pagination from "react-js-pagination";
 import ReactStars from "react-stars";
-import Container from "./Container";
 import Loader from "./Loader";
 import Link from "next/link";
 import { Globalproductcontext } from "@/Context/Productprovider";
 import { usePathname } from "next/navigation";
-const Commonproduct = ({ filterdata, category }) => {
+const Commonproduct = ({ filterdata, category, releatedProductId }) => {
   const { product, loading } = Globalproductcontext();
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -34,12 +34,18 @@ const Commonproduct = ({ filterdata, category }) => {
   return (
     <>
       {" "}
-      <Container>
         {!loading ? (
-          <>
-            <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 justify-center gap-y-5">
+          <div className="py-6">
+            <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 justify-center gap-y-5 pb-3">
               {filterproduct
-                ?.slice(indexOfFirstItem, indexOfLastItem)
+                ?.slice(
+                  pathname !== `/productdata/${releatedProductId}`
+                    ? indexOfFirstItem
+                    : 0,
+                  pathname !== `/productdata/${releatedProductId}`
+                    ? indexOfLastItem
+                    : 4
+                )
                 .map((val, index) => {
                   const {
                     _id,
@@ -61,7 +67,7 @@ const Commonproduct = ({ filterdata, category }) => {
                       <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden">
                         <Image
                           src={thumbnail}
-                          className="object-fill w-[100%] h-[100%]"
+                          className="object-fill w-[100%] h-[100%] rounded-lg"
                           width={200}
                           height={200}
                         />
@@ -100,7 +106,7 @@ const Commonproduct = ({ filterdata, category }) => {
                   );
                 })}
             </div>
-            <div className="py-6">
+            {pathname !== `/productdata/${releatedProductId}` ? (
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={itemsPerPage}
@@ -110,20 +116,22 @@ const Commonproduct = ({ filterdata, category }) => {
                 }}
                 innerClass="flex justify-center"
                 activeClass="bg-[#197693] text-white"
-                itemClass="px-2 py-[4px] border-[1px] border-[#000]"
-                firstPageText={"First"}
-                lastPageText={"Last"}
-                nextPageText={"Next"}
-                prevPageText={"Prev"}
+                itemClass="px-2 py-[4px]"
+                firstPageText={"<<"}
+                  lastPageText={">>"}
+                  nextPageText={">"}
+                  prevPageText={"<"}
               />
-            </div>
-          </>
+            ) : (
+              <Link href={`/productcategory/${category}`} className="w-[120px] text-[#fff] mx-auto my-5 bg-[#197693] rounded-xl block text-center tracking-wide">Exploar All</Link>
+            )}
+          </div>
         ) : (
           <div className="flex justify-center items-center h-[90vh] max-sm:h-[70vh]">
             <Loader />
           </div>
         )}
-      </Container>
+      
     </>
   );
 };
