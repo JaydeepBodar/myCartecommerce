@@ -14,6 +14,8 @@ import { IoMenuOutline } from "react-icons/io5";
 import { FaGripLinesVertical } from "react-icons/fa";
 import { IoRemoveOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
+import Commonproduct from "./Commonproduct";
+import Productcard from "./product/Productcard";
 const Categorydemo = ({
   singleproduct,
   setsubcategory,
@@ -179,89 +181,7 @@ const Categorydemo = ({
                     {singleproduct
                       ?.slice(indexOfFirstItem, indexOfLastItem)
                       .map((val, index) => {
-                        const {
-                          _id,
-                          thumbnail,
-                          title,
-                          price,
-                          rating,
-                          stock,
-                          discountPercentage,
-                          retailer,
-                        } = val;
-                        const withDiscount =
-                          price -
-                          ((price * discountPercentage) / 100).toFixed(0);
-                        return (
-                          <Link
-                            href={`/productdata/${_id}`}
-                            key={index}
-                            className={`border-[1px] img-hover rounded-lg overflow-hidden h-[100%] ${
-                              grid === 1 ? "flex gap-x-3" : "flex flex-col"
-                            }`}
-                          >
-                            <div className="relative">
-                              <div
-                                className={`h-[250px] max-sm:h-[180px] overflow-hidden flex-1`}
-                              >
-                                <Image
-                                  src={thumbnail}
-                                  className={`${
-                                    grid === 1 ? "" : "w-[100%]"
-                                  } object-fill h-[100%] hover-img`}
-                                  width={200}
-                                  height={200}
-                                />
-                              </div>
-                              {retailer?.name?.length > 0 && rating >= 4 && (
-                                <h4 className="absolute left-0 top-3 uppercase img_clip text-[14px] max-sm:text-[8px] py-[2px] max-sm:px-1 max-sm:leading-4 rounded-tr-lg rounded-br-lg px-2 tracking-wide text-[#f2f2f2] font-extrabold bg-red-500">
-                                  bestseller
-                                </h4>
-                              )}
-                            </div>
-                            <div className="pt-4 px-3 flex-1 w-[100%] flex flex-col h-[100%] justify-between">
-                              <h3 className="font-semibold text-lg max-sm:text-base capitalize">
-                                {title}
-                              </h3>
-                              <div>
-                                <ReactStars
-                                  edit={false}
-                                  count={5}
-                                  size={24}
-                                  value={rating}
-                                  color2={"#ffd700"}
-                                />
-                                <h4 className="text-[green] font-medium">
-                                  {discountPercentage}% OFF
-                                </h4>
-                                <del className="text-[gray]">{price}₹</del>
-                                <span className="text-[green] pl-3">
-                                  {withDiscount}₹
-                                </span>
-                                <h4
-                                  className={`${
-                                    stock === "InStock"
-                                      ? "text-[green]"
-                                      : "text-[red]"
-                                  }`}
-                                >
-                                  {stock === "InStock" ? (
-                                    <span>{stock}</span>
-                                  ) : (
-                                    <span className="text-red-600">
-                                      Out of Stock
-                                    </span>
-                                  )}
-                                </h4>
-                                {retailer?.name?.length > 0 && (
-                                  <h4 className="capitalize text-[#197693]">
-                                    seller:-{retailer?.name}
-                                  </h4>
-                                )}
-                              </div>
-                            </div>
-                          </Link>
-                        );
+                        return <Productcard product={val} key={index} grid={grid} />;
                       })}
                   </div>
                 </div>

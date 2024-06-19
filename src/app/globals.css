@@ -362,7 +362,7 @@ td {
 .mySwiper2 img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
   padding: 30px 60px;
 }
 .mySwiper .swiper-slide {
@@ -377,7 +377,7 @@ td {
 .mySwiper img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 .mySwiper2 .swiper-button-prev,.mySwiper2 .swiper-button-next{
   color: #197693;
@@ -446,6 +446,9 @@ td {
   .fotter_bottom p {
     font-size: 13px;
   }
+  .mySwiper2 .swiper-button-prev,.mySwiper2 .swiper-button-next{
+    display: none;
+  }
 }
 @media screen and (max-width: 600px) {
   .data span {
@@ -461,8 +464,9 @@ td {
     font-size: 13px;
   }
   .mySwiper2 img{
-    padding:0 30px;
-    height: 350px;
+    padding: 15px;
+    height: 450px;
+    width: 100%;
   }
 }
 @media screen and (max-width: 480px) {

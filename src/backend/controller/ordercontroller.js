@@ -574,7 +574,7 @@ export const getsingleuserorder = async (req, res) => {
   const { id } = req.query;
   const order = await orderSchema
     .findById({ _id: id, user: req.user._id })
-    .populate("shippingInfo user retailerId");
+    .populate("user retailerId shippingInfo");
   res.status(200).json({ order });
 };
 export const updateOrder = async (req, res) => {
@@ -583,21 +583,27 @@ export const updateOrder = async (req, res) => {
       .findByIdAndUpdate(req.query.id, req.body, { new: true })
       .populate("shippingInfo user retailerId");
     console.log("orderdata", orderdata);
-    res.status(200).json({ message: "Succsessfully updated Order status" });
+    res.status(200).json({ message: "Succsessfully updated Order status"});
   } catch (e) {
-    res.status(400).json({ message: "Not update Order" });
+    res.status(400).json({message: "Not update Order"});
   }
 };
 export const deleteOrder = async (req, res) => {
   try {
-    const deletedata = await orderSchema.findByIdAndDelete(
-      req.query.id,
-      req.body,
-      { new: true }
-    );
+    const order = await orderSchema.findById(req.query.id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    if (order.paymentId) {
+      const refund = await stripe.refunds.create({
+        payment_intent: order.paymentId,
+        amount: order.amount, 
+      });
+    }
+    await orderSchema.findByIdAndDelete(req.query.id);
     res.status(200).json({
       message:
-        "Successfully Delete Order and refund will be back within 3-5 Buisness days",
+        "Successfully deleted order. Refund will be processed within 3-5 business days.",
     });
   } catch (e) {
     res.status(400).json({ message: "Order not deleted" });

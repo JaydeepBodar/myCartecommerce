@@ -166,6 +166,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           // className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
                           onClick={() => setimg(img)}
                           src={img}
+
                           loading="lazy"
                         />
                       </SwiperSlide>

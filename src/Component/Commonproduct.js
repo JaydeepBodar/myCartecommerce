@@ -7,9 +7,10 @@ import Loader from "./Loader";
 import Link from "next/link";
 import { Globalproductcontext } from "@/Context/Productprovider";
 import { usePathname } from "next/navigation";
+import Productcard from "./product/Productcard";
 const Commonproduct = ({ filterdata, category, releatedProductId }) => {
   const { product, loading } = Globalproductcontext();
-  
+  const[expand,setExpand]=useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -27,111 +28,59 @@ const Commonproduct = ({ filterdata, category, releatedProductId }) => {
       (data) => data?.category === category && data?.featured === false
     )
   );
-  const filterproduct =
-    pathname === "/Men" || pathname === "/Women"
-      ? [].concat(...productmen)
-      : Normalproduct;
   return (
     <>
       {" "}
-        {!loading ? (
-          <div className="py-6">
-            <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 justify-center gap-y-5 pb-3">
-              {filterproduct
-                ?.slice(
-                  pathname !== `/productdata/${releatedProductId}`
-                    ? indexOfFirstItem
-                    : 0,
-                  pathname !== `/productdata/${releatedProductId}`
-                    ? indexOfLastItem
-                    : 4
-                )
-                .map((val, index) => {
-                  const {
-                    _id,
-                    thumbnail,
-                    title,
-                    price,
-                    rating,
-                    stock,
-                    discountPercentage,
-                  } = val;
-                  const withDiscount =
-                    price - ((price * discountPercentage) / 100).toFixed(0);
-                  return (
-                    <Link
-                      href={`/productdata/${_id}`}
-                      key={index}
-                      className=" border-[1px] border-[#cecbcb] rounded-lg"
-                    >
-                      <div className="w-[100%] h-[250px] max-sm:h-[180px] overflow-hidden">
-                        <Image
-                          src={thumbnail}
-                          className="object-fill w-[100%] h-[100%] rounded-lg"
-                          width={200}
-                          height={200}
-                        />
-                      </div>
-                      <div className="pt-4 px-3">
-                        <h3 className="font-semibold text-lg max-sm:text-base capitalize">
-                          {title}
-                        </h3>
-                        <div>
-                          <ReactStars
-                            edit={false}
-                            count={5}
-                            size={24}
-                            value={rating}
-                            color2={"#ffd700"}
-                          />
-                          <h4 className="text-[green] font-medium">
-                            {discountPercentage}% OFF
-                          </h4>
-                          <del className="text-[gray]">{price}₹</del>
-                          <span className="text-[green] pl-3">
-                            {withDiscount}₹
-                          </span>
-                          <h4
-                            className={`${
-                              stock === "InStock"
-                                ? "text-[green]"
-                                : "text-[red]"
-                            }`}
-                          >
-                            {stock}
-                          </h4>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-            </div>
-            {pathname !== `/productdata/${releatedProductId}` ? (
-              <Pagination
-                activePage={currentPage}
-                itemsCountPerPage={itemsPerPage}
-                totalItemsCount={filterproduct?.length}
-                onChange={(number) => {
-                  setCurrentPage(number);
-                }}
-                innerClass="flex justify-center"
-                activeClass="bg-[#197693] text-white"
-                itemClass="px-2 py-[4px]"
-                firstPageText={"<<"}
-                  lastPageText={">>"}
-                  nextPageText={">"}
-                  prevPageText={"<"}
-              />
-            ) : (
-              <Link href={`/productcategory/${category}`} className="w-[120px] text-[#fff] mx-auto my-5 bg-[#197693] rounded-xl block text-center tracking-wide">Exploar All</Link>
-            )}
+      {!loading ? (
+        <div className="py-6">
+          <div className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-x-2 max-sm:gap-y-2 gap-x-5 justify-center gap-y-5 pb-3">
+            {Normalproduct
+              ?.slice(
+                pathname !== `/productdata/${releatedProductId}` && expand === false
+                  ? indexOfFirstItem
+                  : 0,
+                pathname !== `/productdata/${releatedProductId}` && expand === false
+                  ? indexOfLastItem
+                  : expand === true ?indexOfLastItem :4
+              )
+              .map((val, index) => {
+                return (
+                  <Productcard product={val} key={index}/>
+                );
+              })}
           </div>
-        ) : (
-          <div className="flex justify-center items-center h-[90vh] max-sm:h-[70vh]">
-            <Loader />
-          </div>
-        )}
-      
+          {pathname !== `/productdata/${releatedProductId}` ? (
+            <Pagination
+              activePage={currentPage}
+              itemsCountPerPage={itemsPerPage}
+              totalItemsCount={Normalproduct  ?.length}
+              onChange={(number) => {
+                setCurrentPage(number);
+              }}
+              innerClass="flex justify-center"
+              activeClass="bg-[#197693] text-white"
+              itemClass="px-2 py-[4px]"
+              firstPageText={"<<"}
+              lastPageText={">>"}
+              nextPageText={">"}
+              prevPageText={"<"}
+            />
+          ) : (
+            <button
+              onClick={()=>{
+                setExpand(!expand)
+              }}
+              className="w-[120px] text-[#fff] mx-auto my-5 bg-[#197693] rounded-xl block text-center tracking-wide"
+            >
+              {!expand ? <span>Exploar All</span> : <span>Collapse All</span>}
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-[90vh] max-sm:h-[70vh]">
+          <Loader />
+        </div>
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import productSchema from "../model/productSchema";
 import APIFilter from "../utils/APIFilter";
 export const Comomuseproduct=async(req,res)=>{
-  const products=await productSchema.find()
+  const products=await productSchema.find().populate("retailer")
   res.status(200).json({products})
 }
 export const getAllproductdata = async (req, res) => {
