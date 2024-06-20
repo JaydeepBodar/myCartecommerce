@@ -65,7 +65,7 @@ const Productcard = ({ product,key,grid }) => {
           />
           <h4 className="text-[green] font-medium">
             {discountPercentage}% OFF
-          </h4>
+          </h4> 
           <del className="text-[gray]">{price}₹</del>
           <span className="text-[green] pl-3">{withDiscount}₹</span>
           <h4

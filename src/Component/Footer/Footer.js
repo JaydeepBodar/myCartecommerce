@@ -23,16 +23,19 @@ const Footer = () => {
       .catch((e) => {
         if (e.response.status === 409) {
           toast.warn(e.response.data.message);
-        } if (e.response.status === 403) {
+        }
+        if (e.response.status === 403) {
           toast.warn(e.response.data.message);
-        } if (e.response.status === 500) {
+        }
+        if (e.response.status === 500) {
           toast.error(e.response.data.message);
         }
-      }).finally(()=>setemail(""))
+      })
+      .finally(() => setemail(""));
   };
   return (
     <>
-      <div className="relative text-white bg-[#197693] py-10">
+      <div className="relative text-white bg-[#197693] py-10 max-sm:pt-5 max-sm:pb-2">
         <div
           title="back to top"
           className="absolute right-[30px] px-2 py-1 top-[-20px] bg-[#197693] cursor-pointer"
@@ -41,7 +44,7 @@ const Footer = () => {
           <GoMoveToTop fill="white" className="text-xl font-bold" />
         </div>
         <Container>
-          <div>
+          <div className="fotter_bottom">
             <div>
               <div className="flex justify-between flex-wrap gap-y-4 max-md:justify-center">
                 <div className="flex gap-x-4 items-center">
@@ -66,7 +69,7 @@ const Footer = () => {
                   </button>
                 </form>
               </div>
-              <div className="grid grid-cols-4 gap-x-5 py-8 max-md:grid-cols-2 max-md:gap-y-5 fotter_bottom">
+              <div className="grid grid-cols-4 gap-x-5 py-8 max-sm:pt-4 max-sm:px-9 max-sm:pb-2 max-md:grid-cols-2 max-md:gap-y-5 max-sm:gap-x-2 max-sm:gap-y-2 max-md:justify-between">
                 <div>
                   <h4>Contact us</h4>
                   <p>
@@ -75,7 +78,7 @@ const Footer = () => {
                   </p>
                 </div>
                 <div>
-                  <h4>Information</h4>
+                  <h4 className="max-sm:ml-[auto]">Information</h4>
                   <ul>
                     <li>
                       <Link href="/Privacypolicy">Privacy & Policy</Link>
@@ -108,7 +111,7 @@ const Footer = () => {
                     </li>
                   </ul>
                 </div>
-                <div>
+                <div className="max-sm:ml-[auto]">
                   <h4>Quick Links</h4>
                   <ul>
                     <li>
@@ -129,8 +132,8 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="text-center text-base my-3 pt-3 border-t-[1px] border-t-[#f2f2f2] font-bold">
-              ©{date} all Copy rights are reserved @myCart
+            <div className="text-center text-base my-3 pt-3 max-sm:pt-1 max-sm:mb-0  border-t-[1px] border-t-[#f2f2f2] font-bold">
+              <p>©{date} all Copy rights are reserved @myCart</p>
             </div>
           </div>
         </Container>
