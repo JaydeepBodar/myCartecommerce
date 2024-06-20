@@ -77,8 +77,8 @@ const Footer = () => {
                     Bangalore-560016
                   </p>
                 </div>
-                <div>
-                  <h4 className="max-sm:ml-[auto]">Information</h4>
+                <div className="max-sm:ml-[auto]">
+                  <h4>Information</h4>
                   <ul>
                     <li>
                       <Link href="/Privacypolicy">Privacy & Policy</Link>
