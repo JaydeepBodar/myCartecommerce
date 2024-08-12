@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 export default withAuth(
   async function middleware(req) {
-    console.log("req.nextauth.token", req.nextauth.token);
+    // console.log("req.nextauth.token", req.nextauth.token);
   }
   // {
   //   callbacks: {
