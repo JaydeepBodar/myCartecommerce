@@ -42,7 +42,7 @@ const Ordercount = ({ searchParams }) => {
   };
   const searchQuery = queryString.stringify(Urlsearch);
   const cookie =
-    process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
+    process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/" || process.env.API_URL === "https://master.d2lqxmwebuu9ap.amplifyapp.com/"
       ? `__Secure-next-auth.session-token=${productionheaders?.value}`
       : `next-auth.session-token=${nextauthheaders?.value}`;
   useEffect(() => {
