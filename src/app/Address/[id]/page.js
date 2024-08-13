@@ -6,7 +6,7 @@ async function getData(id) {
     const nextCookies = cookies();
     const productionheaders = nextCookies.get("__Secure-next-auth.session-token");
     const nextauthheaders = nextCookies.get("next-auth.session-token");
-    const cookie=  process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/" || process.env.API_URL === "https://master.d2lqxmwebuu9ap.amplifyapp.com/"
+    const cookie=  process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
     ? `__Secure-next-auth.session-token=${productionheaders?.value}`
     : `next-auth.session-token=${nextauthheaders?.value}`
   const { data } =await axios.get(`${process.env.API_URL}api/Address/${id}`, {
