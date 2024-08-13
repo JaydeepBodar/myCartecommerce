@@ -10,9 +10,11 @@ const Globalcontext = ({ children }) => {
     <Themeprovider>
       <Productprovider>
         <Cartprovider>
+        <AuthProvider>
           <Usercontextprovider>
-            <AuthProvider>{children}</AuthProvider>
+            {children}
           </Usercontextprovider>
+          </AuthProvider>
         </Cartprovider>
       </Productprovider>
     </Themeprovider>

@@ -21,7 +21,8 @@ const nextConfig = {
     UPLOAD_PREST:process.env.UPLOAD_PREST,
     NODEMAILER_SECREAT_KEY:process.env.NODEMAILER_SECREAT_KEY,
     NODEMAILER_EMAIL:process.env.NODEMAILER_EMAIL,
-    RESET_SECREAT:process.env.RESET_SECREAT
+    RESET_SECREAT:process.env.RESET_SECREAT,
+    MONGO_URL2:process.env.MONGO_URL2
   },  
   async headers() {
     return [

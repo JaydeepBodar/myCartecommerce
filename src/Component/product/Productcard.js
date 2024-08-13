@@ -17,7 +17,7 @@ const Productcard = ({ product,key,grid }) => {
     retailer,
     category,
   } = product;
-  console.log("productproductproduct",product)
+  // console.log("productproductproduct",product)
   const withDiscount = price - ((price * discountPercentage) / 100).toFixed(0);
   return (
     <Link
