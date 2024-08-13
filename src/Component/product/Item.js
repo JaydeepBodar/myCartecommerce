@@ -5,6 +5,8 @@ import ReactStars from "react-stars";
 import Image from "next/image";
 import { CartgloblContext } from "@/Context/Cartcontext";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import Notfound from "../../../public/images/Noimage.jpg"
+
 const Item = ({ product, loading }) => {
   // console.log("product", product._id);
   const { cart, addItemtocart, deletItem } = CartgloblContext();
@@ -61,11 +63,11 @@ const Item = ({ product, loading }) => {
       <div className="basis-[30%] max-lg:basis-[40%] max-sm:basis-[100%]">
         <Link href={`productdata/${_id}`} className="block overflow-hidden">
           <Image
-            src={product.thumbnail}
+            src={product?.thumbnail?.includes("https://cdn.dummyjson.com/") ? Notfound :product?.thumbnail}
             width={300}
             loading="lazy"
             height={300}
-            className=" hover-img flex items-stretch h-[250px] max-sm:w-[100%] max-sm:h-[280px] object-fill rounded-tl-lg rounded-bl-lg"
+            className={`${thumbnail?.includes("https://cdn.dummyjson.com/") === false && "hover-img"} flex items-stretch h-[250px] max-sm:w-[100%] max-sm:h-[280px] object-fill rounded-tl-lg rounded-bl-lg`}
             alt={title}
           />
         </Link>

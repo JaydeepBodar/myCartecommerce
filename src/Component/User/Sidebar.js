@@ -103,7 +103,7 @@ const Sidebar = () => {
 
           <li
             className="cursor-pointer text-[#197693]"
-            onClick={() => signOut()}
+            onClick={() => signOut({callbackUrl:"/Authentication/login"})}
           >
             Log out
           </li>

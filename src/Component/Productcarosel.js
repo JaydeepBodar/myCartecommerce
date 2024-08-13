@@ -10,6 +10,7 @@ import Link from "next/link";
 import ReactStars from "react-stars";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Notfound from "../../public/images/Noimage.jpg"
 const Productcarosel = ({ category, title, path }) => {
   const { product, loading } = Globalproductcontext();
   const productdara = product?.products?.filter(
@@ -87,7 +88,7 @@ const Productcarosel = ({ category, title, path }) => {
                       <div className="flex flex-col flex-wrap">
                         <div className="flex flex-1 flex-col">
                           <Image
-                            src={thumbnail}
+                            src={thumbnail?.includes("https://cdn.dummyjson.com/") ? Notfound : thumbnail}
                             width={300}
                             height={250}
                             className="object-fill w-[100%] h-[250px]"

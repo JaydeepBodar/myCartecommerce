@@ -68,7 +68,7 @@ const Testmonalis = () => {
                   return (
                     <div
                       key={index}
-                      className="cursor-pointer text-center my-[30px] px-2 relative z-0 flex flex-col h-[100%]"
+                      className="cursor-pointer text-center my-[30px] px-2 relative z-0 flex flex-col h-[100%] "
                     >
                       <div className="absolute top-[-20px] left-[43%] z-10">
                         <Image
@@ -83,10 +83,10 @@ const Testmonalis = () => {
                           theme === true
                             ? "bg-[#f2f2f2] text-[#000]"
                             : "bg-[#000] text-[#f2f2f2]"
-                        } border-[1px] border-[#f2f2f2] p-4 rounded-lg z-0`}
+                        } border-[1px] border-[#f2f2f2] p-4 rounded-lg z-0 h-[320px] flex flex-col justify-center`}
                       >
                         <p className="testmonalis pt-10 max-sm:text-[13px]">
-                          {reviews[0]?.comment}
+                          {reviews[0]?.comment?.length > 400 ? reviews[0]?.comment?.slice(0,400) : reviews[0]?.comment } {reviews[0]?.comment?.length > 400 && <span>...</span>} 
                         </p>
                         <h4 className="font-semibold text-right max-sm:text-sm">
                           -&nbsp;{reviews[0]?.userdata?.name}

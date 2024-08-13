@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import ReactStars from "react-stars";
 import { usePathname } from "next/navigation";
+import Notfound from "../../../public/images/Noimage.jpg"
+
 const Productcard = ({ product,key,grid }) => {
   const pathname = usePathname();
   const {
@@ -23,22 +25,22 @@ const Productcard = ({ product,key,grid }) => {
     <Link
       href={`/productdata/${_id}`}
       key={key}
-      className={`border-[1px] img-hover rounded-lg overflow-hidden h-[100%] ${
+      className={`border-[1px] rounded-lg overflow-hidden h-[100%] ${
         pathname === `/productcategory/${category}`
           ? grid === 1
             ? "flex gap-x-3"
             : "flex flex-col"
           : ""
-      }`}
+      } ${thumbnail?.includes("https://cdn.dummyjson.com/") === false && "img-hover"}`}
     >
       <div className="relative">
         <div className={`h-[250px] max-sm:h-[180px] overflow-hidden flex-1`}>
           <Image
-            src={thumbnail}
+            src={thumbnail?.includes("https://cdn.dummyjson.com/") ? Notfound : thumbnail}
             className={`${ pathname === `/productcategory/${category}`
           ?
               grid === 1 ? "" : "w-[100%]" :"w-[100%]"
-            } object-fill h-[100%] hover-img`}
+            } object-fill h-[100%] ${thumbnail?.includes("https://cdn.dummyjson.com/") === false && "hover-img"}`}
             width={200}
             height={200}
           />

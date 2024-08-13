@@ -22,6 +22,7 @@ import "swiper/css/thumbs";
 import Commonproduct from "../Commonproduct";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import Notfound from "../../../public/images/Noimage.jpg"
 
 const Productdetais = ({ singleproduct, loading, handleEditing }) => {
   const { cart, addItemtocart, deletItem } = CartgloblContext();
@@ -164,8 +165,8 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           width={400}
                           height={400}
                           // className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
-                          onClick={() => setimg(img)}
-                          src={img}
+                          // onClick={() => setimg(img)}
+                          src={img?.includes("https://cdn.dummyjson.com/") ? Notfound : img}
 
                           loading="lazy"
                         />
@@ -192,8 +193,8 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                           width={150}
                           height={100}
                           // className="max-sm:w-[100px] border-[1px] border-[#000] h-[100px] rounded-lg object-fill cursor-pointer"
-                          onClick={() => setimg(img)}
-                          src={img}
+                          // onClick={() => setimg(img)}
+                          src={img?.includes("https://cdn.dummyjson.com/") ? Notfound : img}
                           loading="lazy"
                         />
                       </SwiperSlide>
