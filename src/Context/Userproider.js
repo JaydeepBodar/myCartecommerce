@@ -2,11 +2,13 @@
 import axios from "axios";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import Cookies from "js-cookie";
 const Usercontext = createContext();
 const Usercontextprovider = ({ children }) => {
   const [user, setuser] = useState([]);
   const router=useRouter()
+  const Cookiesdata=Cookies.get("next-auth.session-token")
+  console.log("Cookiesdata",Cookiesdata)
   const[loading,setloading]=useState(true) 
   //  console.log("user",user)
    const loaduser=()=>{
