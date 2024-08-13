@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
-import { parseCallbackUrl } from "@/helper/getPricequeryparams";
+// import { parseCallbackUrl } from "@/helper/getPricequeryparams";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 const Login = () => {
   const session = useSession();
@@ -15,8 +15,8 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const params = useSearchParams();
-  const callbackUrl = params.get("callbackUrl");
+  // const params = useSearchParams();
+  // const callbackUrl = params.get("callbackUrl");
 
   const { email, password } = Input;
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ const Login = () => {
       const res = await signIn("credentials", {
         redirect: false,
         ...Input,
-        callbackUrl: callbackUrl ? parseCallbackUrl(callbackUrl) : "/",
+        // callbackUrl: callbackUrl ? parseCallbackUrl(callbackUrl) : "/",
       });
       // console.log("res", res);
       if (res.error) {
