@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Loader from "../Loader";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
 import { Globalproductcontext } from "@/Context/Productprovider";
+import Notfound from "../../../public/images/Noimage.jpg"
 const Adminproduct = ({
   product,
   loader,
@@ -106,7 +107,7 @@ const Adminproduct = ({
                   <div>
                     <Image
                       alt={title}
-                      src={thumbnail}
+                      src={thumbnail?.includes("https://cdn.dummyjson.com/") ? Notfound : thumbnail}
                       loading="lazy"
                       width={90}
                       height={90}

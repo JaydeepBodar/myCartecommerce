@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../Loader";
+import Notfound from "../../../public/images/Noimage.jpg"
+
 const Orderview = ({ order, loading }) => {
   const { data } = useSession();
   // console.log("order", order);
@@ -117,7 +119,7 @@ const Orderview = ({ order, loading }) => {
             <div className="flex items-center gap-x-7 border-[#197693] border-[1px] p-3 rounded-lg">
               <div className="flex items-center">
                 <Image
-                  src={image[0]}
+                  src={image[0]?.includes("https://cdn.dummyjson.com/") ? Notfound : image[0]}
                   loading="lazy"
                   width={90}
                   height={90}

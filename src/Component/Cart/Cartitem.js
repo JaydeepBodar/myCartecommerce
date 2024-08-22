@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Globalproductcontext } from "@/Context/Productprovider";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import Notfound from "../../../public/images/Noimage.jpg"
 const Cartitem = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -102,7 +103,7 @@ const Cartitem = () => {
                           }`}
                         >
                           <Image
-                            src={thumbnail}
+                            src={thumbnail?.includes("https://cdn.dummyjson.com/") ? Notfound : thumbnail}
                             loading="lazy"
                             alt={title}
                             width={150}

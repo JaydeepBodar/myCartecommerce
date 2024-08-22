@@ -16,6 +16,8 @@ import { Globalusercontext } from "@/Context/Userproider";
 import { IoIosSearch } from "react-icons/io";
 import axios from "axios";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import Notfound from "../../../public/images/Noimage.jpg"
+
 const Navbar = () => {
   const { user, loaduser } = Globalusercontext();
   const { theme, settheme } = Globalthemeprovider();
@@ -109,7 +111,7 @@ const Navbar = () => {
                         >
                           <div className={`m-3 flex gap-x-2 p-2`}>
                             <Image
-                              src={thumbnail}
+                              src={thumbnail?.includes("https://cdn.dummyjson.com/") ? Notfound : thumbnail }
                               width={70}
                               height={70}
                               className="w-[70px] h-[70px] object-cover"

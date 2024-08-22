@@ -345,7 +345,12 @@ export const webhook = async (req, res) => {
                                                       <tr>
                                                           <td rowspan="4" style="padding-right: 10px; padding-bottom: 10px;">
                                                               <img style="height: 80px; width:80px;" src=${
-                                                                item?.image[0]
+                                                                item?.image[0]?.includes(
+                                                                  "https://cdn.dummyjson.com/"
+                                                                )
+                                                                  ? "https://res.cloudinary.com/dxlicroam/image/upload/v1724135977/uploadimg/Noimage_hutyjh.jpg"
+                                                                  : item
+                                                                      ?.image[0]
                                                               } alt=${
                                              item?.name
                                            } />
@@ -583,9 +588,9 @@ export const updateOrder = async (req, res) => {
       .findByIdAndUpdate(req.query.id, req.body, { new: true })
       .populate("shippingInfo user retailerId");
     console.log("orderdata", orderdata);
-    res.status(200).json({ message: "Succsessfully updated Order status"});
+    res.status(200).json({ message: "Succsessfully updated Order status" });
   } catch (e) {
-    res.status(400).json({message: "Not update Order"});
+    res.status(400).json({ message: "Not update Order" });
   }
 };
 export const deleteOrder = async (req, res) => {
@@ -597,7 +602,7 @@ export const deleteOrder = async (req, res) => {
     if (order.paymentId) {
       const refund = await stripe.refunds.create({
         payment_intent: order.paymentId,
-        amount: order.amount, 
+        amount: order.amount,
       });
     }
     await orderSchema.findByIdAndDelete(req.query.id);
@@ -637,12 +642,17 @@ export const getallOrderforretailer = async (req, res) => {
     const productperpage = 6;
     const currentpage = Number(req.query.page) || 1;
     const skippage = productperpage * (currentpage - 1);
-    const productcount = await orderSchema.countDocuments({ retailerId: req.user._id });
+    const productcount = await orderSchema.countDocuments({
+      retailerId: req.user._id,
+    });
     // const apifillter = new APIFilter(orderSchema.find({ retailerId: req.user._id }), req.query).pagination(
     //   productperpage
     // );
     // const order = await apifillter.query.find();
-    const order = await orderSchema.find({ retailerId: req.user._id }).limit(productperpage).skip(skippage)
+    const order = await orderSchema
+      .find({ retailerId: req.user._id })
+      .limit(productperpage)
+      .skip(skippage);
     res.status(200).json({ order, productcount, productperpage });
   } catch (e) {
     res.status(400).json({ message: "Order not found" });
@@ -746,7 +756,7 @@ export const orderanylitic = async (req, res) => {
       item.totalRevenue,
     ])
   );
-  console.log("totalRevenueMaptotalRevenueMaptotalRevenueMap",totalRevenueMap)
+  console.log("totalRevenueMaptotalRevenueMaptotalRevenueMap", totalRevenueMap);
   // Create the final result including all months and years
   const resultWithAllMonthsAndYears = allMonths.flatMap((month) => {
     return Array.from(new Set(orderAnalysis.map((item) => item._id.year))).map(

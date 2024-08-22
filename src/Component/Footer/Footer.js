@@ -6,9 +6,11 @@ import newsleter from "../../../public/images/newsletter.png";
 import Container from "../Container";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 const Footer = () => {
   const date = new Date().getFullYear();
   const [email, setemail] = useState("");
+  const {status}=useSession()
   const isBrowser = () => typeof window !== "undefined"; //The approach recommended by Next.js
 
   function scrollToTop() {
@@ -104,7 +106,7 @@ const Footer = () => {
                       <Link href="#">About us</Link>
                     </li>
                     <li>
-                      <Link href="/User">Account</Link>
+                      <Link href={`${status === "authenticated" ? "/User" : "/Authentication/login"}`}>Account</Link>
                     </li>
                     <li>
                       <Link href="#">Contact us</Link>

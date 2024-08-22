@@ -58,7 +58,7 @@ const Login = () => {
             } w-[500px] border-[1px] max-sm:max-w-[100%] mx-[auto] max-sm:px-10 max-sm:py-12 rounded-lg px-16 py-14`}
           >
             <h4 className="text-center font-semibold text-3xl mb-4 tracking-normal">
-              Log in...
+              Sign in...
             </h4>
             <form className='text-[#000]'>
               <Inputdata
