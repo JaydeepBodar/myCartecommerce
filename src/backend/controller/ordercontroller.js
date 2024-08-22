@@ -63,15 +63,12 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1Ns00tSFLEGSzdCiZBp6sjeM",
+        shipping_rate: "shr_1PqVaESFLEGSzdCiYUOHZ8mT",
       },
     ],
     line_items,
   };
   if (isFirstTime) {
-    console.log(
-      "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnnnnnnnn--------------------"
-    );
     const coupon = await stripe.coupons.create({
       percent_off: 20,
       duration: "once",
@@ -87,7 +84,7 @@ export const checkoutsession = async (req, res) => {
     ];
   }
   const session = await stripe.checkout.sessions.create(sessionCreatedata);
-  console.log("line_itemsline_itemsline_itemsline_items", session);
+  // console.log("line_itemsline_itemsline_itemsline_items", session);
   res.status(200).json({ url: session.url });
 };
 // const getCartitems = async (line_items) => {
