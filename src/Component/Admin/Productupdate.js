@@ -108,7 +108,6 @@ const Productupdate = ({ product }) => {
           // console.log("imagesindex",index)
           const data = await response.json();
           const dataimages = images.splice(index, 1, data.secure_url);
-          // console.log("firstimages",images)
         }
       } catch (e) {
         console.log("error", e);
@@ -234,9 +233,9 @@ const Productupdate = ({ product }) => {
             })}
           </div>
           <div className="flex justify-between max-sm:flex-col max-sm:gap-y-2">
-            <input type="file" onChange={(e) => handleImageUpload(e, 0)} />
-            <input type="file" onChange={(e) => handleImageUpload(e, 1)} />
-            <input type="file" onChange={(e) => handleImageUpload(e, 2)} />
+            <input type="file" onChange={(e) => handleImageUpload(e, 0)} className="basis-[32%] max-w-[32%] max-sm:basis-[100%] max-sm:max-w-[100%]" />
+            <input type="file" onChange={(e) => handleImageUpload(e, 1)} className="basis-[32%] max-w-[32%] max-sm:basis-[100%] max-sm:max-w-[100%]" />
+            <input type="file" onChange={(e) => handleImageUpload(e, 2)} className="basis-[32%] max-w-[32%] max-sm:basis-[100%] max-sm:max-w-[100%]" />
           </div>
         </div>
         <textarea

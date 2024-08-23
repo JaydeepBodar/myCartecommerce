@@ -20,7 +20,7 @@ const Order = ({ searchParams }) => {
       ? `__Secure-next-auth.session-token=${productionheaders?.value}`
       : `next-auth.session-token=${nextauthheaders?.value}`;
   useEffect(() => {
-    const apiget=data?.user?.role==="Admin" ? `${process.env.API_URL}api/Order/Allorderdata?${searchQuery}` : `${process.env.API_URL}api/retailer/Order`
+    const apiget=data?.user?.role==="Admin" ? `${process.env.API_URL}api/Order/Allorderdata?${searchQuery}` : `${process.env.API_URL}api/retailer/Order?${searchQuery}`
     axios
       .get(apiget, {
         headers: { Cookie: cookie },

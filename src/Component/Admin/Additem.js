@@ -232,9 +232,9 @@ const Additem = () => {
               })}
             </div>
             <div className="flex justify-between max-sm:flex-col max-sm:gap-y-2">
-              <input type="file" onChange={handleImageUpload} />
-              <input type="file" onChange={handleImageUpload} />
-              <input type="file" onChange={handleImageUpload} />
+              <input type="file" onChange={handleImageUpload} className="basis-[32%] max-w-[32%] max-sm:basis-[100%] max-sm:max-w-[100%]" />
+              <input type="file" onChange={handleImageUpload} className="basis-[32%] max-w-[32%] max-sm:basis-[100%] max-sm:max-w-[100%]" />
+              <input type="file" onChange={handleImageUpload} className="basis-[32%] max-w-[32%] max-sm:basis-[100%] max-sm:max-w-[100%]" />
             </div>
           </div>
           <textarea
