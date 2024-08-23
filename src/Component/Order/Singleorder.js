@@ -5,6 +5,8 @@ import { Globalthemeprovider } from "@/Context/Themeprovider";
 import Loader from "../Loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Notfound from "../../../public/images/Noimage.jpg"
+
 const Singleorder = ({ order, loading }) => {
   // console.log("orderorderorderorder", order);
   const router = useRouter();
@@ -156,7 +158,7 @@ const Singleorder = ({ order, loading }) => {
           <div className="flex items-center gap-x-4 gap-y-2 font-semibold p-4">
             <div className="flex items-center gap-x-2 max-sm:gap-x-1 max-sm:basis-[45%]">
               <Image
-                src={order?.image[0]}
+                src={order?.image[0]?.includes("https://cdn.dummyjson.com/") ? Notfound : order?.image[0]}
                 width={80}
                 alt={order?.name}
                 height={80}

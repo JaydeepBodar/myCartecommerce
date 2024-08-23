@@ -9,12 +9,12 @@ import APIFilter from "../utils/APIFilter";
 const stripe = new Stripe(process.env.STRIPE_SECERETKEY);
 export const checkoutsession = async (req, res) => {
   const body = req.body;
-  console.log(
-    "hhhhhhhhhhhhhhhhhhhhhhhh",
-    body?.items?.reduce((acc, data) => {
-      return acc + Number(data?.discountprice);
-    }, 0)
-  );
+  // console.log(
+  //   "hhhhhhhhhhhhhhhhhhhhhhhh",
+  //   body?.items?.reduce((acc, data) => {
+  //     return acc + Number(data?.discountprice);
+  //   }, 0)
+  // );
   const line_items = body?.items?.map((item) => {
     // console.log("itemdddddddddd", item);
     return {
@@ -37,21 +37,6 @@ export const checkoutsession = async (req, res) => {
       quantity: item.quantity,
     };
   });
-  async function isFirstTimeCustomer(customerId) {
-    try {
-      const charges = await stripe.charges.list({
-        customer: customerId,
-        limit: 1,
-      });
-
-      return charges.data.length === 0;
-    } catch (error) {
-      console.error("Error checking customer charges:", error);
-      return false;
-    }
-  }
-  const isFirstTime = await isFirstTimeCustomer(body?.id);
-  console.log("body?.idbody?.idbody?.id", body?.id);
   const shipinginfo = body?.shippingInfo;
   const sessionCreatedata = {
     payment_method_types: ["card"],
@@ -63,26 +48,27 @@ export const checkoutsession = async (req, res) => {
     metadata: { shipinginfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1PqVaESFLEGSzdCiYUOHZ8mT",
+        shipping_rate: "shr_1Pqq5QSFLEGSzdCiZWnfviby",
       },
     ],
     line_items,
   };
-  if (isFirstTime) {
-    const coupon = await stripe.coupons.create({
-      percent_off: 20,
-      duration: "once",
-    });
-    const promotionCode = await stripe.promotionCodes.create({
-      coupon: coupon.id,
-      max_redemptions: 1,
-    });
-    sessionParams.discounts = [
-      {
-        discount: promotionCode.id,
-      },
-    ];
-  }
+  console.log("body?.idbody?.idbody?.id", sessionCreatedata);
+  // if (isFirstTime) {
+  //   const coupon = await stripe.coupons.create({
+  //     percent_off: 20,
+  //     duration: "once",
+  //   });
+  //   const promotionCode = await stripe.promotionCodes.create({
+  //     coupon: coupon.id,
+  //     max_redemptions: 1,
+  //   });
+  //   sessionParams.discounts = [
+  //     {
+  //       discount: promotionCode.id,
+  //     },
+  //   ];
+  // }
   const session = await stripe.checkout.sessions.create(sessionCreatedata);
   // console.log("line_itemsline_itemsline_itemsline_items", session);
   res.status(200).json({ url: session.url });
@@ -122,7 +108,6 @@ export const checkoutsession = async (req, res) => {
 export const webhook = async (req, res) => {
   try {
     const rawbody = await getRawBody(req);
-    console.log("reqreqreqreqreqreq", rawbody);
     const signature = req.headers["stripe-signature"];
     const event = stripe.webhooks.constructEvent(
       rawbody,
@@ -130,6 +115,8 @@ export const webhook = async (req, res) => {
       process.env.WEBHOOKS_SECERATKEY_PRODUCTION
       // process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ? process.env.WEBHOOKS_SECERATKEY_PRODUCTION : process.env.WEBHOOKS_SECERATKEY
     );
+    console.log("reqreqreqreqreqreq", event.data.object.amount_details);
+    console.log("eventeventeventevent", event);
     // console.log("event", event);
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
@@ -592,25 +579,46 @@ export const updateOrder = async (req, res) => {
 };
 export const deleteOrder = async (req, res) => {
   try {
+    // Find the order by ID
     const order = await orderSchema.findById(req.query.id);
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
+
+    // Check if the order has a paymentId and attempt to create a refund if not already refunded
     if (order.paymentId) {
-      const refund = await stripe.refunds.create({
-        payment_intent: order.paymentId,
-        amount: order.amount,
-      });
+      try {
+        const refund = await stripe.refunds.create({
+          payment_intent: order.paymentId,
+          amount: order.amount,
+        });
+        console.log("Refund details:", refund);
+      } catch (error) {
+        if (error.code === 'charge_already_refunded') {
+          // Handle the case where the charge has already been refunded
+          console.log("Charge has already been refunded:", error.message);
+        } else {
+          // Handle other Stripe errors
+          console.error("Error creating refund:", error);
+          return res.status(400).json({ message: "Failed to process refund." });
+        }
+      }
     }
+
+    // Delete the order
     await orderSchema.findByIdAndDelete(req.query.id);
+
+    // Send a success response
     res.status(200).json({
       message:
         "Successfully deleted order. Refund will be processed within 3-5 business days.",
     });
   } catch (e) {
+    console.error("Error deleting order:", e);
     res.status(400).json({ message: "Order not deleted" });
   }
 };
+
 export const getSingleOrder = async (req, res) => {
   try {
     const order = await orderSchema

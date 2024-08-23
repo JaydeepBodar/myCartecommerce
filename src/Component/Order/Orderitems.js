@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Globalthemeprovider } from "@/Context/Themeprovider";
+import Notfound from "../../../public/images/Noimage.jpg"
+
 const Orderitems = ({ item }) => {
   // console.log("item", item);
   const { _id, name: title, image, orderStatus, createdAt,paymentId } = item;
@@ -44,7 +46,7 @@ const Orderitems = ({ item }) => {
       <div className="flex justify-between items-center">
         <div>
           <Image
-            src={image[0]}
+            src={image[0]?.includes("https://cdn.dummyjson.com/") ? Notfound : image[0]}
             height={80}
             width={80}
             className="w-[80px] h-[80px] object-fill rounded-full"
