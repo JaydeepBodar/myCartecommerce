@@ -18,7 +18,7 @@ export const getoneAddress = async (req, res) => {
   const address = await Addressschema.findById(req.query.id);
   // console.log("address",address)
   res.status(200).json({ address });
-};
+};  
 export const updateaddress = async (req, res) => {
   let address = await Addressschema.findByIdAndUpdate(req.query.id,req.body,{new: true});
   if (address) {

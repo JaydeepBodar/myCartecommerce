@@ -16,7 +16,7 @@ const productSchema = mongoose.Schema(
     images: [String],
     price: Number,
     discountPercentage: Number,
-    Instock: {
+    stock: {
       type: String,
       default: "InStock",
     },
