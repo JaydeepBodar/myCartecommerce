@@ -538,7 +538,7 @@ const Productdetais = ({ singleproduct, loading, handleEditing }) => {
                               size: filter?.size !== "" ? filter?.size : null,
                               color: filter?.color,
                               retailerId:
-                                singleproduct?.products?.retailer?._id,
+                                singleproduct?.products?.retailer?._id || "",
                             });
                             if (
                               productbtn === true ||

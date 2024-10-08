@@ -34,6 +34,7 @@ import usePreventUrlEdit from "@/Component/usePreventUrlEdit";
 const Categorypage = ({ params }) => {
   const [singleproduct, setsingleproduct] = useState([]);
   const [loading, setloading] = useState(true);
+  const [loading1, setloading1] = useState(true);
   const [subcategory, setsubcategory] = useState("");
   const [categorydata, setcategorydata] = useState([]);
   const [price, setprices] = useState({ min: "", max: "" });
@@ -55,14 +56,14 @@ const Categorypage = ({ params }) => {
           setsingleproduct(res.data.productdata);
       })
       .catch((e) => console.log("e", e))
-      .finally(() => setloading(false));
-  }, [loading, subcategory, price]);
+      .finally(() => setloading1(false));
+  }, [loading1, subcategory, price]);
   useEffect(() => {
     axios
       .get(`${env.APIURL}/api/productcategory/${params.category}`)
       .then((res) => setcategorydata(res.data.productdata))
-      .catch((e) => e);
-  }, []);
+      .catch((e) => e).finally(() => setloading(false));
+  }, [loading]);
   const productdata = categorydata?.map((data) => data?.price);
   if (subcategory !== "") {
     const newdata = categorydata?.filter(
@@ -90,8 +91,10 @@ const Categorypage = ({ params }) => {
   // };
   // for packages changes
   const handleSliderChange = (value) => {
-    setprices(value);
+    setloading1(true)
+    setprices(value)
   };
+  console.log("loading1",loading1)
   return (
     <div>
       <Categorydemo
@@ -100,6 +103,7 @@ const Categorypage = ({ params }) => {
         setsubcategory={setsubcategory}
         categorydata={categorydata}
         loading={loading}
+        loading1={loading1}
         category={params.category}
         // hanleMaxrange={hanleMaxrange}
         // hanleMinrange={hanleMinrange}
@@ -110,6 +114,7 @@ const Categorypage = ({ params }) => {
         setprices={setprices}
         price={price}
         handleSliderChange={handleSliderChange}
+        setloading1={setloading1}
       />
     </div>
   );

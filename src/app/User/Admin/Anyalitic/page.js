@@ -30,7 +30,7 @@ const Dashboarddata = () => {
       .then((data) => setchartstate(data.data))
       .catch((e) => console.log("eee", e))
       .finally((e) => setloading(false));
-  }, [loading]);
+  },[loading]);
 
   return (
     <div style={{ zIndex: "1" }}>

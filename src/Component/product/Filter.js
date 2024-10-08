@@ -6,6 +6,7 @@ import ReactStars from "react-stars";
 import { checkbox } from "./checkbox";
 import Inputdata from "../Inputdata";
 const Filter = () => {
+  console.log("-------------",window)
   const router = useRouter();
   const [min, setmin] = useState("");
   const [max, setmax] = useState("");
@@ -54,7 +55,7 @@ const Filter = () => {
       router.push("/Allshop");
     } else {
       const path = window.location.pathname+"?" + queryParams.toString();
-      // console.log("qu", queryParams.toString());
+      console.log("qu", queryParams);
       router.push(path);
     }
   };

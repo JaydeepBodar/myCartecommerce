@@ -119,7 +119,7 @@ export const webhook = async (req, res) => {
     console.log("eventeventeventevent", event);
     // console.log("event", event);
     if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
+      const session = event.data.object;  
       const line_items = await stripe.checkout.sessions.listLineItems(
         event.data.object.id
       );

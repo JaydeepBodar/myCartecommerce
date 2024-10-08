@@ -32,6 +32,8 @@ const Categorydemo = ({
   // priceMax,
   setprices,
   handleSliderChange,
+  loading1,
+  setloading1
 }) => {
   const { theme } = Globalthemeprovider();
   const [grid, setgrid] = useState(window.innerWidth <= 768 ? 2 : 3);
@@ -123,6 +125,7 @@ const Categorydemo = ({
                       onClick={() => {
                         setsubcategory("");
                         setprices({ min: "", max: "" });
+                        setloading1(true)
                       }}
                     >
                       All
@@ -139,6 +142,7 @@ const Categorydemo = ({
                           onClick={() => {
                             setsubcategory(data);
                             setprices({ min: "", max: "" });
+                            setloading1(true)
                           }}
                         >
                           {data}
@@ -148,7 +152,11 @@ const Categorydemo = ({
                   </ul>
                 </div>
               </div>
-              {singleproduct.length > 0 ? (
+              {loading1 === true ? (
+                <div className="flex justify-center items-center h-[70vh] max-sm:h-[40vh] mx-[auto]">
+                  <Loader />
+                </div>
+              ) : singleproduct.length > 0 ? (
                 <div className="flex flex-col gap-y-4 w-[100%]">
                   <div className="flex justify-between">
                     <h3 className="font-bold text-2xl max-md:text-lg capitalize">
@@ -181,16 +189,20 @@ const Categorydemo = ({
                     {singleproduct
                       ?.slice(indexOfFirstItem, indexOfLastItem)
                       .map((val, index) => {
-                        return <Productcard product={val} key={index} grid={grid} />;
+                        return (
+                          <Productcard product={val} key={index} grid={grid} />
+                        );
                       })}
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-center items-center h-[50vh] max-sm:text-center mx-[auto]">
-                  <h4 className="text-3xl max-sm:text-2xl font-bold">
-                    No product Found For Your Filter...
-                  </h4>
-                </div>
+                loading1 === false && (
+                  <div className="flex justify-center items-center h-[50vh] max-sm:text-center mx-[auto]">
+                    <h4 className="text-3xl max-sm:text-2xl font-bold">
+                      No product Found For Your Filter...
+                    </h4>
+                  </div>
+                )
               )}
             </div>
             <div className="py-6">
