@@ -52,10 +52,10 @@ export default async function auth(req, res) {
 
     cookies: {
       sessionToken: {
-        name: process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ?  '__Host-next-auth.session-token' : `next-auth.session-token`,
+        name: process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ?  '__Secure-next-auth.session-token' : `next-auth.session-token`,
         options: {
-          httpOnly:false,
-          sameSite: "lax",
+          httpOnly:true,
+          sameSite: "strict",
           path: "/",
           maxAge: 30 * 24 * 60 * 60,
         },
