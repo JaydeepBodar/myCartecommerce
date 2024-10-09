@@ -87,14 +87,13 @@ const Categorypage = ({ params }) => {
   // };
   // const hanleMinrange = (e) => {
   //   const value=e.target.value.replace(/\D/g, '')
-  //   setPriceMin(value);
+  //   setPriceMin(value);  
   // };
   // for packages changes
   const handleSliderChange = (value) => {
     setloading1(true)
     setprices(value)
   };
-  console.log("loading1",loading1)
   return (
     <div>
       <Categorydemo

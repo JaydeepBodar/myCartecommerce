@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import Loader from "@/Component/Loader";
+import { Globalthemeprovider } from "@/Context/Themeprovider";
 const PieChart = ({ chartdata, loading }) => {
+  const { theme } = Globalthemeprovider();
   const yearfull = new Date().getFullYear();
   const [year, setyear] = useState(yearfull);
   const yeardata = ["2024", "2025", "2026", "2027", "2028", "2029", "2030"];
@@ -52,6 +54,16 @@ const PieChart = ({ chartdata, loading }) => {
     xaxis: {
       categories: yearwiseAnyalisis?.map((item) => item?.month),
     },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return value === 0 ? " " : value ;
+        },
+      },
+    },
+    tooltip: {
+      theme: theme === true ? "light" : "dark",
+    },
     plotOptions: {
       bar: {
         horizontal: true,
@@ -69,13 +81,12 @@ const PieChart = ({ chartdata, loading }) => {
   ];
   return (
     <>
-      {loading && (
+      {loading ? (
         <div className="h-[60vh] flex items-center justify-center">
           <Loader />
         </div>
-      )}
-      {!loading && (
-        <>
+      ) : (
+       <>
           <div className="max-sm:flex max-sm:flex-col max-sm:items-center">
             <h4 className="font-light">Order Progress Details</h4>
             <ReactApexChart

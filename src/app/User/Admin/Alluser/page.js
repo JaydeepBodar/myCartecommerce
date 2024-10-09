@@ -16,12 +16,12 @@ const Alluserdata = ({searchParams}) => {
     const nextauthheaders = Cookies.get("next-auth.session-token");
     const cookie =
       process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
-        ? `__Secure-next-auth.session-token=${productionheaders?.value}`
-        : `next-auth.session-token=${nextauthheaders?.value}`;
+        ? `__Secure-next-auth.session-token=${productionheaders}`
+        : `next-auth.session-token=${nextauthheaders}`;
     useEffect(() => {
       axios
         .get(`${process.env.API_URL}api/admin/Alluser?${searchQuery}`, {
-          headers: { Cookie: cookie },
+          header: { Cookie: cookie },
         })
         .then((response) => setuser(response.data))
         .catch((e) => console.log("error", e))

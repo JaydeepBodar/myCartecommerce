@@ -28,14 +28,14 @@ const Overview = ({ params }) => {
   // console.log("nextauthheaders",nextauthheaders)
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
-      ? `__Secure-next-auth.session-token=${productionheaders?.value}`
-      : `next-auth.session-token=${nextauthheaders?.value}`;
+      ? `__Secure-next-auth.session-token=${productionheaders}`
+      : `next-auth.session-token=${nextauthheaders}`;
   const [order, setorder] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
     axios
       .get(`${process.env.API_URL}api/Order/${params.id}`, {
-        headers: { Cookie: cookie },
+        header: { Cookie: cookie },
       })
       .then((res) => setorder(res.data.order))
       .catch((e) => console.log("eeeee", e))

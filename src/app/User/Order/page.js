@@ -43,13 +43,13 @@ const Ordercount = ({ searchParams }) => {
   const searchQuery = queryString.stringify(Urlsearch);
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
-      ? `__Secure-next-auth.session-token=${productionheaders?.value}`
-      : `next-auth.session-token=${nextauthheaders?.value}`;
+      ? `__Secure-next-auth.session-token=${productionheaders}`
+      : `next-auth.session-token=${nextauthheaders}`;
   useEffect(() => {
     axios
       .get(`${process.env.API_URL}api/Order/myorder?${searchQuery}`, {
         cache: "no-store",
-        headers: {
+        header: {
           Cookie: cookie,
         },
       })

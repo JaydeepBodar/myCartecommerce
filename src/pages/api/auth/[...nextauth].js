@@ -39,15 +39,33 @@ export default async function auth(req, res) {
       }),
     ],
     callbacks: {
-      jwt: async ({ token, user, profile }) => {
+      jwt: async ({ token, user }) => {
         user && (token.user = user);
         return Promise.resolve(token);
       },
-      session: async ({ session, token,trigger }) => {
-        console.log("triggertriggertriggertrigger",trigger)
+      session: async ({ session, token}) => {
         session.user = token.user;
         delete session?.user?.password;
         return session;
+      },
+    },
+
+    cookies: {
+      sessionToken: {
+        name: `next-auth.session-token`,
+        options: {
+          httpOnly:false,
+          sameSite: "lax",
+          path: "/",
+          maxAge: 30 * 24 * 60 * 60,
+        },
+      },
+      csrfToken: {
+        name: 'next-auth.csrf-token',
+        options: {
+          httpOnly: false,
+          sameSite: 'lax',
+        },
       },
     },
     secret: process.env.NEXTAUTH_SECRET,

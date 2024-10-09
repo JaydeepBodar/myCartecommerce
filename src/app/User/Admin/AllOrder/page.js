@@ -17,13 +17,13 @@ const Order = ({ searchParams }) => {
   const nextauthheaders = Cookies.get("next-auth.session-token");
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
-      ? `__Secure-next-auth.session-token=${productionheaders?.value}`
-      : `next-auth.session-token=${nextauthheaders?.value}`;
+      ? `__Secure-next-auth.session-token=${productionheaders}`
+      : `next-auth.session-token=${nextauthheaders}`;
   useEffect(() => {
     const apiget=data?.user?.role==="Admin" ? `${process.env.API_URL}api/Order/Allorderdata?${searchQuery}` : `${process.env.API_URL}api/retailer/Order?${searchQuery}`
     axios
       .get(apiget, {
-        headers: { Cookie: cookie },
+        header: { Cookie: cookie },
       })
       .then((response) => setorder(response.data))
       .catch((e) => console.log("error", e))
