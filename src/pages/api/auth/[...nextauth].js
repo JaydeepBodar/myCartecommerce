@@ -59,14 +59,7 @@ export default async function auth(req, res) {
           path: "/",
           maxAge: 30 * 24 * 60 * 60,
         },
-      },
-      csrfToken: {
-        name: process.env.API_URL === 'https://my-cartecommerce-ljdm.vercel.app/' ?  '__Secure-next-auth.csrf-token ' : `next-auth.csrf-token`,
-        options: {
-          httpOnly: false,
-          sameSite: 'lax',
-        },
-      },
+      }
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
