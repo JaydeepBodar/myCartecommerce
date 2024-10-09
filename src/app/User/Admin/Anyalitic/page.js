@@ -11,14 +11,13 @@ const Piechart = dynamic(() => import("@/Component/Admin/Chart/Piechart"), {
 const Dashboarddata = () => {
   const { user } = Globalusercontext();
   const [chartstate, setchartstate] = useState([]);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const productionheaders = Cookies.get("__Secure-next-auth.session-token");
   const nextauthheaders = Cookies.get("next-auth.session-token");
   const cookie =
     process.env.API_URL === "https://my-cartecommerce-ljdm.vercel.app/"
       ? `__Secure-next-auth.session-token=${productionheaders}`
       : `next-auth.session-token=${nextauthheaders}`;
-  console.log("user--------------------", user);
   const apidata =
   user[0]?.role === "Admin"
     ? `${process.env.API_URL}api/admin/anylitic`
